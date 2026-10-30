@@ -1,0 +1,59 @@
+# Full protocol (docs/RESEARCH.md §5) against a vLLM server and PostgreSQL.
+#   docker compose up -d postgres            # and a vLLM server, see README
+#   srev run --config configs/experiment.yaml
+name: llm-vs-profiling
+seed: 42
+output_dir: runs
+database:
+  backend: postgres
+  dsn: ${SREV_DSN:-postgresql://srev:srev@localhost:5432/srev}
+  schema_prefix: srev
+datasets:
+  - name: tpch_mini
+  - name: university
+  - name: retail_legacy
+  # A real database (e.g. TPC-H loaded from dbgen output) with declared constraints:
+  # - name: tpch_sf1
+  #   source: postgres
+  #   dsn: ${TPCH_DSN}
+  #   schema: public
+  #   workload: workloads/tpch_queries.sql
+noise: [0, 1, 2, 3]
+llm:
+  base_url: ${SREV_LLM_BASE_URL:-http://localhost:8000/v1}
+  model: ${SREV_LLM_MODEL:-Qwen/Qwen2.5-7B-Instruct}
+  revision: null          # pin the checkpoint revision you served
+  temperature: 0.0
+  max_tokens: 4096
+  seed: 42
+  response_format: json_schema
+  cache_dir: llm_cache    # shared response cache: makes reruns replayable offline
+methods:
+  - name: profiling
+    kind: baseline
+    verify: false
+  - name: metanome          # skipped with a warning when Java/JARs are missing
+    kind: metanome
+    verify: false
+  - name: heuristic
+    kind: heuristic
+    evidence: [[names], [names, stats, samples, logs]]
+  - name: llm
+    kind: llm
+    evidence:               # RQ2 ablation
+      - [names]
+      - [names, samples]
+      - [names, stats, samples]
+      - [names, stats, samples, logs]
+    paraphrases: [0, 1, 2]  # prompt sensitivity
+    verify: true            # also scores the verified (hybrid) variant
+  - name: hybrid-llm        # RQ5: LLM ranks baseline candidates
+    kind: hybrid
+    scorer: llm
+    threshold: 0.5
+    evidence: [[names, stats, samples, logs]]
+sample: {rows_per_table: 50, top_k: 5}
+prompt: {token_budget: 12000, max_sample_rows: 10}
+verify: {fk_min_coverage: 0.95, ucc_min_uniqueness: 0.99, fd_max_g3: 0.05}
+eval: {bootstrap: 1000, top_k_factor: 1.0, fd_gold: curated}
+synth: {enabled: true, normal_form: bcnf}

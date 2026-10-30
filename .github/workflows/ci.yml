@@ -1,0 +1,66 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -e ".[dev]"
+      - run: ruff check .
+      - run: ruff format --check .
+      - run: mypy
+
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.11", "3.12"]
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: srev
+          POSTGRES_PASSWORD: srev
+          POSTGRES_DB: srev
+        ports: ["5432:5432"]
+        options: >-
+          --health-cmd "pg_isready -U srev" --health-interval 5s --health-retries 10
+    env:
+      SREV_TEST_DSN: postgresql://srev:srev@localhost:5432/srev
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - run: pip install -e ".[dev]"
+      - run: pytest -q
+
+  smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -e .
+      - run: srev run --config configs/offline.yaml --run-dir runs/offline-smoke
+      - uses: actions/upload-artifact@v4
+        with:
+          name: offline-smoke-run
+          path: runs/offline-smoke
+          retention-days: 7
+
+  docker:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: docker build -t srev:ci .
+      - run: docker run --rm srev:ci datasets list

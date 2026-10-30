@@ -1,0 +1,33 @@
+# Runs anywhere, no GPU and no server: SQLite working copies, the exact
+# profiling baseline, the name/statistics heuristic and heuristic hybrid ranking.
+# Used by CI as a smoke test.
+#   srev run --config configs/offline.yaml
+name: offline
+seed: 42
+output_dir: runs
+database:
+  backend: sqlite
+datasets:
+  - name: tpch_mini
+    params: {scale: 0.5}
+  - name: university
+  - name: retail_legacy
+noise: [0, 1, 2, 3]
+methods:
+  - name: profiling
+    kind: baseline
+    verify: false
+    profiling: {ucc_max_arity: 3, fd_max_lhs: 2}
+  - name: heuristic
+    kind: heuristic
+    evidence:
+      - [names]
+      - [names, stats, samples, logs]
+  - name: hybrid-heuristic
+    kind: hybrid
+    scorer: heuristic
+    threshold: 0.6
+sample: {rows_per_table: 30, top_k: 5}
+verify: {fk_min_coverage: 0.95, ucc_min_uniqueness: 0.99, fd_max_g3: 0.05}
+eval: {bootstrap: 500, top_k_factor: 1.0, fd_gold: curated}
+synth: {enabled: true, normal_form: bcnf}

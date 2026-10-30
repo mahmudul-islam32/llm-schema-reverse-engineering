@@ -1,6 +1,6 @@
 # Architecture: llm-schema-reverse-engineering
 
-> Design document. Status: **draft, planned**.
+> Design document. Status: **implemented** (package `srev`); see the README for usage.
 
 ## 1. Pipeline
 
@@ -29,19 +29,23 @@ flowchart TB
     EVAL --> REP[Reports, tables, plots]
 ```
 
-## 2. Modules (planned package `srev`)
+## 2. Modules (package `srev`)
 | Module | Responsibility |
 |---|---|
-| `srev.datasets` | Download and load benchmark databases into PostgreSQL. Record checksums and licences |
-| `srev.truth` | Export declared constraints to gold JSON |
-| `srev.noise` | Seeded perturbations |
-| `srev.extract` | Catalog queries, statistics, sampling |
-| `srev.qlog` | SQL parsing of workloads (e.g. with `sqlglot`) |
-| `srev.llm` | Prompt templates, vLLM client, Pydantic output models |
-| `srev.baselines` | Metanome CLI wrapper and result converters |
-| `srev.verify` | SQL checks for IND coverage, uniqueness and FD violations |
-| `srev.eval` | Metrics, bootstrap CIs, hallucination tagging |
-| `srev.synth` | Normalization and DDL/ER generation |
+| `srev.datasets` | Seeded generators (`tpch_mini`, `university`, `retail_legacy`) and the in-memory `Dataset` model with checksums |
+| `srev.db` | PostgreSQL (psycopg) and SQLite connectors: catalog introspection, declared constraints, bulk load, `dataset_from_connector` |
+| `srev.truth` | Gold labels from declared constraints and curated labels; constraint stripping (`CREATE TABLE … AS`) |
+| `srev.noise` | Seeded perturbations, rename map applied to gold labels and the workload |
+| `srev.extract` | Catalog queries, column statistics, deterministic sampling → `Evidence` JSON |
+| `srev.qlog`, `srev.sqlutil` | Workload loading and equi-join extraction with `sqlglot` |
+| `srev.llm` | Prompt builder, OpenAI-compatible client with cache, strict output parsing, LLM / heuristic / hybrid proposers |
+| `srev.baselines` | Exact Python profilers (UCC, FD, IND → FK) and the Metanome CLI wrapper |
+| `srev.verify` | SQL checks for FK coverage, uniqueness and FD g3 error |
+| `srev.eval` | Metrics, bootstrap CIs, permutation test, hallucination taxonomy, Cohen's κ |
+| `srev.synth` | BCNF decomposition, DDL, migration script and Mermaid ER generation |
+| `srev.config`, `srev.runner` | YAML experiment config and the datasets × noise × methods loop |
+| `srev.manifest`, `srev.report` | Run manifests and Markdown/SVG reports |
+| `srev.cli` | `srev` command-line interface |
 
 ## 3. Common proposal format
 ```json
@@ -69,11 +73,16 @@ sequenceDiagram
 ```
 
 ## 5. Deployment
-- `docker compose`: PostgreSQL 16, a vLLM container (GPU), and a runner container.
+- `docker compose`: PostgreSQL 16, a vLLM container (profile `gpu`) and a runner container (profile `runner`).
+- SQLite working copies (`database.backend: sqlite`) let the whole pipeline run without a server, for CI and pilots.
 - Metanome runs as a separate Java process on CSV exports.
-- All artifacts are written to `runs/<timestamp>/` with a manifest.
+- All artifacts are written to `runs/<timestamp>_<name>/` with a manifest; LLM responses are cached by request hash.
 
 ## 6. Design decisions
 - **Open-weight models only** for the main results, for reproducibility and to avoid data leaving the machine. Proprietary APIs are optional and reported separately.
 - **Temperature 0 plus seeds**, with any remaining nondeterminism documented.
 - **Verification is separate from proposal**, so LLM-only and hybrid performance can both be reported.
+- **One proposal format for everything.** Gold labels, baselines, heuristics and LLM output are all `Proposal` objects with a canonical key, so evaluation is method-agnostic.
+- **Evidence never contains declared constraints.** The extractor reads only names, types and comments from the catalog; working copies are created without constraints.
+- **Gold-free model synthesis.** The variant fed into the DDL synthesiser is chosen by configuration or a fixed preference order, never by its score against gold.
+- **Failures are counted, not hidden.** Unparseable workload statements, malformed LLM responses and items, trimmed prompts and skipped methods all appear in the stored tables.

@@ -1,0 +1,58 @@
+# PostgreSQL 16 for the working copies, an optional vLLM server (GPU) and the runner.
+#   docker compose up -d postgres
+#   docker compose --profile gpu up -d vllm
+#   docker compose --profile runner run --rm runner run --config configs/experiment.yaml
+services:
+  postgres:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: srev
+      POSTGRES_PASSWORD: srev
+      POSTGRES_DB: srev
+    ports: ["5432:5432"]
+    volumes: [pgdata:/var/lib/postgresql/data]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U srev -d srev"]
+      interval: 5s
+      retries: 10
+
+  vllm:
+    profiles: [gpu]
+    image: vllm/vllm-openai:v0.6.6  # pin the version you report in the paper
+    command:
+      - --model=${SREV_LLM_MODEL:-Qwen/Qwen2.5-7B-Instruct}
+      - --revision=${SREV_LLM_REVISION:-main}
+      - --seed=42
+      - --max-model-len=16384
+    environment:
+      HUGGING_FACE_HUB_TOKEN: ${HUGGING_FACE_HUB_TOKEN:-}
+    ports: ["8000:8000"]
+    volumes: [hf-cache:/root/.cache/huggingface]
+    ipc: host
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+
+  runner:
+    profiles: [runner]
+    build: .
+    environment:
+      SREV_DSN: postgresql://srev:srev@postgres:5432/srev
+      SREV_LLM_BASE_URL: ${SREV_LLM_BASE_URL:-http://vllm:8000/v1}
+      SREV_LLM_MODEL: ${SREV_LLM_MODEL:-Qwen/Qwen2.5-7B-Instruct}
+    depends_on:
+      postgres:
+        condition: service_healthy
+    volumes:
+      - ./runs:/app/runs
+      - ./configs:/app/configs
+      - ./llm_cache:/app/llm_cache
+    command: ["run", "--config", "configs/experiment.yaml"]
+
+volumes:
+  pgdata:
+  hf-cache:

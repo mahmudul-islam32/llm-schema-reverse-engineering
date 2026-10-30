@@ -159,8 +159,9 @@ def _render(
     parts = [f"DATABASE {evidence.database}"]
     parts += [_render_table(t, channels, sample_rows, top_k, width) for t in evidence.tables]
     if "logs" in channels and joins and joins.pairs and join_pairs:
-        parts.append("JOIN PREDICATES OBSERVED IN THE QUERY LOG (column = column: frequency):")
-        parts += [f"  {p.left} = {p.right}: {p.count}" for p in joins.pairs[:join_pairs]]
+        lines = ["JOIN PREDICATES OBSERVED IN THE QUERY LOG (column = column: frequency):"]
+        lines += [f"  {p.left} = {p.right}: {p.count}" for p in joins.pairs[:join_pairs]]
+        parts.append("\n".join(lines))
     return "\n\n".join(parts)
 
 

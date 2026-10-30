@@ -4,6 +4,12 @@
 
 ## 1. Pipeline
 
+![srev architecture](media/architecture.svg)
+
+![What srev run does](media/pipeline.svg)
+
+The same pipeline as a Mermaid flowchart:
+
 ```mermaid
 flowchart TB
     subgraph Prep[Preparation]

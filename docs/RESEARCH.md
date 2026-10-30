@@ -1,6 +1,6 @@
 # Research Plan
 
-> Status: **draft**. No experiments have been run. Every result listed below is planned.
+> Status: **draft**. The protocol below is implemented in the `srev` package (see the README), but no experiments with real models have been run. Every result listed below is planned.
 
 ## 1. Background and thesis link
 The author's M.Sc. thesis studied reverse engineering existing databases into explicit relational models. This project extends that work with LLMs as a semantic signal and asks a sharper, measurable question about when that signal helps.

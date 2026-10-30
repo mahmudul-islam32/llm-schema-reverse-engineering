@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="420" viewBox="0 0 1200 420" font-family="Inter, 'Segoe UI', Helvetica, Arial, sans-serif" role="img" aria-label="Noise presets">
+<title>Noise presets</title>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#475569"/></marker><filter id="shadow" x="-5%" y="-5%" width="110%" height="120%"><feDropShadow dx="0" dy="1.5" stdDeviation="2" flood-color="#0f172a" flood-opacity="0.10"/></filter></defs>
+<rect width="1200" height="420" rx="18" fill="#ffffff" stroke="#e2e8f0"/>
+<text x="32" y="44" font-size="22" fill="#0f172a" font-weight="700" text-anchor="start">Noise presets L0–L3 (RQ3 robustness curves)</text>
+<text x="32" y="68" font-size="13" fill="#475569" font-weight="normal" text-anchor="start">Seeded perturbations applied to a copy of the data; gold labels and the workload are renamed consistently</text>
+<text x="325.0" y="110" font-size="14" fill="#0f172a" font-weight="700" text-anchor="middle">L0 · none</text>
+<text x="555.0" y="110" font-size="14" fill="#0f172a" font-weight="700" text-anchor="middle">L1 · low</text>
+<text x="785.0" y="110" font-size="14" fill="#0f172a" font-weight="700" text-anchor="middle">L2 · medium</text>
+<text x="1015.0" y="110" font-size="14" fill="#0f172a" font-weight="700" text-anchor="middle">L3 · high</text>
+<text x="32" y="154" font-size="13" fill="#0f172a" font-weight="600" text-anchor="start">column renames</text>
+<rect x="230" y="138" width="190" height="22" rx="6" fill="#f1f5f9"/>
+<text x="428" y="154" font-size="12" fill="#0f172a" font-weight="600" text-anchor="start">—</text>
+<rect x="460" y="138" width="190" height="22" rx="6" fill="#f1f5f9"/>
+<rect x="460" y="138" width="47.5" height="22" rx="6" fill="#4f46e5" fill-opacity="0.85"/>
+<text x="658" y="154" font-size="12" fill="#0f172a" font-weight="600" text-anchor="start">25%</text>
+<rect x="690" y="138" width="190" height="22" rx="6" fill="#f1f5f9"/>
+<rect x="690" y="138" width="114.0" height="22" rx="6" fill="#4f46e5" fill-opacity="0.85"/>
+<text x="888" y="154" font-size="12" fill="#0f172a" font-weight="600" text-anchor="start">60%</text>
+<rect x="920" y="138" width="190" height="22" rx="6" fill="#f1f5f9"/>
+<rect x="920" y="138" width="190.0" height="22" rx="6" fill="#4f46e5" fill-opacity="0.85"/>
+<text x="1118" y="154" font-size="12" fill="#0f172a" font-weight="600" text-anchor="start">100%</text>
+<text x="32" y="200" font-size="13" fill="#0f172a" font-weight="600" text-anchor="start">table renames</text>
+<rect x="230" y="184" width="190" height="22" rx="6" fill="#f1f5f9"/>
+<text x="428" y="200" font-size="12" fill="#0f172a" font-weight="600" text-anchor="start">—</text>
+<rect x="460" y="184" width="190" height="22" rx="6" fill="#f1f5f9"/>
+<text x="658" y="200" font-size="12" fill="#0f172a" font-weight="600" text-anchor="start">—</text>
+<rect x="690" y="184" width="190" height="22" rx="6" fill="#f1f5f9"/>
+<rect x="690" y="184" width="57.0" height="22" rx="6" fill="#6d28d9" fill-opacity="0.85"/>
+<text x="888" y="200" font-size="12" fill="#0f172a" font-weight="600" text-anchor="start">30%</text>
+<rect x="920" y="184" width="190" height="22" rx="6" fill="#f1f5f9"/>
+<rect x="920" y="184" width="190.0" height="22" rx="6" fill="#6d28d9" fill-opacity="0.85"/>
+<text x="1118" y="200" font-size="12" fill="#0f172a" font-weight="600" text-anchor="start">100%</text>
+<text x="32" y="246" font-size="13" fill="#0f172a" font-weight="600" text-anchor="start">NULL cells</text>
+<rect x="230" y="230" width="190" height="22" rx="6" fill="#f1f5f9"/>
+<text x="428" y="246" font-size="12" fill="#0f172a" font-weight="600" text-anchor="start">—</text>
+<rect x="460" y="230" width="190" height="22" rx="6" fill="#f1f5f9"/>
+<rect x="460" y="230" width="38.0" height="22" rx="6" fill="#0369a1" fill-opacity="0.85"/>
+<text x="658" y="246" font-size="12" fill="#0f172a" font-weight="600" text-anchor="start">2%</text>
+<rect x="690" y="230" width="190" height="22" rx="6" fill="#f1f5f9"/>
+<rect x="690" y="230" width="95.0" height="22" rx="6" fill="#0369a1" fill-opacity="0.85"/>
+<text x="888" y="246" font-size="12" fill="#0f172a" font-weight="600" text-anchor="start">5%</text>
+<rect x="920" y="230" width="190" height="22" rx="6" fill="#f1f5f9"/>
+<rect x="920" y="230" width="190.0" height="22" rx="6" fill="#0369a1" fill-opacity="0.85"/>
+<text x="1118" y="246" font-size="12" fill="#0f172a" font-weight="600" text-anchor="start">10%</text>
+<text x="32" y="292" font-size="13" fill="#0f172a" font-weight="600" text-anchor="start">typo cells (text)</text>
+<rect x="230" y="276" width="190" height="22" rx="6" fill="#f1f5f9"/>
+<text x="428" y="292" font-size="12" fill="#0f172a" font-weight="600" text-anchor="start">—</text>
+<rect x="460" y="276" width="190" height="22" rx="6" fill="#f1f5f9"/>
+<rect x="460" y="276" width="19.0" height="22" rx="6" fill="#b45309" fill-opacity="0.85"/>
+<text x="658" y="292" font-size="12" fill="#0f172a" font-weight="600" text-anchor="start">1%</text>
+<rect x="690" y="276" width="190" height="22" rx="6" fill="#f1f5f9"/>
+<rect x="690" y="276" width="57.0" height="22" rx="6" fill="#b45309" fill-opacity="0.85"/>
+<text x="888" y="292" font-size="12" fill="#0f172a" font-weight="600" text-anchor="start">3%</text>
+<rect x="920" y="276" width="190" height="22" rx="6" fill="#f1f5f9"/>
+<rect x="920" y="276" width="95.0" height="22" rx="6" fill="#b45309" fill-opacity="0.85"/>
+<text x="1118" y="292" font-size="12" fill="#0f172a" font-weight="600" text-anchor="start">5%</text>
+<text x="32" y="338" font-size="13" fill="#0f172a" font-weight="600" text-anchor="start">dangling FK values</text>
+<rect x="230" y="322" width="190" height="22" rx="6" fill="#f1f5f9"/>
+<text x="428" y="338" font-size="12" fill="#0f172a" font-weight="600" text-anchor="start">—</text>
+<rect x="460" y="322" width="190" height="22" rx="6" fill="#f1f5f9"/>
+<rect x="460" y="322" width="19.0" height="22" rx="6" fill="#be123c" fill-opacity="0.85"/>
+<text x="658" y="338" font-size="12" fill="#0f172a" font-weight="600" text-anchor="start">1%</text>
+<rect x="690" y="322" width="190" height="22" rx="6" fill="#f1f5f9"/>
+<rect x="690" y="322" width="57.0" height="22" rx="6" fill="#be123c" fill-opacity="0.85"/>
+<text x="888" y="338" font-size="12" fill="#0f172a" font-weight="600" text-anchor="start">3%</text>
+<rect x="920" y="322" width="190" height="22" rx="6" fill="#f1f5f9"/>
+<rect x="920" y="322" width="95.0" height="22" rx="6" fill="#be123c" fill-opacity="0.85"/>
+<text x="1118" y="338" font-size="12" fill="#0f172a" font-weight="600" text-anchor="start">5%</text>
+<text x="32" y="388" font-size="12" fill="#475569" font-weight="normal" text-anchor="start">Bars: renames as share of columns/tables (full bar = 100%); cell perturbations as share of cells (full bar = 10%). PK/UNIQUE columns are protected; comments are dropped from L1.</text>
+</svg>

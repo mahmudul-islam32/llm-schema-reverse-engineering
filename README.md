@@ -9,7 +9,7 @@
 ![python](https://img.shields.io/badge/python-3.11%2B-informational)
 ![postgres](https://img.shields.io/badge/PostgreSQL-16-336791)
 ![vLLM](https://img.shields.io/badge/LLM-vLLM%20%7C%20OpenAI--compatible-6d28d9)
-![tests](https://img.shields.io/badge/tests-85%20passing-15803d)
+![tests](https://img.shields.io/badge/tests-104%20passing-15803d)
 
 [Demo](#demo) · [Architecture](#architecture) · [Quick start](#quick-start) · [Usage guide](docs/USAGE.md) · [Screenshots](#screenshots) · [Research plan](docs/RESEARCH.md)
 
@@ -24,11 +24,12 @@
 `srev` asks whether large language models can recover the *implicit* structure of legacy databases: foreign keys (FKs), unique column combinations (UCCs), functional dependencies (FDs) and, from those, a normalised relational model. The LLM gets column names, statistics, sampled rows and query logs. Its proposals are checked against the data with SQL and benchmarked against exact data-profiling baselines (and, optionally, the [Metanome](https://hpi.de/naumann/projects/data-profiling-and-analytics/metanome-data-profiling.html) algorithms) on databases whose ground-truth constraints are known. The project extends the author's master's thesis on reverse engineering existing databases into explicit relational models.
 
 > [!IMPORTANT]
-> **Status: pipeline implemented, experiments not yet run.** Every feature in [docs/FEATURES.md](docs/FEATURES.md) is implemented and tested (85 tests, including PostgreSQL integration tests). The LLM path has only run against a fake OpenAI-compatible server in the tests. **No experiments with real models have been run and no research results are claimed.** The numbers in the screenshots come from the offline baseline and heuristic methods on generated data.
+> **Status: pipeline implemented, experiments not yet run.** Every feature in [docs/FEATURES.md](docs/FEATURES.md) is implemented and tested (104 tests, including PostgreSQL integration tests). The LLM path has only run against a fake OpenAI-compatible server in the tests. **No experiments with real models have been run and no research results are claimed.** The numbers in the screenshots come from the offline baseline and heuristic methods on generated data.
 
 ## Contents
 
 - [Research context and PhD proposal](#research-context-and-phd-proposal)
+- [For data engineers and data scientists](#for-data-engineers-and-data-scientists)
 - [Research question](#research-question)
 - [Demo](#demo)
 - [Architecture](#architecture)
@@ -59,6 +60,52 @@ Pilot (offline methods on three generated databases, no LLM yet). FK macro F1 by
 | Learned FK classifier (no query-log feature) | 0.89 | 0.87 | 0.86 | 0.78 | 0.86 |
 
 Exact discovery breaks on dirty data, name-reliant methods collapse when names mislead, and genuine FD discovery stays hard for every method (FD macro F1 ≤ 0.53). These observations motivate the LLM experiments rather than replace them.
+
+## For data engineers and data scientists
+
+The research pipeline doubles as a practical toolkit for undocumented databases and CSV exports:
+
+| Task | Command |
+|---|---|
+| Find keys, foreign keys and dependencies, each verified on the data | `srev discover --csv exports/ --html --dbt -o discovery` (or `--dsn`, `--sqlite`) |
+| Notebook / pandas | `srev.api.discover_frames({"orders": df, ...}).to_frame()` |
+| Enforce them in a dbt pipeline | `srev export dbt` or `discover --dbt` → `unique`, `not_null`, `relationships` and singular SQL tests |
+| Monitor loads (CI exit code) | `srev check --constraints … --evidence …` → pass / warn / fail / missing + schema drift |
+| Understand the model | `srev graph` → fact / dimension / bridge / lookup roles, star schemas, join SQL |
+| Share a profile | `report.html`: column profiles, ER diagram, constraints, review list |
+| Load CSV into a database | `srev ingest csv exports/ --dsn …` (type inference, NULL handling) |
+
+<table>
+<tr>
+<td width="50%"><b>Discover + join paths on an unseen CSV export</b><br><a href="docs/media/de-discover.png"><img src="docs/media/de-discover.png" alt="srev discover and graph"></a></td>
+<td width="50%"><b>Profiling report (light / dark)</b><br><a href="docs/media/html-report-overview.png"><img src="docs/media/html-report-overview.png" alt="HTML report"></a></td>
+</tr>
+<tr>
+<td><b>Generated dbt tests passing on PostgreSQL</b><br><a href="docs/media/de-dbt.png"><img src="docs/media/de-dbt.png" alt="dbt test"></a></td>
+<td><b>Drift detection after a bad load</b><br><a href="docs/media/de-check.png"><img src="docs/media/de-check.png" alt="srev check"></a></td>
+</tr>
+<tr>
+<td colspan="2"><b>Column profiles with key badges (dark theme)</b><br><a href="docs/media/html-report-columns.png"><img src="docs/media/html-report-columns.png" alt="column profiles" width="720"></a></td>
+</tr>
+</table>
+
+```mermaid
+flowchart LR
+    SRC[(Database or<br/>CSV / DataFrames)] --> D[srev discover]
+    D --> C[constraints.json<br/>verified]
+    D --> R[review.json<br/>for a human]
+    D --> H[report.html]
+    C --> DBT[dbt tests]
+    C --> G[srev graph<br/>roles · join SQL]
+    C --> Q[srev check<br/>in CI / scheduler]
+    Q -->|exit 1| ALERT[alert / block load]
+```
+
+Walkthrough with every option: [docs/USAGE.md §0](docs/USAGE.md#0-data-engineering-quick-path).
+`srev discover` needs no labelled data: its FK classifier is trained on the built-in generated
+databases. On an unseen HR export it found all four FKs and the composite key with no false FK.
+On a deliberately tiny TPC-H sample it found 9 of 10 FKs but also accepted two accidental
+small-integer inclusions, so review the output before enforcing it.
 
 ## Research question
 
@@ -253,6 +300,8 @@ Noise levels for the robustness curves (values read from `srev.noise.PRESETS`):
 | `university` | 8 tables with a self-referencing relationship and denormalised department data | Declared PK/FK/UNIQUE + 4 curated semantic FDs |
 | `retail_legacy` | Legacy-style abbreviated names, no declared FKs | Declared PKs/UNIQUE + 6 curated FKs + 2 curated FDs |
 | Spider / BIRD | `source: spider` expands to one dataset per `db_id`; gold SQL as workload | `primary_keys` / `foreign_keys` from `tables.json` |
+| `airline` | 6 tables with a self-referencing FK (crew supervisors) and two FKs into the same table (route origin/destination) | Declared PK/FK/UNIQUE + 1 curated FD |
+| CSV files / DataFrames | `source: csv` in the config, `srev ingest csv`, `srev.api` | Curated gold file, if any |
 | any PostgreSQL / SQLite DB | `source: postgres` or `source: sqlite` in the config | Declared constraints, plus an optional curated gold file |
 
 ```mermaid
@@ -320,6 +369,7 @@ runs/<timestamp>_<name>/
 - NULL is treated as a regular value during profiling (NULL = NULL); the verifier ignores NULLs for FK coverage and UCC uniqueness, as SQL constraints do.
 - The token estimate used for prompt budgeting is a character heuristic, not the model's tokenizer.
 - Results depend on the model, its revision and the serving stack; the manifest records them but cannot remove that dependency.
+- `srev discover` is heuristic: accidental inclusions between small integer ranges can pass all guards, and self-references are often only listed for review. Treat its output as a reviewed proposal, not ground truth.
 
 ## Development
 
@@ -340,6 +390,9 @@ Infographics are generated from the package's own constants; screenshots and the
 python docs/media/tools/infographics.py                       # docs/media/*.svg diagrams
 python docs/media/tools/capture.py --build /tmp/srev-media --mermaid path/to/mermaid.min.js
 node docs/media/tools/render.mjs /tmp/srev-media docs/media    # PNG screenshots, demo.mp4, demo.gif
+python docs/media/tools/capture_de.py --build /tmp/srev-de --mermaid path/to/mermaid.min.js \
+    --dbt path/to/dbt --dsn postgresql://…                     # data-engineering screenshots
+node docs/media/tools/render.mjs /tmp/srev-de docs/media
 ```
 
 ## Roadmap
@@ -352,6 +405,7 @@ node docs/media/tools/render.mjs /tmp/srev-media docs/media    # PNG screenshots
 | M3: LLM pipeline | Prompt builder, vLLM proposer, verifier, ablations | ✅ Implemented; no real-model runs yet |
 | M4: Evaluation | Full benchmark, hallucination analysis, write-up | Harness implemented; experiments pending |
 | M5: Research extensions | Approximate profiling, learned FK classifier, name probes, Spider/BIRD loader, LaTeX export | ✅ Implemented; pilot on generated data |
+| M6: Data-engineering toolkit | `discover`, dbt export, quality checks, schema graph, HTML report, CSV/pandas ingestion | ✅ Implemented |
 | Next | Real-model runs, Spider/BIRD breadth study, genuine-FD ranking (RQ6) | Planned, see [docs/PROPOSAL.md](docs/PROPOSAL.md) §7 |
 
 ## Citation

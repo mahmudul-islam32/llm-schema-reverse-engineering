@@ -514,6 +514,42 @@ def cmd_export_dbt(args: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_check(args: argparse.Namespace) -> int:
+    from srev.extract import Evidence
+    from srev.quality import run_checks, to_markdown
+    from srev.verify import VerifyConfig
+
+    constraints = _load_verified(args.constraints)
+    baseline = Evidence.load(args.evidence) if args.evidence else None
+    cfg = VerifyConfig(
+        fk_min_coverage=args.fk_min_coverage,
+        ucc_min_uniqueness=args.ucc_min_uniqueness,
+        fd_max_g3=args.fd_max_g3,
+    )
+    with _connect(args) as conn:
+        report = run_checks(
+            conn,
+            constraints,
+            database=args.name or conn.describe(),
+            config=cfg,
+            tolerance=args.tolerance,
+            baseline_evidence=baseline,
+        )
+    if args.output:
+        _write(args.output, report.model_dump_json(indent=2))
+    markdown = to_markdown(report)
+    if args.markdown:
+        _write(args.markdown, markdown)
+    else:
+        sys.stdout.write(markdown)
+    code = report.exit_code(args.fail_on)
+    print(
+        f"summary: {report.summary()}, schema changes: {len(report.schema_changes)}, exit {code}",
+        file=sys.stderr,
+    )
+    return code
+
+
 def cmd_kappa(args: argparse.Namespace) -> int:
     from srev.eval import cohen_kappa
 
@@ -676,6 +712,20 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument("--target-schema", default="normalized")
     p.add_argument("-o", "--output", default="synth")
     p.set_defaults(func=cmd_synth)
+
+    p = sub.add_parser("check", help="data-quality check of constraints on current data")
+    p.add_argument("--constraints", required=True, help="constraints.json from srev discover")
+    _db_args(p)
+    p.add_argument("--evidence", help="baseline evidence.json: also report schema drift")
+    p.add_argument("--name")
+    p.add_argument("--tolerance", type=float, default=0.01, help="allowed statistic drift")
+    p.add_argument("--fail-on", choices=["fail", "warn"], default="fail")
+    p.add_argument("--fk-min-coverage", type=float, default=0.9)
+    p.add_argument("--ucc-min-uniqueness", type=float, default=0.99)
+    p.add_argument("--fd-max-g3", type=float, default=0.02)
+    p.add_argument("-o", "--output", help="JSON report")
+    p.add_argument("--markdown", help="Markdown report (default: stdout)")
+    p.set_defaults(func=cmd_check)
 
     p = sub.add_parser("run", help="run an experiment from a YAML config")
     p.add_argument("--config", required=True)

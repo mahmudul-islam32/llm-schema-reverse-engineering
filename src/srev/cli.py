@@ -367,6 +367,20 @@ def cmd_reproduce(args: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_export_latex(args: argparse.Namespace) -> int:
+    from srev.export import latex_tables
+
+    text = latex_tables(
+        args.run_dir,
+        metric=args.metric,
+        types=tuple(t.strip().upper() for t in args.types.split(",")),
+        variants=args.variants.split(",") if args.variants else None,
+        with_ci=args.ci,
+    )
+    _write(args.output, text)
+    return 0
+
+
 def cmd_kappa(args: argparse.Namespace) -> int:
     from srev.eval import cohen_kappa
 
@@ -524,6 +538,21 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument("--tolerance", type=float, default=0.0)
     p.add_argument("-o", "--output")
     p.set_defaults(func=cmd_reproduce)
+
+    ex = sub.add_parser("export", help="paper-ready exports of a run")
+    ex_sub = ex.add_subparsers(dest="action", required=True)
+    p = ex_sub.add_parser("latex", help="booktabs tables of aggregate scores")
+    p.add_argument("run_dir")
+    p.add_argument(
+        "--metric",
+        default="macro_f1",
+        choices=["macro_f1", "micro_f1", "micro_precision", "micro_recall"],
+    )
+    p.add_argument("--types", default="FK,UCC,FD")
+    p.add_argument("--variants", help="comma-separated variants in the desired row order")
+    p.add_argument("--ci", action="store_true", help="add bootstrap CIs (macro F1 only)")
+    p.add_argument("-o", "--output")
+    p.set_defaults(func=cmd_export_latex)
 
     au = sub.add_parser("audit", help="manual-audit helpers")
     au_sub = au.add_subparsers(dest="action", required=True)

@@ -304,9 +304,30 @@ def write_report(run_dir: str | Path) -> Path:
             "",
         ]
 
+    probes = [n for n in noise_order if n.startswith("names-")]
+    baseline_level = next((n for n in noise_order if n in ("L0", "none")), None)
+    if probes and baseline_level:
+        lines += [
+            "## Name-reliance probes",
+            "",
+            "Same data, only names changed (abbreviated, cryptic, or permuted so they "
+            "mislead). Macro F1 per variant; a large drop from the clean column means the "
+            "method leans on names or on a memorised schema.",
+            "",
+        ]
+        cols = [baseline_level, *probes]
+        for ctype in CONSTRAINT_TYPES:
+            table: dict[str, dict[str, Any]] = defaultdict(dict)
+            for a in aggregates:
+                if a["type"] == ctype and a["noise"] in cols:
+                    table[a["variant"]][a["noise"]] = a["macro_f1"]
+            rows = [[v, *[_f(vals.get(c)) for c in cols]] for v, vals in table.items()]
+            if rows:
+                lines += [f"### {ctype}", "", _table(["variant", *cols], rows), ""]
+
     charts = []
     for ctype in CONSTRAINT_TYPES:
-        svg = noise_curve_svg(aggregates, ctype, noise_order)
+        svg = noise_curve_svg(aggregates, ctype, [n for n in noise_order if n not in probes])
         if svg:
             name = f"noise_curve_{ctype.lower()}.svg"
             (rd / name).write_text(svg)

@@ -76,3 +76,42 @@ def test_orphans_dangle(retail):
     dangling = [r for r in orders.rows if r[idx] not in cust_keys]
     assert dangling
     assert any(a.kind == "orphans" and a.target == "tbl_ord.cust_no" for a in log.actions)
+
+
+def test_abbreviate():
+    from srev.noise import abbreviate
+
+    assert abbreviate("customer_id") == "cstm_id"
+    assert abbreviate("l_orderkey") == "l_ordr"
+    assert abbreviate("id") == "id"
+
+
+@pytest.mark.parametrize("style", ["names-abbreviated", "names-cryptic", "names-misleading"])
+def test_name_probes_keep_data_and_gold_consistent(university, style):
+    from srev.db import SQLiteConnector, materialize
+    from srev.verify import Verifier
+
+    gold = gold_from_dataset(university)
+    noisy, log = inject(university, resolve_profile(style), seed=9, gold=gold)
+    renamed = log.renames.gold(gold)
+    # only names change: the rows are identical
+    assert [t.rows for t in noisy.tables] == [t.rows for t in university.tables]
+    assert log.renames.columns and log.renames.tables
+    with SQLiteConnector(":memory:") as conn:
+        materialize(noisy, conn)
+        verifier = Verifier(conn)
+        assert all(verifier.verify(label).accepted for label in renamed.labels)
+    stats = mine_joins(noisy.queries, noisy.schema_map())
+    assert stats.n_failed == 0 and stats.pairs
+
+
+def test_misleading_names_are_a_derangement(university):
+    noisy, log = inject(university, resolve_profile("names-misleading"), seed=3)
+    original_tables = {t.name for t in university.tables}
+    assert {t.name for t in noisy.tables} == original_tables  # same names, permuted
+    assert all(old != new for old, new in log.renames.tables.items())
+    for clean_t in university.tables:
+        if len(clean_t.columns) < 2:
+            continue
+        moved = {k for k in log.renames.columns if k.startswith(clean_t.name + ".")}
+        assert len(moved) == len(clean_t.columns)  # every column got another column's name

@@ -18,7 +18,7 @@ datasets:
   #   dsn: ${TPCH_DSN}
   #   schema: public
   #   workload: workloads/tpch_queries.sql
-noise: [0, 1, 2, 3]
+noise: [0, 1, 2, 3, names-abbreviated, names-cryptic, names-misleading]  # L0-L3 + name probes
 llm:
   base_url: ${SREV_LLM_BASE_URL:-http://localhost:8000/v1}
   model: ${SREV_LLM_MODEL:-Qwen/Qwen2.5-7B-Instruct}

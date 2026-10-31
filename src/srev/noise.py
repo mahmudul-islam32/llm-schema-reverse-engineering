@@ -11,7 +11,7 @@ from __future__ import annotations
 import copy
 import random
 import string
-from typing import Any
+from typing import Any, Literal
 
 import sqlglot
 from pydantic import BaseModel, Field
@@ -32,6 +32,12 @@ class NoiseConfig(BaseModel):
     orphans: float = Field(0.0, ge=0, le=1, description="share of FK values made dangling")
     drop_comments: bool = False
     protect_keys: bool = Field(True, description="never null/typo PK and UNIQUE columns")
+    rename_style: Literal["cryptic", "abbreviate", "misleading"] = Field(
+        "cryptic",
+        description="cryptic: c_k1-style codes; abbreviate: vowel-dropped legacy names "
+        "(customer_id -> cstm_id); misleading: names permuted among the renamed "
+        "columns/tables, so names point at the wrong data",
+    )
 
 
 PRESETS: dict[str, NoiseConfig] = {
@@ -56,6 +62,21 @@ PRESETS: dict[str, NoiseConfig] = {
         drop_comments=True,
     ),
 }
+# Name-only probes: identical data, only the names change. Comparing them with
+# "none" isolates how much a method relies on names (and on memorised schemas).
+PRESETS.update(
+    {
+        "names-abbreviated": NoiseConfig(
+            rename_columns=1.0, rename_tables=1.0, rename_style="abbreviate", drop_comments=True
+        ),
+        "names-cryptic": NoiseConfig(
+            rename_columns=1.0, rename_tables=1.0, rename_style="cryptic", drop_comments=True
+        ),
+        "names-misleading": NoiseConfig(
+            rename_columns=1.0, rename_tables=1.0, rename_style="misleading", drop_comments=True
+        ),
+    }
+)
 LEVELS = {0: "none", 1: "low", 2: "medium", 3: "high"}
 
 
@@ -151,6 +172,40 @@ def _orphan_value(sample: Any, i: int) -> Any:
     return sample
 
 
+_VOWELS = set("aeiou")
+
+
+def abbreviate(name: str, max_len: int = 4) -> str:
+    """Legacy-style abbreviation per token: ``customer_id`` -> ``cstm_id``."""
+    out = []
+    for tok in name.lower().split("_"):
+        if len(tok) <= 3:
+            out.append(tok)
+            continue
+        short = tok[0] + "".join(ch for ch in tok[1:] if ch not in _VOWELS)
+        out.append(short[:max_len])
+    return "_".join(t for t in out if t) or name
+
+
+def _unique(name: str, taken: set[str]) -> str:
+    candidate, i = name, 2
+    while candidate in taken:
+        candidate, i = f"{name}{i}", i + 1
+    taken.add(candidate)
+    return candidate
+
+
+def _derangement(rng: random.Random, items: list[str]) -> list[str]:
+    """A permutation that moves every element (identity only for fewer than 2 items)."""
+    if len(items) < 2:
+        return list(items)
+    while True:
+        perm = items[:]
+        rng.shuffle(perm)
+        if all(a != b for a, b in zip(items, perm, strict=True)):
+            return perm
+
+
 def _cryptic(rng: random.Random, table: str, idx: int, taken: set[str]) -> str:
     while True:
         name = f"{table[:1] or 'x'}_{rng.choice(string.ascii_lowercase)}{idx}"
@@ -241,23 +296,54 @@ def inject(
 
     # 5. renames ---------------------------------------------------------------
     renames = log.renames
+    style = config.rename_style
     if config.rename_columns > 0:
         for table in ds.tables:
-            taken = set(table.column_names)
-            for idx, col in enumerate(table.columns, start=1):
-                if rng.random() < config.rename_columns:
-                    new = _cryptic(rng, table.name, idx, taken)
-                    renames.columns[qualify(table.name, col.name)] = new
+            chosen = [
+                (idx, col.name)
+                for idx, col in enumerate(table.columns, start=1)
+                if rng.random() < config.rename_columns
+            ]
+            if style == "misleading":
+                originals = [name for _, name in chosen]
+                for old, new in zip(originals, _derangement(rng, originals), strict=True):
+                    if old != new:
+                        renames.columns[qualify(table.name, old)] = new
+                continue
+            keep = {c for c in table.column_names if c not in {n for _, n in chosen}}
+            taken = set(keep)
+            for idx, name in chosen:
+                new = (
+                    _unique(abbreviate(name), taken)
+                    if style == "abbreviate"
+                    else _cryptic(rng, table.name, idx, taken)
+                )
+                if new != name:
+                    renames.columns[qualify(table.name, name)] = new
     if config.rename_tables > 0:
-        taken = {t.name for t in ds.tables}
-        for idx, table in enumerate(ds.tables, start=1):
-            if rng.random() < config.rename_tables:
-                while True:
-                    new = f"t{idx:02d}_{''.join(rng.choices(string.ascii_lowercase, k=2))}"
-                    if new not in taken:
-                        taken.add(new)
-                        break
-                renames.tables[table.name] = new
+        chosen_t = [
+            (idx, t.name)
+            for idx, t in enumerate(ds.tables, start=1)
+            if rng.random() < config.rename_tables
+        ]
+        if style == "misleading":
+            originals = [name for _, name in chosen_t]
+            for old, new in zip(originals, _derangement(rng, originals), strict=True):
+                if old != new:
+                    renames.tables[old] = new
+        else:
+            taken = {t.name for t in ds.tables} - {n for _, n in chosen_t}
+            for idx, name in chosen_t:
+                if style == "abbreviate":
+                    new = _unique(abbreviate(name), taken)
+                else:
+                    while True:
+                        new = f"t{idx:02d}_{''.join(rng.choices(string.ascii_lowercase, k=2))}"
+                        if new not in taken:
+                            taken.add(new)
+                            break
+                if new != name:
+                    renames.tables[name] = new
     if renames.columns or renames.tables:
         _apply_renames(ds, renames, original_schema, log)
         log.actions.append(

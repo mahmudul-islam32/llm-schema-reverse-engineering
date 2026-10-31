@@ -14,12 +14,21 @@ fs.mkdirSync(out, { recursive: true });
 
 const browser = await chromium.launch();
 for (const p of pages.filter((p) => !p.video)) {
-  const page = await browser.newPage({ viewport: { width: 1600, height: 900 }, deviceScaleFactor: 2 });
+  // optional per-page settings: viewport [w, h], selector, colorScheme, clip (viewport only)
+  const [width, height] = p.viewport || [1600, 900];
+  const page = await browser.newPage({
+    viewport: { width, height }, deviceScaleFactor: 2, colorScheme: p.colorScheme || 'light',
+  });
   await page.goto('file://' + path.join(build, p.html));
   if (p.wait) await page.waitForFunction(() => window.__done === true, null, { timeout: 30000 });
-  await page.waitForTimeout(300);
-  const el = await page.$('#shot');
-  await el.screenshot({ path: path.join(out, `${p.out}.png`), omitBackground: true });
+  await page.waitForTimeout(p.clip || p.selector ? 2500 : 300);
+  const target = path.join(out, `${p.out}.png`);
+  if (p.clip) {
+    await page.screenshot({ path: target });
+  } else {
+    const el = await page.$(p.selector || '#shot');
+    await el.screenshot({ path: target, omitBackground: !p.selector });
+  }
   if (p.svg) {
     const svg = await page.$eval('#shot svg', (s) => s.outerHTML);
     fs.writeFileSync(path.join(out, `${p.out}.svg`), svg);

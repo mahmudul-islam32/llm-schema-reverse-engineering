@@ -21,6 +21,12 @@ All features are **Implemented** and covered by tests. No experiments with real 
 | F-15 | Name-reliance probes | Should | Implemented |
 | F-16 | Spider/BIRD benchmark loader | Should | Implemented |
 | F-17 | Paper-ready LaTeX export | Could | Implemented |
+| F-18 | CSV and DataFrame ingestion, Python API | Should | Implemented |
+| F-19 | One-shot discovery (`srev discover`) | Must | Implemented |
+| F-20 | dbt project export | Should | Implemented |
+| F-21 | Data-quality checks and drift detection | Should | Implemented |
+| F-22 | Schema graph analytics and join paths | Could | Implemented |
+| F-23 | HTML data-profiling report | Should | Implemented |
 
 ---
 
@@ -142,3 +148,43 @@ All features are **Implemented** and covered by tests. No experiments with real 
 **Acceptance criteria:** Tables are generated only from stored aggregates; LaTeX special characters are escaped.
 **Priority:** Could · **Status:** Implemented
 **Implementation:** `srev.export`.
+
+---
+
+## Data-engineering and data-science features
+
+### F-18: CSV and DataFrame ingestion, Python API
+**Description:** `srev ingest csv` loads files or folders into SQLite/PostgreSQL with conservative type inference (zero-padded codes stay text, ISO dates become `DATE`, NULL tokens become NULL); `source: csv` in run configs; `dataset_from_frames` and `srev.api.discover_csv/_frames/_database` for notebooks.
+**User story:** As a data scientist, I want to profile the CSV export or DataFrames I already have without setting up a database.
+**Acceptance criteria:** Identifiers are sanitised and deduplicated; every inferred type round-trips through SQLite and PostgreSQL.
+**Priority:** Should · **Status:** Implemented · **Implementation:** `srev.ingest`, `srev.api`; pandas is an optional extra.
+
+### F-19: One-shot discovery
+**Description:** `srev discover` combines approximate profiling, the learned FK classifier (trained on the built-in generators across noise levels and cryptic names, so no labels are needed), selection rules and SQL verification. Output: verified `constraints.json`, `review.json`, `rejected.json`, evidence, DDL, migration, ER diagram; `--html` and `--dbt` add a report and a dbt project.
+**User story:** As a data engineer inheriting an undocumented database, I want its keys and relationships in one command, with evidence I can check.
+**Acceptance criteria:** Every returned constraint is verified on the data. Accidental inclusions are guarded against: key-to-key FKs with dissimilar names, extra parents of an already-linked column, and weakly named composite FKs go to review. On an unseen HR schema all four FKs and the composite key are found with no false FK; on a deliberately tiny TPC-H sample 9 of 10 FKs are found, plus two accidental small-integer inclusions (a known limitation).
+**Priority:** Must · **Status:** Implemented · **Implementation:** `srev.discover`; a new `airline` generator adds self-referencing and parallel FKs to the training data.
+
+### F-20: dbt project export
+**Description:** `srev export dbt` / `srev discover --dbt` write `sources.yml` with `unique`, `not_null` and `relationships` tests, singular SQL tests for composite keys, composite FKs and FDs, staging models and `dbt_project.yml`. Approximate constraints get `severity: warn`.
+**User story:** As an analytics engineer, I want discovered constraints enforced in my existing dbt pipeline.
+**Acceptance criteria:** No extra dbt packages needed; generic-test arguments nested under `arguments:` (dbt 1.10+) with a legacy option. Validated with dbt-core 1.12 + dbt-postgres: all generated tests pass on clean data, approximate ones warn with failing-row counts on dirty data.
+**Priority:** Should · **Status:** Implemented · **Implementation:** `srev.dbt`.
+
+### F-21: Data-quality checks and drift detection
+**Description:** `srev check` re-measures a constraints file on current data (pass, warn on drift beyond a tolerance, fail, missing column, error) and reports schema drift against baseline evidence (tables/columns added or removed, type and row-count changes). Markdown/JSON output, exit code for CI.
+**User story:** As a data engineer, I want to know when a load breaks the structure my downstream jobs rely on.
+**Acceptance criteria:** Statistics are compared in the right direction (g3 higher is worse, coverage/uniqueness lower is worse); `--fail-on warn` makes warnings fail the job.
+**Priority:** Should · **Status:** Implemented · **Implementation:** `srev.quality`.
+
+### F-22: Schema graph analytics
+**Description:** `srev graph` classifies tables (fact, bridge, dimension, lookup, isolated), lists subject areas, hubs and star schemas, and prints the shortest FK join path between two tables as SQL.
+**User story:** As an analyst, I want to know how to join two tables in an unfamiliar database.
+**Acceptance criteria:** Roles come with a stated reason; join SQL uses the correct column pairs in both directions.
+**Priority:** Could · **Status:** Implemented · **Implementation:** `srev.graph`.
+
+### F-23: HTML data-profiling report
+**Description:** One self-contained HTML file: summary cards, table roles, ER diagram, per-column profiles (NULL and uniqueness bars, ranges, top values, PK/UK/FK badges), verified constraints and the review list, light and dark theme.
+**User story:** As a data scientist, I want an EDA-style overview I can open in a browser or share.
+**Acceptance criteria:** All values are HTML-escaped; works without network (the ER diagram then shows its Mermaid source).
+**Priority:** Should · **Status:** Implemented · **Implementation:** `srev.htmlreport`.

@@ -4,6 +4,7 @@ This guide walks through every way of using `srev`, from a five-second offline r
 LLM experiment on your own PostgreSQL database. All commands and outputs shown are real; the
 screenshots were produced by [`docs/media/tools/capture.py`](media/tools/capture.py).
 
+- [0. Data-engineering quick path](#0-data-engineering-quick-path)
 - [1. Install](#1-install)
 - [2. Five-minute tour (no GPU, no server)](#2-five-minute-tour-no-gpu-no-server)
 - [3. Step-by-step pipeline](#3-step-by-step-pipeline)
@@ -15,6 +16,75 @@ screenshots were produced by [`docs/media/tools/capture.py`](media/tools/capture
 - [8a. Research extensions](#8a-research-extensions)
 - [9. Command reference](#9-command-reference)
 - [10. Troubleshooting](#10-troubleshooting)
+
+## 0. Data-engineering quick path
+
+For an undocumented database or a folder of CSV exports, four commands cover discovery,
+documentation, enforcement and monitoring:
+
+```bash
+srev discover --csv exports/ --html --dbt -o discovery            # or --dsn / --sqlite
+srev graph --constraints discovery/constraints.json --evidence discovery/evidence.json
+srev graph --constraints discovery/constraints.json --evidence discovery/evidence.json \
+    --from assignments --to departments                          # join SQL
+srev check --constraints discovery/constraints.json --sqlite discovery/data.sqlite \
+    --evidence discovery/evidence.json --markdown quality.md       # exit 1 if broken
+```
+
+![srev discover and graph on an unseen CSV export](media/de-discover.png)
+
+| File in `discovery/` | Use |
+|---|---|
+| `constraints.json` | verified keys, FKs and FDs with the measured statistic (input for `check`, `synth`, `export dbt`, `graph`) |
+| `review.json` | FK candidates that hold in the data but were not accepted (low score or plausibility guard) |
+| `rejected.json` | candidates the verifier rejected |
+| `report.html` | profiling report (`--html`) |
+| `dbt/` | dbt project with tests (`--dbt`) |
+| `model.sql`, `migration.sql`, `model.mmd` | normalised DDL, data migration, ER diagram |
+| `evidence.json` | schema and statistics snapshot; the baseline for schema drift |
+| `data.sqlite` | the loaded CSV data (`--csv` only) |
+
+**How discovery decides.** Approximate profiling enumerates candidates; a logistic-regression FK
+classifier trained on the built-in generated databases (at several noise levels and with cryptic
+names) scores them; every candidate is verified with SQL. Three guards send likely accidental
+inclusions to `review.json` instead of accepting them: a key column "referencing" another table's
+key with dissimilar names (small ID ranges overlap by chance), a second parent for a column that
+already has a better one, and composite FKs without name support. Self-references are rare in
+the training data and often land in review. Thresholds: `DiscoverConfig` in the Python API,
+`--fk-threshold` on the CLI. Add `--workload queries.sql` to use join frequencies as evidence.
+
+**Python / notebooks.**
+
+```python
+from srev import api
+
+result = api.discover_frames({"orders": orders_df, "customers": customers_df})
+result.counts()  # {'FK': 1, 'UCC': 2, 'FD': 0}
+result.to_frame()  # pandas DataFrame: type, lhs, rhs, confidence, statistic, value, ...
+result.review  # candidates for a human decision
+```
+
+`api.discover_csv(["exports/"])` and `api.discover_database(dsn=...)` work the same way.
+
+**dbt.** `srev export dbt --constraints c.json --evidence e.json --schema raw_schema -o dbt_project`
+writes `unique`/`not_null`/`relationships` tests and singular SQL tests (composite keys, composite
+FKs, FDs). Constraints that only hold approximately get `severity: warn`. Add a profile with the
+project's name to `~/.dbt/profiles.yml` and run `dbt test`. Use `--tests-key tests` for dbt < 1.8
+and `--legacy-test-args` for dbt < 1.10.
+
+![dbt test on the generated project](media/de-dbt.png)
+
+**Monitoring.** `srev check` compares each constraint with its value at discovery time: `pass`,
+`warn` (still accepted, but worse than `--tolerance`), `fail`, `missing` (column or table gone),
+`error`. With `--evidence` it adds schema drift. The exit code is 1 on failures (or on warnings
+with `--fail-on warn`), so it can gate a CI job or an orchestrator task.
+
+![srev check after a bad load](media/de-check.png)
+
+**Profiling report.** `report.html` is a single file with summary cards, table roles, the ER
+diagram and per-column profiles; it follows the viewer's light or dark theme.
+
+![HTML report overview](media/html-report-overview.png)
 
 ## 1. Install
 
@@ -310,6 +380,11 @@ srev export latex runs/<run-id> --types FK --ci \
 | `srev audit kappa A B` | Cohen's κ | |
 | `srev datasets spider ROOT` | list a Spider/BIRD download | `--tables-json` |
 | `srev export latex RUN` | booktabs tables | `--metric`, `--types`, `--variants`, `--ci`, `-o` |
+| `srev ingest csv PATHS` | load CSV files/folders into a database | `--sqlite/--dsn`, `--delimiter`, `--encoding`, `--max-rows` |
+| `srev discover` | one-shot discovery | `--csv/--sqlite/--dsn`, `--workload`, `--fk-threshold`, `--html`, `--dbt`, `-o` |
+| `srev export dbt` | dbt project from constraints | `--constraints`, `--evidence`, `--schema`, `--source`, `--tests-key`, `--legacy-test-args` |
+| `srev check` | data-quality and drift check | `--constraints`, `--evidence`, `--tolerance`, `--fail-on`, `--markdown`, `-o` |
+| `srev graph` | table roles, components, join SQL | `--constraints`, `--evidence`, `--from`, `--to`, `-o` |
 
 Every database option accepts `--dsn` (PostgreSQL, default `$SREV_DSN`) or `--sqlite PATH`, plus
 `--schema` for PostgreSQL. `python -m srev …` works as well as `srev …`.

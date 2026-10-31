@@ -102,6 +102,105 @@ def cmd_datasets_load(args: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_ingest_csv(args: argparse.Namespace) -> int:
+    from srev.db import materialize
+    from srev.ingest import dataset_from_csv
+
+    ds = dataset_from_csv(
+        args.paths,
+        args.name,
+        delimiter=args.delimiter,
+        encoding=args.encoding,
+        max_rows=args.max_rows,
+    )
+    with _connect(args) as conn:
+        materialize(ds, conn)
+        print(
+            f"loaded {len(ds.tables)} tables, {ds.n_rows} rows into {conn.describe()}",
+            file=sys.stderr,
+        )
+    for t in ds.tables:
+        cols = ", ".join(f"{c.name} {c.type}" for c in t.columns)
+        print(f"{t.name} ({len(t.rows)} rows): {cols}")
+    return 0
+
+
+def cmd_discover(args: argparse.Namespace) -> int:
+    from srev.db import SQLiteConnector, materialize
+    from srev.discover import DiscoverConfig, discover
+    from srev.extract import extract
+    from srev.ingest import dataset_from_csv
+    from srev.qlog import load_workload, mine_joins
+    from srev.synth import synthesize
+
+    out = Path(args.output)
+    out.mkdir(parents=True, exist_ok=True)
+    if args.csv:
+        ds = dataset_from_csv(args.csv, args.name or "csv", delimiter=args.delimiter)
+        db_path = out / "data.sqlite"
+        db_path.unlink(missing_ok=True)
+        conn = SQLiteConnector(db_path)
+        materialize(ds, conn)
+        print(f"loaded {len(ds.tables)} CSV tables into {db_path}", file=sys.stderr)
+    else:
+        conn = _connect(args)
+    cfg = DiscoverConfig(fk_threshold=args.fk_threshold)
+    with conn:
+        name = args.name or (args.schema if conn.dialect == "postgres" else "database")
+        joins = None
+        if args.workload:
+            schema_map = {t: [c.name for c in conn.list_columns(t)] for t in conn.list_tables()}
+            joins = mine_joins(load_workload(args.workload), schema_map)
+        result = discover(conn, name, joins=joins, config=cfg)
+        evidence = extract(conn, name, rows_per_table=20)
+        source_schema = conn.schema if conn.dialect == "postgres" else "main"  # type: ignore[attr-defined]
+    evidence.save(out / "evidence.json")
+    result.save(out / "constraints.json")
+    for label, items in (("review", result.review), ("rejected", result.rejected)):
+        (out / f"{label}.json").write_text(json.dumps([v.model_dump() for v in items], indent=2))
+    verdicts = {v.proposal.key(): v.verdict for v in result.constraints}
+    synth = synthesize(
+        evidence,
+        result.accepted(),
+        verdicts,
+        source_schema=source_schema,
+        target_schema=args.target_schema,
+    )
+    (out / "model.sql").write_text(synth.ddl)
+    (out / "migration.sql").write_text(synth.migration)
+    (out / "model.mmd").write_text(synth.mermaid)
+    if args.html:
+        from srev.htmlreport import write as write_html
+
+        write_html(out / "report.html", evidence, result)
+    if args.dbt:
+        from srev.dbt import build_project
+
+        build_project(
+            evidence,
+            result.constraints,
+            out / "dbt",
+            source="raw",
+            schema=source_schema if source_schema != "main" else "main",
+        )
+    print(f"{'type':4} {'constraint':70} {'conf':>5} statistic")
+    for v in result.constraints:
+        p = v.proposal
+        print(
+            f"{p.type:4} {p.describe()[len(p.type) + 1 :]:70} {p.confidence:5.2f} "
+            f"{v.verdict.statistic}={v.verdict.value}"
+        )
+    for v in result.review:
+        print(f"?FK {v.proposal.describe()[3:]:71} {v.proposal.confidence:5.2f} needs review")
+    c = result.counts()
+    print(
+        f"accepted FK {c['FK']}, UCC {c['UCC']}, FD {c['FD']}; {len(result.review)} to review, "
+        f"{len(result.rejected)} rejected; {result.seconds}s -> {out}/",
+        file=sys.stderr,
+    )
+    return 0
+
+
 def cmd_truth_export(args: argparse.Namespace) -> int:
     from srev.truth import gold_from_connector
 
@@ -381,6 +480,123 @@ def cmd_export_latex(args: argparse.Namespace) -> int:
     return 0
 
 
+def _load_verified(path: str) -> list[Any]:
+    from srev.model import Proposal, Verdict, VerifiedProposal
+
+    raw = json.loads(Path(path).read_text())
+    if isinstance(raw, dict):
+        raw = raw.get("proposals", raw.get("labels", []))
+    out = []
+    for item in raw:
+        if "verdict" in item:
+            out.append(VerifiedProposal.model_validate(item))
+        else:  # plain proposals or gold labels: treat as accepted, statistic unknown
+            out.append(
+                VerifiedProposal(
+                    proposal=Proposal.model_validate(item),
+                    verdict=Verdict(accepted=True, status="ok"),
+                )
+            )
+    return [v for v in out if v.verdict.accepted]
+
+
+def cmd_export_dbt(args: argparse.Namespace) -> int:
+    from srev.dbt import build_project
+    from srev.extract import Evidence
+
+    counts = build_project(
+        Evidence.load(args.evidence),
+        _load_verified(args.constraints),
+        args.output,
+        project=args.project,
+        source=args.source,
+        schema=args.schema,
+        tests_key=args.tests_key,
+        legacy_test_args=args.legacy_test_args,
+    )
+    print(f"dbt project in {args.output}: {counts}", file=sys.stderr)
+    return 0
+
+
+def cmd_check(args: argparse.Namespace) -> int:
+    from srev.extract import Evidence
+    from srev.quality import run_checks, to_markdown
+    from srev.verify import VerifyConfig
+
+    constraints = _load_verified(args.constraints)
+    baseline = Evidence.load(args.evidence) if args.evidence else None
+    cfg = VerifyConfig(
+        fk_min_coverage=args.fk_min_coverage,
+        ucc_min_uniqueness=args.ucc_min_uniqueness,
+        fd_max_g3=args.fd_max_g3,
+    )
+    with _connect(args) as conn:
+        report = run_checks(
+            conn,
+            constraints,
+            database=args.name or conn.describe(),
+            config=cfg,
+            tolerance=args.tolerance,
+            baseline_evidence=baseline,
+        )
+    if args.output:
+        _write(args.output, report.model_dump_json(indent=2))
+    markdown = to_markdown(report)
+    if args.markdown:
+        _write(args.markdown, markdown)
+    else:
+        sys.stdout.write(markdown)
+    code = report.exit_code(args.fail_on)
+    print(
+        f"summary: {report.summary()}, schema changes: {len(report.schema_changes)}, exit {code}",
+        file=sys.stderr,
+    )
+    return code
+
+
+def cmd_graph(args: argparse.Namespace) -> int:
+    from srev.extract import Evidence
+    from srev.graph import SchemaGraph
+
+    graph = SchemaGraph.from_constraints(
+        Evidence.load(args.evidence), [v.proposal for v in _load_verified(args.constraints)]
+    )
+    graph.lookup_max_rows = args.lookup_max_rows
+    if args.source and args.target:
+        sql = graph.join_sql(args.source, args.target)
+        if sql is None:
+            print(f"no FK path between {args.source} and {args.target}", file=sys.stderr)
+            return 1
+        print(sql)
+        return 0
+    roles = graph.roles()
+    print(f"{'table':28} {'role':10} {'rows':>8}  references -> / <- referenced by")
+    for r in roles:
+        self_ref = " (+self)" if r.self_reference else ""
+        print(
+            f"{r.name:28} {r.role:10} {r.rows:8}  -> {', '.join(r.references) or '-'}"
+            f"{self_ref} / <- {', '.join(r.referenced_by) or '-'}"
+        )
+    print("\ncomponents:", " | ".join(", ".join(c) for c in graph.components()))
+    print("hubs:", ", ".join(f"{t} ({n})" for t, n in graph.hubs()) or "-")
+    for fact, dims in graph.star_schemas().items():
+        print(f"star: {fact} -> {', '.join(dims)}")
+    if args.output:
+        _write(
+            args.output,
+            json.dumps(
+                {
+                    "roles": [r.model_dump() for r in roles],
+                    "components": graph.components(),
+                    "hubs": graph.hubs(),
+                    "stars": graph.star_schemas(),
+                },
+                indent=2,
+            ),
+        )
+    return 0
+
+
 def cmd_kappa(args: argparse.Namespace) -> int:
     from srev.eval import cohen_kappa
 
@@ -426,6 +642,33 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument("--gold", help="write gold labels (renamed if noise is applied) here")
     p.add_argument("--workload", help="write the dataset's query workload (.sql) here")
     p.set_defaults(func=cmd_datasets_load)
+
+    ig = sub.add_parser("ingest", help="load external data (CSV) into a database")
+    ig_sub = ig.add_subparsers(dest="action", required=True)
+    p = ig_sub.add_parser("csv", help="CSV files or folders -> one table per file")
+    p.add_argument("paths", nargs="+", help="CSV files and/or folders of *.csv")
+    _db_args(p)
+    p.add_argument("--name", default="csv", help="dataset label")
+    p.add_argument("--delimiter", help="default: sniffed from the file")
+    p.add_argument("--encoding", default="utf-8")
+    p.add_argument("--max-rows", type=int)
+    p.set_defaults(func=cmd_ingest_csv)
+
+    p = sub.add_parser("discover", help="one-shot discovery of keys, FKs and FDs")
+    src = p.add_mutually_exclusive_group()
+    src.add_argument("--dsn", help="PostgreSQL DSN (default: $SREV_DSN)")
+    src.add_argument("--sqlite", help="SQLite database file")
+    src.add_argument("--csv", nargs="+", help="CSV files or folders (loaded into data.sqlite)")
+    p.add_argument("--schema", default="public")
+    p.add_argument("--delimiter")
+    p.add_argument("--workload", help="optional query log: enables the join-log feature")
+    p.add_argument("--name")
+    p.add_argument("--fk-threshold", type=float, default=0.5)
+    p.add_argument("--target-schema", default="normalized")
+    p.add_argument("--dbt", action="store_true", help="also write a dbt project to OUT/dbt")
+    p.add_argument("--html", action="store_true", help="also write OUT/report.html")
+    p.add_argument("-o", "--output", default="discovery")
+    p.set_defaults(func=cmd_discover)
 
     tr = sub.add_parser("truth", help="ground-truth export and constraint stripping")
     tr_sub = tr.add_subparsers(dest="action", required=True)
@@ -518,6 +761,29 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument("-o", "--output", default="synth")
     p.set_defaults(func=cmd_synth)
 
+    p = sub.add_parser("check", help="data-quality check of constraints on current data")
+    p.add_argument("--constraints", required=True, help="constraints.json from srev discover")
+    _db_args(p)
+    p.add_argument("--evidence", help="baseline evidence.json: also report schema drift")
+    p.add_argument("--name")
+    p.add_argument("--tolerance", type=float, default=0.01, help="allowed statistic drift")
+    p.add_argument("--fail-on", choices=["fail", "warn"], default="fail")
+    p.add_argument("--fk-min-coverage", type=float, default=0.9)
+    p.add_argument("--ucc-min-uniqueness", type=float, default=0.99)
+    p.add_argument("--fd-max-g3", type=float, default=0.02)
+    p.add_argument("-o", "--output", help="JSON report")
+    p.add_argument("--markdown", help="Markdown report (default: stdout)")
+    p.set_defaults(func=cmd_check)
+
+    p = sub.add_parser("graph", help="table roles, subject areas and join paths from FKs")
+    p.add_argument("--constraints", required=True)
+    p.add_argument("--evidence", required=True)
+    p.add_argument("--from", dest="source", help="with --to: print the join SQL")
+    p.add_argument("--to", dest="target")
+    p.add_argument("--lookup-max-rows", type=int, default=100)
+    p.add_argument("-o", "--output", help="JSON with roles, components, hubs, stars")
+    p.set_defaults(func=cmd_graph)
+
     p = sub.add_parser("run", help="run an experiment from a YAML config")
     p.add_argument("--config", required=True)
     p.add_argument("--output-dir")
@@ -553,6 +819,25 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument("--ci", action="store_true", help="add bootstrap CIs (macro F1 only)")
     p.add_argument("-o", "--output")
     p.set_defaults(func=cmd_export_latex)
+    p = ex_sub.add_parser("dbt", help="dbt project with tests for the constraints")
+    p.add_argument("--constraints", required=True, help="constraints.json / srev verify output")
+    p.add_argument("--evidence", required=True)
+    p.add_argument("--project", help="dbt project and profile name")
+    p.add_argument("--source", default="raw", help="dbt source name")
+    p.add_argument("--schema", default="public", help="database schema of the source tables")
+    p.add_argument(
+        "--tests-key",
+        default="data_tests",
+        choices=["data_tests", "tests"],
+        help="'tests' for dbt < 1.8",
+    )
+    p.add_argument(
+        "--legacy-test-args",
+        action="store_true",
+        help="write generic-test arguments inline (dbt < 1.10)",
+    )
+    p.add_argument("-o", "--output", default="dbt_project")
+    p.set_defaults(func=cmd_export_dbt)
 
     au = sub.add_parser("audit", help="manual-audit helpers")
     au_sub = au.add_subparsers(dest="action", required=True)

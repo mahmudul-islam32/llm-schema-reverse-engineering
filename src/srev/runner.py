@@ -34,6 +34,7 @@ from srev.db import materialize as materialize_db
 from srev.eval.hallucination import analyse
 from srev.eval.metrics import TypeScore, aggregate, paired_permutation_test, score
 from srev.extract import Evidence, extract
+from srev.ingest import dataset_from_csv
 from srev.learn import Candidate, candidates, label, train_and_predict
 from srev.llm.client import ChatClient, LLMConfig
 from srev.llm.prompt import Prompt
@@ -158,6 +159,10 @@ class Runner:
         if spec.source == "builtin":
             ds = load_dataset(spec.generator or spec.name, seed=self.cfg.seed, **spec.params)
             ds.name = spec.name
+        elif spec.source == "csv":
+            ds = dataset_from_csv(
+                [spec.path or ""], spec.name, delimiter=spec.delimiter, max_rows=spec.max_rows
+            )
         elif spec.source == "spider":
             ds = load_spider(
                 spec.path or "",

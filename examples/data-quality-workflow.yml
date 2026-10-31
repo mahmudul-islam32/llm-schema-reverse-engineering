@@ -1,0 +1,34 @@
+# Example: use discovered constraints as a data contract in GitHub Actions.
+# Copy to .github/workflows/ in a data repository that holds discovery/constraints.json
+# (from `srev discover`) and set the WAREHOUSE_DSN secret. The job fails when a load
+# breaks a key or relationship, or when a column/table disappears.
+name: data-quality
+
+on:
+  schedule:
+    - cron: "17 6 * * *"   # daily, after the nightly load
+  workflow_dispatch:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install "srev[postgres] @ git+https://github.com/mahmudul-islam32/llm-schema-reverse-engineering"
+      - name: check constraints and schema drift
+        env:
+          SREV_DSN: ${{ secrets.WAREHOUSE_DSN }}
+        run: |
+          srev check --constraints discovery/constraints.json --schema analytics \
+            --evidence discovery/evidence.json --tolerance 0.01 \
+            --markdown quality.md -o quality.json
+      - if: always()
+        run: cat quality.md >> "$GITHUB_STEP_SUMMARY"
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: data-quality-report
+          path: quality.*

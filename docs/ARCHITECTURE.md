@@ -49,6 +49,12 @@ flowchart TB
 | `srev.learn` | Feature-based FK classifier (Rostin et al.), logistic regression, leave-one-dataset-out in the runner |
 | `srev.datasets.spider` | Spider/BIRD-format loader: annotations from `tables.json`, gold SQL as workload |
 | `srev.export` | booktabs LaTeX tables from stored aggregates |
+| `srev.ingest`, `srev.api` | CSV/DataFrame ingestion with type inference; Python API for notebooks |
+| `srev.discover` | One-shot discovery: approximate profiling + pre-trained FK classifier + guards + verification |
+| `srev.dbt` | dbt project export (sources with tests, singular tests, staging models) |
+| `srev.quality` | Data-quality checks of constraints, drift and schema-change detection |
+| `srev.graph` | FK graph: table roles, components, hubs, star schemas, join-path SQL |
+| `srev.htmlreport` | Self-contained HTML profiling report |
 | `srev.verify` | SQL checks for FK coverage, uniqueness and FD g3 error |
 | `srev.eval` | Metrics, bootstrap CIs, permutation test, hallucination taxonomy, Cohen's κ |
 | `srev.synth` | BCNF decomposition, DDL, migration script and Mermaid ER generation |

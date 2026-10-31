@@ -9,7 +9,7 @@
 ![python](https://img.shields.io/badge/python-3.11%2B-informational)
 ![postgres](https://img.shields.io/badge/PostgreSQL-16-336791)
 ![vLLM](https://img.shields.io/badge/LLM-vLLM%20%7C%20OpenAI--compatible-6d28d9)
-![tests](https://img.shields.io/badge/tests-71%20passing-15803d)
+![tests](https://img.shields.io/badge/tests-85%20passing-15803d)
 
 [Demo](#demo) · [Architecture](#architecture) · [Quick start](#quick-start) · [Usage guide](docs/USAGE.md) · [Screenshots](#screenshots) · [Research plan](docs/RESEARCH.md)
 
@@ -24,10 +24,11 @@
 `srev` asks whether large language models can recover the *implicit* structure of legacy databases: foreign keys (FKs), unique column combinations (UCCs), functional dependencies (FDs) and, from those, a normalised relational model. The LLM gets column names, statistics, sampled rows and query logs. Its proposals are checked against the data with SQL and benchmarked against exact data-profiling baselines (and, optionally, the [Metanome](https://hpi.de/naumann/projects/data-profiling-and-analytics/metanome-data-profiling.html) algorithms) on databases whose ground-truth constraints are known. The project extends the author's master's thesis on reverse engineering existing databases into explicit relational models.
 
 > [!IMPORTANT]
-> **Status: pipeline implemented, experiments not yet run.** Every feature in [docs/FEATURES.md](docs/FEATURES.md) is implemented and tested (71 tests, including PostgreSQL integration tests). The LLM path has only run against a fake OpenAI-compatible server in the tests. **No experiments with real models have been run and no research results are claimed.** The numbers in the screenshots come from the offline baseline and heuristic methods on generated data.
+> **Status: pipeline implemented, experiments not yet run.** Every feature in [docs/FEATURES.md](docs/FEATURES.md) is implemented and tested (85 tests, including PostgreSQL integration tests). The LLM path has only run against a fake OpenAI-compatible server in the tests. **No experiments with real models have been run and no research results are claimed.** The numbers in the screenshots come from the offline baseline and heuristic methods on generated data.
 
 ## Contents
 
+- [Research context and PhD proposal](#research-context-and-phd-proposal)
 - [Research question](#research-question)
 - [Demo](#demo)
 - [Architecture](#architecture)
@@ -42,6 +43,23 @@
 - [Development](#development)
 - [Roadmap](#roadmap)
 
+## Research context and PhD proposal
+
+This toolkit is the artefact behind a PhD proposal on **semantic data profiling**: using language models together with dependency discovery to reverse-engineer undocumented databases. It continues the author's M.Sc. thesis (University of Rostock) on reverse engineering existing databases for the subsequent creation of relational models. It builds on data-profiling research such as complete and approximate dependency discovery (Metanome, HyFD, HyUCC, BINDER, Pyro) and learned foreign-key discovery (Rostin et al., WebDB 2009).
+
+📄 **Exposé:** [docs/PROPOSAL.md](docs/PROPOSAL.md): motivation, RQ1–RQ7, approach, pilot results, three-year work plan, risks, references.
+
+Pilot (offline methods on three generated databases, no LLM yet). FK macro F1 by noise level and under misleading names:
+
+| Method | L0 | L1 | L2 | L3 | misleading names |
+|---|---|---|---|---|---|
+| Exact profiling | 0.65 | 0.21 | 0.04 | 0.06 | 0.65 |
+| Approximate profiling (partial INDs, g3) | 0.63 | 0.63 | 0.62 | 0.60 | 0.63 |
+| Name/statistics heuristic + verifier | 0.98 | 0.81 | 0.65 | 0.51 | 0.54 |
+| Learned FK classifier (no query-log feature) | 0.89 | 0.87 | 0.86 | 0.78 | 0.86 |
+
+Exact discovery breaks on dirty data, name-reliant methods collapse when names mislead, and genuine FD discovery stays hard for every method (FD macro F1 ≤ 0.53). These observations motivate the LLM experiments rather than replace them.
+
 ## Research question
 
 > Can LLM semantic cues (names, values, query usage) beat purely statistical profiling at inferring keys and dependencies on noisy, undocumented schemas, and where do they hallucinate?
@@ -53,6 +71,8 @@
 | **RQ3** | Robustness to legacy noise | noise levels L0–L3 → robustness curves |
 | **RQ4** | Hallucinations, and what verification removes | taxonomy of false positives, `+verify` variants |
 | **RQ5** | Hybrid: profiler candidates ranked by an LLM | `hybrid` method |
+| **RQ6** | Genuine vs. accidental dependencies | FD/FK precision of every method; learned and hybrid ranking |
+| **RQ7** | Reliance on names and memorised schemas | name probes: abbreviated, cryptic, misleading names on identical data |
 
 Full protocol: [docs/RESEARCH.md](docs/RESEARCH.md).
 
@@ -169,6 +189,7 @@ export SREV_LLM_BASE_URL=http://localhost:8000/v1
 export SREV_LLM_MODEL=Qwen/Qwen2.5-7B-Instruct
 srev run --config configs/experiment.yaml
 srev reproduce runs/<run-id> --replay        # replays cached LLM answers, compares every metric
+srev export latex runs/<run-id> -o tables.tex  # booktabs tables for the paper
 ```
 
 **3. Your own database.** `srev truth export` → `srev truth strip` → `srev extract` → `srev propose` → `srev verify` → `srev evaluate` → `srev synth`. See [docs/USAGE.md §6](docs/USAGE.md#6-your-own-database).
@@ -208,6 +229,8 @@ Robustness chart written by the report (FK macro F1 against noise level, offline
 | Kind | Variant in reports | What it is |
 |---|---|---|
 | `baseline` | `profiling` | Exact level-wise discovery of all minimal UCCs (≤ arity 3) and FDs (≤ 2 LHS columns), unary INDs and binary INDs into 2-column UCCs; FK candidates are INDs into UCCs. Ranked by name similarity / FD redundancy for top-k. |
+| `baseline` + error thresholds | `profiling-approx` | Approximate discovery: UCC error, FD g3 error, partial INDs over rows or values; tolerates dirty data. |
+| `learned` | `learned-fk` | Feature-based FK classifier over partial-IND candidates (Rostin et al.): 14 data, name and query-log features, logistic regression, leave-one-dataset-out; weights per fold in the report. |
 | `metanome` | `metanome` | HyFD, HyUCC and BINDER via `metanome-cli`, results converted to the common format. Skipped with a warning if Java or the JARs are missing. |
 | `llm` | `llm[names+stats+…]` | One prompt per evidence combination / paraphrase / seed; JSON-schema-constrained output from a vLLM server. |
 | `heuristic` | `heuristic[…]` | Transparent name and statistics rules: "semantic cues without a model". Not an LLM. |
@@ -229,6 +252,7 @@ Noise levels for the robustness curves (values read from `srev.noise.PRESETS`):
 | `tpch_mini` | Seeded generator with the TPC-H schema (8 tables), not the official `dbgen` | Declared PK/FK, including the composite FK into `partsupp` |
 | `university` | 8 tables with a self-referencing relationship and denormalised department data | Declared PK/FK/UNIQUE + 4 curated semantic FDs |
 | `retail_legacy` | Legacy-style abbreviated names, no declared FKs | Declared PKs/UNIQUE + 6 curated FKs + 2 curated FDs |
+| Spider / BIRD | `source: spider` expands to one dataset per `db_id`; gold SQL as workload | `primary_keys` / `foreign_keys` from `tables.json` |
 | any PostgreSQL / SQLite DB | `source: postgres` or `source: sqlite` in the config | Declared constraints, plus an optional curated gold file |
 
 ```mermaid
@@ -252,8 +276,10 @@ A run config is YAML validated by Pydantic ([src/srev/config.py](src/srev/config
 |---|---|---|
 | `database.backend` | `sqlite` / `postgres` | Where working copies live (`database.dsn` for PostgreSQL) |
 | `datasets` | `[{name: tpch_mini, params: {scale: 1}}]` | Built-in generators or `source: postgres` databases, optional `workload` and `curated_gold` |
-| `noise` | `[0, 1, 2, 3]` | Presets L0–L3 (`none`, `low`, `medium`, `high`) or explicit perturbation levels |
-| `methods[].kind` | `llm`, `heuristic`, `baseline`, `metanome`, `hybrid` | Methods to run; names must be unique |
+| `noise` | `[0, 1, 2, 3, names-misleading]` | Presets L0–L3 (`none`, `low`, `medium`, `high`), name probes (`names-abbreviated`, `names-cryptic`, `names-misleading`) or explicit levels |
+| `methods[].kind` | `llm`, `heuristic`, `baseline`, `metanome`, `hybrid`, `learned` | Methods to run; names must be unique |
+| `methods[].profiling` | `{fd_max_error: 0.05, ind_min_coverage: 0.9, ind_coverage: rows}` | Exact (default) or approximate profiling |
+| `methods[].learned` | `{features: [...], threshold: 0.5}` | Learned FK classifier; feature subsets for ablations |
 | `methods[].evidence` | `[[names], [names, samples]]` | Evidence channel combinations for the ablation |
 | `methods[].paraphrases` / `seeds` | `[0, 1, 2]` / `[1, 2, 3]` | Prompt wording variants / decoding seeds |
 | `llm.base_url`, `llm.model`, `llm.revision` | `http://localhost:8000/v1` | Endpoint and pinned checkpoint |
@@ -282,6 +308,7 @@ runs/<timestamp>_<name>/
 ├── gold/ noise/ evidence/   gold labels (kept apart from evidence), noise logs, evidence + joins
 ├── prompts/<sha256>.txt     exact prompt text, addressed by hash
 ├── llm_cache/               raw completions keyed by request hash
+├── learned.{csv,json}       learned-model weights per leave-one-dataset-out fold
 ├── synth/<db>.sql | .migration.sql | .mmd | .trace.json
 └── noise_curve_{fk,ucc,fd}.svg
 ```
@@ -324,6 +351,8 @@ node docs/media/tools/render.mjs /tmp/srev-media docs/media    # PNG screenshots
 | M2: Baselines | Profiling baselines, Metanome wrapper, FK derivation from INDs | ✅ Implemented; Metanome runs pending |
 | M3: LLM pipeline | Prompt builder, vLLM proposer, verifier, ablations | ✅ Implemented; no real-model runs yet |
 | M4: Evaluation | Full benchmark, hallucination analysis, write-up | Harness implemented; experiments pending |
+| M5: Research extensions | Approximate profiling, learned FK classifier, name probes, Spider/BIRD loader, LaTeX export | ✅ Implemented; pilot on generated data |
+| Next | Real-model runs, Spider/BIRD breadth study, genuine-FD ranking (RQ6) | Planned, see [docs/PROPOSAL.md](docs/PROPOSAL.md) §7 |
 
 ## Citation
 

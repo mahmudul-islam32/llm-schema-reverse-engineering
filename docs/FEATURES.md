@@ -16,6 +16,11 @@ All features are **Implemented** and covered by tests. No experiments with real 
 | F-10 | Hallucination taxonomy and report | Must | Implemented |
 | F-11 | Normalized model and DDL synthesizer | Should | Implemented |
 | F-12 | Reproducible run manifests | Must | Implemented |
+| F-13 | Approximate dependency discovery | Must | Implemented |
+| F-14 | Learned FK classifier (leave-one-dataset-out) | Should | Implemented |
+| F-15 | Name-reliance probes | Should | Implemented |
+| F-16 | Spider/BIRD benchmark loader | Should | Implemented |
+| F-17 | Paper-ready LaTeX export | Could | Implemented |
 
 ---
 
@@ -102,3 +107,38 @@ All features are **Implemented** and covered by tests. No experiments with real 
 **Acceptance criteria:** Re-running a manifest with temperature 0 reproduces the metrics, within documented nondeterminism.
 **Priority:** Must · **Status:** Implemented
 **Implementation:** `srev.manifest`, `srev reproduce [--replay]`. Re-running from the stored config with the cached responses reproduces all metrics exactly in the tests.
+
+### F-13: Approximate dependency discovery
+**Description:** Error thresholds turn the exact profilers into approximate ones: UCC error (share of rows to delete for uniqueness), FD g3 error, and partial INDs measured over distinct values or over rows. FK candidates are partial INDs into approximate UCCs.
+**User story:** As a researcher, I want a dirty-data baseline, so that LLMs are not only compared against exact discovery, which breaks on the first orphan value.
+**Acceptance criteria:** Thresholds of 0 reproduce exact discovery; the measured error is part of every rationale; minimality and key pruning still hold.
+**Priority:** Must · **Status:** Implemented
+**Implementation:** `srev.baselines.profiling` (`ucc_max_error`, `fd_max_error`, `ind_min_coverage`, `ind_coverage`); `profiling-approx` in both run configs. Pilot: FK macro F1 0.60–0.63 at L0–L3 vs. 0.04–0.65 for exact profiling.
+
+### F-14: Learned FK classifier
+**Description:** FK discovery as classification over partial-IND candidates, following Rostin et al. (WebDB 2009): 14 interpretable features (coverage, uniqueness, distinct ratio, name similarity, key-like names, column position, value ranges, NULL ratio, query-log frequency, table sizes), L2-regularised logistic regression in plain Python.
+**User story:** As a researcher, I want a learned statistical-plus-semantic baseline and to see which evidence it relies on.
+**Acceptance criteria:** Leave-one-dataset-out evaluation (no noise level of the held-out dataset is used in training); feature weights per fold in the report; feature subsets for ablations.
+**Priority:** Should · **Status:** Implemented
+**Implementation:** `srev.learn`, method kind `learned` (runner collects candidates and verdicts per database, trains after all databases are prepared). Unary FKs only.
+
+### F-15: Name-reliance probes
+**Description:** `rename_style` `cryptic`, `abbreviate` (customer_id → cstm_id) or `misleading` (names permuted among columns/tables); presets `names-abbreviated`, `names-cryptic`, `names-misleading` change only names, never data.
+**User story:** As a researcher, I want to measure how much a method depends on names or on memorised public schemas.
+**Acceptance criteria:** Data is identical to L0; gold labels and the workload are renamed consistently and still hold; the report has a probe table; noise curves keep the ordinal levels only.
+**Priority:** Should · **Status:** Implemented
+**Implementation:** `srev.noise`, report section "Name-reliance probes".
+
+### F-16: Spider/BIRD benchmark loader
+**Description:** `source: spider` expands into one dataset per `db_id` from a Spider- or BIRD-style directory; PK/FK gold labels from `tables.json`; gold SQL as the workload.
+**User story:** As a researcher, I want hundreds of annotated databases from different domains for breadth (RQ1).
+**Acceptance criteria:** Annotation names are matched case-insensitively; `srev datasets spider ROOT` lists databases with their annotated keys.
+**Priority:** Should · **Status:** Implemented
+**Implementation:** `srev.datasets.spider`. The benchmark data is not redistributed.
+
+### F-17: Paper-ready LaTeX export
+**Description:** `srev export latex RUN_DIR` writes booktabs tables (variants × noise levels and probes) with the best value per column in bold and optional bootstrap CIs.
+**User story:** As an author, I want result tables I can paste into a paper without retyping numbers.
+**Acceptance criteria:** Tables are generated only from stored aggregates; LaTeX special characters are escaped.
+**Priority:** Could · **Status:** Implemented
+**Implementation:** `srev.export`.

@@ -11,6 +11,8 @@ The author's M.Sc. thesis studied reverse engineering existing databases into ex
 - **RQ3:** How does performance degrade as noise increases (cryptic names, nulls, orphans), and does the LLM degrade differently from data-driven methods?
 - **RQ4:** What kinds of hallucinations occur, and how many does data verification (hybrid mode) remove?
 - **RQ5 (exploratory):** Does a hybrid of baseline candidates plus LLM ranking beat both components?
+- **RQ6:** Can semantic plausibility separate genuine from accidental FDs, the weakest point of all current methods? (pilot: every method stays below macro F1 0.6 for FDs)
+- **RQ7:** How much do methods rely on names, and on memorised public schemas, rather than on data? (name probes: abbreviated, cryptic and misleading names on identical data)
 
 **Hypotheses:** H1: LLMs reach higher FK *precision* than raw IND-based candidates on clean names, but lower recall. H2: The advantage shrinks as name noise increases. H3: Verification removes most hallucinations of the "contradicted by data" type.
 
@@ -20,7 +22,10 @@ The author's M.Sc. thesis studied reverse engineering existing databases into ex
 - Papenbrock, Naumann. *A Hybrid Approach to Functional Dependency Discovery* (HyFD). SIGMOD 2016.
 - Papenbrock et al. *Data Profiling with Metanome.* PVLDB 8(12), 2015 (demo).
 - Papenbrock et al. *Divide & Conquer-based Inclusion Dependency Discovery* (BINDER). PVLDB 8(7), 2015.
-- Rostin, Albrecht, Bauckmann, Naumann, Leser. *A Machine Learning Approach to Foreign Key Discovery.* WebDB 2009.
+- Rostin, Albrecht, Bauckmann, Naumann, Leser. *A Machine Learning Approach to Foreign Key Discovery.* WebDB 2009. (implemented as the `learned` method)
+- Kruse, Naumann. *Efficient Discovery of Approximate Dependencies* (Pyro). PVLDB 11(7), 2018. (approximate dependencies; to verify)
+- Papenbrock, Naumann. *A Hybrid Approach for Efficient Unique Column Combination Discovery* (HyUCC). BTW 2017. (to verify)
+- Abedjan, Golab, Naumann, Papenbrock. *Data Profiling.* Synthesis Lectures on Data Management, Morgan & Claypool, 2018. (to verify)
 - Zhang, Hadjieleftheriou, Ooi, Procopiuc, Srivastava. *On Multi-Column Foreign Key Discovery.* PVLDB 3(1), 2010.
 - Narayan, Chami, Orr, Arora, Ré. *Can Foundation Models Wrangle Your Data?* PVLDB 16(4), 2022.
 - Kwon et al. *Efficient Memory Management for Large Language Model Serving with PagedAttention* (vLLM). SOSP 2023.
@@ -41,7 +46,7 @@ FD ground truth: computed with an exact algorithm (e.g. HyFD) on the *clean* dat
 
 ## 5. Evaluation protocol
 1. Load each DB, export gold, strip constraints, and apply noise level L ∈ {0, 1, 2, 3}.
-2. Run the methods: (a) Metanome baselines, (b) LLM-only per evidence combination, (c) LLM + verifier, (d) hybrid ranking (RQ5).
+2. Run the methods: (a) exact and approximate profiling and Metanome baselines, (b) the learned FK classifier (leave-one-dataset-out), (c) LLM-only per evidence combination, (d) LLM + verifier, (e) hybrid ranking (RQ5). Name probes (RQ7) run alongside the noise levels.
 3. At least 2 model families × 2 sizes. Temperature 0. 3 seeds or prompt paraphrases to estimate variance.
 4. Compare with gold at exact match. Report column-set overlap as a secondary measure.
 5. Use 1,000-sample bootstrap confidence intervals and paired tests across databases.

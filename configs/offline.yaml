@@ -12,12 +12,24 @@ datasets:
     params: {scale: 0.5}
   - name: university
   - name: retail_legacy
-noise: [0, 1, 2, 3]
+noise: [0, 1, 2, 3, names-misleading]
 methods:
   - name: profiling
     kind: baseline
     verify: false
     profiling: {ucc_max_arity: 3, fd_max_lhs: 2}
+  - name: profiling-approx   # approximate dependencies: robust to dirty values (RQ3)
+    kind: baseline
+    verify: false
+    profiling: {ucc_max_error: 0.01, fd_max_error: 0.05, ind_min_coverage: 0.9, ind_coverage: rows}
+  - name: learned-fk         # feature-based FK classifier, leave-one-dataset-out (Rostin et al.)
+    kind: learned
+  - name: learned-fk-nologs  # ablation: same model without the query-log feature
+    kind: learned
+    learned:
+      features: [row_coverage, value_coverage, ref_uniqueness, dep_uniqueness, distinct_ratio,
+                 name_score, dep_keyish, ref_keyish, ref_first_column, same_table, range_inside,
+                 dep_null_ratio, ref_rows_ratio]
   - name: heuristic
     kind: heuristic
     evidence:

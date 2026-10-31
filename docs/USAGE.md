@@ -12,6 +12,7 @@ screenshots were produced by [`docs/media/tools/capture.py`](media/tools/capture
 - [6. Your own database](#6-your-own-database)
 - [7. Reading the results](#7-reading-the-results)
 - [8. Reproducing a run](#8-reproducing-a-run)
+- [8a. Research extensions](#8a-research-extensions)
 - [9. Command reference](#9-command-reference)
 - [10. Troubleshooting](#10-troubleshooting)
 
@@ -227,6 +228,67 @@ srev report runs/<run-id>                    # rebuild report.md from the stored
 `reproduce` compares every metric with the original and exits with status 1 if any differs by
 more than `--tolerance`.
 
+## 8a. Research extensions
+
+**Approximate profiling.** Exact discovery fails on the first orphan or typo. Error thresholds
+make the profiler tolerate dirty data:
+
+```yaml
+- name: profiling-approx
+  kind: baseline
+  profiling: {ucc_max_error: 0.01, fd_max_error: 0.05, ind_min_coverage: 0.9, ind_coverage: rows}
+```
+
+`ind_coverage: rows` counts referencing rows instead of distinct values, so a handful of unique
+orphan values cannot sink a low-cardinality FK. `srev profile` uses exact discovery.
+
+**Learned FK classifier.** A logistic regression over partial-IND candidates with 14 data,
+name and query-log features (after Rostin et al., WebDB 2009). It needs at least two datasets: the
+runner trains leave-one-dataset-out, so no noise level of the held-out dataset is ever seen in
+training. The report's "Learned FK model" section lists the standardised weights per fold.
+
+```yaml
+- {name: learned-fk, kind: learned}
+- name: learned-fk-nologs          # ablation: drop the query-log feature
+  kind: learned
+  learned: {features: [row_coverage, value_coverage, ref_uniqueness, dep_uniqueness,
+                       distinct_ratio, name_score, dep_keyish, ref_keyish, ref_first_column,
+                       same_table, range_inside, dep_null_ratio, ref_rows_ratio]}
+```
+
+**Name-reliance probes (RQ7).** Add probes to the noise list. They keep the data identical and only
+change names; the report compares each variant's clean score with every probe:
+
+```yaml
+noise: [0, 1, 2, 3, names-abbreviated, names-cryptic, names-misleading]
+```
+
+`names-misleading` permutes names among columns and tables, so names point at the wrong data. A
+method that drops sharply there leans on names, and on public schemas such as TPC-H possibly on
+memory.
+
+**Spider / BIRD.** Download the benchmark yourself (check its licence), then:
+
+```bash
+srev datasets spider data/spider                       # list databases with annotated PKs/FKs
+```
+
+```yaml
+database: {backend: sqlite}
+datasets:
+  - {name: spider, source: spider, path: data/spider, queries_json: dev.json, limit: 50}
+  - {name: bird, source: spider, path: data/bird/dev, tables_json: dev_tables.json,
+     db_dir: dev_databases, queries_json: dev.json}
+```
+
+**LaTeX tables.**
+
+```bash
+srev export latex runs/<run-id> -o tables.tex                       # one table per type, macro F1
+srev export latex runs/<run-id> --types FK --ci \
+    --variants "profiling,profiling-approx,learned-fk-nologs"       # chosen rows, with CIs
+```
+
 ## 9. Command reference
 
 | Command | Purpose | Key options |
@@ -246,6 +308,8 @@ more than `--tolerance`.
 | `srev report RUN` | regenerate report | |
 | `srev reproduce RUN` | re-run and compare | `--replay`, `--tolerance`, `-o` |
 | `srev audit kappa A B` | Cohen's κ | |
+| `srev datasets spider ROOT` | list a Spider/BIRD download | `--tables-json` |
+| `srev export latex RUN` | booktabs tables | `--metric`, `--types`, `--variants`, `--ci`, `-o` |
 
 Every database option accepts `--dsn` (PostgreSQL, default `$SREV_DSN`) or `--sqlite PATH`, plus
 `--schema` for PostgreSQL. `python -m srev …` works as well as `srev …`.

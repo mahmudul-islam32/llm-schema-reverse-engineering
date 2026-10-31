@@ -130,6 +130,7 @@ def write_report(run_dir: str | Path) -> Path:
     costs = _load(rd, "costs")
     halluc = _load(rd, "hallucinations")
     synth = _load(rd, "synth")
+    learned = _load(rd, "learned")
     noise_order = list(dict.fromkeys(m["noise"] for m in metrics))
 
     lines = [f"# Run report: {manifest.get('run_id', rd.name)}", ""]
@@ -303,15 +304,62 @@ def write_report(run_dir: str | Path) -> Path:
             "",
         ]
 
+    probes = [n for n in noise_order if n.startswith("names-")]
+    baseline_level = next((n for n in noise_order if n in ("L0", "none")), None)
+    if probes and baseline_level:
+        lines += [
+            "## Name-reliance probes",
+            "",
+            "Same data, only names changed (abbreviated, cryptic, or permuted so they "
+            "mislead). Macro F1 per variant; a large drop from the clean column means the "
+            "method leans on names or on a memorised schema.",
+            "",
+        ]
+        cols = [baseline_level, *probes]
+        for ctype in CONSTRAINT_TYPES:
+            table: dict[str, dict[str, Any]] = defaultdict(dict)
+            for a in aggregates:
+                if a["type"] == ctype and a["noise"] in cols:
+                    table[a["variant"]][a["noise"]] = a["macro_f1"]
+            rows = [[v, *[_f(vals.get(c)) for c in cols]] for v, vals in table.items()]
+            if rows:
+                lines += [f"### {ctype}", "", _table(["variant", *cols], rows), ""]
+
     charts = []
     for ctype in CONSTRAINT_TYPES:
-        svg = noise_curve_svg(aggregates, ctype, noise_order)
+        svg = noise_curve_svg(aggregates, ctype, [n for n in noise_order if n not in probes])
         if svg:
             name = f"noise_curve_{ctype.lower()}.svg"
             (rd / name).write_text(svg)
             charts.append(name)
     if charts:
         lines += ["## Robustness to noise", ""] + [f"![{c}]({c})" for c in charts] + [""]
+
+    if learned:
+        lines += [
+            "## Learned FK model",
+            "",
+            "Standardised logistic-regression weights per leave-one-dataset-out fold "
+            "(positive = evidence for a genuine FK). Mean over folds, sorted by magnitude.",
+            "",
+        ]
+        by_method: dict[str, dict[str, list[float]]] = defaultdict(lambda: defaultdict(list))
+        folds: dict[str, set[str]] = defaultdict(set)
+        for row in learned:
+            by_method[row["method"]][row["feature"]].append(row["weight"])
+            folds[row["method"]].add(row["held_out"])
+        for method, feats in by_method.items():
+            means = sorted(
+                ((sum(w) / len(w), f, min(w), max(w)) for f, w in feats.items()),
+                key=lambda t: -abs(t[0]),
+            )
+            rows = [[f, f"{m:+.3f}", f"{lo:+.3f} … {hi:+.3f}"] for m, f, lo, hi in means]
+            lines += [
+                f"### {method} ({len(folds[method])} folds: {', '.join(sorted(folds[method]))})",
+                "",
+                _table(["feature", "mean weight", "range over folds"], rows),
+                "",
+            ]
 
     if synth:
         lines += ["## Synthesised models", ""]

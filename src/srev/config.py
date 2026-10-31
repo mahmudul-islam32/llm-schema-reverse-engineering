@@ -30,17 +30,19 @@ class DatasetSpec(BaseModel):
     model_config = ConfigDict(populate_by_name=True)
 
     name: str
-    source: Literal["builtin", "postgres", "sqlite", "spider"] = "builtin"
+    source: Literal["builtin", "postgres", "sqlite", "spider", "csv"] = "builtin"
     generator: str | None = Field(None, description="built-in generator (defaults to name)")
     params: dict[str, Any] = Field(default_factory=dict)
     dsn: str | None = None
     db_schema: str = Field("public", alias="schema")
     path: str | None = Field(
-        None, description="SQLite file (source: sqlite) or benchmark root (source: spider)"
+        None,
+        description="SQLite file (sqlite), benchmark root (spider), CSV file or folder (csv)",
     )
     workload: str | None = Field(None, description=".sql/.csv/.jsonl query log")
     curated_gold: str | None = Field(None, description="extra curated gold labels (JSON)")
     max_rows: int | None = None
+    delimiter: str | None = Field(None, description="CSV delimiter (default: sniffed)")
     # source: spider (Spider/BIRD layout); one spec expands to one dataset per db_id
     db_ids: list[str] | None = Field(None, description="databases to use (default: all)")
     limit: int | None = Field(None, description="first N databases in db_id order")

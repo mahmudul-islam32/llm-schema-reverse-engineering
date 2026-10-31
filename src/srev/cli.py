@@ -102,6 +102,29 @@ def cmd_datasets_load(args: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_ingest_csv(args: argparse.Namespace) -> int:
+    from srev.db import materialize
+    from srev.ingest import dataset_from_csv
+
+    ds = dataset_from_csv(
+        args.paths,
+        args.name,
+        delimiter=args.delimiter,
+        encoding=args.encoding,
+        max_rows=args.max_rows,
+    )
+    with _connect(args) as conn:
+        materialize(ds, conn)
+        print(
+            f"loaded {len(ds.tables)} tables, {ds.n_rows} rows into {conn.describe()}",
+            file=sys.stderr,
+        )
+    for t in ds.tables:
+        cols = ", ".join(f"{c.name} {c.type}" for c in t.columns)
+        print(f"{t.name} ({len(t.rows)} rows): {cols}")
+    return 0
+
+
 def cmd_truth_export(args: argparse.Namespace) -> int:
     from srev.truth import gold_from_connector
 
@@ -426,6 +449,17 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument("--gold", help="write gold labels (renamed if noise is applied) here")
     p.add_argument("--workload", help="write the dataset's query workload (.sql) here")
     p.set_defaults(func=cmd_datasets_load)
+
+    ig = sub.add_parser("ingest", help="load external data (CSV) into a database")
+    ig_sub = ig.add_subparsers(dest="action", required=True)
+    p = ig_sub.add_parser("csv", help="CSV files or folders -> one table per file")
+    p.add_argument("paths", nargs="+", help="CSV files and/or folders of *.csv")
+    _db_args(p)
+    p.add_argument("--name", default="csv", help="dataset label")
+    p.add_argument("--delimiter", help="default: sniffed from the file")
+    p.add_argument("--encoding", default="utf-8")
+    p.add_argument("--max-rows", type=int)
+    p.set_defaults(func=cmd_ingest_csv)
 
     tr = sub.add_parser("truth", help="ground-truth export and constraint stripping")
     tr_sub = tr.add_subparsers(dest="action", required=True)

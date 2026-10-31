@@ -39,6 +39,14 @@ methods:
   - name: metanome          # skipped with a warning when Java/JARs are missing
     kind: metanome
     verify: false
+  - name: learned-fk         # feature-based FK classifier, leave-one-dataset-out (Rostin et al.)
+    kind: learned
+  - name: learned-fk-nologs  # ablation: same model without the query-log feature
+    kind: learned
+    learned:
+      features: [row_coverage, value_coverage, ref_uniqueness, dep_uniqueness, distinct_ratio,
+                 name_score, dep_keyish, ref_keyish, ref_first_column, same_table, range_inside,
+                 dep_null_ratio, ref_rows_ratio]
   - name: heuristic
     kind: heuristic
     evidence: [[names], [names, stats, samples, logs]]

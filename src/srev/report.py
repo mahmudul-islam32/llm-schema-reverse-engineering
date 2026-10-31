@@ -130,6 +130,7 @@ def write_report(run_dir: str | Path) -> Path:
     costs = _load(rd, "costs")
     halluc = _load(rd, "hallucinations")
     synth = _load(rd, "synth")
+    learned = _load(rd, "learned")
     noise_order = list(dict.fromkeys(m["noise"] for m in metrics))
 
     lines = [f"# Run report: {manifest.get('run_id', rd.name)}", ""]
@@ -312,6 +313,32 @@ def write_report(run_dir: str | Path) -> Path:
             charts.append(name)
     if charts:
         lines += ["## Robustness to noise", ""] + [f"![{c}]({c})" for c in charts] + [""]
+
+    if learned:
+        lines += [
+            "## Learned FK model",
+            "",
+            "Standardised logistic-regression weights per leave-one-dataset-out fold "
+            "(positive = evidence for a genuine FK). Mean over folds, sorted by magnitude.",
+            "",
+        ]
+        by_method: dict[str, dict[str, list[float]]] = defaultdict(lambda: defaultdict(list))
+        folds: dict[str, set[str]] = defaultdict(set)
+        for row in learned:
+            by_method[row["method"]][row["feature"]].append(row["weight"])
+            folds[row["method"]].add(row["held_out"])
+        for method, feats in by_method.items():
+            means = sorted(
+                ((sum(w) / len(w), f, min(w), max(w)) for f, w in feats.items()),
+                key=lambda t: -abs(t[0]),
+            )
+            rows = [[f, f"{m:+.3f}", f"{lo:+.3f} … {hi:+.3f}"] for m, f, lo, hi in means]
+            lines += [
+                f"### {method} ({len(folds[method])} folds: {', '.join(sorted(folds[method]))})",
+                "",
+                _table(["feature", "mean weight", "range over folds"], rows),
+                "",
+            ]
 
     if synth:
         lines += ["## Synthesised models", ""]

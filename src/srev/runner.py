@@ -33,6 +33,7 @@ from srev.db import materialize as materialize_db
 from srev.eval.hallucination import analyse
 from srev.eval.metrics import TypeScore, aggregate, paired_permutation_test, score
 from srev.extract import Evidence, extract
+from srev.learn import Candidate, candidates, label, train_and_predict
 from srev.llm.client import ChatClient, LLMConfig
 from srev.llm.prompt import Prompt
 from srev.llm.proposers import HeuristicProposer, HybridRanker, LLMProposer, ProposerOutput
@@ -92,6 +93,9 @@ class Runner:
         self.halluc: list[dict[str, Any]] = []
         self.synth_index: list[dict[str, Any]] = []
         self._clients: dict[str, ChatClient] = {}
+        # learned methods are trained after all databases are prepared
+        self._learned_pool: dict[str, list[tuple[DbContext, list[Candidate]]]] = defaultdict(list)
+        self.learned_rows: list[dict[str, Any]] = []
 
     # ------------------------------------------------------------------
     def run(self) -> Path:
@@ -111,6 +115,7 @@ class Runner:
                     label = noise_label(level, i)
                     record = self._run_db(spec, clean, gold, level, label, manifest)
                     manifest.datasets.append(record)
+            self._run_learned(manifest)
         finally:
             self._proposals_fh.close()
             self._fp_fh.close()
@@ -252,6 +257,9 @@ class Runner:
             )
             results: list[tuple[VariantRun, list[Proposal], float]] = []
             for method in self.cfg.methods:
+                if method.kind == "learned":
+                    self._collect_candidates(method, ctx)
+                    continue
                 for vr in self._run_method(method, ctx):
                     start = time.perf_counter()
                     props = dedupe(vr.output.proposals)
@@ -360,6 +368,66 @@ class Runner:
                         )
                     )
         return variants
+
+    def _collect_candidates(self, m: MethodSpec, ctx: DbContext) -> None:
+        """Compute features and verdicts while the working copy is open."""
+        log.info("[%s] method %s (learned): collecting candidates", ctx.db_id, m.name)
+        start = time.perf_counter()
+        cands = label(candidates(ctx.conn, ctx.joins, m.learned), ctx.gold.labels)
+        self._verify(ctx, [c.proposal(1.0) for c in cands])
+        ctx.profile_cache[f"learned:{m.name}:seconds"] = ProposerOutput(
+            seconds=round(time.perf_counter() - start, 3)
+        )
+        self._learned_pool[m.name].append((ctx, cands))
+
+    def _run_learned(self, manifest: Manifest) -> None:
+        """Leave-one-dataset-out: train on every other dataset, score the held-out one."""
+        for m in self.cfg.methods:
+            if m.kind != "learned":
+                continue
+            pool = self._learned_pool.get(m.name, [])
+            datasets = sorted({ctx.dataset for ctx, _ in pool})
+            if len(datasets) < 2:
+                msg = f"method {m.name}: leave-one-dataset-out needs at least two datasets"
+                log.warning(msg)
+                manifest.notes.append(msg)
+                continue
+            for held_out in datasets:
+                train = [c for ctx, cs in pool if ctx.dataset != held_out for c in cs]
+                if not any(c.label for c in train):
+                    manifest.notes.append(
+                        f"method {m.name}: no positive training data without {held_out}"
+                    )
+                    continue
+                model = None
+                for ctx, cands in pool:
+                    if ctx.dataset != held_out:
+                        continue
+                    start = time.perf_counter()
+                    props, model = train_and_predict(train, cands, m.learned)
+                    prep = ctx.profile_cache[f"learned:{m.name}:seconds"].seconds
+                    out = ProposerOutput(
+                        proposals=props, seconds=round(prep + time.perf_counter() - start, 3)
+                    )
+                    variant = VariantRun(m.name, m, out)
+                    self._record(ctx, variant, dedupe(props), verified=False, verify_seconds=0.0)
+                    if m.verify:
+                        accepted = [p for p in props if ctx.verdicts[p.key()].accepted]
+                        verified = VariantRun(f"{m.name}+verify", m, out)
+                        self._record(ctx, verified, accepted, verified=True, verify_seconds=0.0)
+                if model is not None:
+                    n_pos = sum(c.label for c in train)
+                    for feature, weight in model.coefficients().items():
+                        self.learned_rows.append(
+                            {
+                                "method": m.name,
+                                "held_out": held_out,
+                                "feature": feature,
+                                "weight": weight,
+                                "train_candidates": len(train),
+                                "train_positives": n_pos,
+                            }
+                        )
 
     def _verify(self, ctx: DbContext, props: list[Proposal]) -> None:
         for p in props:
@@ -525,6 +593,7 @@ class Runner:
             ("hallucinations", self.halluc),
             ("aggregates", aggregates),
             ("synth", self.synth_index),
+            ("learned", self.learned_rows),
         ):
             (rd / f"{name}.json").write_text(json.dumps(rows, indent=2))
             _write_csv(rd / f"{name}.csv", rows)

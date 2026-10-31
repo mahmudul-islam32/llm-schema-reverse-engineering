@@ -16,6 +16,7 @@ from pydantic import BaseModel, ConfigDict, Field, model_validator
 
 from srev.baselines.metanome import MetanomeConfig
 from srev.baselines.profiling import ProfilingConfig
+from srev.learn import LearnedConfig
 from srev.llm.client import LLMConfig
 from srev.llm.prompt import CHANNELS, PromptConfig
 from srev.noise import NoiseConfig
@@ -48,7 +49,7 @@ class DatabaseSpec(BaseModel):
 
 class MethodSpec(BaseModel):
     name: str
-    kind: Literal["llm", "heuristic", "baseline", "metanome", "hybrid"]
+    kind: Literal["llm", "heuristic", "baseline", "metanome", "hybrid", "learned"]
     evidence: list[list[str]] = Field(
         default_factory=lambda: [["names", "stats", "samples", "logs"]]
     )
@@ -58,6 +59,7 @@ class MethodSpec(BaseModel):
     llm: LLMConfig | None = None
     profiling: ProfilingConfig = Field(default_factory=ProfilingConfig)
     metanome: MetanomeConfig = Field(default_factory=MetanomeConfig)
+    learned: LearnedConfig = Field(default_factory=LearnedConfig)
     scorer: Literal["llm", "heuristic"] = "heuristic"
     threshold: float = 0.5
     max_candidates: int = 150

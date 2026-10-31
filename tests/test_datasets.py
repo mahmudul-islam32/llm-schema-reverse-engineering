@@ -7,13 +7,13 @@ from srev.verify import Verifier
 
 
 def test_registry():
-    assert set(available()) == {"tpch_mini", "university", "retail_legacy"}
+    assert set(available()) == {"tpch_mini", "university", "retail_legacy", "airline"}
     with pytest.raises(KeyError):
         load_dataset("nope")
     assert load_dataset("tpch", scale=0.1).name == "tpch_mini"
 
 
-@pytest.mark.parametrize("name", ["tpch_mini", "university", "retail_legacy"])
+@pytest.mark.parametrize("name", ["tpch_mini", "university", "retail_legacy", "airline"])
 def test_generation_is_deterministic(name):
     a = load_dataset(name, seed=1, scale=0.3)
     b = load_dataset(name, seed=1, scale=0.3)
@@ -22,7 +22,7 @@ def test_generation_is_deterministic(name):
     assert a.checksum() != c.checksum()
 
 
-@pytest.mark.parametrize("name", ["tpch_mini", "university", "retail_legacy"])
+@pytest.mark.parametrize("name", ["tpch_mini", "university", "retail_legacy", "airline"])
 def test_gold_constraints_hold_on_clean_data(name):
     ds = load_dataset(name, seed=3, scale=0.3)
     gold = gold_from_dataset(ds)

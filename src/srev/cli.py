@@ -125,6 +125,68 @@ def cmd_ingest_csv(args: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_discover(args: argparse.Namespace) -> int:
+    from srev.db import SQLiteConnector, materialize
+    from srev.discover import DiscoverConfig, discover
+    from srev.extract import extract
+    from srev.ingest import dataset_from_csv
+    from srev.qlog import load_workload, mine_joins
+    from srev.synth import synthesize
+
+    out = Path(args.output)
+    out.mkdir(parents=True, exist_ok=True)
+    if args.csv:
+        ds = dataset_from_csv(args.csv, args.name or "csv", delimiter=args.delimiter)
+        db_path = out / "data.sqlite"
+        db_path.unlink(missing_ok=True)
+        conn = SQLiteConnector(db_path)
+        materialize(ds, conn)
+        print(f"loaded {len(ds.tables)} CSV tables into {db_path}", file=sys.stderr)
+    else:
+        conn = _connect(args)
+    cfg = DiscoverConfig(fk_threshold=args.fk_threshold)
+    with conn:
+        name = args.name or (args.schema if conn.dialect == "postgres" else "database")
+        joins = None
+        if args.workload:
+            schema_map = {t: [c.name for c in conn.list_columns(t)] for t in conn.list_tables()}
+            joins = mine_joins(load_workload(args.workload), schema_map)
+        result = discover(conn, name, joins=joins, config=cfg)
+        evidence = extract(conn, name, rows_per_table=20)
+        source_schema = conn.schema if conn.dialect == "postgres" else "main"  # type: ignore[attr-defined]
+    evidence.save(out / "evidence.json")
+    result.save(out / "constraints.json")
+    for label, items in (("review", result.review), ("rejected", result.rejected)):
+        (out / f"{label}.json").write_text(json.dumps([v.model_dump() for v in items], indent=2))
+    verdicts = {v.proposal.key(): v.verdict for v in result.constraints}
+    synth = synthesize(
+        evidence,
+        result.accepted(),
+        verdicts,
+        source_schema=source_schema,
+        target_schema=args.target_schema,
+    )
+    (out / "model.sql").write_text(synth.ddl)
+    (out / "migration.sql").write_text(synth.migration)
+    (out / "model.mmd").write_text(synth.mermaid)
+    print(f"{'type':4} {'constraint':70} {'conf':>5} statistic")
+    for v in result.constraints:
+        p = v.proposal
+        print(
+            f"{p.type:4} {p.describe()[len(p.type) + 1 :]:70} {p.confidence:5.2f} "
+            f"{v.verdict.statistic}={v.verdict.value}"
+        )
+    for v in result.review:
+        print(f"?FK {v.proposal.describe()[3:]:71} {v.proposal.confidence:5.2f} needs review")
+    c = result.counts()
+    print(
+        f"accepted FK {c['FK']}, UCC {c['UCC']}, FD {c['FD']}; {len(result.review)} to review, "
+        f"{len(result.rejected)} rejected; {result.seconds}s -> {out}/",
+        file=sys.stderr,
+    )
+    return 0
+
+
 def cmd_truth_export(args: argparse.Namespace) -> int:
     from srev.truth import gold_from_connector
 
@@ -460,6 +522,20 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument("--encoding", default="utf-8")
     p.add_argument("--max-rows", type=int)
     p.set_defaults(func=cmd_ingest_csv)
+
+    p = sub.add_parser("discover", help="one-shot discovery of keys, FKs and FDs")
+    src = p.add_mutually_exclusive_group()
+    src.add_argument("--dsn", help="PostgreSQL DSN (default: $SREV_DSN)")
+    src.add_argument("--sqlite", help="SQLite database file")
+    src.add_argument("--csv", nargs="+", help="CSV files or folders (loaded into data.sqlite)")
+    p.add_argument("--schema", default="public")
+    p.add_argument("--delimiter")
+    p.add_argument("--workload", help="optional query log: enables the join-log feature")
+    p.add_argument("--name")
+    p.add_argument("--fk-threshold", type=float, default=0.5)
+    p.add_argument("--target-schema", default="normalized")
+    p.add_argument("-o", "--output", default="discovery")
+    p.set_defaults(func=cmd_discover)
 
     tr = sub.add_parser("truth", help="ground-truth export and constraint stripping")
     tr_sub = tr.add_subparsers(dest="action", required=True)

@@ -12,6 +12,7 @@ datasets:
   - name: tpch_mini
   - name: university
   - name: retail_legacy
+  - name: airline          # self-referencing and parallel FKs
   # A real database (e.g. TPC-H loaded from dbgen output) with declared constraints:
   # - name: tpch_sf1
   #   source: postgres

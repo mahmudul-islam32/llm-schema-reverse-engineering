@@ -41,11 +41,14 @@ flowchart TB
 | `srev.datasets` | Seeded generators (`tpch_mini`, `university`, `retail_legacy`) and the in-memory `Dataset` model with checksums |
 | `srev.db` | PostgreSQL (psycopg) and SQLite connectors: catalog introspection, declared constraints, bulk load, `dataset_from_connector` |
 | `srev.truth` | Gold labels from declared constraints and curated labels; constraint stripping (`CREATE TABLE … AS`) |
-| `srev.noise` | Seeded perturbations, rename map applied to gold labels and the workload |
+| `srev.noise` | Seeded perturbations and name probes (cryptic, abbreviated, misleading), rename map applied to gold labels and the workload |
 | `srev.extract` | Catalog queries, column statistics, deterministic sampling → `Evidence` JSON |
 | `srev.qlog`, `srev.sqlutil` | Workload loading and equi-join extraction with `sqlglot` |
 | `srev.llm` | Prompt builder, OpenAI-compatible client with cache, strict output parsing, LLM / heuristic / hybrid proposers |
-| `srev.baselines` | Exact Python profilers (UCC, FD, IND → FK) and the Metanome CLI wrapper |
+| `srev.baselines` | Exact and approximate Python profilers (UCC, FD with g3, partial IND → FK) and the Metanome CLI wrapper |
+| `srev.learn` | Feature-based FK classifier (Rostin et al.), logistic regression, leave-one-dataset-out in the runner |
+| `srev.datasets.spider` | Spider/BIRD-format loader: annotations from `tables.json`, gold SQL as workload |
+| `srev.export` | booktabs LaTeX tables from stored aggregates |
 | `srev.verify` | SQL checks for FK coverage, uniqueness and FD g3 error |
 | `srev.eval` | Metrics, bootstrap CIs, permutation test, hallucination taxonomy, Cohen's κ |
 | `srev.synth` | BCNF decomposition, DDL, migration script and Mermaid ER generation |

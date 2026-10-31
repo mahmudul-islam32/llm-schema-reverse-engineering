@@ -1,4 +1,4 @@
-"""Exact data-profiling baselines implemented in Python.
+"""Exact and approximate data-profiling baselines implemented in Python.
 
 These are faithful but simple level-wise algorithms (in the spirit of TANE
 and apriori-style UCC/IND discovery), not re-implementations of HyFD, HyUCC
@@ -6,6 +6,16 @@ or BINDER. They return the *complete* set of minimal dependencies up to the
 configured arity, which is exactly the behaviour the research protocol wants
 to contrast with LLM proposals. For the Metanome algorithms themselves see
 :mod:`srev.baselines.metanome`.
+
+With the default configuration every dependency must hold exactly. Setting
+error thresholds turns the same algorithms into *approximate* (partial)
+dependency discovery, the setting studied e.g. by Kruse & Naumann (Pyro,
+PVLDB 2018), which tolerates the dirty values legacy databases contain:
+
+* UCC error   = (rows - distinct tuples) / rows  (share of rows to delete)
+* FD g3 error = (rows - sum over X-groups of the most frequent A) / rows
+* IND coverage = share of dependent values (``values``) or non-NULL dependent
+  rows (``rows``) found on the referenced side
 
 Semantics: NULL is treated as an ordinary value (NULL = NULL), as in most
 profiling tools. Inclusion dependencies ignore NULLs on the dependent side.
@@ -16,9 +26,9 @@ from __future__ import annotations
 import itertools
 import time
 from dataclasses import dataclass, field
-from typing import Any
+from typing import Any, Literal
 
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 from srev import names
 from srev.datasets.base import type_family
@@ -29,9 +39,16 @@ from srev.model import Proposal, qualify
 class ProfilingConfig(BaseModel):
     ucc_max_arity: int = 3
     fd_max_lhs: int = 2
-    ind_min_coverage: float = 1.0
+    ucc_max_error: float = Field(0.0, ge=0, lt=1, description="0 = exact UCCs")
+    fd_max_error: float = Field(0.0, ge=0, lt=1, description="g3 threshold, 0 = exact FDs")
+    ind_min_coverage: float = Field(1.0, gt=0, le=1, description="1 = exact INDs")
+    ind_coverage: Literal["values", "rows"] = "values"
     nary_fks: bool = True
     max_rows: int | None = None
+
+    @property
+    def approximate(self) -> bool:
+        return self.ucc_max_error > 0 or self.fd_max_error > 0 or self.ind_min_coverage < 1
 
 
 @dataclass
@@ -106,14 +123,38 @@ class _Partitions:
     def groups(self, cols: tuple[str, ...]) -> int:
         return self.get(cols)[1]
 
+    def ucc_error(self, cols: tuple[str, ...]) -> float:
+        n = self.table.n
+        return (n - self.groups(cols)) / n if n else 0.0
+
+    def g3(self, lhs: tuple[str, ...], rhs: str) -> float:
+        """g3 error of ``lhs -> rhs``: share of rows to delete so the FD holds exactly."""
+        n = self.table.n
+        if not n:
+            return 0.0
+        if self.groups((*lhs, rhs)) == self.groups(lhs):
+            return 0.0
+        x_ids, _ = self.get(lhs)
+        a_ids, _ = self.cache[(rhs,)]
+        counts: dict[tuple[int, int], int] = {}
+        for pair in zip(x_ids, a_ids, strict=True):
+            counts[pair] = counts.get(pair, 0) + 1
+        best: dict[int, int] = {}
+        for (gx, _), c in counts.items():
+            if c > best.get(gx, 0):
+                best[gx] = c
+        return (n - sum(best.values())) / n
+
 
 # --------------------------------------------------------------------------
 # UCCs
 # --------------------------------------------------------------------------
 
 
-def discover_uccs(table: TableData, max_arity: int, parts: _Partitions) -> list[tuple[str, ...]]:
-    """All minimal unique column combinations up to ``max_arity``."""
+def discover_uccs(
+    table: TableData, max_arity: int, parts: _Partitions, max_error: float = 0.0
+) -> list[tuple[str, ...]]:
+    """All minimal (approximate) unique column combinations up to ``max_arity``."""
     if table.n == 0:
         return []
     found: list[tuple[str, ...]] = []
@@ -122,7 +163,7 @@ def discover_uccs(table: TableData, max_arity: int, parts: _Partitions) -> list[
         for combo in itertools.combinations(cols, k):
             if any(set(u) <= set(combo) for u in found):
                 continue
-            if parts.groups(combo) == table.n:
+            if parts.ucc_error(combo) <= max_error:
                 found.append(combo)
     return found
 
@@ -139,13 +180,19 @@ def _ucc_score(combo: tuple[str, ...], table: TableData) -> float:
 
 
 def discover_fds(
-    table: TableData, max_lhs: int, parts: _Partitions, uccs: list[tuple[str, ...]]
+    table: TableData,
+    max_lhs: int,
+    parts: _Partitions,
+    uccs: list[tuple[str, ...]],
+    max_error: float = 0.0,
 ) -> list[tuple[tuple[str, ...], str, float]]:
-    """Minimal non-trivial FDs ``X -> A`` with ``1 <= |X| <= max_lhs``.
+    """Minimal non-trivial (approximate) FDs ``X -> A`` with ``1 <= |X| <= max_lhs``.
 
     Returns ``(lhs, rhs, redundancy)`` where redundancy = 1 - groups(X)/n is
     0 for key-based FDs and grows with how much repetition the FD explains.
-    Constant columns are skipped as right-hand sides (``{} -> A``).
+    Constant columns are skipped as right-hand sides (``{} -> A``). Supersets
+    of (approximate) keys are pruned: g3(X -> A) <= UCC error of X, so they
+    cannot yield minimal FDs.
     """
     if table.n == 0:
         return []
@@ -165,7 +212,12 @@ def discover_fds(
                     continue
                 if any(m <= lhs_set for m in minimal[rhs]):
                     continue
-                if parts.groups((*lhs, rhs)) == g_lhs:
+                holds = (
+                    parts.groups((*lhs, rhs)) == g_lhs
+                    if max_error == 0
+                    else parts.g3(lhs, rhs) <= max_error
+                )
+                if holds:
                     minimal[rhs].append(lhs_set)
                     out.append((lhs, rhs, round(1 - g_lhs / table.n, 4)))
     return out
@@ -182,13 +234,23 @@ def _compatible(a: str, b: str) -> bool:
 
 
 def discover_unary_inds(
-    tables: list[TableData], min_coverage: float = 1.0
+    tables: list[TableData],
+    min_coverage: float = 1.0,
+    measure: Literal["values", "rows"] = "values",
 ) -> list[tuple[str, str, float]]:
-    """Unary INDs ``dep ⊆ ref`` as ``(dep_ref, ref_ref, coverage)``."""
+    """Unary (partial) INDs ``dep ⊆ ref`` as ``(dep_ref, ref_ref, coverage)``.
+
+    ``values`` coverage counts distinct dependent values, ``rows`` counts
+    non-NULL dependent rows; the latter is far less sensitive to a few unique
+    orphan values in low-cardinality columns.
+    """
     sets: dict[str, tuple[set[Any], str]] = {}
+    rows: dict[str, list[Any]] = {}
     for t in tables:
         for c in t.columns:
-            sets[qualify(t.name, c)] = ({v for v in t.values[c] if v is not None}, t.families[c])
+            ref = qualify(t.name, c)
+            rows[ref] = [v for v in t.values[c] if v is not None]
+            sets[ref] = (set(rows[ref]), t.families[c])
     out = []
     for dep, (dvals, dfam) in sets.items():
         if not dvals or dfam == "boolean":
@@ -196,12 +258,27 @@ def discover_unary_inds(
         for ref, (rvals, rfam) in sets.items():
             if dep == ref or not rvals or not _compatible(dfam, rfam):
                 continue
-            if len(rvals) * 1.0 < len(dvals) * min_coverage:
+            if measure == "values" and len(rvals) < len(dvals) * min_coverage:
                 continue
-            coverage = len(dvals & rvals) / len(dvals)
+            common = dvals & rvals
+            if not common:
+                continue
+            if measure == "values":
+                coverage = len(common) / len(dvals)
+            else:
+                coverage = sum(v in rvals for v in rows[dep]) / len(rows[dep])
             if coverage >= min_coverage:
                 out.append((dep, ref, round(coverage, 4)))
     return out
+
+
+def _tuple_coverage(dep: list[tuple[Any, Any]], ref: set[tuple[Any, Any]], measure: str) -> float:
+    if not dep:
+        return 0.0
+    if measure == "rows":
+        return sum(t in ref for t in dep) / len(dep)
+    distinct = set(dep)
+    return len(distinct & ref) / len(distinct)
 
 
 def profile(conn: Connector, config: ProfilingConfig | None = None) -> ProfileResult:
@@ -209,25 +286,31 @@ def profile(conn: Connector, config: ProfilingConfig | None = None) -> ProfileRe
     config = config or ProfilingConfig()
     start = time.perf_counter()
     tables = load_tables(conn, config.max_rows)
+    kind = "approximate" if config.approximate else "exact"
     by_name = {t.name: t for t in tables}
     proposals: list[Proposal] = []
     uccs: dict[str, list[tuple[str, ...]]] = {}
     n_fds = 0
     for t in tables:
         parts = _Partitions(t)
-        uccs[t.name] = discover_uccs(t, config.ucc_max_arity, parts)
+        uccs[t.name] = discover_uccs(t, config.ucc_max_arity, parts, config.ucc_max_error)
         for combo in uccs[t.name]:
+            err = parts.ucc_error(combo)
             proposals.append(
                 Proposal(
                     type="UCC",
                     lhs=[qualify(t.name, c) for c in combo],
                     confidence=_ucc_score(combo, t),
                     source="baseline",
-                    rationale="exact uniqueness over all rows",
+                    rationale="exact uniqueness over all rows"
+                    if err == 0
+                    else f"approximate uniqueness; error {err:.3f}",
                 )
             )
-        for lhs, rhs, redundancy in discover_fds(t, config.fd_max_lhs, parts, uccs[t.name]):
+        fds = discover_fds(t, config.fd_max_lhs, parts, uccs[t.name], config.fd_max_error)
+        for lhs, rhs, redundancy in fds:
             n_fds += 1
+            err = parts.g3(lhs, rhs) if config.fd_max_error else 0.0
             proposals.append(
                 Proposal(
                     type="FD",
@@ -235,12 +318,12 @@ def profile(conn: Connector, config: ProfilingConfig | None = None) -> ProfileRe
                     rhs=[qualify(t.name, rhs)],
                     confidence=redundancy,
                     source="baseline",
-                    rationale=f"exact FD; redundancy {redundancy:.2f}",
+                    rationale=f"{kind} FD; redundancy {redundancy:.2f}; g3 {err:.3f}",
                 )
             )
 
     unary_keys = {qualify(t, u[0]) for t, us in uccs.items() for u in us if len(u) == 1}
-    inds = discover_unary_inds(tables, config.ind_min_coverage)
+    inds = discover_unary_inds(tables, config.ind_min_coverage, config.ind_coverage)
     distinct = {
         qualify(t.name, c): len({v for v in t.values[c] if v is not None})
         for t in tables
@@ -260,7 +343,7 @@ def profile(conn: Connector, config: ProfilingConfig | None = None) -> ProfileRe
                 rhs=[ref],
                 confidence=round(0.5 * name_score + 0.5 * ref_cov, 3),
                 source="baseline",
-                rationale=f"IND coverage {coverage:.2f}; referenced column is unique",
+                rationale=f"{kind} IND coverage {coverage:.2f}; referenced column is unique",
             )
         )
         n_fk += 1
@@ -280,12 +363,13 @@ def profile(conn: Connector, config: ProfilingConfig | None = None) -> ProfileRe
                             continue
                         if t.name == rt and {a1, a2} == set(combo):
                             continue
-                        dep_tuples = {
+                        dep_tuples = [
                             (x, y)
                             for x, y in zip(t.values[a1], t.values[a2], strict=True)
                             if x is not None and y is not None
-                        }
-                        if dep_tuples and dep_tuples <= ref_tuples:
+                        ]
+                        cov = _tuple_coverage(dep_tuples, ref_tuples, config.ind_coverage)
+                        if dep_tuples and cov >= config.ind_min_coverage:
                             score = (
                                 names.fk_name_score(t.name, a1, rt, combo[0])
                                 + names.fk_name_score(t.name, a2, rt, combo[1])
@@ -297,7 +381,8 @@ def profile(conn: Connector, config: ProfilingConfig | None = None) -> ProfileRe
                                     rhs=[r1, r2],
                                     confidence=round(score, 3),
                                     source="baseline",
-                                    rationale="binary IND into a 2-column UCC",
+                                    rationale=f"{kind} binary IND into a 2-column UCC "
+                                    f"(coverage {cov:.2f})",
                                 )
                             )
                             n_fk += 1

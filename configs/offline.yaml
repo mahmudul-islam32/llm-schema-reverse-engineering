@@ -18,6 +18,10 @@ methods:
     kind: baseline
     verify: false
     profiling: {ucc_max_arity: 3, fd_max_lhs: 2}
+  - name: profiling-approx   # approximate dependencies: robust to dirty values (RQ3)
+    kind: baseline
+    verify: false
+    profiling: {ucc_max_error: 0.01, fd_max_error: 0.05, ind_min_coverage: 0.9, ind_coverage: rows}
   - name: heuristic
     kind: heuristic
     evidence:

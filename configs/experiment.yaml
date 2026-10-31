@@ -32,6 +32,10 @@ methods:
   - name: profiling
     kind: baseline
     verify: false
+  - name: profiling-approx   # approximate dependencies: robust to dirty values (RQ3)
+    kind: baseline
+    verify: false
+    profiling: {ucc_max_error: 0.01, fd_max_error: 0.05, ind_min_coverage: 0.9, ind_coverage: rows}
   - name: metanome          # skipped with a warning when Java/JARs are missing
     kind: metanome
     verify: false

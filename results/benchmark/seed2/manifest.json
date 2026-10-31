@@ -1,0 +1,1098 @@
+{
+  "srev_version": "0.1.0",
+  "run_id": "20261031T121528Z_benchmark-seed2",
+  "started_at": "2026-10-31T12:15:28.014523+00:00",
+  "finished_at": "2026-10-31T12:16:26.984935+00:00",
+  "command": [
+    "/home/user/llm-schema-reverse-engineering/.venv/bin/srev",
+    "run",
+    "--config",
+    "configs/benchmark.yaml",
+    "--seed",
+    "2",
+    "--run-dir",
+    "results/benchmark/seed2"
+  ],
+  "git": {
+    "sha": "5b04b05c3c7721c6aa84aaa1bd13df5b9b1c694a",
+    "branch": "claude/serene-ritchie-u16wkh",
+    "dirty": true
+  },
+  "config": {
+    "name": "benchmark-seed2",
+    "seed": 2,
+    "output_dir": "runs",
+    "database": {
+      "backend": "sqlite",
+      "dsn": null,
+      "schema_prefix": "srev"
+    },
+    "datasets": [
+      {
+        "name": "tpch_mini",
+        "source": "builtin",
+        "generator": null,
+        "params": {},
+        "dsn": null,
+        "schema": "public",
+        "path": null,
+        "workload": null,
+        "curated_gold": null,
+        "max_rows": null,
+        "delimiter": null,
+        "db_ids": null,
+        "limit": null,
+        "tables_json": null,
+        "db_dir": "database",
+        "queries_json": null,
+        "db_id": null
+      },
+      {
+        "name": "university",
+        "source": "builtin",
+        "generator": null,
+        "params": {},
+        "dsn": null,
+        "schema": "public",
+        "path": null,
+        "workload": null,
+        "curated_gold": null,
+        "max_rows": null,
+        "delimiter": null,
+        "db_ids": null,
+        "limit": null,
+        "tables_json": null,
+        "db_dir": "database",
+        "queries_json": null,
+        "db_id": null
+      },
+      {
+        "name": "retail_legacy",
+        "source": "builtin",
+        "generator": null,
+        "params": {},
+        "dsn": null,
+        "schema": "public",
+        "path": null,
+        "workload": null,
+        "curated_gold": null,
+        "max_rows": null,
+        "delimiter": null,
+        "db_ids": null,
+        "limit": null,
+        "tables_json": null,
+        "db_dir": "database",
+        "queries_json": null,
+        "db_id": null
+      },
+      {
+        "name": "airline",
+        "source": "builtin",
+        "generator": null,
+        "params": {},
+        "dsn": null,
+        "schema": "public",
+        "path": null,
+        "workload": null,
+        "curated_gold": null,
+        "max_rows": null,
+        "delimiter": null,
+        "db_ids": null,
+        "limit": null,
+        "tables_json": null,
+        "db_dir": "database",
+        "queries_json": null,
+        "db_id": null
+      }
+    ],
+    "noise": [
+      0,
+      1,
+      2,
+      3,
+      "names-abbreviated",
+      "names-cryptic",
+      "names-misleading"
+    ],
+    "methods": [
+      {
+        "name": "profiling",
+        "kind": "baseline",
+        "evidence": [
+          [
+            "names",
+            "stats",
+            "samples",
+            "logs"
+          ]
+        ],
+        "paraphrases": [
+          0
+        ],
+        "seeds": null,
+        "verify": false,
+        "llm": null,
+        "profiling": {
+          "ucc_max_arity": 3,
+          "fd_max_lhs": 2,
+          "ucc_max_error": 0.0,
+          "fd_max_error": 0.0,
+          "ind_min_coverage": 1.0,
+          "ind_coverage": "values",
+          "nary_fks": true,
+          "max_rows": null
+        },
+        "metanome": {
+          "cli_jar": "lib/metanome-cli.jar",
+          "algorithm_jars": {
+            "hyfd": "lib/HyFD.jar",
+            "hyucc": "lib/HyUCC.jar",
+            "binder": "lib/BINDER.jar"
+          },
+          "algorithms": [
+            "hyfd",
+            "hyucc",
+            "binder"
+          ],
+          "java": "java",
+          "java_opts": [
+            "-Xmx4g"
+          ],
+          "timeout_s": 3600,
+          "extra_args": {}
+        },
+        "learned": {
+          "min_coverage": 0.5,
+          "ref_min_uniqueness": 0.9,
+          "threshold": 0.5,
+          "l2": 1.0,
+          "epochs": 400,
+          "learning_rate": 0.3,
+          "balanced": true,
+          "max_rows": null,
+          "features": null
+        },
+        "scorer": "heuristic",
+        "threshold": 0.5,
+        "max_candidates": 150
+      },
+      {
+        "name": "profiling-approx",
+        "kind": "baseline",
+        "evidence": [
+          [
+            "names",
+            "stats",
+            "samples",
+            "logs"
+          ]
+        ],
+        "paraphrases": [
+          0
+        ],
+        "seeds": null,
+        "verify": false,
+        "llm": null,
+        "profiling": {
+          "ucc_max_arity": 3,
+          "fd_max_lhs": 2,
+          "ucc_max_error": 0.01,
+          "fd_max_error": 0.05,
+          "ind_min_coverage": 0.9,
+          "ind_coverage": "rows",
+          "nary_fks": true,
+          "max_rows": null
+        },
+        "metanome": {
+          "cli_jar": "lib/metanome-cli.jar",
+          "algorithm_jars": {
+            "hyfd": "lib/HyFD.jar",
+            "hyucc": "lib/HyUCC.jar",
+            "binder": "lib/BINDER.jar"
+          },
+          "algorithms": [
+            "hyfd",
+            "hyucc",
+            "binder"
+          ],
+          "java": "java",
+          "java_opts": [
+            "-Xmx4g"
+          ],
+          "timeout_s": 3600,
+          "extra_args": {}
+        },
+        "learned": {
+          "min_coverage": 0.5,
+          "ref_min_uniqueness": 0.9,
+          "threshold": 0.5,
+          "l2": 1.0,
+          "epochs": 400,
+          "learning_rate": 0.3,
+          "balanced": true,
+          "max_rows": null,
+          "features": null
+        },
+        "scorer": "heuristic",
+        "threshold": 0.5,
+        "max_candidates": 150
+      },
+      {
+        "name": "learned-fk",
+        "kind": "learned",
+        "evidence": [
+          [
+            "names",
+            "stats",
+            "samples",
+            "logs"
+          ]
+        ],
+        "paraphrases": [
+          0
+        ],
+        "seeds": null,
+        "verify": true,
+        "llm": null,
+        "profiling": {
+          "ucc_max_arity": 3,
+          "fd_max_lhs": 2,
+          "ucc_max_error": 0.0,
+          "fd_max_error": 0.0,
+          "ind_min_coverage": 1.0,
+          "ind_coverage": "values",
+          "nary_fks": true,
+          "max_rows": null
+        },
+        "metanome": {
+          "cli_jar": "lib/metanome-cli.jar",
+          "algorithm_jars": {
+            "hyfd": "lib/HyFD.jar",
+            "hyucc": "lib/HyUCC.jar",
+            "binder": "lib/BINDER.jar"
+          },
+          "algorithms": [
+            "hyfd",
+            "hyucc",
+            "binder"
+          ],
+          "java": "java",
+          "java_opts": [
+            "-Xmx4g"
+          ],
+          "timeout_s": 3600,
+          "extra_args": {}
+        },
+        "learned": {
+          "min_coverage": 0.5,
+          "ref_min_uniqueness": 0.9,
+          "threshold": 0.5,
+          "l2": 1.0,
+          "epochs": 400,
+          "learning_rate": 0.3,
+          "balanced": true,
+          "max_rows": null,
+          "features": null
+        },
+        "scorer": "heuristic",
+        "threshold": 0.5,
+        "max_candidates": 150
+      },
+      {
+        "name": "learned-fk-nologs",
+        "kind": "learned",
+        "evidence": [
+          [
+            "names",
+            "stats",
+            "samples",
+            "logs"
+          ]
+        ],
+        "paraphrases": [
+          0
+        ],
+        "seeds": null,
+        "verify": true,
+        "llm": null,
+        "profiling": {
+          "ucc_max_arity": 3,
+          "fd_max_lhs": 2,
+          "ucc_max_error": 0.0,
+          "fd_max_error": 0.0,
+          "ind_min_coverage": 1.0,
+          "ind_coverage": "values",
+          "nary_fks": true,
+          "max_rows": null
+        },
+        "metanome": {
+          "cli_jar": "lib/metanome-cli.jar",
+          "algorithm_jars": {
+            "hyfd": "lib/HyFD.jar",
+            "hyucc": "lib/HyUCC.jar",
+            "binder": "lib/BINDER.jar"
+          },
+          "algorithms": [
+            "hyfd",
+            "hyucc",
+            "binder"
+          ],
+          "java": "java",
+          "java_opts": [
+            "-Xmx4g"
+          ],
+          "timeout_s": 3600,
+          "extra_args": {}
+        },
+        "learned": {
+          "min_coverage": 0.5,
+          "ref_min_uniqueness": 0.9,
+          "threshold": 0.5,
+          "l2": 1.0,
+          "epochs": 400,
+          "learning_rate": 0.3,
+          "balanced": true,
+          "max_rows": null,
+          "features": [
+            "row_coverage",
+            "value_coverage",
+            "ref_uniqueness",
+            "dep_uniqueness",
+            "distinct_ratio",
+            "name_score",
+            "dep_keyish",
+            "ref_keyish",
+            "ref_first_column",
+            "same_table",
+            "range_inside",
+            "dep_null_ratio",
+            "ref_rows_ratio"
+          ]
+        },
+        "scorer": "heuristic",
+        "threshold": 0.5,
+        "max_candidates": 150
+      },
+      {
+        "name": "heuristic",
+        "kind": "heuristic",
+        "evidence": [
+          [
+            "names"
+          ],
+          [
+            "names",
+            "stats",
+            "samples",
+            "logs"
+          ]
+        ],
+        "paraphrases": [
+          0
+        ],
+        "seeds": null,
+        "verify": true,
+        "llm": null,
+        "profiling": {
+          "ucc_max_arity": 3,
+          "fd_max_lhs": 2,
+          "ucc_max_error": 0.0,
+          "fd_max_error": 0.0,
+          "ind_min_coverage": 1.0,
+          "ind_coverage": "values",
+          "nary_fks": true,
+          "max_rows": null
+        },
+        "metanome": {
+          "cli_jar": "lib/metanome-cli.jar",
+          "algorithm_jars": {
+            "hyfd": "lib/HyFD.jar",
+            "hyucc": "lib/HyUCC.jar",
+            "binder": "lib/BINDER.jar"
+          },
+          "algorithms": [
+            "hyfd",
+            "hyucc",
+            "binder"
+          ],
+          "java": "java",
+          "java_opts": [
+            "-Xmx4g"
+          ],
+          "timeout_s": 3600,
+          "extra_args": {}
+        },
+        "learned": {
+          "min_coverage": 0.5,
+          "ref_min_uniqueness": 0.9,
+          "threshold": 0.5,
+          "l2": 1.0,
+          "epochs": 400,
+          "learning_rate": 0.3,
+          "balanced": true,
+          "max_rows": null,
+          "features": null
+        },
+        "scorer": "heuristic",
+        "threshold": 0.5,
+        "max_candidates": 150
+      },
+      {
+        "name": "hybrid-heuristic",
+        "kind": "hybrid",
+        "evidence": [
+          [
+            "names",
+            "stats",
+            "samples",
+            "logs"
+          ]
+        ],
+        "paraphrases": [
+          0
+        ],
+        "seeds": null,
+        "verify": true,
+        "llm": null,
+        "profiling": {
+          "ucc_max_arity": 3,
+          "fd_max_lhs": 2,
+          "ucc_max_error": 0.0,
+          "fd_max_error": 0.0,
+          "ind_min_coverage": 1.0,
+          "ind_coverage": "values",
+          "nary_fks": true,
+          "max_rows": null
+        },
+        "metanome": {
+          "cli_jar": "lib/metanome-cli.jar",
+          "algorithm_jars": {
+            "hyfd": "lib/HyFD.jar",
+            "hyucc": "lib/HyUCC.jar",
+            "binder": "lib/BINDER.jar"
+          },
+          "algorithms": [
+            "hyfd",
+            "hyucc",
+            "binder"
+          ],
+          "java": "java",
+          "java_opts": [
+            "-Xmx4g"
+          ],
+          "timeout_s": 3600,
+          "extra_args": {}
+        },
+        "learned": {
+          "min_coverage": 0.5,
+          "ref_min_uniqueness": 0.9,
+          "threshold": 0.5,
+          "l2": 1.0,
+          "epochs": 400,
+          "learning_rate": 0.3,
+          "balanced": true,
+          "max_rows": null,
+          "features": null
+        },
+        "scorer": "heuristic",
+        "threshold": 0.6,
+        "max_candidates": 150
+      }
+    ],
+    "llm": {
+      "base_url": "http://localhost:8000/v1",
+      "model": "Qwen/Qwen2.5-7B-Instruct",
+      "revision": null,
+      "temperature": 0.0,
+      "top_p": 1.0,
+      "max_tokens": 4096,
+      "seed": 42,
+      "api_key_env": "SREV_LLM_API_KEY",
+      "response_format": "json_schema",
+      "timeout_s": 300.0,
+      "retries": 3,
+      "cache_dir": null,
+      "offline": false
+    },
+    "sample": {
+      "rows_per_table": 50,
+      "top_k": 5
+    },
+    "prompt": {
+      "channels": [
+        "names",
+        "stats",
+        "samples",
+        "logs"
+      ],
+      "token_budget": 8000,
+      "paraphrase": 0,
+      "max_sample_rows": 10,
+      "max_join_pairs": 60,
+      "max_value_chars": 40
+    },
+    "verify": {
+      "fk_min_coverage": 0.95,
+      "ucc_min_uniqueness": 0.99,
+      "fd_max_g3": 0.05,
+      "min_rows": 1
+    },
+    "eval": {
+      "bootstrap": 1000,
+      "top_k_factor": 1.0,
+      "fd_gold": "curated",
+      "exact_fd_max_lhs": 2
+    },
+    "synth": {
+      "enabled": true,
+      "variant": null,
+      "normal_form": "bcnf"
+    }
+  },
+  "config_sha256": "2f19f877c27f6f45757b867641ceb446d6c9875df8da1962c70389d8f1484bc6",
+  "seed": 2,
+  "datasets": [
+    {
+      "db_id": "tpch_mini_L0",
+      "dataset": "tpch_mini",
+      "noise": "L0",
+      "clean_checksum": "1d54e3a24c0a3b0bbe3a0bd9f2052403607b009e7acb923f58a3e22636f6ca3d",
+      "noisy_checksum": "1d54e3a24c0a3b0bbe3a0bd9f2052403607b009e7acb923f58a3e22636f6ca3d",
+      "rows": 4182,
+      "tables": 8,
+      "gold_counts": {
+        "FK": 10,
+        "UCC": 8,
+        "FD": 0
+      },
+      "noise_summary": {}
+    },
+    {
+      "db_id": "tpch_mini_L1",
+      "dataset": "tpch_mini",
+      "noise": "L1",
+      "clean_checksum": "1d54e3a24c0a3b0bbe3a0bd9f2052403607b009e7acb923f58a3e22636f6ca3d",
+      "noisy_checksum": "1195696818927d2256ccf345fcff53b096bb7aebe60ff89605fc736bc25bc0f5",
+      "rows": 4182,
+      "tables": 8,
+      "gold_counts": {
+        "FK": 10,
+        "UCC": 8,
+        "FD": 0
+      },
+      "noise_summary": {
+        "orphans": 120,
+        "typos": 172,
+        "nulls": 862,
+        "rename_columns": 19
+      }
+    },
+    {
+      "db_id": "tpch_mini_L2",
+      "dataset": "tpch_mini",
+      "noise": "L2",
+      "clean_checksum": "1d54e3a24c0a3b0bbe3a0bd9f2052403607b009e7acb923f58a3e22636f6ca3d",
+      "noisy_checksum": "80510100a5eea10e3e14617d6f7345d65fcbe441d85a0c36240a3820930da192",
+      "rows": 4182,
+      "tables": 8,
+      "gold_counts": {
+        "FK": 10,
+        "UCC": 8,
+        "FD": 0
+      },
+      "noise_summary": {
+        "orphans": 358,
+        "typos": 532,
+        "nulls": 2175,
+        "rename_columns": 35,
+        "rename_tables": 2
+      }
+    },
+    {
+      "db_id": "tpch_mini_L3",
+      "dataset": "tpch_mini",
+      "noise": "L3",
+      "clean_checksum": "1d54e3a24c0a3b0bbe3a0bd9f2052403607b009e7acb923f58a3e22636f6ca3d",
+      "noisy_checksum": "e53c195bb42f1999e2925f19f2abb5e397014f5c3469c906542dfb5a8eaaabe3",
+      "rows": 4182,
+      "tables": 8,
+      "gold_counts": {
+        "FK": 10,
+        "UCC": 8,
+        "FD": 0
+      },
+      "noise_summary": {
+        "orphans": 595,
+        "typos": 768,
+        "nulls": 4318,
+        "rename_columns": 61,
+        "rename_tables": 8
+      }
+    },
+    {
+      "db_id": "tpch_mini_names-abbreviated",
+      "dataset": "tpch_mini",
+      "noise": "names-abbreviated",
+      "clean_checksum": "1d54e3a24c0a3b0bbe3a0bd9f2052403607b009e7acb923f58a3e22636f6ca3d",
+      "noisy_checksum": "cc088fad8407e284dd0afc17ce77d17c46e2853b36058f6422e78194cf449596",
+      "rows": 4182,
+      "tables": 8,
+      "gold_counts": {
+        "FK": 10,
+        "UCC": 8,
+        "FD": 0
+      },
+      "noise_summary": {
+        "rename_columns": 59,
+        "rename_tables": 8
+      }
+    },
+    {
+      "db_id": "tpch_mini_names-cryptic",
+      "dataset": "tpch_mini",
+      "noise": "names-cryptic",
+      "clean_checksum": "1d54e3a24c0a3b0bbe3a0bd9f2052403607b009e7acb923f58a3e22636f6ca3d",
+      "noisy_checksum": "16194f83f05bdcff23fc5ed0e8a0dcfbfce2dab4abeb51dd7d8d53c92c25c418",
+      "rows": 4182,
+      "tables": 8,
+      "gold_counts": {
+        "FK": 10,
+        "UCC": 8,
+        "FD": 0
+      },
+      "noise_summary": {
+        "rename_columns": 61,
+        "rename_tables": 8
+      }
+    },
+    {
+      "db_id": "tpch_mini_names-misleading",
+      "dataset": "tpch_mini",
+      "noise": "names-misleading",
+      "clean_checksum": "1d54e3a24c0a3b0bbe3a0bd9f2052403607b009e7acb923f58a3e22636f6ca3d",
+      "noisy_checksum": "12fb0559783b249d9a30b65c45c8ac660931e01ff1814e7ed0934dbb50782101",
+      "rows": 4182,
+      "tables": 8,
+      "gold_counts": {
+        "FK": 10,
+        "UCC": 8,
+        "FD": 0
+      },
+      "noise_summary": {
+        "rename_columns": 61,
+        "rename_tables": 8
+      }
+    },
+    {
+      "db_id": "university_L0",
+      "dataset": "university",
+      "noise": "L0",
+      "clean_checksum": "211abb6e45b0a2f0e72aa097aaf8415e13faca865012d26fab2d4c26d787d7fe",
+      "noisy_checksum": "211abb6e45b0a2f0e72aa097aaf8415e13faca865012d26fab2d4c26d787d7fe",
+      "rows": 1794,
+      "tables": 8,
+      "gold_counts": {
+        "FK": 11,
+        "UCC": 11,
+        "FD": 4
+      },
+      "noise_summary": {}
+    },
+    {
+      "db_id": "university_L1",
+      "dataset": "university",
+      "noise": "L1",
+      "clean_checksum": "211abb6e45b0a2f0e72aa097aaf8415e13faca865012d26fab2d4c26d787d7fe",
+      "noisy_checksum": "2eefb48e60c42f42f754a7aec19bb7501e793db50db5e7786fc55b9735b2f590",
+      "rows": 1794,
+      "tables": 8,
+      "gold_counts": {
+        "FK": 11,
+        "UCC": 11,
+        "FD": 4
+      },
+      "noise_summary": {
+        "orphans": 31,
+        "nulls": 78,
+        "typos": 22,
+        "rename_columns": 10
+      }
+    },
+    {
+      "db_id": "university_L2",
+      "dataset": "university",
+      "noise": "L2",
+      "clean_checksum": "211abb6e45b0a2f0e72aa097aaf8415e13faca865012d26fab2d4c26d787d7fe",
+      "noisy_checksum": "cc9472ffe94e65503bf6264b02e8542076a2cd980774933683450cadf89cd6b5",
+      "rows": 1794,
+      "tables": 8,
+      "gold_counts": {
+        "FK": 11,
+        "UCC": 11,
+        "FD": 4
+      },
+      "noise_summary": {
+        "orphans": 101,
+        "nulls": 203,
+        "typos": 67,
+        "rename_columns": 20,
+        "rename_tables": 4
+      }
+    },
+    {
+      "db_id": "university_L3",
+      "dataset": "university",
+      "noise": "L3",
+      "clean_checksum": "211abb6e45b0a2f0e72aa097aaf8415e13faca865012d26fab2d4c26d787d7fe",
+      "noisy_checksum": "e2d046c16b415e7636264147ba2ca325ebfa12c1cc6c3152abb5cce3b89f5a7c",
+      "rows": 1794,
+      "tables": 8,
+      "gold_counts": {
+        "FK": 11,
+        "UCC": 11,
+        "FD": 4
+      },
+      "noise_summary": {
+        "orphans": 154,
+        "typos": 99,
+        "nulls": 383,
+        "rename_columns": 35,
+        "rename_tables": 8
+      }
+    },
+    {
+      "db_id": "university_names-abbreviated",
+      "dataset": "university",
+      "noise": "names-abbreviated",
+      "clean_checksum": "211abb6e45b0a2f0e72aa097aaf8415e13faca865012d26fab2d4c26d787d7fe",
+      "noisy_checksum": "474a70165c0ea90be208ccf0becd68f6c4a44329cb0650cae6be73ae024f182b",
+      "rows": 1794,
+      "tables": 8,
+      "gold_counts": {
+        "FK": 11,
+        "UCC": 11,
+        "FD": 4
+      },
+      "noise_summary": {
+        "rename_columns": 34,
+        "rename_tables": 8
+      }
+    },
+    {
+      "db_id": "university_names-cryptic",
+      "dataset": "university",
+      "noise": "names-cryptic",
+      "clean_checksum": "211abb6e45b0a2f0e72aa097aaf8415e13faca865012d26fab2d4c26d787d7fe",
+      "noisy_checksum": "4f5c65bbfacaf4a79f2e45214d0af2245f1794fa9d831aeee3cabf3ffbaeaa83",
+      "rows": 1794,
+      "tables": 8,
+      "gold_counts": {
+        "FK": 11,
+        "UCC": 11,
+        "FD": 4
+      },
+      "noise_summary": {
+        "rename_columns": 35,
+        "rename_tables": 8
+      }
+    },
+    {
+      "db_id": "university_names-misleading",
+      "dataset": "university",
+      "noise": "names-misleading",
+      "clean_checksum": "211abb6e45b0a2f0e72aa097aaf8415e13faca865012d26fab2d4c26d787d7fe",
+      "noisy_checksum": "a17ffe3f4030deaeacc3ca039ea3abd48c50e9978932d5432a34eb2de0b611c4",
+      "rows": 1794,
+      "tables": 8,
+      "gold_counts": {
+        "FK": 11,
+        "UCC": 11,
+        "FD": 4
+      },
+      "noise_summary": {
+        "rename_columns": 35,
+        "rename_tables": 8
+      }
+    },
+    {
+      "db_id": "retail_legacy_L0",
+      "dataset": "retail_legacy",
+      "noise": "L0",
+      "clean_checksum": "384566d958673cc06205ac68f2be69128f06c87c5866140179a0681107c63121",
+      "noisy_checksum": "384566d958673cc06205ac68f2be69128f06c87c5866140179a0681107c63121",
+      "rows": 1794,
+      "tables": 6,
+      "gold_counts": {
+        "FK": 6,
+        "UCC": 7,
+        "FD": 2
+      },
+      "noise_summary": {}
+    },
+    {
+      "db_id": "retail_legacy_L1",
+      "dataset": "retail_legacy",
+      "noise": "L1",
+      "clean_checksum": "384566d958673cc06205ac68f2be69128f06c87c5866140179a0681107c63121",
+      "noisy_checksum": "19e7c20b6d1420634fd45e1a22de4061f18fafddad16defa5ec6e68e0dce8b71",
+      "rows": 1794,
+      "tables": 6,
+      "gold_counts": {
+        "FK": 6,
+        "UCC": 7,
+        "FD": 2
+      },
+      "noise_summary": {
+        "orphans": 31,
+        "nulls": 127,
+        "typos": 27,
+        "rename_columns": 10
+      }
+    },
+    {
+      "db_id": "retail_legacy_L2",
+      "dataset": "retail_legacy",
+      "noise": "L2",
+      "clean_checksum": "384566d958673cc06205ac68f2be69128f06c87c5866140179a0681107c63121",
+      "noisy_checksum": "40a8dac651422604644d430b0b68187dc4ff4aa5c7e7c14ad8cbc69dcac88d5b",
+      "rows": 1794,
+      "tables": 6,
+      "gold_counts": {
+        "FK": 6,
+        "UCC": 7,
+        "FD": 2
+      },
+      "noise_summary": {
+        "orphans": 99,
+        "nulls": 332,
+        "typos": 63,
+        "rename_columns": 15,
+        "rename_tables": 4
+      }
+    },
+    {
+      "db_id": "retail_legacy_L3",
+      "dataset": "retail_legacy",
+      "noise": "L3",
+      "clean_checksum": "384566d958673cc06205ac68f2be69128f06c87c5866140179a0681107c63121",
+      "noisy_checksum": "71f33d902d1cfbbd0ed95984e767d746ca0f6040ee4dfc60fdfd812069b27f9d",
+      "rows": 1794,
+      "tables": 6,
+      "gold_counts": {
+        "FK": 6,
+        "UCC": 7,
+        "FD": 2
+      },
+      "noise_summary": {
+        "orphans": 152,
+        "nulls": 628,
+        "typos": 115,
+        "rename_columns": 26,
+        "rename_tables": 6
+      }
+    },
+    {
+      "db_id": "retail_legacy_names-abbreviated",
+      "dataset": "retail_legacy",
+      "noise": "names-abbreviated",
+      "clean_checksum": "384566d958673cc06205ac68f2be69128f06c87c5866140179a0681107c63121",
+      "noisy_checksum": "e72364be5cb659d2457844088165a585170bf3f15e525939e4787c75cdf4ce9b",
+      "rows": 1794,
+      "tables": 6,
+      "gold_counts": {
+        "FK": 6,
+        "UCC": 7,
+        "FD": 2
+      },
+      "noise_summary": {
+        "rename_columns": 20,
+        "rename_tables": 5
+      }
+    },
+    {
+      "db_id": "retail_legacy_names-cryptic",
+      "dataset": "retail_legacy",
+      "noise": "names-cryptic",
+      "clean_checksum": "384566d958673cc06205ac68f2be69128f06c87c5866140179a0681107c63121",
+      "noisy_checksum": "d3f0d92d12f623ae45d7522cd0410fcd81ccff6b9b545fa878b3807abf77fd88",
+      "rows": 1794,
+      "tables": 6,
+      "gold_counts": {
+        "FK": 6,
+        "UCC": 7,
+        "FD": 2
+      },
+      "noise_summary": {
+        "rename_columns": 26,
+        "rename_tables": 6
+      }
+    },
+    {
+      "db_id": "retail_legacy_names-misleading",
+      "dataset": "retail_legacy",
+      "noise": "names-misleading",
+      "clean_checksum": "384566d958673cc06205ac68f2be69128f06c87c5866140179a0681107c63121",
+      "noisy_checksum": "7df4f0fc9550184caabc0b4b22c9817c99a0bb12dde66ccb4c8fb26dabf804f8",
+      "rows": 1794,
+      "tables": 6,
+      "gold_counts": {
+        "FK": 6,
+        "UCC": 7,
+        "FD": 2
+      },
+      "noise_summary": {
+        "rename_columns": 26,
+        "rename_tables": 6
+      }
+    },
+    {
+      "db_id": "airline_L0",
+      "dataset": "airline",
+      "noise": "L0",
+      "clean_checksum": "89623e422a79a4dbb517096fb6ff4a7f7bc25dff2f5e96812e0ea48b504357b7",
+      "noisy_checksum": "89623e422a79a4dbb517096fb6ff4a7f7bc25dff2f5e96812e0ea48b504357b7",
+      "rows": 1765,
+      "tables": 6,
+      "gold_counts": {
+        "FK": 7,
+        "UCC": 8,
+        "FD": 1
+      },
+      "noise_summary": {}
+    },
+    {
+      "db_id": "airline_L1",
+      "dataset": "airline",
+      "noise": "L1",
+      "clean_checksum": "89623e422a79a4dbb517096fb6ff4a7f7bc25dff2f5e96812e0ea48b504357b7",
+      "noisy_checksum": "5e6edb5ef35239b6f4da4bed19fd0c59b6f25e53c2390e397ad39e0302a4fec2",
+      "rows": 1765,
+      "tables": 6,
+      "gold_counts": {
+        "FK": 7,
+        "UCC": 8,
+        "FD": 1
+      },
+      "noise_summary": {
+        "orphans": 32,
+        "nulls": 64,
+        "typos": 22,
+        "rename_columns": 6
+      }
+    },
+    {
+      "db_id": "airline_L2",
+      "dataset": "airline",
+      "noise": "L2",
+      "clean_checksum": "89623e422a79a4dbb517096fb6ff4a7f7bc25dff2f5e96812e0ea48b504357b7",
+      "noisy_checksum": "a2ed6d25780f3597b9ced18eacd26b2dea6c212f1e0f33ea3fa9227205773508",
+      "rows": 1765,
+      "tables": 6,
+      "gold_counts": {
+        "FK": 7,
+        "UCC": 8,
+        "FD": 1
+      },
+      "noise_summary": {
+        "orphans": 107,
+        "nulls": 152,
+        "typos": 55,
+        "rename_columns": 13
+      }
+    },
+    {
+      "db_id": "airline_L3",
+      "dataset": "airline",
+      "noise": "L3",
+      "clean_checksum": "89623e422a79a4dbb517096fb6ff4a7f7bc25dff2f5e96812e0ea48b504357b7",
+      "noisy_checksum": "0ba8a9b5c4807989b3ac959b0adc4baf549973ac6c096e9295afd444df550e4d",
+      "rows": 1765,
+      "tables": 6,
+      "gold_counts": {
+        "FK": 7,
+        "UCC": 8,
+        "FD": 1
+      },
+      "noise_summary": {
+        "orphans": 166,
+        "nulls": 325,
+        "typos": 88,
+        "rename_columns": 24,
+        "rename_tables": 6
+      }
+    },
+    {
+      "db_id": "airline_names-abbreviated",
+      "dataset": "airline",
+      "noise": "names-abbreviated",
+      "clean_checksum": "89623e422a79a4dbb517096fb6ff4a7f7bc25dff2f5e96812e0ea48b504357b7",
+      "noisy_checksum": "37f7e792042bb47f8bfc7eee04099010ba35b699a8e2952de82313c2482fdaae",
+      "rows": 1765,
+      "tables": 6,
+      "gold_counts": {
+        "FK": 7,
+        "UCC": 8,
+        "FD": 1
+      },
+      "noise_summary": {
+        "rename_columns": 24,
+        "rename_tables": 6
+      }
+    },
+    {
+      "db_id": "airline_names-cryptic",
+      "dataset": "airline",
+      "noise": "names-cryptic",
+      "clean_checksum": "89623e422a79a4dbb517096fb6ff4a7f7bc25dff2f5e96812e0ea48b504357b7",
+      "noisy_checksum": "aec86acf8f2a2a9661edb2a0a05500b81a21a9ec3cd5aceaeada569d5392f564",
+      "rows": 1765,
+      "tables": 6,
+      "gold_counts": {
+        "FK": 7,
+        "UCC": 8,
+        "FD": 1
+      },
+      "noise_summary": {
+        "rename_columns": 24,
+        "rename_tables": 6
+      }
+    },
+    {
+      "db_id": "airline_names-misleading",
+      "dataset": "airline",
+      "noise": "names-misleading",
+      "clean_checksum": "89623e422a79a4dbb517096fb6ff4a7f7bc25dff2f5e96812e0ea48b504357b7",
+      "noisy_checksum": "6296b3682024433dbff5966939b87bb0c7697e637ba77406798bc596602fbca6",
+      "rows": 1765,
+      "tables": 6,
+      "gold_counts": {
+        "FK": 7,
+        "UCC": 8,
+        "FD": 1
+      },
+      "noise_summary": {
+        "rename_columns": 24,
+        "rename_tables": 6
+      }
+    }
+  ],
+  "llm": {},
+  "hardware": {
+    "platform": "Linux-6.18.44-fc-v185-x86_64-with-glibc2.39",
+    "machine": "x86_64",
+    "processor": "x86_64",
+    "cpu_count": 4,
+    "python": "3.13.17",
+    "memory_gb": 16.9,
+    "gpus": []
+  },
+  "packages": {
+    "srev": "0.1.0",
+    "pydantic": "2.14.2",
+    "sqlglot": "30.26.0",
+    "httpx": "0.28.1",
+    "PyYAML": "6.0.3",
+    "psycopg": "3.3.6"
+  },
+  "notes": []
+}

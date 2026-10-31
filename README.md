@@ -4,12 +4,12 @@
 
 **Recover the keys, foreign keys and functional dependencies that a legacy database never declared, and measure whether LLMs do it better than statistical profiling.**
 
-![status](https://img.shields.io/badge/status-implemented%2C%20experiments%20pending-yellow)
+![status](https://img.shields.io/badge/status-baselines%20benchmarked%2C%20LLM%20runs%20pending-yellow)
 ![license](https://img.shields.io/badge/license-MIT-blue)
 ![python](https://img.shields.io/badge/python-3.11%2B-informational)
 ![postgres](https://img.shields.io/badge/PostgreSQL-16-336791)
 ![vLLM](https://img.shields.io/badge/LLM-vLLM%20%7C%20OpenAI--compatible-6d28d9)
-![tests](https://img.shields.io/badge/tests-104%20passing-15803d)
+![tests](https://img.shields.io/badge/tests-105%20passing-15803d)
 
 [Demo](#demo) · [Architecture](#architecture) · [Quick start](#quick-start) · [Usage guide](docs/USAGE.md) · [Screenshots](#screenshots) · [Research plan](docs/RESEARCH.md)
 
@@ -24,7 +24,7 @@
 `srev` asks whether large language models can recover the *implicit* structure of legacy databases: foreign keys (FKs), unique column combinations (UCCs), functional dependencies (FDs) and, from those, a normalised relational model. The LLM gets column names, statistics, sampled rows and query logs. Its proposals are checked against the data with SQL and benchmarked against exact data-profiling baselines (and, optionally, the [Metanome](https://hpi.de/naumann/projects/data-profiling-and-analytics/metanome-data-profiling.html) algorithms) on databases whose ground-truth constraints are known. The project extends the author's master's thesis on reverse engineering existing databases into explicit relational models.
 
 > [!IMPORTANT]
-> **Status: pipeline implemented, experiments not yet run.** Every feature in [docs/FEATURES.md](docs/FEATURES.md) is implemented and tested (104 tests, including PostgreSQL integration tests). The LLM path has only run against a fake OpenAI-compatible server in the tests. **No experiments with real models have been run and no research results are claimed.** The numbers in the screenshots come from the offline baseline and heuristic methods on generated data.
+> **Status: non-LLM benchmark complete, LLM experiments pending.** Every feature in [docs/FEATURES.md](docs/FEATURES.md) is implemented and tested (105 tests, including PostgreSQL integration tests). The full protocol has been run for all methods that need no language model ([docs/RESULTS.md](docs/RESULTS.md)). The LLM path has only run against a fake OpenAI-compatible server in the tests: **no experiments with real models have been run and no LLM results are claimed.** The numbers in the screenshots come from the offline baseline and heuristic methods on generated data.
 
 ## Contents
 
@@ -50,16 +50,17 @@ This toolkit is the artefact behind a PhD proposal on **semantic data profiling*
 
 📄 **Exposé:** [docs/PROPOSAL.md](docs/PROPOSAL.md): motivation, RQ1–RQ7, approach, pilot results, three-year work plan, risks, references.
 
-Pilot (offline methods on three generated databases, no LLM yet). FK macro F1 by noise level and under misleading names:
+📊 **Benchmark results:** [docs/RESULTS.md](docs/RESULTS.md). Full protocol for all non-LLM methods: four generated databases, noise L0–L3, three name probes, three seeds. FK macro F1, mean over seeds:
 
 | Method | L0 | L1 | L2 | L3 | misleading names |
 |---|---|---|---|---|---|
-| Exact profiling | 0.65 | 0.21 | 0.04 | 0.06 | 0.65 |
-| Approximate profiling (partial INDs, g3) | 0.63 | 0.63 | 0.62 | 0.60 | 0.63 |
-| Name/statistics heuristic + verifier | 0.98 | 0.81 | 0.65 | 0.51 | 0.54 |
-| Learned FK classifier (no query-log feature) | 0.89 | 0.87 | 0.86 | 0.78 | 0.86 |
+| Exact profiling | 0.68 | 0.16 | 0.07 | 0.02 | 0.68 |
+| Approximate profiling (partial INDs, g3) | 0.67 | 0.67 | 0.67 | 0.64 | 0.67 |
+| Names-only heuristic + verifier | 0.86 | 0.55 | 0.25 | – | 0.14 |
+| Names + statistics heuristic + verifier | 0.97 | 0.76 | 0.59 | 0.37 | 0.71 |
+| Learned FK classifier (no query-log feature) | 0.87 | 0.86 | 0.79 | 0.76 | 0.85 |
 
-Exact discovery breaks on dirty data, name-reliant methods collapse when names mislead, and genuine FD discovery stays hard for every method (FD macro F1 ≤ 0.53). These observations motivate the LLM experiments rather than replace them.
+Exact discovery breaks on dirty data, name-reliant methods collapse when names mislead, and genuine FD discovery stays unsolved (exact-profiler FD precision ≈ 1.4%, best FD F1 0.53). **No LLM has been evaluated yet**; these runs fix the baselines the LLM experiments will be compared against.
 
 ## For data engineers and data scientists
 
@@ -406,6 +407,7 @@ node docs/media/tools/render.mjs /tmp/srev-de docs/media
 | M4: Evaluation | Full benchmark, hallucination analysis, write-up | Harness implemented; experiments pending |
 | M5: Research extensions | Approximate profiling, learned FK classifier, name probes, Spider/BIRD loader, LaTeX export | ✅ Implemented; pilot on generated data |
 | M6: Data-engineering toolkit | `discover`, dbt export, quality checks, schema graph, HTML report, CSV/pandas ingestion | ✅ Implemented |
+| M7: Baseline benchmark | All non-LLM methods, 4 databases × 7 conditions × 3 seeds, results in docs/RESULTS.md | ✅ Done |
 | Next | Real-model runs, Spider/BIRD breadth study, genuine-FD ranking (RQ6) | Planned, see [docs/PROPOSAL.md](docs/PROPOSAL.md) §7 |
 
 ## Citation

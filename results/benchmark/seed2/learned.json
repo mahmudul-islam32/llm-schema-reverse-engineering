@@ -1,0 +1,866 @@
+[
+  {
+    "method": "learned-fk",
+    "held_out": "airline",
+    "feature": "row_coverage",
+    "weight": 1.4916,
+    "train_candidates": 612,
+    "train_positives": 182
+  },
+  {
+    "method": "learned-fk",
+    "held_out": "airline",
+    "feature": "value_coverage",
+    "weight": 0.3115,
+    "train_candidates": 612,
+    "train_positives": 182
+  },
+  {
+    "method": "learned-fk",
+    "held_out": "airline",
+    "feature": "ref_uniqueness",
+    "weight": 0.1977,
+    "train_candidates": 612,
+    "train_positives": 182
+  },
+  {
+    "method": "learned-fk",
+    "held_out": "airline",
+    "feature": "dep_uniqueness",
+    "weight": -0.0984,
+    "train_candidates": 612,
+    "train_positives": 182
+  },
+  {
+    "method": "learned-fk",
+    "held_out": "airline",
+    "feature": "distinct_ratio",
+    "weight": 1.3033,
+    "train_candidates": 612,
+    "train_positives": 182
+  },
+  {
+    "method": "learned-fk",
+    "held_out": "airline",
+    "feature": "name_score",
+    "weight": 0.2812,
+    "train_candidates": 612,
+    "train_positives": 182
+  },
+  {
+    "method": "learned-fk",
+    "held_out": "airline",
+    "feature": "dep_keyish",
+    "weight": 0.1194,
+    "train_candidates": 612,
+    "train_positives": 182
+  },
+  {
+    "method": "learned-fk",
+    "held_out": "airline",
+    "feature": "ref_keyish",
+    "weight": -0.1585,
+    "train_candidates": 612,
+    "train_positives": 182
+  },
+  {
+    "method": "learned-fk",
+    "held_out": "airline",
+    "feature": "ref_first_column",
+    "weight": 0.5889,
+    "train_candidates": 612,
+    "train_positives": 182
+  },
+  {
+    "method": "learned-fk",
+    "held_out": "airline",
+    "feature": "same_table",
+    "weight": -0.1595,
+    "train_candidates": 612,
+    "train_positives": 182
+  },
+  {
+    "method": "learned-fk",
+    "held_out": "airline",
+    "feature": "range_inside",
+    "weight": -0.1791,
+    "train_candidates": 612,
+    "train_positives": 182
+  },
+  {
+    "method": "learned-fk",
+    "held_out": "airline",
+    "feature": "dep_null_ratio",
+    "weight": 0.347,
+    "train_candidates": 612,
+    "train_positives": 182
+  },
+  {
+    "method": "learned-fk",
+    "held_out": "airline",
+    "feature": "join_log",
+    "weight": 3.4394,
+    "train_candidates": 612,
+    "train_positives": 182
+  },
+  {
+    "method": "learned-fk",
+    "held_out": "airline",
+    "feature": "ref_rows_ratio",
+    "weight": -0.0335,
+    "train_candidates": 612,
+    "train_positives": 182
+  },
+  {
+    "method": "learned-fk",
+    "held_out": "retail_legacy",
+    "feature": "row_coverage",
+    "weight": 1.3682,
+    "train_candidates": 633,
+    "train_positives": 189
+  },
+  {
+    "method": "learned-fk",
+    "held_out": "retail_legacy",
+    "feature": "value_coverage",
+    "weight": 0.4992,
+    "train_candidates": 633,
+    "train_positives": 189
+  },
+  {
+    "method": "learned-fk",
+    "held_out": "retail_legacy",
+    "feature": "ref_uniqueness",
+    "weight": 0.2182,
+    "train_candidates": 633,
+    "train_positives": 189
+  },
+  {
+    "method": "learned-fk",
+    "held_out": "retail_legacy",
+    "feature": "dep_uniqueness",
+    "weight": -0.3429,
+    "train_candidates": 633,
+    "train_positives": 189
+  },
+  {
+    "method": "learned-fk",
+    "held_out": "retail_legacy",
+    "feature": "distinct_ratio",
+    "weight": 1.2845,
+    "train_candidates": 633,
+    "train_positives": 189
+  },
+  {
+    "method": "learned-fk",
+    "held_out": "retail_legacy",
+    "feature": "name_score",
+    "weight": 0.2992,
+    "train_candidates": 633,
+    "train_positives": 189
+  },
+  {
+    "method": "learned-fk",
+    "held_out": "retail_legacy",
+    "feature": "dep_keyish",
+    "weight": 0.1518,
+    "train_candidates": 633,
+    "train_positives": 189
+  },
+  {
+    "method": "learned-fk",
+    "held_out": "retail_legacy",
+    "feature": "ref_keyish",
+    "weight": -0.1632,
+    "train_candidates": 633,
+    "train_positives": 189
+  },
+  {
+    "method": "learned-fk",
+    "held_out": "retail_legacy",
+    "feature": "ref_first_column",
+    "weight": 0.4926,
+    "train_candidates": 633,
+    "train_positives": 189
+  },
+  {
+    "method": "learned-fk",
+    "held_out": "retail_legacy",
+    "feature": "same_table",
+    "weight": 0.1288,
+    "train_candidates": 633,
+    "train_positives": 189
+  },
+  {
+    "method": "learned-fk",
+    "held_out": "retail_legacy",
+    "feature": "range_inside",
+    "weight": -0.2165,
+    "train_candidates": 633,
+    "train_positives": 189
+  },
+  {
+    "method": "learned-fk",
+    "held_out": "retail_legacy",
+    "feature": "dep_null_ratio",
+    "weight": 0.4038,
+    "train_candidates": 633,
+    "train_positives": 189
+  },
+  {
+    "method": "learned-fk",
+    "held_out": "retail_legacy",
+    "feature": "join_log",
+    "weight": 3.4969,
+    "train_candidates": 633,
+    "train_positives": 189
+  },
+  {
+    "method": "learned-fk",
+    "held_out": "retail_legacy",
+    "feature": "ref_rows_ratio",
+    "weight": -0.0389,
+    "train_candidates": 633,
+    "train_positives": 189
+  },
+  {
+    "method": "learned-fk",
+    "held_out": "tpch_mini",
+    "feature": "row_coverage",
+    "weight": 1.7099,
+    "train_candidates": 330,
+    "train_positives": 168
+  },
+  {
+    "method": "learned-fk",
+    "held_out": "tpch_mini",
+    "feature": "value_coverage",
+    "weight": 0.3575,
+    "train_candidates": 330,
+    "train_positives": 168
+  },
+  {
+    "method": "learned-fk",
+    "held_out": "tpch_mini",
+    "feature": "ref_uniqueness",
+    "weight": 0.0,
+    "train_candidates": 330,
+    "train_positives": 168
+  },
+  {
+    "method": "learned-fk",
+    "held_out": "tpch_mini",
+    "feature": "dep_uniqueness",
+    "weight": -0.1163,
+    "train_candidates": 330,
+    "train_positives": 168
+  },
+  {
+    "method": "learned-fk",
+    "held_out": "tpch_mini",
+    "feature": "distinct_ratio",
+    "weight": 1.1701,
+    "train_candidates": 330,
+    "train_positives": 168
+  },
+  {
+    "method": "learned-fk",
+    "held_out": "tpch_mini",
+    "feature": "name_score",
+    "weight": 0.1584,
+    "train_candidates": 330,
+    "train_positives": 168
+  },
+  {
+    "method": "learned-fk",
+    "held_out": "tpch_mini",
+    "feature": "dep_keyish",
+    "weight": 0.0865,
+    "train_candidates": 330,
+    "train_positives": 168
+  },
+  {
+    "method": "learned-fk",
+    "held_out": "tpch_mini",
+    "feature": "ref_keyish",
+    "weight": -0.1635,
+    "train_candidates": 330,
+    "train_positives": 168
+  },
+  {
+    "method": "learned-fk",
+    "held_out": "tpch_mini",
+    "feature": "ref_first_column",
+    "weight": 0.6269,
+    "train_candidates": 330,
+    "train_positives": 168
+  },
+  {
+    "method": "learned-fk",
+    "held_out": "tpch_mini",
+    "feature": "same_table",
+    "weight": 0.1246,
+    "train_candidates": 330,
+    "train_positives": 168
+  },
+  {
+    "method": "learned-fk",
+    "held_out": "tpch_mini",
+    "feature": "range_inside",
+    "weight": -0.0745,
+    "train_candidates": 330,
+    "train_positives": 168
+  },
+  {
+    "method": "learned-fk",
+    "held_out": "tpch_mini",
+    "feature": "dep_null_ratio",
+    "weight": 0.4922,
+    "train_candidates": 330,
+    "train_positives": 168
+  },
+  {
+    "method": "learned-fk",
+    "held_out": "tpch_mini",
+    "feature": "join_log",
+    "weight": 3.2781,
+    "train_candidates": 330,
+    "train_positives": 168
+  },
+  {
+    "method": "learned-fk",
+    "held_out": "tpch_mini",
+    "feature": "ref_rows_ratio",
+    "weight": -0.2199,
+    "train_candidates": 330,
+    "train_positives": 168
+  },
+  {
+    "method": "learned-fk",
+    "held_out": "university",
+    "feature": "row_coverage",
+    "weight": 0.9192,
+    "train_candidates": 513,
+    "train_positives": 154
+  },
+  {
+    "method": "learned-fk",
+    "held_out": "university",
+    "feature": "value_coverage",
+    "weight": 0.3145,
+    "train_candidates": 513,
+    "train_positives": 154
+  },
+  {
+    "method": "learned-fk",
+    "held_out": "university",
+    "feature": "ref_uniqueness",
+    "weight": 0.4315,
+    "train_candidates": 513,
+    "train_positives": 154
+  },
+  {
+    "method": "learned-fk",
+    "held_out": "university",
+    "feature": "dep_uniqueness",
+    "weight": -0.0893,
+    "train_candidates": 513,
+    "train_positives": 154
+  },
+  {
+    "method": "learned-fk",
+    "held_out": "university",
+    "feature": "distinct_ratio",
+    "weight": 1.1674,
+    "train_candidates": 513,
+    "train_positives": 154
+  },
+  {
+    "method": "learned-fk",
+    "held_out": "university",
+    "feature": "name_score",
+    "weight": 0.3165,
+    "train_candidates": 513,
+    "train_positives": 154
+  },
+  {
+    "method": "learned-fk",
+    "held_out": "university",
+    "feature": "dep_keyish",
+    "weight": 0.0629,
+    "train_candidates": 513,
+    "train_positives": 154
+  },
+  {
+    "method": "learned-fk",
+    "held_out": "university",
+    "feature": "ref_keyish",
+    "weight": 0.0328,
+    "train_candidates": 513,
+    "train_positives": 154
+  },
+  {
+    "method": "learned-fk",
+    "held_out": "university",
+    "feature": "ref_first_column",
+    "weight": 0.5712,
+    "train_candidates": 513,
+    "train_positives": 154
+  },
+  {
+    "method": "learned-fk",
+    "held_out": "university",
+    "feature": "same_table",
+    "weight": 0.1318,
+    "train_candidates": 513,
+    "train_positives": 154
+  },
+  {
+    "method": "learned-fk",
+    "held_out": "university",
+    "feature": "range_inside",
+    "weight": -0.2109,
+    "train_candidates": 513,
+    "train_positives": 154
+  },
+  {
+    "method": "learned-fk",
+    "held_out": "university",
+    "feature": "dep_null_ratio",
+    "weight": 0.4456,
+    "train_candidates": 513,
+    "train_positives": 154
+  },
+  {
+    "method": "learned-fk",
+    "held_out": "university",
+    "feature": "join_log",
+    "weight": 3.7196,
+    "train_candidates": 513,
+    "train_positives": 154
+  },
+  {
+    "method": "learned-fk",
+    "held_out": "university",
+    "feature": "ref_rows_ratio",
+    "weight": -0.0963,
+    "train_candidates": 513,
+    "train_positives": 154
+  },
+  {
+    "method": "learned-fk-nologs",
+    "held_out": "airline",
+    "feature": "row_coverage",
+    "weight": 2.2341,
+    "train_candidates": 612,
+    "train_positives": 182
+  },
+  {
+    "method": "learned-fk-nologs",
+    "held_out": "airline",
+    "feature": "value_coverage",
+    "weight": 0.2996,
+    "train_candidates": 612,
+    "train_positives": 182
+  },
+  {
+    "method": "learned-fk-nologs",
+    "held_out": "airline",
+    "feature": "ref_uniqueness",
+    "weight": -0.1081,
+    "train_candidates": 612,
+    "train_positives": 182
+  },
+  {
+    "method": "learned-fk-nologs",
+    "held_out": "airline",
+    "feature": "dep_uniqueness",
+    "weight": 0.2883,
+    "train_candidates": 612,
+    "train_positives": 182
+  },
+  {
+    "method": "learned-fk-nologs",
+    "held_out": "airline",
+    "feature": "distinct_ratio",
+    "weight": 3.0943,
+    "train_candidates": 612,
+    "train_positives": 182
+  },
+  {
+    "method": "learned-fk-nologs",
+    "held_out": "airline",
+    "feature": "name_score",
+    "weight": 0.62,
+    "train_candidates": 612,
+    "train_positives": 182
+  },
+  {
+    "method": "learned-fk-nologs",
+    "held_out": "airline",
+    "feature": "dep_keyish",
+    "weight": 0.0452,
+    "train_candidates": 612,
+    "train_positives": 182
+  },
+  {
+    "method": "learned-fk-nologs",
+    "held_out": "airline",
+    "feature": "ref_keyish",
+    "weight": -0.1441,
+    "train_candidates": 612,
+    "train_positives": 182
+  },
+  {
+    "method": "learned-fk-nologs",
+    "held_out": "airline",
+    "feature": "ref_first_column",
+    "weight": 1.2168,
+    "train_candidates": 612,
+    "train_positives": 182
+  },
+  {
+    "method": "learned-fk-nologs",
+    "held_out": "airline",
+    "feature": "same_table",
+    "weight": -0.4034,
+    "train_candidates": 612,
+    "train_positives": 182
+  },
+  {
+    "method": "learned-fk-nologs",
+    "held_out": "airline",
+    "feature": "range_inside",
+    "weight": -0.3979,
+    "train_candidates": 612,
+    "train_positives": 182
+  },
+  {
+    "method": "learned-fk-nologs",
+    "held_out": "airline",
+    "feature": "dep_null_ratio",
+    "weight": 0.5154,
+    "train_candidates": 612,
+    "train_positives": 182
+  },
+  {
+    "method": "learned-fk-nologs",
+    "held_out": "airline",
+    "feature": "ref_rows_ratio",
+    "weight": 0.2064,
+    "train_candidates": 612,
+    "train_positives": 182
+  },
+  {
+    "method": "learned-fk-nologs",
+    "held_out": "retail_legacy",
+    "feature": "row_coverage",
+    "weight": 2.2188,
+    "train_candidates": 633,
+    "train_positives": 189
+  },
+  {
+    "method": "learned-fk-nologs",
+    "held_out": "retail_legacy",
+    "feature": "value_coverage",
+    "weight": 0.6687,
+    "train_candidates": 633,
+    "train_positives": 189
+  },
+  {
+    "method": "learned-fk-nologs",
+    "held_out": "retail_legacy",
+    "feature": "ref_uniqueness",
+    "weight": -0.0939,
+    "train_candidates": 633,
+    "train_positives": 189
+  },
+  {
+    "method": "learned-fk-nologs",
+    "held_out": "retail_legacy",
+    "feature": "dep_uniqueness",
+    "weight": -0.375,
+    "train_candidates": 633,
+    "train_positives": 189
+  },
+  {
+    "method": "learned-fk-nologs",
+    "held_out": "retail_legacy",
+    "feature": "distinct_ratio",
+    "weight": 3.2678,
+    "train_candidates": 633,
+    "train_positives": 189
+  },
+  {
+    "method": "learned-fk-nologs",
+    "held_out": "retail_legacy",
+    "feature": "name_score",
+    "weight": 0.6207,
+    "train_candidates": 633,
+    "train_positives": 189
+  },
+  {
+    "method": "learned-fk-nologs",
+    "held_out": "retail_legacy",
+    "feature": "dep_keyish",
+    "weight": 0.1362,
+    "train_candidates": 633,
+    "train_positives": 189
+  },
+  {
+    "method": "learned-fk-nologs",
+    "held_out": "retail_legacy",
+    "feature": "ref_keyish",
+    "weight": -0.1305,
+    "train_candidates": 633,
+    "train_positives": 189
+  },
+  {
+    "method": "learned-fk-nologs",
+    "held_out": "retail_legacy",
+    "feature": "ref_first_column",
+    "weight": 1.0266,
+    "train_candidates": 633,
+    "train_positives": 189
+  },
+  {
+    "method": "learned-fk-nologs",
+    "held_out": "retail_legacy",
+    "feature": "same_table",
+    "weight": 0.3921,
+    "train_candidates": 633,
+    "train_positives": 189
+  },
+  {
+    "method": "learned-fk-nologs",
+    "held_out": "retail_legacy",
+    "feature": "range_inside",
+    "weight": -0.5265,
+    "train_candidates": 633,
+    "train_positives": 189
+  },
+  {
+    "method": "learned-fk-nologs",
+    "held_out": "retail_legacy",
+    "feature": "dep_null_ratio",
+    "weight": 0.7577,
+    "train_candidates": 633,
+    "train_positives": 189
+  },
+  {
+    "method": "learned-fk-nologs",
+    "held_out": "retail_legacy",
+    "feature": "ref_rows_ratio",
+    "weight": 0.4119,
+    "train_candidates": 633,
+    "train_positives": 189
+  },
+  {
+    "method": "learned-fk-nologs",
+    "held_out": "tpch_mini",
+    "feature": "row_coverage",
+    "weight": 2.1046,
+    "train_candidates": 330,
+    "train_positives": 168
+  },
+  {
+    "method": "learned-fk-nologs",
+    "held_out": "tpch_mini",
+    "feature": "value_coverage",
+    "weight": 0.263,
+    "train_candidates": 330,
+    "train_positives": 168
+  },
+  {
+    "method": "learned-fk-nologs",
+    "held_out": "tpch_mini",
+    "feature": "ref_uniqueness",
+    "weight": 0.0,
+    "train_candidates": 330,
+    "train_positives": 168
+  },
+  {
+    "method": "learned-fk-nologs",
+    "held_out": "tpch_mini",
+    "feature": "dep_uniqueness",
+    "weight": 0.5911,
+    "train_candidates": 330,
+    "train_positives": 168
+  },
+  {
+    "method": "learned-fk-nologs",
+    "held_out": "tpch_mini",
+    "feature": "distinct_ratio",
+    "weight": 3.3335,
+    "train_candidates": 330,
+    "train_positives": 168
+  },
+  {
+    "method": "learned-fk-nologs",
+    "held_out": "tpch_mini",
+    "feature": "name_score",
+    "weight": 0.2859,
+    "train_candidates": 330,
+    "train_positives": 168
+  },
+  {
+    "method": "learned-fk-nologs",
+    "held_out": "tpch_mini",
+    "feature": "dep_keyish",
+    "weight": 0.0273,
+    "train_candidates": 330,
+    "train_positives": 168
+  },
+  {
+    "method": "learned-fk-nologs",
+    "held_out": "tpch_mini",
+    "feature": "ref_keyish",
+    "weight": -0.0065,
+    "train_candidates": 330,
+    "train_positives": 168
+  },
+  {
+    "method": "learned-fk-nologs",
+    "held_out": "tpch_mini",
+    "feature": "ref_first_column",
+    "weight": 1.4139,
+    "train_candidates": 330,
+    "train_positives": 168
+  },
+  {
+    "method": "learned-fk-nologs",
+    "held_out": "tpch_mini",
+    "feature": "same_table",
+    "weight": 0.7116,
+    "train_candidates": 330,
+    "train_positives": 168
+  },
+  {
+    "method": "learned-fk-nologs",
+    "held_out": "tpch_mini",
+    "feature": "range_inside",
+    "weight": -0.2984,
+    "train_candidates": 330,
+    "train_positives": 168
+  },
+  {
+    "method": "learned-fk-nologs",
+    "held_out": "tpch_mini",
+    "feature": "dep_null_ratio",
+    "weight": 0.9588,
+    "train_candidates": 330,
+    "train_positives": 168
+  },
+  {
+    "method": "learned-fk-nologs",
+    "held_out": "tpch_mini",
+    "feature": "ref_rows_ratio",
+    "weight": -0.1815,
+    "train_candidates": 330,
+    "train_positives": 168
+  },
+  {
+    "method": "learned-fk-nologs",
+    "held_out": "university",
+    "feature": "row_coverage",
+    "weight": 2.2434,
+    "train_candidates": 513,
+    "train_positives": 154
+  },
+  {
+    "method": "learned-fk-nologs",
+    "held_out": "university",
+    "feature": "value_coverage",
+    "weight": 0.533,
+    "train_candidates": 513,
+    "train_positives": 154
+  },
+  {
+    "method": "learned-fk-nologs",
+    "held_out": "university",
+    "feature": "ref_uniqueness",
+    "weight": -0.0746,
+    "train_candidates": 513,
+    "train_positives": 154
+  },
+  {
+    "method": "learned-fk-nologs",
+    "held_out": "university",
+    "feature": "dep_uniqueness",
+    "weight": -0.1588,
+    "train_candidates": 513,
+    "train_positives": 154
+  },
+  {
+    "method": "learned-fk-nologs",
+    "held_out": "university",
+    "feature": "distinct_ratio",
+    "weight": 2.8314,
+    "train_candidates": 513,
+    "train_positives": 154
+  },
+  {
+    "method": "learned-fk-nologs",
+    "held_out": "university",
+    "feature": "name_score",
+    "weight": 0.5302,
+    "train_candidates": 513,
+    "train_positives": 154
+  },
+  {
+    "method": "learned-fk-nologs",
+    "held_out": "university",
+    "feature": "dep_keyish",
+    "weight": -0.0187,
+    "train_candidates": 513,
+    "train_positives": 154
+  },
+  {
+    "method": "learned-fk-nologs",
+    "held_out": "university",
+    "feature": "ref_keyish",
+    "weight": 0.0715,
+    "train_candidates": 513,
+    "train_positives": 154
+  },
+  {
+    "method": "learned-fk-nologs",
+    "held_out": "university",
+    "feature": "ref_first_column",
+    "weight": 0.9404,
+    "train_candidates": 513,
+    "train_positives": 154
+  },
+  {
+    "method": "learned-fk-nologs",
+    "held_out": "university",
+    "feature": "same_table",
+    "weight": 0.3162,
+    "train_candidates": 513,
+    "train_positives": 154
+  },
+  {
+    "method": "learned-fk-nologs",
+    "held_out": "university",
+    "feature": "range_inside",
+    "weight": -0.4574,
+    "train_candidates": 513,
+    "train_positives": 154
+  },
+  {
+    "method": "learned-fk-nologs",
+    "held_out": "university",
+    "feature": "dep_null_ratio",
+    "weight": 0.9618,
+    "train_candidates": 513,
+    "train_positives": 154
+  },
+  {
+    "method": "learned-fk-nologs",
+    "held_out": "university",
+    "feature": "ref_rows_ratio",
+    "weight": 0.1606,
+    "train_candidates": 513,
+    "train_positives": 154
+  }
+]

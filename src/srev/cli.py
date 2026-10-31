@@ -169,6 +169,10 @@ def cmd_discover(args: argparse.Namespace) -> int:
     (out / "model.sql").write_text(synth.ddl)
     (out / "migration.sql").write_text(synth.migration)
     (out / "model.mmd").write_text(synth.mermaid)
+    if args.html:
+        from srev.htmlreport import write as write_html
+
+        write_html(out / "report.html", evidence, result)
     if args.dbt:
         from srev.dbt import build_project
 
@@ -662,6 +666,7 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument("--fk-threshold", type=float, default=0.5)
     p.add_argument("--target-schema", default="normalized")
     p.add_argument("--dbt", action="store_true", help="also write a dbt project to OUT/dbt")
+    p.add_argument("--html", action="store_true", help="also write OUT/report.html")
     p.add_argument("-o", "--output", default="discovery")
     p.set_defaults(func=cmd_discover)
 

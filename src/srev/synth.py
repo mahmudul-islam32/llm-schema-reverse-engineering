@@ -76,11 +76,17 @@ def _choose_pk(table: str, uccs: list[Proposal], evidence: Evidence) -> Proposal
         return None
     t = evidence.table(table)
 
-    def rank(p: Proposal) -> tuple[int, int, float, float]:
+    stem = names.table_stem(table)
+    position = {c.lower(): i for i, c in enumerate(t.column_names)}
+
+    def rank(p: Proposal) -> tuple[int, int, float, float, float, float]:
         cols = [split_ref(r)[1] for r in p.lhs]
         nulls = sum(t.column(c).null_count for c in cols if c in t.column_names)
         keyish = sum(names.keyish(c) for c in cols) / len(cols)
-        return (len(cols), int(nulls > 0), -keyish, -p.confidence)
+        # tie-breakers: the key named after its table (s_suppkey in supplier), then position
+        named = max(names.similarity(names.core(c, table), stem) for c in cols)
+        first = min(position.get(c.lower(), 99) for c in cols)
+        return (len(cols), int(nulls > 0), -keyish, -round(named, 1), first, -p.confidence)
 
     return sorted(uccs, key=rank)[0]
 

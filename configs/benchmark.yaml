@@ -1,0 +1,48 @@
+# Full non-LLM benchmark: every method that runs without a model server, on all four
+# generated databases, noise levels L0-L3 and the three name probes. Run it with several
+# seeds and summarise across them:
+#
+#   for s in 1 2 3; do srev run --config configs/benchmark.yaml --seed $s --run-dir results/bench/seed$s; done
+#   srev summarize results/bench/seed1 results/bench/seed2 results/bench/seed3 -o results/bench
+#
+# The LLM variant of this protocol is configs/experiment.yaml (needs a vLLM/OpenAI-compatible server).
+name: benchmark
+seed: 1
+output_dir: runs
+database:
+  backend: sqlite
+datasets:
+  - name: tpch_mini
+  - name: university
+  - name: retail_legacy
+  - name: airline
+noise: [0, 1, 2, 3, names-abbreviated, names-cryptic, names-misleading]
+methods:
+  - name: profiling
+    kind: baseline
+    verify: false
+  - name: profiling-approx
+    kind: baseline
+    verify: false
+    profiling: {ucc_max_error: 0.01, fd_max_error: 0.05, ind_min_coverage: 0.9, ind_coverage: rows}
+  - name: learned-fk
+    kind: learned
+  - name: learned-fk-nologs
+    kind: learned
+    learned:
+      features: [row_coverage, value_coverage, ref_uniqueness, dep_uniqueness, distinct_ratio,
+                 name_score, dep_keyish, ref_keyish, ref_first_column, same_table, range_inside,
+                 dep_null_ratio, ref_rows_ratio]
+  - name: heuristic
+    kind: heuristic
+    evidence:
+      - [names]
+      - [names, stats, samples, logs]
+  - name: hybrid-heuristic
+    kind: hybrid
+    scorer: heuristic
+    threshold: 0.6
+sample: {rows_per_table: 50, top_k: 5}
+verify: {fk_min_coverage: 0.95, ucc_min_uniqueness: 0.99, fd_max_g3: 0.05}
+eval: {bootstrap: 1000, top_k_factor: 1.0, fd_gold: curated}
+synth: {enabled: true, normal_form: bcnf}

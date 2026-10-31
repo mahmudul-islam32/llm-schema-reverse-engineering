@@ -407,6 +407,9 @@ def cmd_run(args: argparse.Namespace) -> int:
     cfg = load_config(args.config)
     if args.output_dir:
         cfg.output_dir = args.output_dir
+    if args.seed is not None:
+        cfg.seed = args.seed
+        cfg.name = f"{cfg.name}-seed{args.seed}"
     run_dir = run_experiment(cfg, Path(args.run_dir) if args.run_dir else None)
     print(run_dir)
     return 0
@@ -594,6 +597,14 @@ def cmd_graph(args: argparse.Namespace) -> int:
                 indent=2,
             ),
         )
+    return 0
+
+
+def cmd_summarize(args: argparse.Namespace) -> int:
+    from srev.summarize import write
+
+    for f in write(args.run_dirs, args.output):
+        print(f"wrote {f}", file=sys.stderr)
     return 0
 
 
@@ -788,11 +799,17 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument("--config", required=True)
     p.add_argument("--output-dir")
     p.add_argument("--run-dir", help="exact output directory (default: <output_dir>/<run id>)")
+    p.add_argument("--seed", type=int, help="override the config seed (data, noise, sampling)")
     p.set_defaults(func=cmd_run)
 
     p = sub.add_parser("report", help="regenerate report.md for a run directory")
     p.add_argument("run_dir")
     p.set_defaults(func=cmd_report)
+
+    p = sub.add_parser("summarize", help="mean ± sd across repeated runs (seeds)")
+    p.add_argument("run_dirs", nargs="+")
+    p.add_argument("-o", "--output", default="summary")
+    p.set_defaults(func=cmd_summarize)
 
     p = sub.add_parser("reproduce", help="re-run a stored run and compare metrics")
     p.add_argument("run_dir")

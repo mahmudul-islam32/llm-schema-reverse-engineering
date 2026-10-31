@@ -28,6 +28,7 @@ from srev.baselines.profiling import _Partitions as Partitions
 from srev.config import DatasetSpec, ExperimentConfig, MethodSpec
 from srev.datasets import load_dataset
 from srev.datasets.base import Dataset
+from srev.datasets.spider import load_spider
 from srev.db import Connector, PostgresConnector, SQLiteConnector, connect, dataset_from_connector
 from srev.db import materialize as materialize_db
 from srev.eval.hallucination import analyse
@@ -109,7 +110,8 @@ class Runner:
         self._proposals_fh = (rd / "proposals.jsonl").open("w")
         self._fp_fh = (rd / "false_positives.jsonl").open("w")
         try:
-            for spec in self.cfg.datasets:
+            specs = [s for spec in self.cfg.datasets for s in spec.expand()]
+            for spec in specs:
                 clean, gold = self._load(spec)
                 for i, level in enumerate(self.cfg.noise):
                     label = noise_label(level, i)
@@ -155,6 +157,16 @@ class Runner:
     def _load(self, spec: DatasetSpec) -> tuple[Dataset, GoldSet]:
         if spec.source == "builtin":
             ds = load_dataset(spec.generator or spec.name, seed=self.cfg.seed, **spec.params)
+            ds.name = spec.name
+        elif spec.source == "spider":
+            ds = load_spider(
+                spec.path or "",
+                spec.db_id or "",
+                tables_json=spec.tables_json,
+                db_dir=spec.db_dir,
+                queries_json=spec.queries_json,
+                max_rows=spec.max_rows,
+            )
             ds.name = spec.name
         else:
             conn = (

@@ -30,15 +30,39 @@ class DatasetSpec(BaseModel):
     model_config = ConfigDict(populate_by_name=True)
 
     name: str
-    source: Literal["builtin", "postgres", "sqlite"] = "builtin"
+    source: Literal["builtin", "postgres", "sqlite", "spider"] = "builtin"
     generator: str | None = Field(None, description="built-in generator (defaults to name)")
     params: dict[str, Any] = Field(default_factory=dict)
     dsn: str | None = None
     db_schema: str = Field("public", alias="schema")
-    path: str | None = Field(None, description="SQLite file for source: sqlite")
+    path: str | None = Field(
+        None, description="SQLite file (source: sqlite) or benchmark root (source: spider)"
+    )
     workload: str | None = Field(None, description=".sql/.csv/.jsonl query log")
     curated_gold: str | None = Field(None, description="extra curated gold labels (JSON)")
     max_rows: int | None = None
+    # source: spider (Spider/BIRD layout); one spec expands to one dataset per db_id
+    db_ids: list[str] | None = Field(None, description="databases to use (default: all)")
+    limit: int | None = Field(None, description="first N databases in db_id order")
+    tables_json: str | None = Field(None, description="annotation file (default tables.json)")
+    db_dir: str = Field("database", description="directory holding <db_id>/<db_id>.sqlite")
+    queries_json: str | None = Field(None, description="gold SQL file used as the workload")
+    db_id: str | None = Field(None, description="set by the expansion; do not use directly")
+
+    def expand(self) -> list[DatasetSpec]:
+        if self.source != "spider" or self.db_id:
+            return [self]
+        if not self.path:
+            raise ValueError(f"dataset {self.name}: source spider needs path")
+        from srev.datasets.spider import list_databases
+
+        ids = self.db_ids or [d["db_id"] for d in list_databases(self.path, self.tables_json)]
+        if self.limit:
+            ids = ids[: self.limit]
+        return [
+            self.model_copy(update={"db_id": db_id, "name": f"{self.name}_{db_id}"})
+            for db_id in ids
+        ]
 
 
 class DatabaseSpec(BaseModel):

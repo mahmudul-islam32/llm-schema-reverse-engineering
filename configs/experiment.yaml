@@ -18,6 +18,19 @@ datasets:
   #   dsn: ${TPCH_DSN}
   #   schema: public
   #   workload: workloads/tpch_queries.sql
+  # Breadth (RQ1): every database of a Spider/BIRD download, gold SQL as the workload.
+  # Use database.backend: sqlite for these; some Spider files hold mixed-type columns.
+  # - name: spider
+  #   source: spider
+  #   path: data/spider            # contains tables.json and database/<db_id>/<db_id>.sqlite
+  #   queries_json: dev.json
+  #   limit: 50
+  # - name: bird
+  #   source: spider
+  #   path: data/bird/dev
+  #   tables_json: dev_tables.json
+  #   db_dir: dev_databases
+  #   queries_json: dev.json
 noise: [0, 1, 2, 3, names-abbreviated, names-cryptic, names-misleading]  # L0-L3 + name probes
 llm:
   base_url: ${SREV_LLM_BASE_URL:-http://localhost:8000/v1}

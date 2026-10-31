@@ -61,6 +61,20 @@ def cmd_datasets_list(args: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_datasets_spider(args: argparse.Namespace) -> int:
+    from srev.datasets.spider import list_databases
+
+    dbs = list_databases(args.root, args.tables_json)
+    print(f"{'db_id':32} tables  PKs  FKs")
+    for d in dbs:
+        print(f"{d['db_id']:32} {d['tables']:6} {d['primary_keys']:4} {d['foreign_keys']:4}")
+    print(
+        f"{len(dbs)} databases, {sum(d['foreign_keys'] for d in dbs)} annotated FKs",
+        file=sys.stderr,
+    )
+    return 0
+
+
 def cmd_datasets_load(args: argparse.Namespace) -> int:
     from srev.datasets import load_dataset
     from srev.db import materialize
@@ -379,6 +393,10 @@ def build_parser() -> argparse.ArgumentParser:
     ds = sub.add_parser("datasets", help="built-in benchmark datasets")
     ds_sub = ds.add_subparsers(dest="action", required=True)
     ds_sub.add_parser("list", help="list datasets").set_defaults(func=cmd_datasets_list)
+    p = ds_sub.add_parser("spider", help="list databases of a Spider/BIRD-style benchmark")
+    p.add_argument("root", help="benchmark directory containing tables.json")
+    p.add_argument("--tables-json", help="annotation file name (BIRD: dev_tables.json)")
+    p.set_defaults(func=cmd_datasets_spider)
     p = ds_sub.add_parser("load", help="generate a dataset and load it into a database")
     p.add_argument("name")
     _db_args(p)

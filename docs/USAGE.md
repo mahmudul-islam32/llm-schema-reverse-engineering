@@ -380,6 +380,8 @@ srev export latex runs/<run-id> --types FK --ci \
 | `srev audit kappa A B` | Cohen's κ | |
 | `srev datasets spider ROOT` | list a Spider/BIRD download | `--tables-json` |
 | `srev export latex RUN` | booktabs tables | `--metric`, `--types`, `--variants`, `--ci`, `-o` |
+| `srev summarize RUN...` | mean ± sd across seeds: Markdown, CSV, LaTeX, noise curves | `-o` |
+| `srev run … --seed N` | override the config seed for repeated runs | |
 | `srev ingest csv PATHS` | load CSV files/folders into a database | `--sqlite/--dsn`, `--delimiter`, `--encoding`, `--max-rows` |
 | `srev discover` | one-shot discovery | `--csv/--sqlite/--dsn`, `--workload`, `--fk-threshold`, `--html`, `--dbt`, `-o` |
 | `srev export dbt` | dbt project from constraints | `--constraints`, `--evidence`, `--schema`, `--source`, `--tests-key`, `--legacy-test-args` |

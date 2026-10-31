@@ -1,0 +1,253 @@
+noise,variant,type,kind,verified,n_databases,micro_precision,micro_recall,micro_f1,macro_f1,ci_macro_f1,reference,p_vs_reference
+L0,profiling,FK,baseline,False,4,0.4533,1.0,0.6239,0.6839,"[0.5488, 0.8117]",profiling,
+L0,profiling,UCC,baseline,False,4,0.2129,0.9706,0.3492,0.5631,"[0.2767, 0.7179]",profiling,
+L0,profiling,FD,baseline,False,4,0.0139,1.0,0.0275,0.095,"[0.0625, 0.1356]",profiling,
+L0,profiling-approx,FK,baseline,False,4,0.4146,1.0,0.5862,0.6651,"[0.5061, 0.8117]",profiling,0.5
+L0,profiling-approx,UCC,baseline,False,4,0.1528,0.9706,0.264,0.4982,"[0.2176, 0.6913]",profiling,0.25
+L0,profiling-approx,FD,baseline,False,4,0.0084,1.0,0.0167,0.0728,"[0.0465, 0.1053]",profiling,0.25
+L0,heuristic[names],FK,heuristic,False,4,0.587,0.7941,0.675,0.656,"[0.5607, 0.7513]",profiling,0.875
+L0,heuristic[names],UCC,heuristic,False,4,0.7857,0.6471,0.7097,0.7163,"[0.666, 0.7596]",profiling,0.625
+L0,heuristic[names],FD,heuristic,False,4,1.0,0.2857,0.4444,0.5333,"[0.4, 0.6667]",profiling,0.5
+L0,heuristic[names]+verify,FK,heuristic,True,4,0.9643,0.7941,0.871,0.8558,"[0.7273, 0.9355]",profiling,0.375
+L0,heuristic[names]+verify,UCC,heuristic,True,4,1.0,0.6471,0.7857,0.7914,"[0.7375, 0.8452]",profiling,0.125
+L0,heuristic[names]+verify,FD,heuristic,True,4,1.0,0.2857,0.4444,0.5333,"[0.4, 0.6667]",profiling,0.5
+L0,heuristic[names+stats+samples+logs],FK,heuristic,False,4,0.9167,0.9706,0.9429,0.9345,"[0.8797, 0.9737]",profiling,0.125
+L0,heuristic[names+stats+samples+logs],UCC,heuristic,False,4,0.9643,0.7941,0.871,0.8743,"[0.8496, 0.9066]",profiling,0.125
+L0,heuristic[names+stats+samples+logs],FD,heuristic,False,4,1.0,0.2857,0.4444,0.5333,"[0.4, 0.6667]",profiling,0.5
+L0,heuristic[names+stats+samples+logs]+verify,FK,heuristic,True,4,0.9706,0.9706,0.9706,0.9702,"[0.9368, 1.0]",profiling,0.125
+L0,heuristic[names+stats+samples+logs]+verify,UCC,heuristic,True,4,1.0,0.7941,0.8852,0.8889,"[0.8496, 0.9282]",profiling,0.125
+L0,heuristic[names+stats+samples+logs]+verify,FD,heuristic,True,4,1.0,0.2857,0.4444,0.5333,"[0.4, 0.6667]",profiling,0.5
+L0,hybrid-heuristic,FK,hybrid,False,4,0.8333,0.8824,0.8571,0.8421,"[0.7174, 0.9161]",profiling,0.375
+L0,hybrid-heuristic,UCC,hybrid,False,4,0.8788,0.8529,0.8657,0.8646,"[0.8188, 0.9164]",profiling,0.125
+L0,hybrid-heuristic,FD,hybrid,False,4,1.0,0.2857,0.4444,0.5333,"[0.4, 0.6667]",profiling,0.5
+L0,hybrid-heuristic+verify,FK,hybrid,True,4,0.8333,0.8824,0.8571,0.8421,"[0.7174, 0.9161]",profiling,0.375
+L0,hybrid-heuristic+verify,UCC,hybrid,True,4,0.8788,0.8529,0.8657,0.8646,"[0.8188, 0.9164]",profiling,0.125
+L0,hybrid-heuristic+verify,FD,hybrid,True,4,1.0,0.2857,0.4444,0.5333,"[0.4, 0.6667]",profiling,0.5
+L1,profiling,FK,baseline,False,4,0.1515,0.1471,0.1493,0.1367,"[0.0357, 0.2024]",profiling,
+L1,profiling,UCC,baseline,False,4,0.1557,0.9706,0.2683,0.5179,"[0.2319, 0.6809]",profiling,
+L1,profiling,FD,baseline,False,4,0.0,0.0,0.0,0.0,"[0.0, 0.0]",profiling,
+L1,profiling-approx,FK,baseline,False,4,0.4198,1.0,0.5913,0.6794,"[0.512, 0.8403]",profiling,0.125
+L1,profiling-approx,UCC,baseline,False,4,0.1325,0.9706,0.2332,0.4809,"[0.2067, 0.6618]",profiling,0.25
+L1,profiling-approx,FD,baseline,False,4,0.0075,0.8571,0.0148,0.0573,"[0.0, 0.1053]",profiling,0.5
+L1,heuristic[names],FK,heuristic,False,4,0.3056,0.3235,0.3143,0.2956,"[0.2102, 0.381]",profiling,0.125
+L1,heuristic[names],UCC,heuristic,False,4,0.56,0.4118,0.4746,0.4789,"[0.4222, 0.5396]",profiling,0.75
+L1,heuristic[names],FD,heuristic,False,4,1.0,0.1429,0.25,0.6667,,profiling,1.0
+L1,heuristic[names]+verify,FK,heuristic,True,4,0.9167,0.3235,0.4783,0.4567,"[0.3, 0.5535]",profiling,0.125
+L1,heuristic[names]+verify,UCC,heuristic,True,4,1.0,0.4118,0.5833,0.5864,"[0.5394, 0.6364]",profiling,1.0
+L1,heuristic[names]+verify,FD,heuristic,True,4,1.0,0.1429,0.25,0.6667,,profiling,1.0
+L1,heuristic[names+stats+samples+logs],FK,heuristic,False,4,0.88,0.6471,0.7458,0.7298,"[0.6423, 0.7846]",profiling,0.125
+L1,heuristic[names+stats+samples+logs],UCC,heuristic,False,4,0.913,0.6176,0.7368,0.7354,"[0.6863, 0.7846]",profiling,0.125
+L1,heuristic[names+stats+samples+logs],FD,heuristic,False,4,,0.0,,,,profiling,
+L1,heuristic[names+stats+samples+logs]+verify,FK,heuristic,True,4,0.9167,0.6471,0.7586,0.7465,"[0.6923, 0.7846]",profiling,0.125
+L1,heuristic[names+stats+samples+logs]+verify,UCC,heuristic,True,4,0.9545,0.6176,0.75,0.7497,"[0.6863, 0.8193]",profiling,0.125
+L1,heuristic[names+stats+samples+logs]+verify,FD,heuristic,True,4,,0.0,,,,profiling,
+L1,hybrid-heuristic,FK,hybrid,False,4,0.4286,0.0882,0.1463,0.1429,"[0.0, 0.2857]",profiling,1.0
+L1,hybrid-heuristic,UCC,hybrid,False,4,1.0,0.4706,0.64,0.6423,"[0.5666, 0.7436]",profiling,0.75
+L1,hybrid-heuristic,FD,hybrid,False,4,,0.0,,,,profiling,
+L1,hybrid-heuristic+verify,FK,hybrid,True,4,0.4286,0.0882,0.1463,0.1429,"[0.0, 0.2857]",profiling,1.0
+L1,hybrid-heuristic+verify,UCC,hybrid,True,4,1.0,0.4706,0.64,0.6423,"[0.5666, 0.7436]",profiling,0.75
+L1,hybrid-heuristic+verify,FD,hybrid,True,4,,0.0,,,,profiling,
+L2,profiling,FK,baseline,False,4,0.1034,0.0882,0.0952,0.0668,"[0.0, 0.1429]",profiling,
+L2,profiling,UCC,baseline,False,4,0.2025,0.9706,0.335,0.5677,"[0.2794, 0.7493]",profiling,
+L2,profiling,FD,baseline,False,4,0.0,0.0,0.0,0.0,"[0.0, 0.0]",profiling,
+L2,profiling-approx,FK,baseline,False,4,0.4231,0.9706,0.5893,0.6751,"[0.4993, 0.8403]",profiling,0.125
+L2,profiling-approx,UCC,baseline,False,4,0.1392,0.9706,0.2435,0.5,"[0.214, 0.6913]",profiling,0.125
+L2,profiling-approx,FD,baseline,False,4,0.0011,0.1429,0.0022,0.0087,"[0.0, 0.026]",profiling,1.0
+L2,heuristic[names],FK,heuristic,False,4,0.2222,0.0588,0.093,0.0868,"[0.0, 0.1736]",profiling,1.0
+L2,heuristic[names],UCC,heuristic,False,4,0.4667,0.2059,0.2857,0.2746,"[0.1909, 0.3582]",profiling,0.25
+L2,heuristic[names],FD,heuristic,False,4,,0.0,,,,profiling,
+L2,heuristic[names]+verify,FK,heuristic,True,4,1.0,0.0588,0.1111,0.2083,"[0.1667, 0.25]",profiling,1.0
+L2,heuristic[names]+verify,UCC,heuristic,True,4,0.875,0.2059,0.3333,0.3183,"[0.2222, 0.4143]",profiling,0.25
+L2,heuristic[names]+verify,FD,heuristic,True,4,,0.0,,,,profiling,
+L2,heuristic[names+stats+samples+logs],FK,heuristic,False,4,1.0,0.5,0.6667,0.6583,"[0.528, 0.7526]",profiling,0.125
+L2,heuristic[names+stats+samples+logs],UCC,heuristic,False,4,0.9583,0.6765,0.7931,0.7958,"[0.7375, 0.8541]",profiling,0.125
+L2,heuristic[names+stats+samples+logs],FD,heuristic,False,4,,0.0,,,,profiling,
+L2,heuristic[names+stats+samples+logs]+verify,FK,heuristic,True,4,1.0,0.4412,0.6122,0.6085,"[0.5128, 0.6863]",profiling,0.125
+L2,heuristic[names+stats+samples+logs]+verify,UCC,heuristic,True,4,1.0,0.6765,0.807,0.8104,"[0.7375, 0.8923]",profiling,0.125
+L2,heuristic[names+stats+samples+logs]+verify,FD,heuristic,True,4,,0.0,,,,profiling,
+L2,hybrid-heuristic,FK,hybrid,False,4,1.0,0.0294,0.0571,0.1667,,profiling,1.0
+L2,hybrid-heuristic,UCC,hybrid,False,4,1.0,0.2353,0.381,0.3697,"[0.2875, 0.4143]",profiling,0.375
+L2,hybrid-heuristic,FD,hybrid,False,4,,0.0,,,,profiling,
+L2,hybrid-heuristic+verify,FK,hybrid,True,4,1.0,0.0294,0.0571,0.1667,,profiling,1.0
+L2,hybrid-heuristic+verify,UCC,hybrid,True,4,1.0,0.2353,0.381,0.3697,"[0.2875, 0.4143]",profiling,0.375
+L2,hybrid-heuristic+verify,FD,hybrid,True,4,,0.0,,,,profiling,
+L3,profiling,FK,baseline,False,4,0.0385,0.0294,0.0333,0.0192,"[0.0, 0.0577]",profiling,
+L3,profiling,UCC,baseline,False,4,0.2538,0.9706,0.4024,0.6158,"[0.313, 0.7962]",profiling,
+L3,profiling,FD,baseline,False,4,0.0,0.0,0.0,0.0,"[0.0, 0.0]",profiling,
+L3,profiling-approx,FK,baseline,False,4,0.4,0.8824,0.5505,0.6091,"[0.4601, 0.7197]",profiling,0.125
+L3,profiling-approx,UCC,baseline,False,4,0.1031,0.9706,0.1864,0.5025,"[0.2026, 0.6925]",profiling,0.125
+L3,profiling-approx,FD,baseline,False,4,0.0,0.0,0.0,0.0,"[0.0, 0.0]",profiling,1.0
+L3,heuristic[names],FK,heuristic,False,4,,0.0,,,,profiling,
+L3,heuristic[names],UCC,heuristic,False,4,,0.0,,,,profiling,
+L3,heuristic[names],FD,heuristic,False,4,,0.0,,,,profiling,
+L3,heuristic[names]+verify,FK,heuristic,True,4,,0.0,,,,profiling,
+L3,heuristic[names]+verify,UCC,heuristic,True,4,,0.0,,,,profiling,
+L3,heuristic[names]+verify,FD,heuristic,True,4,,0.0,,,,profiling,
+L3,heuristic[names+stats+samples+logs],FK,heuristic,False,4,1.0,0.2353,0.381,0.374,"[0.2338, 0.5214]",profiling,0.125
+L3,heuristic[names+stats+samples+logs],UCC,heuristic,False,4,1.0,0.6471,0.7857,0.7914,"[0.7375, 0.8452]",profiling,0.375
+L3,heuristic[names+stats+samples+logs],FD,heuristic,False,4,,0.0,,,,profiling,
+L3,heuristic[names+stats+samples+logs]+verify,FK,heuristic,True,4,1.0,0.1765,0.3,0.3049,"[0.2133, 0.4047]",profiling,0.125
+L3,heuristic[names+stats+samples+logs]+verify,UCC,heuristic,True,4,1.0,0.6471,0.7857,0.7914,"[0.7375, 0.8452]",profiling,0.375
+L3,heuristic[names+stats+samples+logs]+verify,FD,heuristic,True,4,,0.0,,,,profiling,
+L3,hybrid-heuristic,FK,hybrid,False,4,0.0,0.0,0.0,0.0,,profiling,1.0
+L3,hybrid-heuristic,UCC,hybrid,False,4,,0.0,,,,profiling,
+L3,hybrid-heuristic,FD,hybrid,False,4,,0.0,,,,profiling,
+L3,hybrid-heuristic+verify,FK,hybrid,True,4,0.0,0.0,0.0,0.0,,profiling,1.0
+L3,hybrid-heuristic+verify,UCC,hybrid,True,4,,0.0,,,,profiling,
+L3,hybrid-heuristic+verify,FD,hybrid,True,4,,0.0,,,,profiling,
+names-abbreviated,profiling,FK,baseline,False,4,0.4533,1.0,0.6239,0.6839,"[0.5488, 0.8117]",profiling,
+names-abbreviated,profiling,UCC,baseline,False,4,0.2129,0.9706,0.3492,0.5631,"[0.2767, 0.7179]",profiling,
+names-abbreviated,profiling,FD,baseline,False,4,0.0139,1.0,0.0275,0.095,"[0.0625, 0.1356]",profiling,
+names-abbreviated,profiling-approx,FK,baseline,False,4,0.4146,1.0,0.5862,0.6651,"[0.5061, 0.8117]",profiling,0.5
+names-abbreviated,profiling-approx,UCC,baseline,False,4,0.1528,0.9706,0.264,0.4982,"[0.2176, 0.6913]",profiling,0.25
+names-abbreviated,profiling-approx,FD,baseline,False,4,0.0084,1.0,0.0167,0.0728,"[0.0465, 0.1053]",profiling,0.25
+names-abbreviated,heuristic[names],FK,heuristic,False,4,0.5319,0.7353,0.6173,0.604,"[0.4985, 0.7185]",profiling,0.625
+names-abbreviated,heuristic[names],UCC,heuristic,False,4,0.8462,0.6471,0.7333,0.743,"[0.666, 0.8214]",profiling,0.625
+names-abbreviated,heuristic[names],FD,heuristic,False,4,1.0,0.2857,0.4444,0.5333,"[0.4, 0.6667]",profiling,0.5
+names-abbreviated,heuristic[names]+verify,FK,heuristic,True,4,0.9615,0.7353,0.8333,0.8248,"[0.7059, 0.9045]",profiling,0.375
+names-abbreviated,heuristic[names]+verify,UCC,heuristic,True,4,1.0,0.6471,0.7857,0.7914,"[0.7375, 0.8452]",profiling,0.125
+names-abbreviated,heuristic[names]+verify,FD,heuristic,True,4,1.0,0.2857,0.4444,0.5333,"[0.4, 0.6667]",profiling,0.5
+names-abbreviated,heuristic[names+stats+samples+logs],FK,heuristic,False,4,0.8684,0.9706,0.9167,0.909,"[0.866, 0.952]",profiling,0.125
+names-abbreviated,heuristic[names+stats+samples+logs],UCC,heuristic,False,4,1.0,0.7647,0.8667,0.8699,"[0.8496, 0.9066]",profiling,0.125
+names-abbreviated,heuristic[names+stats+samples+logs],FD,heuristic,False,4,1.0,0.2857,0.4444,0.5333,"[0.4, 0.6667]",profiling,0.5
+names-abbreviated,heuristic[names+stats+samples+logs]+verify,FK,heuristic,True,4,0.9706,0.9706,0.9706,0.9702,"[0.9368, 1.0]",profiling,0.125
+names-abbreviated,heuristic[names+stats+samples+logs]+verify,UCC,heuristic,True,4,1.0,0.7647,0.8667,0.8699,"[0.8496, 0.9066]",profiling,0.125
+names-abbreviated,heuristic[names+stats+samples+logs]+verify,FD,heuristic,True,4,1.0,0.2857,0.4444,0.5333,"[0.4, 0.6667]",profiling,0.5
+names-abbreviated,hybrid-heuristic,FK,hybrid,False,4,0.8788,0.8529,0.8657,0.8517,"[0.7308, 0.9353]",profiling,0.375
+names-abbreviated,hybrid-heuristic,UCC,hybrid,False,4,0.875,0.6176,0.7241,0.839,"[0.8, 0.875]",profiling,0.25
+names-abbreviated,hybrid-heuristic,FD,hybrid,False,4,1.0,0.2857,0.4444,0.5333,"[0.4, 0.6667]",profiling,0.5
+names-abbreviated,hybrid-heuristic+verify,FK,hybrid,True,4,0.8788,0.8529,0.8657,0.8517,"[0.7308, 0.9353]",profiling,0.375
+names-abbreviated,hybrid-heuristic+verify,UCC,hybrid,True,4,0.875,0.6176,0.7241,0.839,"[0.8, 0.875]",profiling,0.25
+names-abbreviated,hybrid-heuristic+verify,FD,hybrid,True,4,1.0,0.2857,0.4444,0.5333,"[0.4, 0.6667]",profiling,0.5
+names-cryptic,profiling,FK,baseline,False,4,0.4533,1.0,0.6239,0.6839,"[0.5488, 0.8117]",profiling,
+names-cryptic,profiling,UCC,baseline,False,4,0.2129,0.9706,0.3492,0.5631,"[0.2767, 0.7179]",profiling,
+names-cryptic,profiling,FD,baseline,False,4,0.0139,1.0,0.0275,0.095,"[0.0625, 0.1356]",profiling,
+names-cryptic,profiling-approx,FK,baseline,False,4,0.4146,1.0,0.5862,0.6651,"[0.5061, 0.8117]",profiling,0.5
+names-cryptic,profiling-approx,UCC,baseline,False,4,0.1528,0.9706,0.264,0.4982,"[0.2176, 0.6913]",profiling,0.25
+names-cryptic,profiling-approx,FD,baseline,False,4,0.0084,1.0,0.0167,0.0728,"[0.0465, 0.1053]",profiling,0.25
+names-cryptic,heuristic[names],FK,heuristic,False,4,,0.0,,,,profiling,
+names-cryptic,heuristic[names],UCC,heuristic,False,4,,0.0,,,,profiling,
+names-cryptic,heuristic[names],FD,heuristic,False,4,,0.0,,,,profiling,
+names-cryptic,heuristic[names]+verify,FK,heuristic,True,4,,0.0,,,,profiling,
+names-cryptic,heuristic[names]+verify,UCC,heuristic,True,4,,0.0,,,,profiling,
+names-cryptic,heuristic[names]+verify,FD,heuristic,True,4,,0.0,,,,profiling,
+names-cryptic,heuristic[names+stats+samples+logs],FK,heuristic,False,4,1.0,0.9412,0.9697,0.9749,"[0.9499, 1.0]",profiling,0.125
+names-cryptic,heuristic[names+stats+samples+logs],UCC,heuristic,False,4,1.0,0.6471,0.7857,0.7914,"[0.7375, 0.8452]",profiling,0.125
+names-cryptic,heuristic[names+stats+samples+logs],FD,heuristic,False,4,,0.0,,,,profiling,
+names-cryptic,heuristic[names+stats+samples+logs]+verify,FK,heuristic,True,4,1.0,0.9412,0.9697,0.9749,"[0.9499, 1.0]",profiling,0.125
+names-cryptic,heuristic[names+stats+samples+logs]+verify,UCC,heuristic,True,4,1.0,0.6471,0.7857,0.7914,"[0.7375, 0.8452]",profiling,0.125
+names-cryptic,heuristic[names+stats+samples+logs]+verify,FD,heuristic,True,4,,0.0,,,,profiling,
+names-cryptic,hybrid-heuristic,FK,hybrid,False,4,0.375,0.0882,0.1429,0.173,"[0.1429, 0.2222]",profiling,0.25
+names-cryptic,hybrid-heuristic,UCC,hybrid,False,4,,0.0,,,,profiling,
+names-cryptic,hybrid-heuristic,FD,hybrid,False,4,,0.0,,,,profiling,
+names-cryptic,hybrid-heuristic+verify,FK,hybrid,True,4,0.375,0.0882,0.1429,0.173,"[0.1429, 0.2222]",profiling,0.25
+names-cryptic,hybrid-heuristic+verify,UCC,hybrid,True,4,,0.0,,,,profiling,
+names-cryptic,hybrid-heuristic+verify,FD,hybrid,True,4,,0.0,,,,profiling,
+names-misleading,profiling,FK,baseline,False,4,0.4533,1.0,0.6239,0.6839,"[0.5488, 0.8117]",profiling,
+names-misleading,profiling,UCC,baseline,False,4,0.2129,0.9706,0.3492,0.5631,"[0.2767, 0.7179]",profiling,
+names-misleading,profiling,FD,baseline,False,4,0.0139,1.0,0.0275,0.095,"[0.0625, 0.1356]",profiling,
+names-misleading,profiling-approx,FK,baseline,False,4,0.4146,1.0,0.5862,0.6651,"[0.5061, 0.8117]",profiling,0.5
+names-misleading,profiling-approx,UCC,baseline,False,4,0.1528,0.9706,0.264,0.4982,"[0.2176, 0.6913]",profiling,0.25
+names-misleading,profiling-approx,FD,baseline,False,4,0.0084,1.0,0.0167,0.0728,"[0.0465, 0.1053]",profiling,0.25
+names-misleading,heuristic[names],FK,heuristic,False,4,0.0175,0.0294,0.022,0.0227,"[0.0, 0.0682]",profiling,0.125
+names-misleading,heuristic[names],UCC,heuristic,False,4,0.2857,0.2353,0.2581,0.2613,"[0.134, 0.3887]",profiling,0.125
+names-misleading,heuristic[names],FD,heuristic,False,4,0.0,0.0,0.0,0.0,"[0.0, 0.0]",profiling,0.5
+names-misleading,heuristic[names]+verify,FK,heuristic,True,4,1.0,0.0294,0.0571,0.2857,,profiling,1.0
+names-misleading,heuristic[names]+verify,UCC,heuristic,True,4,0.5,0.2353,0.32,0.3135,"[0.1769, 0.45]",profiling,0.25
+names-misleading,heuristic[names]+verify,FD,heuristic,True,4,,0.0,,,,profiling,
+names-misleading,heuristic[names+stats+samples+logs],FK,heuristic,False,4,0.5882,0.5882,0.5882,0.6054,"[0.4881, 0.7899]",profiling,0.5
+names-misleading,heuristic[names+stats+samples+logs],UCC,heuristic,False,4,0.6071,0.5,0.5484,0.5484,"[0.4351, 0.6235]",profiling,0.875
+names-misleading,heuristic[names+stats+samples+logs],FD,heuristic,False,4,,0.0,,,,profiling,
+names-misleading,heuristic[names+stats+samples+logs]+verify,FK,heuristic,True,4,1.0,0.5882,0.7407,0.7537,"[0.6459, 0.8616]",profiling,0.5
+names-misleading,heuristic[names+stats+samples+logs]+verify,UCC,heuristic,True,4,0.68,0.5,0.5763,0.5744,"[0.4538, 0.6539]",profiling,1.0
+names-misleading,heuristic[names+stats+samples+logs]+verify,FD,heuristic,True,4,,0.0,,,,profiling,
+names-misleading,hybrid-heuristic,FK,hybrid,False,4,0.6667,0.1765,0.2791,0.3028,"[0.0833, 0.5222]",profiling,0.125
+names-misleading,hybrid-heuristic,UCC,hybrid,False,4,0.4138,0.3529,0.381,0.3586,"[0.1458, 0.5714]",profiling,0.125
+names-misleading,hybrid-heuristic,FD,hybrid,False,4,,0.0,,,,profiling,
+names-misleading,hybrid-heuristic+verify,FK,hybrid,True,4,0.6667,0.1765,0.2791,0.3028,"[0.0833, 0.5222]",profiling,0.125
+names-misleading,hybrid-heuristic+verify,UCC,hybrid,True,4,0.4138,0.3529,0.381,0.3586,"[0.1458, 0.5714]",profiling,0.125
+names-misleading,hybrid-heuristic+verify,FD,hybrid,True,4,,0.0,,,,profiling,
+L0,learned-fk,FK,learned,False,4,0.9706,0.9706,0.9706,0.976,"[0.952, 1.0]",profiling,0.125
+L0,learned-fk,UCC,learned,False,4,,0.0,,,,profiling,
+L0,learned-fk,FD,learned,False,4,,0.0,,,,profiling,
+L0,learned-fk+verify,FK,learned,True,4,1.0,0.9706,0.9851,0.9869,"[0.9606, 1.0]",profiling,0.125
+L0,learned-fk+verify,UCC,learned,True,4,,0.0,,,,profiling,
+L0,learned-fk+verify,FD,learned,True,4,,0.0,,,,profiling,
+L1,learned-fk,FK,learned,False,4,0.9706,0.9706,0.9706,0.976,"[0.952, 1.0]",profiling,0.125
+L1,learned-fk,UCC,learned,False,4,,0.0,,,,profiling,
+L1,learned-fk,FD,learned,False,4,,0.0,,,,profiling,
+L1,learned-fk+verify,FK,learned,True,4,1.0,0.9706,0.9851,0.9869,"[0.9606, 1.0]",profiling,0.125
+L1,learned-fk+verify,UCC,learned,True,4,,0.0,,,,profiling,
+L1,learned-fk+verify,FD,learned,True,4,,0.0,,,,profiling,
+L2,learned-fk,FK,learned,False,4,0.9706,0.9706,0.9706,0.976,"[0.952, 1.0]",profiling,0.125
+L2,learned-fk,UCC,learned,False,4,,0.0,,,,profiling,
+L2,learned-fk,FD,learned,False,4,,0.0,,,,profiling,
+L2,learned-fk+verify,FK,learned,True,4,1.0,0.7647,0.8667,0.8617,"[0.8117, 0.9116]",profiling,0.125
+L2,learned-fk+verify,UCC,learned,True,4,,0.0,,,,profiling,
+L2,learned-fk+verify,FD,learned,True,4,,0.0,,,,profiling,
+L3,learned-fk,FK,learned,False,4,0.9706,0.9706,0.9706,0.976,"[0.952, 1.0]",profiling,0.125
+L3,learned-fk,UCC,learned,False,4,,0.0,,,,profiling,
+L3,learned-fk,FD,learned,False,4,,0.0,,,,profiling,
+L3,learned-fk+verify,FK,learned,True,4,1.0,0.4118,0.5833,0.5312,"[0.3643, 0.7334]",profiling,0.125
+L3,learned-fk+verify,UCC,learned,True,4,,0.0,,,,profiling,
+L3,learned-fk+verify,FD,learned,True,4,,0.0,,,,profiling,
+names-abbreviated,learned-fk,FK,learned,False,4,0.9706,0.9706,0.9706,0.976,"[0.952, 1.0]",profiling,0.125
+names-abbreviated,learned-fk,UCC,learned,False,4,,0.0,,,,profiling,
+names-abbreviated,learned-fk,FD,learned,False,4,,0.0,,,,profiling,
+names-abbreviated,learned-fk+verify,FK,learned,True,4,1.0,0.9706,0.9851,0.9869,"[0.9606, 1.0]",profiling,0.125
+names-abbreviated,learned-fk+verify,UCC,learned,True,4,,0.0,,,,profiling,
+names-abbreviated,learned-fk+verify,FD,learned,True,4,,0.0,,,,profiling,
+names-cryptic,learned-fk,FK,learned,False,4,0.9706,0.9706,0.9706,0.976,"[0.952, 1.0]",profiling,0.125
+names-cryptic,learned-fk,UCC,learned,False,4,,0.0,,,,profiling,
+names-cryptic,learned-fk,FD,learned,False,4,,0.0,,,,profiling,
+names-cryptic,learned-fk+verify,FK,learned,True,4,1.0,0.9706,0.9851,0.9869,"[0.9606, 1.0]",profiling,0.125
+names-cryptic,learned-fk+verify,UCC,learned,True,4,,0.0,,,,profiling,
+names-cryptic,learned-fk+verify,FD,learned,True,4,,0.0,,,,profiling,
+names-misleading,learned-fk,FK,learned,False,4,0.9706,0.9706,0.9706,0.976,"[0.952, 1.0]",profiling,0.125
+names-misleading,learned-fk,UCC,learned,False,4,,0.0,,,,profiling,
+names-misleading,learned-fk,FD,learned,False,4,,0.0,,,,profiling,
+names-misleading,learned-fk+verify,FK,learned,True,4,1.0,0.9706,0.9851,0.9869,"[0.9606, 1.0]",profiling,0.125
+names-misleading,learned-fk+verify,UCC,learned,True,4,,0.0,,,,profiling,
+names-misleading,learned-fk+verify,FD,learned,True,4,,0.0,,,,profiling,
+L0,learned-fk-nologs,FK,learned,False,4,0.7895,0.8824,0.8333,0.8516,"[0.7073, 0.9643]",profiling,0.125
+L0,learned-fk-nologs,UCC,learned,False,4,,0.0,,,,profiling,
+L0,learned-fk-nologs,FD,learned,False,4,,0.0,,,,profiling,
+L0,learned-fk-nologs+verify,FK,learned,True,4,0.8333,0.8824,0.8571,0.8655,"[0.749, 0.9643]",profiling,0.125
+L0,learned-fk-nologs+verify,UCC,learned,True,4,,0.0,,,,profiling,
+L0,learned-fk-nologs+verify,FD,learned,True,4,,0.0,,,,profiling,
+L1,learned-fk-nologs,FK,learned,False,4,0.7317,0.8824,0.8,0.8295,"[0.6827, 0.9762]",profiling,0.125
+L1,learned-fk-nologs,UCC,learned,False,4,,0.0,,,,profiling,
+L1,learned-fk-nologs,FD,learned,False,4,,0.0,,,,profiling,
+L1,learned-fk-nologs+verify,FK,learned,True,4,0.7692,0.8824,0.8219,0.8423,"[0.7084, 0.9762]",profiling,0.125
+L1,learned-fk-nologs+verify,UCC,learned,True,4,,0.0,,,,profiling,
+L1,learned-fk-nologs+verify,FD,learned,True,4,,0.0,,,,profiling,
+L2,learned-fk-nologs,FK,learned,False,4,0.725,0.8529,0.7838,0.817,"[0.6717, 0.9091]",profiling,0.125
+L2,learned-fk-nologs,UCC,learned,False,4,,0.0,,,,profiling,
+L2,learned-fk-nologs,FD,learned,False,4,,0.0,,,,profiling,
+L2,learned-fk-nologs+verify,FK,learned,True,4,0.7188,0.6765,0.697,0.7114,"[0.5913, 0.8286]",profiling,0.125
+L2,learned-fk-nologs+verify,UCC,learned,True,4,,0.0,,,,profiling,
+L2,learned-fk-nologs+verify,FD,learned,True,4,,0.0,,,,profiling,
+L3,learned-fk-nologs,FK,learned,False,4,0.6222,0.8235,0.7089,0.7331,"[0.6456, 0.7913]",profiling,0.125
+L3,learned-fk-nologs,UCC,learned,False,4,,0.0,,,,profiling,
+L3,learned-fk-nologs,FD,learned,False,4,,0.0,,,,profiling,
+L3,learned-fk-nologs+verify,FK,learned,True,4,0.5455,0.3529,0.4286,0.4715,"[0.3529, 0.6]",profiling,0.25
+L3,learned-fk-nologs+verify,UCC,learned,True,4,,0.0,,,,profiling,
+L3,learned-fk-nologs+verify,FD,learned,True,4,,0.0,,,,profiling,
+names-abbreviated,learned-fk-nologs,FK,learned,False,4,0.7692,0.8824,0.8219,0.8373,"[0.7073, 0.9546]",profiling,0.25
+names-abbreviated,learned-fk-nologs,UCC,learned,False,4,,0.0,,,,profiling,
+names-abbreviated,learned-fk-nologs,FD,learned,False,4,,0.0,,,,profiling,
+names-abbreviated,learned-fk-nologs+verify,FK,learned,True,4,0.8108,0.8824,0.8451,0.8512,"[0.7479, 0.9546]",profiling,0.25
+names-abbreviated,learned-fk-nologs+verify,UCC,learned,True,4,,0.0,,,,profiling,
+names-abbreviated,learned-fk-nologs+verify,FD,learned,True,4,,0.0,,,,profiling,
+names-cryptic,learned-fk-nologs,FK,learned,False,4,0.7838,0.8529,0.8169,0.832,"[0.7273, 0.9307]",profiling,0.25
+names-cryptic,learned-fk-nologs,UCC,learned,False,4,,0.0,,,,profiling,
+names-cryptic,learned-fk-nologs,FD,learned,False,4,,0.0,,,,profiling,
+names-cryptic,learned-fk-nologs+verify,FK,learned,True,4,0.8286,0.8529,0.8406,0.8472,"[0.7636, 0.9307]",profiling,0.25
+names-cryptic,learned-fk-nologs+verify,UCC,learned,True,4,,0.0,,,,profiling,
+names-cryptic,learned-fk-nologs+verify,FD,learned,True,4,,0.0,,,,profiling,
+names-misleading,learned-fk-nologs,FK,learned,False,4,0.7632,0.8529,0.8056,0.8212,"[0.7273, 0.9091]",profiling,0.25
+names-misleading,learned-fk-nologs,UCC,learned,False,4,,0.0,,,,profiling,
+names-misleading,learned-fk-nologs,FD,learned,False,4,,0.0,,,,profiling,
+names-misleading,learned-fk-nologs+verify,FK,learned,True,4,0.8056,0.8529,0.8286,0.8364,"[0.7636, 0.9091]",profiling,0.25
+names-misleading,learned-fk-nologs+verify,UCC,learned,True,4,,0.0,,,,profiling,
+names-misleading,learned-fk-nologs+verify,FD,learned,True,4,,0.0,,,,profiling,

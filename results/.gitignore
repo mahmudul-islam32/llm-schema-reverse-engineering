@@ -1,0 +1,17 @@
+# Large per-run artefacts are reproducible from config.yaml + seed (see manifest.json);
+# only the compact, citable outputs are committed.
+db/
+evidence/
+gold/
+noise/
+prompts/
+synth/
+llm_cache/
+proposals.jsonl
+false_positives.jsonl
+metrics.json
+costs.json
+hallucinations.json
+synth.json
+synth.csv
+*.log

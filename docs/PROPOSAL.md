@@ -6,8 +6,8 @@
 **Intended group:** Information Systems, Hasso Plattner Institute, University of Potsdam (Prof. Dr. Felix Naumann)
 **Artefact:** this repository, an implemented and tested research toolkit (`srev`)
 
-> **Status of this document.** This is a draft exposé, written to start a conversation. All
-> numbers in §6 are *pilot* results from the offline methods on generated data; no LLM
+> **Status of this document.** This is a draft exposé, written to start a conversation. The
+> numbers in §6 come from the non-LLM benchmark on generated data (three seeds); no LLM
 > experiments have been run yet. References marked † should be checked against the original
 > sources before formal submission. Check the group's current research focus on its website
 > before contacting it, and fill in the bracketed placeholders.
@@ -96,37 +96,43 @@ reported number be re-computed (`srev reproduce --replay`).
 5. **End-to-end reverse engineering:** from an undocumented database to a verified, normalised
    relational model with traceable evidence, extending my master's thesis.
 
-### 6. Preliminary results (pilot, no LLM yet)
+### 6. Preliminary results (benchmark without LLMs)
 
-Offline run of `configs/offline.yaml`: three generated databases (TPC-H-shaped, university,
-legacy retail), noise L0–L3 and a misleading-names probe. Macro F1 for **foreign keys** across
-the three databases:
+The full protocol has been run for every method that needs no language model: four generated
+databases (TPC-H-shaped, university, legacy retail without declared FKs, airline with a
+self-reference), noise levels L0–L3, three name probes, three seeds. Details, precision/recall,
+hallucination counts and all caveats: [RESULTS.md](RESULTS.md). Foreign-key macro F1, mean over
+three seeds (sd ≤ 0.03 unless shown):
 
 | Method | L0 | L1 | L2 | L3 | misleading names |
 |---|---|---|---|---|---|
-| Exact profiling (all INDs into UCCs) | 0.65 | 0.21 | 0.04 | 0.06 | 0.65 |
-| Approximate profiling (partial INDs, g3) | 0.63 | 0.63 | 0.62 | 0.60 | 0.63 |
-| Name/statistics heuristic + verifier | 0.98 | 0.81 | 0.65 | 0.51 | 0.54 |
-| Names-only heuristic + verifier | 0.92 | 0.66 | 0.50 | – | 0.00 |
-| Learned FK classifier (no query-log feature) | 0.89 | 0.87 | 0.86 | 0.78 | 0.86 |
+| Exact profiling (INDs into UCCs) | 0.68 | 0.16 | 0.07 | 0.02 | 0.68 |
+| Approximate profiling (partial INDs, g3) | 0.67 | 0.67 | 0.67 | 0.64 | 0.67 |
+| Names-only heuristic + verifier | 0.86 | 0.55 ± 0.09 | 0.25 ± 0.09 | – | 0.14 ± 0.20 |
+| Names + statistics heuristic + verifier | 0.97 | 0.76 | 0.59 | 0.37 ± 0.06 | 0.71 ± 0.04 |
+| Learned FK classifier (no query-log feature) | 0.87 | 0.86 | 0.79 | 0.76 | 0.85 |
 
-For **FDs**, every method stays low: the exact profiler reaches macro F1 0.12 at L0 and 0 from L2,
-and the heuristic recovers only the FDs whose names give them away. Caveats: three small generated
-databases, gold labels designed by us, and no LLM in the loop. These numbers motivate the
-questions rather than answer them:
+What the benchmark shows, and what it leaves for the LLM experiments:
 
-- **Noise breaks exact profiling** but not approximate profiling, so LLMs must be compared
-  against a dirty-data baseline, not only against exact discovery (RQ3).
-- **Names are powerful and dangerous:** methods that lean on names win on clean schemas and
-  collapse when names mislead, while data-driven methods are unaffected (RQ7).
-- **The learned model's strongest features** are the distinct-value ratio and row coverage,
-  followed by the referenced column's position; name similarity contributes less. With the
-  query-log feature it reaches 0.97–0.98 at every noise level, but only because the generated
-  workloads mention every gold FK, a benchmark artefact that the ablation makes visible.
-- **Genuine-FD discovery is the open problem** (RQ6).
+- **Noise breaks exact discovery** (0.68 → 0.16 at the lowest level) but not approximate
+  discovery, so LLMs must be compared against an approximate baseline (RQ3).
+- **Precision, not completeness, is the bottleneck**: profilers reach FK recall 1.00 at precision
+  0.42–0.45, and 88% of the exact profiler's output holds in the data without being intended.
+- **Genuine FDs are unsolved** (RQ6): the exact profiler's FD precision is about 1.4% on clean
+  data, the best method reaches FD F1 0.53, and semantic FDs such as `zip_code → city` are found
+  by none.
+- **Names mislead** (RQ7): on identical data with permuted names, the names-only method falls from
+  0.86 to 0.14, while data-driven methods are unaffected. This is the decisive test for LLMs.
+- **Learned features**: the distinct-value ratio and row coverage dominate; name similarity adds
+  little. With a query-log feature the model reaches 0.98 at every level, an artefact of generated
+  workloads that mention every gold FK, which motivates real workloads (Spider/BIRD, JOB).
 
-Reproduce: `srev run --config configs/offline.yaml` (about 20 s on a 4-core machine), then
-`srev export latex runs/<id>`.
+Caveats: four small generated databases with author-designed gold labels, Metanome not yet run,
+and four databases are too few for significance tests (minimum p = 0.125). The LLM runs use the
+same configuration (`configs/experiment.yaml`) and are the first step of the work plan.
+
+Reproduce: `srev run --config configs/benchmark.yaml --seed 1` (about 1 minute on 4 cores),
+repeat for seeds 2 and 3, then `srev summarize` and `srev export latex`.
 
 ### 7. Work plan (three years)
 

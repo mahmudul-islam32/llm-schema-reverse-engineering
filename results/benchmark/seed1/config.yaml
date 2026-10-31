@@ -1,0 +1,435 @@
+name: benchmark-seed1
+seed: 1
+output_dir: runs
+database:
+  backend: sqlite
+  dsn: null
+  schema_prefix: srev
+datasets:
+- name: tpch_mini
+  source: builtin
+  generator: null
+  params: {}
+  dsn: null
+  schema: public
+  path: null
+  workload: null
+  curated_gold: null
+  max_rows: null
+  delimiter: null
+  db_ids: null
+  limit: null
+  tables_json: null
+  db_dir: database
+  queries_json: null
+  db_id: null
+- name: university
+  source: builtin
+  generator: null
+  params: {}
+  dsn: null
+  schema: public
+  path: null
+  workload: null
+  curated_gold: null
+  max_rows: null
+  delimiter: null
+  db_ids: null
+  limit: null
+  tables_json: null
+  db_dir: database
+  queries_json: null
+  db_id: null
+- name: retail_legacy
+  source: builtin
+  generator: null
+  params: {}
+  dsn: null
+  schema: public
+  path: null
+  workload: null
+  curated_gold: null
+  max_rows: null
+  delimiter: null
+  db_ids: null
+  limit: null
+  tables_json: null
+  db_dir: database
+  queries_json: null
+  db_id: null
+- name: airline
+  source: builtin
+  generator: null
+  params: {}
+  dsn: null
+  schema: public
+  path: null
+  workload: null
+  curated_gold: null
+  max_rows: null
+  delimiter: null
+  db_ids: null
+  limit: null
+  tables_json: null
+  db_dir: database
+  queries_json: null
+  db_id: null
+noise:
+- 0
+- 1
+- 2
+- 3
+- names-abbreviated
+- names-cryptic
+- names-misleading
+methods:
+- name: profiling
+  kind: baseline
+  evidence:
+  - - names
+    - stats
+    - samples
+    - logs
+  paraphrases:
+  - 0
+  seeds: null
+  verify: false
+  llm: null
+  profiling:
+    ucc_max_arity: 3
+    fd_max_lhs: 2
+    ucc_max_error: 0.0
+    fd_max_error: 0.0
+    ind_min_coverage: 1.0
+    ind_coverage: values
+    nary_fks: true
+    max_rows: null
+  metanome:
+    cli_jar: lib/metanome-cli.jar
+    algorithm_jars:
+      hyfd: lib/HyFD.jar
+      hyucc: lib/HyUCC.jar
+      binder: lib/BINDER.jar
+    algorithms:
+    - hyfd
+    - hyucc
+    - binder
+    java: java
+    java_opts:
+    - -Xmx4g
+    timeout_s: 3600
+    extra_args: {}
+  learned:
+    min_coverage: 0.5
+    ref_min_uniqueness: 0.9
+    threshold: 0.5
+    l2: 1.0
+    epochs: 400
+    learning_rate: 0.3
+    balanced: true
+    max_rows: null
+    features: null
+  scorer: heuristic
+  threshold: 0.5
+  max_candidates: 150
+- name: profiling-approx
+  kind: baseline
+  evidence:
+  - - names
+    - stats
+    - samples
+    - logs
+  paraphrases:
+  - 0
+  seeds: null
+  verify: false
+  llm: null
+  profiling:
+    ucc_max_arity: 3
+    fd_max_lhs: 2
+    ucc_max_error: 0.01
+    fd_max_error: 0.05
+    ind_min_coverage: 0.9
+    ind_coverage: rows
+    nary_fks: true
+    max_rows: null
+  metanome:
+    cli_jar: lib/metanome-cli.jar
+    algorithm_jars:
+      hyfd: lib/HyFD.jar
+      hyucc: lib/HyUCC.jar
+      binder: lib/BINDER.jar
+    algorithms:
+    - hyfd
+    - hyucc
+    - binder
+    java: java
+    java_opts:
+    - -Xmx4g
+    timeout_s: 3600
+    extra_args: {}
+  learned:
+    min_coverage: 0.5
+    ref_min_uniqueness: 0.9
+    threshold: 0.5
+    l2: 1.0
+    epochs: 400
+    learning_rate: 0.3
+    balanced: true
+    max_rows: null
+    features: null
+  scorer: heuristic
+  threshold: 0.5
+  max_candidates: 150
+- name: learned-fk
+  kind: learned
+  evidence:
+  - - names
+    - stats
+    - samples
+    - logs
+  paraphrases:
+  - 0
+  seeds: null
+  verify: true
+  llm: null
+  profiling:
+    ucc_max_arity: 3
+    fd_max_lhs: 2
+    ucc_max_error: 0.0
+    fd_max_error: 0.0
+    ind_min_coverage: 1.0
+    ind_coverage: values
+    nary_fks: true
+    max_rows: null
+  metanome:
+    cli_jar: lib/metanome-cli.jar
+    algorithm_jars:
+      hyfd: lib/HyFD.jar
+      hyucc: lib/HyUCC.jar
+      binder: lib/BINDER.jar
+    algorithms:
+    - hyfd
+    - hyucc
+    - binder
+    java: java
+    java_opts:
+    - -Xmx4g
+    timeout_s: 3600
+    extra_args: {}
+  learned:
+    min_coverage: 0.5
+    ref_min_uniqueness: 0.9
+    threshold: 0.5
+    l2: 1.0
+    epochs: 400
+    learning_rate: 0.3
+    balanced: true
+    max_rows: null
+    features: null
+  scorer: heuristic
+  threshold: 0.5
+  max_candidates: 150
+- name: learned-fk-nologs
+  kind: learned
+  evidence:
+  - - names
+    - stats
+    - samples
+    - logs
+  paraphrases:
+  - 0
+  seeds: null
+  verify: true
+  llm: null
+  profiling:
+    ucc_max_arity: 3
+    fd_max_lhs: 2
+    ucc_max_error: 0.0
+    fd_max_error: 0.0
+    ind_min_coverage: 1.0
+    ind_coverage: values
+    nary_fks: true
+    max_rows: null
+  metanome:
+    cli_jar: lib/metanome-cli.jar
+    algorithm_jars:
+      hyfd: lib/HyFD.jar
+      hyucc: lib/HyUCC.jar
+      binder: lib/BINDER.jar
+    algorithms:
+    - hyfd
+    - hyucc
+    - binder
+    java: java
+    java_opts:
+    - -Xmx4g
+    timeout_s: 3600
+    extra_args: {}
+  learned:
+    min_coverage: 0.5
+    ref_min_uniqueness: 0.9
+    threshold: 0.5
+    l2: 1.0
+    epochs: 400
+    learning_rate: 0.3
+    balanced: true
+    max_rows: null
+    features:
+    - row_coverage
+    - value_coverage
+    - ref_uniqueness
+    - dep_uniqueness
+    - distinct_ratio
+    - name_score
+    - dep_keyish
+    - ref_keyish
+    - ref_first_column
+    - same_table
+    - range_inside
+    - dep_null_ratio
+    - ref_rows_ratio
+  scorer: heuristic
+  threshold: 0.5
+  max_candidates: 150
+- name: heuristic
+  kind: heuristic
+  evidence:
+  - - names
+  - - names
+    - stats
+    - samples
+    - logs
+  paraphrases:
+  - 0
+  seeds: null
+  verify: true
+  llm: null
+  profiling:
+    ucc_max_arity: 3
+    fd_max_lhs: 2
+    ucc_max_error: 0.0
+    fd_max_error: 0.0
+    ind_min_coverage: 1.0
+    ind_coverage: values
+    nary_fks: true
+    max_rows: null
+  metanome:
+    cli_jar: lib/metanome-cli.jar
+    algorithm_jars:
+      hyfd: lib/HyFD.jar
+      hyucc: lib/HyUCC.jar
+      binder: lib/BINDER.jar
+    algorithms:
+    - hyfd
+    - hyucc
+    - binder
+    java: java
+    java_opts:
+    - -Xmx4g
+    timeout_s: 3600
+    extra_args: {}
+  learned:
+    min_coverage: 0.5
+    ref_min_uniqueness: 0.9
+    threshold: 0.5
+    l2: 1.0
+    epochs: 400
+    learning_rate: 0.3
+    balanced: true
+    max_rows: null
+    features: null
+  scorer: heuristic
+  threshold: 0.5
+  max_candidates: 150
+- name: hybrid-heuristic
+  kind: hybrid
+  evidence:
+  - - names
+    - stats
+    - samples
+    - logs
+  paraphrases:
+  - 0
+  seeds: null
+  verify: true
+  llm: null
+  profiling:
+    ucc_max_arity: 3
+    fd_max_lhs: 2
+    ucc_max_error: 0.0
+    fd_max_error: 0.0
+    ind_min_coverage: 1.0
+    ind_coverage: values
+    nary_fks: true
+    max_rows: null
+  metanome:
+    cli_jar: lib/metanome-cli.jar
+    algorithm_jars:
+      hyfd: lib/HyFD.jar
+      hyucc: lib/HyUCC.jar
+      binder: lib/BINDER.jar
+    algorithms:
+    - hyfd
+    - hyucc
+    - binder
+    java: java
+    java_opts:
+    - -Xmx4g
+    timeout_s: 3600
+    extra_args: {}
+  learned:
+    min_coverage: 0.5
+    ref_min_uniqueness: 0.9
+    threshold: 0.5
+    l2: 1.0
+    epochs: 400
+    learning_rate: 0.3
+    balanced: true
+    max_rows: null
+    features: null
+  scorer: heuristic
+  threshold: 0.6
+  max_candidates: 150
+llm:
+  base_url: http://localhost:8000/v1
+  model: Qwen/Qwen2.5-7B-Instruct
+  revision: null
+  temperature: 0.0
+  top_p: 1.0
+  max_tokens: 4096
+  seed: 42
+  api_key_env: SREV_LLM_API_KEY
+  response_format: json_schema
+  timeout_s: 300.0
+  retries: 3
+  cache_dir: null
+  offline: false
+sample:
+  rows_per_table: 50
+  top_k: 5
+prompt:
+  channels:
+  - names
+  - stats
+  - samples
+  - logs
+  token_budget: 8000
+  paraphrase: 0
+  max_sample_rows: 10
+  max_join_pairs: 60
+  max_value_chars: 40
+verify:
+  fk_min_coverage: 0.95
+  ucc_min_uniqueness: 0.99
+  fd_max_g3: 0.05
+  min_rows: 1
+eval:
+  bootstrap: 1000
+  top_k_factor: 1.0
+  fd_gold: curated
+  exact_fd_max_lhs: 2
+synth:
+  enabled: true
+  variant: null
+  normal_form: bcnf

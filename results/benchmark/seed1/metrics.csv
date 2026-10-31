@@ -1,0 +1,1009 @@
+db_id,dataset,noise,variant,method,kind,verified,channels,type,n_proposed,n_gold,tp,fp,fn,precision,recall,f1,ci_precision,ci_recall,ci_f1,overlap_precision,overlap_recall,overlap_f1,topk_precision,topk_recall,topk_f1
+tpch_mini_L0,tpch_mini,L0,profiling,profiling,baseline,False,,FK,33,10,10,23,0,0.303,1.0,0.4651,"[0.1515, 0.4545]","[1.0, 1.0]","[0.2632, 0.625]",0.303,1.0,0.4651,1.0,1.0,1.0
+tpch_mini_L0,tpch_mini,L0,profiling,profiling,baseline,False,,UCC,110,8,8,102,0,0.0727,1.0,0.1356,"[0.0273, 0.1273]","[1.0, 1.0]","[0.0531, 0.2258]",0.0727,1.0,0.1356,1.0,1.0,1.0
+tpch_mini_L0,tpch_mini,L0,profiling,profiling,baseline,False,,FD,373,0,0,373,0,0.0,,,"[0.0, 0.0]",,,0.0,,,,,
+tpch_mini_L0,tpch_mini,L0,profiling-approx,profiling-approx,baseline,False,,FK,39,10,10,29,0,0.2564,1.0,0.4082,"[0.1282, 0.4103]","[1.0, 1.0]","[0.2273, 0.5818]",0.2564,1.0,0.4082,1.0,1.0,1.0
+tpch_mini_L0,tpch_mini,L0,profiling-approx,profiling-approx,baseline,False,,UCC,162,8,8,154,0,0.0494,1.0,0.0941,"[0.0185, 0.0864]","[1.0, 1.0]","[0.0364, 0.1591]",0.0494,1.0,0.0941,1.0,1.0,1.0
+tpch_mini_L0,tpch_mini,L0,profiling-approx,profiling-approx,baseline,False,,FD,660,0,0,660,0,0.0,,,"[0.0, 0.0]",,,0.0,,,,,
+tpch_mini_L0,tpch_mini,L0,heuristic[names],heuristic,heuristic,False,names,FK,15,10,9,6,1,0.6,0.9,0.72,"[0.3333, 0.8125]","[0.7, 1.0]","[0.4762, 0.8966]",0.6,0.9,0.72,0.7,0.7,0.7
+tpch_mini_L0,tpch_mini,L0,heuristic[names],heuristic,heuristic,False,names,UCC,8,8,6,2,2,0.75,0.75,0.75,"[0.4286, 1.0]","[0.4444, 1.0]","[0.4615, 0.9474]",1.0,1.0,1.0,0.75,0.75,0.75
+tpch_mini_L0,tpch_mini,L0,heuristic[names],heuristic,heuristic,False,names,FD,0,0,0,0,0,,,,,,,,,,,,
+tpch_mini_L0,tpch_mini,L0,heuristic[names]+verify,heuristic,heuristic,True,names,FK,9,10,9,0,1,1.0,0.9,0.9474,"[1.0, 1.0]","[0.7, 1.0]","[0.8235, 1.0]",1.0,0.9,0.9474,1.0,0.9,0.9474
+tpch_mini_L0,tpch_mini,L0,heuristic[names]+verify,heuristic,heuristic,True,names,UCC,6,8,6,0,2,1.0,0.75,0.8571,"[1.0, 1.0]","[0.375, 1.0]","[0.5455, 1.0]",1.0,0.75,0.8571,1.0,0.75,0.8571
+tpch_mini_L0,tpch_mini,L0,heuristic[names]+verify,heuristic,heuristic,True,names,FD,0,0,0,0,0,,,,,,,,,,,,
+tpch_mini_L0,tpch_mini,L0,heuristic[names+stats+samples+logs],heuristic,heuristic,False,names+stats+samples+logs,FK,9,10,9,0,1,1.0,0.9,0.9474,"[1.0, 1.0]","[0.7, 1.0]","[0.8235, 1.0]",1.0,0.9,0.9474,1.0,0.9,0.9474
+tpch_mini_L0,tpch_mini,L0,heuristic[names+stats+samples+logs],heuristic,heuristic,False,names+stats+samples+logs,UCC,8,8,7,1,1,0.875,0.875,0.875,"[0.6, 1.0]","[0.625, 1.0]","[0.6154, 1.0]",0.875,0.875,0.875,0.875,0.875,0.875
+tpch_mini_L0,tpch_mini,L0,heuristic[names+stats+samples+logs],heuristic,heuristic,False,names+stats+samples+logs,FD,0,0,0,0,0,,,,,,,,,,,,
+tpch_mini_L0,tpch_mini,L0,heuristic[names+stats+samples+logs]+verify,heuristic,heuristic,True,names+stats+samples+logs,FK,9,10,9,0,1,1.0,0.9,0.9474,"[1.0, 1.0]","[0.7, 1.0]","[0.8235, 1.0]",1.0,0.9,0.9474,1.0,0.9,0.9474
+tpch_mini_L0,tpch_mini,L0,heuristic[names+stats+samples+logs]+verify,heuristic,heuristic,True,names+stats+samples+logs,UCC,7,8,7,0,1,1.0,0.875,0.9333,"[1.0, 1.0]","[0.625, 1.0]","[0.7692, 1.0]",1.0,0.875,0.9333,1.0,0.875,0.9333
+tpch_mini_L0,tpch_mini,L0,heuristic[names+stats+samples+logs]+verify,heuristic,heuristic,True,names+stats+samples+logs,FD,0,0,0,0,0,,,,,,,,,,,,
+tpch_mini_L0,tpch_mini,L0,hybrid-heuristic,hybrid-heuristic,hybrid,False,names+stats+samples+logs,FK,13,10,10,3,0,0.7692,1.0,0.8696,"[0.5385, 1.0]","[1.0, 1.0]","[0.7, 1.0]",0.7692,1.0,0.8696,1.0,1.0,1.0
+tpch_mini_L0,tpch_mini,L0,hybrid-heuristic,hybrid-heuristic,hybrid,False,names+stats+samples+logs,UCC,9,8,8,1,0,0.8889,1.0,0.9412,"[0.6667, 1.0]","[1.0, 1.0]","[0.8, 1.0]",0.8889,1.0,0.9412,1.0,1.0,1.0
+tpch_mini_L0,tpch_mini,L0,hybrid-heuristic,hybrid-heuristic,hybrid,False,names+stats+samples+logs,FD,0,0,0,0,0,,,,,,,,,,,,
+tpch_mini_L0,tpch_mini,L0,hybrid-heuristic+verify,hybrid-heuristic,hybrid,True,names+stats+samples+logs,FK,13,10,10,3,0,0.7692,1.0,0.8696,"[0.5385, 1.0]","[1.0, 1.0]","[0.7, 1.0]",0.7692,1.0,0.8696,1.0,1.0,1.0
+tpch_mini_L0,tpch_mini,L0,hybrid-heuristic+verify,hybrid-heuristic,hybrid,True,names+stats+samples+logs,UCC,9,8,8,1,0,0.8889,1.0,0.9412,"[0.6667, 1.0]","[1.0, 1.0]","[0.8, 1.0]",0.8889,1.0,0.9412,1.0,1.0,1.0
+tpch_mini_L0,tpch_mini,L0,hybrid-heuristic+verify,hybrid-heuristic,hybrid,True,names+stats+samples+logs,FD,0,0,0,0,0,,,,,,,,,,,,
+tpch_mini_L1,tpch_mini,L1,profiling,profiling,baseline,False,,FK,18,10,2,16,8,0.1111,0.2,0.1429,"[0.0, 0.2857]","[0.0, 0.5]","[0.0, 0.3226]",0.1111,0.2,0.1429,0.2,0.2,0.2
+tpch_mini_L1,tpch_mini,L1,profiling,profiling,baseline,False,,UCC,162,8,8,154,0,0.0494,1.0,0.0941,"[0.0185, 0.0864]","[1.0, 1.0]","[0.0364, 0.1591]",0.0494,1.0,0.0941,0.75,0.75,0.75
+tpch_mini_L1,tpch_mini,L1,profiling,profiling,baseline,False,,FD,336,0,0,336,0,0.0,,,"[0.0, 0.0]",,,0.0,,,,,
+tpch_mini_L1,tpch_mini,L1,profiling-approx,profiling-approx,baseline,False,,FK,39,10,10,29,0,0.2564,1.0,0.4082,"[0.1282, 0.4103]","[1.0, 1.0]","[0.2273, 0.5818]",0.2564,1.0,0.4082,0.8,0.8,0.8
+tpch_mini_L1,tpch_mini,L1,profiling-approx,profiling-approx,baseline,False,,UCC,193,8,8,185,0,0.0415,1.0,0.0796,"[0.0155, 0.0725]","[1.0, 1.0]","[0.0306, 0.1353]",0.0415,1.0,0.0796,0.75,0.75,0.75
+tpch_mini_L1,tpch_mini,L1,profiling-approx,profiling-approx,baseline,False,,FD,631,0,0,631,0,0.0,,,"[0.0, 0.0]",,,0.0,,,,,
+tpch_mini_L1,tpch_mini,L1,heuristic[names],heuristic,heuristic,False,names,FK,11,10,4,7,6,0.3636,0.4,0.381,"[0.0909, 0.6667]","[0.1111, 0.7273]","[0.1111, 0.64]",0.3636,0.4,0.381,0.4,0.4,0.4
+tpch_mini_L1,tpch_mini,L1,heuristic[names],heuristic,heuristic,False,names,UCC,7,8,3,4,5,0.4286,0.375,0.4,"[0.0, 0.8333]","[0.0, 0.75]","[0.0, 0.6667]",0.7143,0.625,0.6667,0.4286,0.375,0.4
+tpch_mini_L1,tpch_mini,L1,heuristic[names],heuristic,heuristic,False,names,FD,0,0,0,0,0,,,,,,,,,,,,
+tpch_mini_L1,tpch_mini,L1,heuristic[names]+verify,heuristic,heuristic,True,names,FK,4,10,4,0,6,1.0,0.4,0.5714,"[1.0, 1.0]","[0.1, 0.7]","[0.1818, 0.8235]",1.0,0.4,0.5714,1.0,0.4,0.5714
+tpch_mini_L1,tpch_mini,L1,heuristic[names]+verify,heuristic,heuristic,True,names,UCC,3,8,3,0,5,1.0,0.375,0.5455,"[1.0, 1.0]","[0.125, 0.75]","[0.2222, 0.8571]",1.0,0.375,0.5455,1.0,0.375,0.5455
+tpch_mini_L1,tpch_mini,L1,heuristic[names]+verify,heuristic,heuristic,True,names,FD,0,0,0,0,0,,,,,,,,,,,,
+tpch_mini_L1,tpch_mini,L1,heuristic[names+stats+samples+logs],heuristic,heuristic,False,names+stats+samples+logs,FK,6,10,6,0,4,1.0,0.6,0.75,"[1.0, 1.0]","[0.3, 0.9]","[0.4615, 0.9474]",1.0,0.6,0.75,1.0,0.6,0.75
+tpch_mini_L1,tpch_mini,L1,heuristic[names+stats+samples+logs],heuristic,heuristic,False,names+stats+samples+logs,UCC,7,8,6,1,2,0.8571,0.75,0.8,"[0.5714, 1.0]","[0.4286, 1.0]","[0.5, 1.0]",0.8571,0.75,0.8,0.8571,0.75,0.8
+tpch_mini_L1,tpch_mini,L1,heuristic[names+stats+samples+logs],heuristic,heuristic,False,names+stats+samples+logs,FD,0,0,0,0,0,,,,,,,,,,,,
+tpch_mini_L1,tpch_mini,L1,heuristic[names+stats+samples+logs]+verify,heuristic,heuristic,True,names+stats+samples+logs,FK,6,10,6,0,4,1.0,0.6,0.75,"[1.0, 1.0]","[0.3, 0.9]","[0.4615, 0.9474]",1.0,0.6,0.75,1.0,0.6,0.75
+tpch_mini_L1,tpch_mini,L1,heuristic[names+stats+samples+logs]+verify,heuristic,heuristic,True,names+stats+samples+logs,UCC,6,8,6,0,2,1.0,0.75,0.8571,"[1.0, 1.0]","[0.375, 1.0]","[0.5455, 1.0]",1.0,0.75,0.8571,1.0,0.75,0.8571
+tpch_mini_L1,tpch_mini,L1,heuristic[names+stats+samples+logs]+verify,heuristic,heuristic,True,names+stats+samples+logs,FD,0,0,0,0,0,,,,,,,,,,,,
+tpch_mini_L1,tpch_mini,L1,hybrid-heuristic,hybrid-heuristic,hybrid,False,names+stats+samples+logs,FK,4,10,2,2,8,0.5,0.2,0.2857,"[0.0, 1.0]","[0.0, 0.5]","[0.0, 0.5882]",0.5,0.2,0.2857,0.5,0.2,0.2857
+tpch_mini_L1,tpch_mini,L1,hybrid-heuristic,hybrid-heuristic,hybrid,False,names+stats+samples+logs,UCC,4,8,4,0,4,1.0,0.5,0.6667,"[1.0, 1.0]","[0.125, 0.875]","[0.2222, 0.9333]",1.0,0.5,0.6667,1.0,0.5,0.6667
+tpch_mini_L1,tpch_mini,L1,hybrid-heuristic,hybrid-heuristic,hybrid,False,names+stats+samples+logs,FD,0,0,0,0,0,,,,,,,,,,,,
+tpch_mini_L1,tpch_mini,L1,hybrid-heuristic+verify,hybrid-heuristic,hybrid,True,names+stats+samples+logs,FK,4,10,2,2,8,0.5,0.2,0.2857,"[0.0, 1.0]","[0.0, 0.5]","[0.0, 0.5882]",0.5,0.2,0.2857,0.5,0.2,0.2857
+tpch_mini_L1,tpch_mini,L1,hybrid-heuristic+verify,hybrid-heuristic,hybrid,True,names+stats+samples+logs,UCC,4,8,4,0,4,1.0,0.5,0.6667,"[1.0, 1.0]","[0.125, 0.875]","[0.2222, 0.9333]",1.0,0.5,0.6667,1.0,0.5,0.6667
+tpch_mini_L1,tpch_mini,L1,hybrid-heuristic+verify,hybrid-heuristic,hybrid,True,names+stats+samples+logs,FD,0,0,0,0,0,,,,,,,,,,,,
+tpch_mini_L2,tpch_mini,L2,profiling,profiling,baseline,False,,FK,16,10,1,15,9,0.0625,0.1,0.0769,"[0.0, 0.2143]","[0.0, 0.3333]","[0.0, 0.2143]",0.0625,0.1,0.0769,0.1,0.1,0.1
+tpch_mini_L2,tpch_mini,L2,profiling,profiling,baseline,False,,UCC,118,8,8,110,0,0.0678,1.0,0.127,"[0.0254, 0.1186]","[1.0, 1.0]","[0.0496, 0.2121]",0.0678,1.0,0.127,0.75,0.75,0.75
+tpch_mini_L2,tpch_mini,L2,profiling,profiling,baseline,False,,FD,215,0,0,215,0,0.0,,,"[0.0, 0.0]",,,0.0,,,,,
+tpch_mini_L2,tpch_mini,L2,profiling-approx,profiling-approx,baseline,False,,FK,36,10,9,27,1,0.25,0.9,0.3913,"[0.1111, 0.4054]","[0.6667, 1.0]","[0.1951, 0.5769]",0.25,0.9,0.3913,0.7,0.7,0.7
+tpch_mini_L2,tpch_mini,L2,profiling-approx,profiling-approx,baseline,False,,UCC,184,8,8,176,0,0.0435,1.0,0.0833,"[0.0163, 0.0707]","[1.0, 1.0]","[0.0321, 0.132]",0.0435,1.0,0.0833,0.75,0.75,0.75
+tpch_mini_L2,tpch_mini,L2,profiling-approx,profiling-approx,baseline,False,,FD,735,0,0,735,0,0.0,,,"[0.0, 0.0]",,,0.0,,,,,
+tpch_mini_L2,tpch_mini,L2,heuristic[names],heuristic,heuristic,False,names,FK,1,10,0,1,10,0.0,0.0,0.0,"[0.0, 0.0]","[0.0, 0.0]","[0.0, 0.0]",1.0,0.1,0.1818,0.0,0.0,0.0
+tpch_mini_L2,tpch_mini,L2,heuristic[names],heuristic,heuristic,False,names,UCC,3,8,1,2,7,0.3333,0.125,0.1818,"[0.0, 1.0]","[0.0, 0.4286]","[0.0, 0.4615]",1.0,0.375,0.5455,0.3333,0.125,0.1818
+tpch_mini_L2,tpch_mini,L2,heuristic[names],heuristic,heuristic,False,names,FD,0,0,0,0,0,,,,,,,,,,,,
+tpch_mini_L2,tpch_mini,L2,heuristic[names]+verify,heuristic,heuristic,True,names,FK,0,10,0,0,10,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+tpch_mini_L2,tpch_mini,L2,heuristic[names]+verify,heuristic,heuristic,True,names,UCC,1,8,1,0,7,1.0,0.125,0.2222,"[1.0, 1.0]","[0.0, 0.375]","[0.2222, 0.5455]",1.0,0.125,0.2222,1.0,0.125,0.2222
+tpch_mini_L2,tpch_mini,L2,heuristic[names]+verify,heuristic,heuristic,True,names,FD,0,0,0,0,0,,,,,,,,,,,,
+tpch_mini_L2,tpch_mini,L2,heuristic[names+stats+samples+logs],heuristic,heuristic,False,names+stats+samples+logs,FK,3,10,3,0,7,1.0,0.3,0.4615,"[1.0, 1.0]","[0.0, 0.6]","[0.1818, 0.75]",1.0,0.3,0.4615,1.0,0.3,0.4615
+tpch_mini_L2,tpch_mini,L2,heuristic[names+stats+samples+logs],heuristic,heuristic,False,names+stats+samples+logs,UCC,8,8,7,1,1,0.875,0.875,0.875,"[0.6, 1.0]","[0.625, 1.0]","[0.6154, 1.0]",0.875,0.875,0.875,0.875,0.875,0.875
+tpch_mini_L2,tpch_mini,L2,heuristic[names+stats+samples+logs],heuristic,heuristic,False,names+stats+samples+logs,FD,0,0,0,0,0,,,,,,,,,,,,
+tpch_mini_L2,tpch_mini,L2,heuristic[names+stats+samples+logs]+verify,heuristic,heuristic,True,names+stats+samples+logs,FK,3,10,3,0,7,1.0,0.3,0.4615,"[1.0, 1.0]","[0.0, 0.6]","[0.1818, 0.75]",1.0,0.3,0.4615,1.0,0.3,0.4615
+tpch_mini_L2,tpch_mini,L2,heuristic[names+stats+samples+logs]+verify,heuristic,heuristic,True,names+stats+samples+logs,UCC,7,8,7,0,1,1.0,0.875,0.9333,"[1.0, 1.0]","[0.625, 1.0]","[0.7692, 1.0]",1.0,0.875,0.9333,1.0,0.875,0.9333
+tpch_mini_L2,tpch_mini,L2,heuristic[names+stats+samples+logs]+verify,heuristic,heuristic,True,names+stats+samples+logs,FD,0,0,0,0,0,,,,,,,,,,,,
+tpch_mini_L2,tpch_mini,L2,hybrid-heuristic,hybrid-heuristic,hybrid,False,names+stats+samples+logs,FK,0,10,0,0,10,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+tpch_mini_L2,tpch_mini,L2,hybrid-heuristic,hybrid-heuristic,hybrid,False,names+stats+samples+logs,UCC,2,8,2,0,6,1.0,0.25,0.4,"[1.0, 1.0]","[0.0, 0.625]","[0.2222, 0.7692]",1.0,0.25,0.4,1.0,0.25,0.4
+tpch_mini_L2,tpch_mini,L2,hybrid-heuristic,hybrid-heuristic,hybrid,False,names+stats+samples+logs,FD,0,0,0,0,0,,,,,,,,,,,,
+tpch_mini_L2,tpch_mini,L2,hybrid-heuristic+verify,hybrid-heuristic,hybrid,True,names+stats+samples+logs,FK,0,10,0,0,10,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+tpch_mini_L2,tpch_mini,L2,hybrid-heuristic+verify,hybrid-heuristic,hybrid,True,names+stats+samples+logs,UCC,2,8,2,0,6,1.0,0.25,0.4,"[1.0, 1.0]","[0.0, 0.625]","[0.2222, 0.7692]",1.0,0.25,0.4,1.0,0.25,0.4
+tpch_mini_L2,tpch_mini,L2,hybrid-heuristic+verify,hybrid-heuristic,hybrid,True,names+stats+samples+logs,FD,0,0,0,0,0,,,,,,,,,,,,
+tpch_mini_L3,tpch_mini,L3,profiling,profiling,baseline,False,,FK,16,10,1,15,9,0.0625,0.1,0.0769,"[0.0, 0.2143]","[0.0, 0.3333]","[0.0, 0.2143]",0.0625,0.1,0.0769,0.1,0.1,0.1
+tpch_mini_L3,tpch_mini,L3,profiling,profiling,baseline,False,,UCC,90,8,8,82,0,0.0889,1.0,0.1633,"[0.0333, 0.1556]","[1.0, 1.0]","[0.0645, 0.2692]",0.0889,1.0,0.1633,0.75,0.75,0.75
+tpch_mini_L3,tpch_mini,L3,profiling,profiling,baseline,False,,FD,162,0,0,162,0,0.0,,,"[0.0, 0.0]",,,0.0,,,,,
+tpch_mini_L3,tpch_mini,L3,profiling-approx,profiling-approx,baseline,False,,FK,36,10,9,27,1,0.25,0.9,0.3913,"[0.1111, 0.4054]","[0.6667, 1.0]","[0.1951, 0.5769]",0.25,0.9,0.3913,0.8,0.8,0.8
+tpch_mini_L3,tpch_mini,L3,profiling-approx,profiling-approx,baseline,False,,UCC,268,8,8,260,0,0.0299,1.0,0.058,"[0.0112, 0.0522]","[1.0, 1.0]","[0.0221, 0.0993]",0.0299,1.0,0.058,0.75,0.75,0.75
+tpch_mini_L3,tpch_mini,L3,profiling-approx,profiling-approx,baseline,False,,FD,662,0,0,662,0,0.0,,,"[0.0, 0.0]",,,0.0,,,,,
+tpch_mini_L3,tpch_mini,L3,heuristic[names],heuristic,heuristic,False,names,FK,0,10,0,0,10,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+tpch_mini_L3,tpch_mini,L3,heuristic[names],heuristic,heuristic,False,names,UCC,0,8,0,0,8,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+tpch_mini_L3,tpch_mini,L3,heuristic[names],heuristic,heuristic,False,names,FD,0,0,0,0,0,,,,,,,,,,,,
+tpch_mini_L3,tpch_mini,L3,heuristic[names]+verify,heuristic,heuristic,True,names,FK,0,10,0,0,10,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+tpch_mini_L3,tpch_mini,L3,heuristic[names]+verify,heuristic,heuristic,True,names,UCC,0,8,0,0,8,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+tpch_mini_L3,tpch_mini,L3,heuristic[names]+verify,heuristic,heuristic,True,names,FD,0,0,0,0,0,,,,,,,,,,,,
+tpch_mini_L3,tpch_mini,L3,heuristic[names+stats+samples+logs],heuristic,heuristic,False,names+stats+samples+logs,FK,1,10,1,0,9,1.0,0.1,0.1818,"[1.0, 1.0]","[0.0, 0.3]","[0.1818, 0.5714]",1.0,0.1,0.1818,1.0,0.1,0.1818
+tpch_mini_L3,tpch_mini,L3,heuristic[names+stats+samples+logs],heuristic,heuristic,False,names+stats+samples+logs,UCC,6,8,6,0,2,1.0,0.75,0.8571,"[1.0, 1.0]","[0.375, 1.0]","[0.5455, 1.0]",1.0,0.75,0.8571,1.0,0.75,0.8571
+tpch_mini_L3,tpch_mini,L3,heuristic[names+stats+samples+logs],heuristic,heuristic,False,names+stats+samples+logs,FD,0,0,0,0,0,,,,,,,,,,,,
+tpch_mini_L3,tpch_mini,L3,heuristic[names+stats+samples+logs]+verify,heuristic,heuristic,True,names+stats+samples+logs,FK,1,10,1,0,9,1.0,0.1,0.1818,"[1.0, 1.0]","[0.0, 0.3]","[0.1818, 0.5714]",1.0,0.1,0.1818,1.0,0.1,0.1818
+tpch_mini_L3,tpch_mini,L3,heuristic[names+stats+samples+logs]+verify,heuristic,heuristic,True,names+stats+samples+logs,UCC,6,8,6,0,2,1.0,0.75,0.8571,"[1.0, 1.0]","[0.375, 1.0]","[0.5455, 1.0]",1.0,0.75,0.8571,1.0,0.75,0.8571
+tpch_mini_L3,tpch_mini,L3,heuristic[names+stats+samples+logs]+verify,heuristic,heuristic,True,names+stats+samples+logs,FD,0,0,0,0,0,,,,,,,,,,,,
+tpch_mini_L3,tpch_mini,L3,hybrid-heuristic,hybrid-heuristic,hybrid,False,names+stats+samples+logs,FK,0,10,0,0,10,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+tpch_mini_L3,tpch_mini,L3,hybrid-heuristic,hybrid-heuristic,hybrid,False,names+stats+samples+logs,UCC,0,8,0,0,8,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+tpch_mini_L3,tpch_mini,L3,hybrid-heuristic,hybrid-heuristic,hybrid,False,names+stats+samples+logs,FD,0,0,0,0,0,,,,,,,,,,,,
+tpch_mini_L3,tpch_mini,L3,hybrid-heuristic+verify,hybrid-heuristic,hybrid,True,names+stats+samples+logs,FK,0,10,0,0,10,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+tpch_mini_L3,tpch_mini,L3,hybrid-heuristic+verify,hybrid-heuristic,hybrid,True,names+stats+samples+logs,UCC,0,8,0,0,8,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+tpch_mini_L3,tpch_mini,L3,hybrid-heuristic+verify,hybrid-heuristic,hybrid,True,names+stats+samples+logs,FD,0,0,0,0,0,,,,,,,,,,,,
+tpch_mini_names-abbreviated,tpch_mini,names-abbreviated,profiling,profiling,baseline,False,,FK,33,10,10,23,0,0.303,1.0,0.4651,"[0.1515, 0.4545]","[1.0, 1.0]","[0.2632, 0.625]",0.303,1.0,0.4651,1.0,1.0,1.0
+tpch_mini_names-abbreviated,tpch_mini,names-abbreviated,profiling,profiling,baseline,False,,UCC,110,8,8,102,0,0.0727,1.0,0.1356,"[0.0273, 0.1273]","[1.0, 1.0]","[0.0531, 0.2258]",0.0727,1.0,0.1356,0.25,0.25,0.25
+tpch_mini_names-abbreviated,tpch_mini,names-abbreviated,profiling,profiling,baseline,False,,FD,373,0,0,373,0,0.0,,,"[0.0, 0.0]",,,0.0,,,,,
+tpch_mini_names-abbreviated,tpch_mini,names-abbreviated,profiling-approx,profiling-approx,baseline,False,,FK,39,10,10,29,0,0.2564,1.0,0.4082,"[0.1282, 0.4103]","[1.0, 1.0]","[0.2273, 0.5818]",0.2564,1.0,0.4082,1.0,1.0,1.0
+tpch_mini_names-abbreviated,tpch_mini,names-abbreviated,profiling-approx,profiling-approx,baseline,False,,UCC,162,8,8,154,0,0.0494,1.0,0.0941,"[0.0185, 0.0864]","[1.0, 1.0]","[0.0364, 0.1591]",0.0494,1.0,0.0941,0.125,0.125,0.125
+tpch_mini_names-abbreviated,tpch_mini,names-abbreviated,profiling-approx,profiling-approx,baseline,False,,FD,660,0,0,660,0,0.0,,,"[0.0, 0.0]",,,0.0,,,,,
+tpch_mini_names-abbreviated,tpch_mini,names-abbreviated,heuristic[names],heuristic,heuristic,False,names,FK,12,10,7,5,3,0.5833,0.7,0.6364,"[0.3, 0.8462]","[0.4, 1.0]","[0.3333, 0.8462]",0.5833,0.7,0.6364,0.7,0.7,0.7
+tpch_mini_names-abbreviated,tpch_mini,names-abbreviated,heuristic[names],heuristic,heuristic,False,names,UCC,6,8,6,0,2,1.0,0.75,0.8571,"[1.0, 1.0]","[0.375, 1.0]","[0.5455, 1.0]",1.0,0.75,0.8571,1.0,0.75,0.8571
+tpch_mini_names-abbreviated,tpch_mini,names-abbreviated,heuristic[names],heuristic,heuristic,False,names,FD,0,0,0,0,0,,,,,,,,,,,,
+tpch_mini_names-abbreviated,tpch_mini,names-abbreviated,heuristic[names]+verify,heuristic,heuristic,True,names,FK,7,10,7,0,3,1.0,0.7,0.8235,"[1.0, 1.0]","[0.4, 0.9]","[0.5714, 0.9474]",1.0,0.7,0.8235,1.0,0.7,0.8235
+tpch_mini_names-abbreviated,tpch_mini,names-abbreviated,heuristic[names]+verify,heuristic,heuristic,True,names,UCC,6,8,6,0,2,1.0,0.75,0.8571,"[1.0, 1.0]","[0.375, 1.0]","[0.5455, 1.0]",1.0,0.75,0.8571,1.0,0.75,0.8571
+tpch_mini_names-abbreviated,tpch_mini,names-abbreviated,heuristic[names]+verify,heuristic,heuristic,True,names,FD,0,0,0,0,0,,,,,,,,,,,,
+tpch_mini_names-abbreviated,tpch_mini,names-abbreviated,heuristic[names+stats+samples+logs],heuristic,heuristic,False,names+stats+samples+logs,FK,9,10,9,0,1,1.0,0.9,0.9474,"[1.0, 1.0]","[0.7, 1.0]","[0.8235, 1.0]",1.0,0.9,0.9474,1.0,0.9,0.9474
+tpch_mini_names-abbreviated,tpch_mini,names-abbreviated,heuristic[names+stats+samples+logs],heuristic,heuristic,False,names+stats+samples+logs,UCC,6,8,6,0,2,1.0,0.75,0.8571,"[1.0, 1.0]","[0.375, 1.0]","[0.5455, 1.0]",1.0,0.75,0.8571,1.0,0.75,0.8571
+tpch_mini_names-abbreviated,tpch_mini,names-abbreviated,heuristic[names+stats+samples+logs],heuristic,heuristic,False,names+stats+samples+logs,FD,0,0,0,0,0,,,,,,,,,,,,
+tpch_mini_names-abbreviated,tpch_mini,names-abbreviated,heuristic[names+stats+samples+logs]+verify,heuristic,heuristic,True,names+stats+samples+logs,FK,9,10,9,0,1,1.0,0.9,0.9474,"[1.0, 1.0]","[0.7, 1.0]","[0.8235, 1.0]",1.0,0.9,0.9474,1.0,0.9,0.9474
+tpch_mini_names-abbreviated,tpch_mini,names-abbreviated,heuristic[names+stats+samples+logs]+verify,heuristic,heuristic,True,names+stats+samples+logs,UCC,6,8,6,0,2,1.0,0.75,0.8571,"[1.0, 1.0]","[0.375, 1.0]","[0.5455, 1.0]",1.0,0.75,0.8571,1.0,0.75,0.8571
+tpch_mini_names-abbreviated,tpch_mini,names-abbreviated,heuristic[names+stats+samples+logs]+verify,heuristic,heuristic,True,names+stats+samples+logs,FD,0,0,0,0,0,,,,,,,,,,,,
+tpch_mini_names-abbreviated,tpch_mini,names-abbreviated,hybrid-heuristic,hybrid-heuristic,hybrid,False,names+stats+samples+logs,FK,9,10,9,0,1,1.0,0.9,0.9474,"[1.0, 1.0]","[0.7, 1.0]","[0.8235, 1.0]",1.0,0.9,0.9474,1.0,0.9,0.9474
+tpch_mini_names-abbreviated,tpch_mini,names-abbreviated,hybrid-heuristic,hybrid-heuristic,hybrid,False,names+stats+samples+logs,UCC,0,8,0,0,8,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+tpch_mini_names-abbreviated,tpch_mini,names-abbreviated,hybrid-heuristic,hybrid-heuristic,hybrid,False,names+stats+samples+logs,FD,0,0,0,0,0,,,,,,,,,,,,
+tpch_mini_names-abbreviated,tpch_mini,names-abbreviated,hybrid-heuristic+verify,hybrid-heuristic,hybrid,True,names+stats+samples+logs,FK,9,10,9,0,1,1.0,0.9,0.9474,"[1.0, 1.0]","[0.7, 1.0]","[0.8235, 1.0]",1.0,0.9,0.9474,1.0,0.9,0.9474
+tpch_mini_names-abbreviated,tpch_mini,names-abbreviated,hybrid-heuristic+verify,hybrid-heuristic,hybrid,True,names+stats+samples+logs,UCC,0,8,0,0,8,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+tpch_mini_names-abbreviated,tpch_mini,names-abbreviated,hybrid-heuristic+verify,hybrid-heuristic,hybrid,True,names+stats+samples+logs,FD,0,0,0,0,0,,,,,,,,,,,,
+tpch_mini_names-cryptic,tpch_mini,names-cryptic,profiling,profiling,baseline,False,,FK,33,10,10,23,0,0.303,1.0,0.4651,"[0.1515, 0.4545]","[1.0, 1.0]","[0.2632, 0.625]",0.303,1.0,0.4651,0.8,0.8,0.8
+tpch_mini_names-cryptic,tpch_mini,names-cryptic,profiling,profiling,baseline,False,,UCC,110,8,8,102,0,0.0727,1.0,0.1356,"[0.0273, 0.1273]","[1.0, 1.0]","[0.0531, 0.2258]",0.0727,1.0,0.1356,0.375,0.375,0.375
+tpch_mini_names-cryptic,tpch_mini,names-cryptic,profiling,profiling,baseline,False,,FD,373,0,0,373,0,0.0,,,"[0.0, 0.0]",,,0.0,,,,,
+tpch_mini_names-cryptic,tpch_mini,names-cryptic,profiling-approx,profiling-approx,baseline,False,,FK,39,10,10,29,0,0.2564,1.0,0.4082,"[0.1282, 0.4103]","[1.0, 1.0]","[0.2273, 0.5818]",0.2564,1.0,0.4082,0.8,0.8,0.8
+tpch_mini_names-cryptic,tpch_mini,names-cryptic,profiling-approx,profiling-approx,baseline,False,,UCC,162,8,8,154,0,0.0494,1.0,0.0941,"[0.0185, 0.0864]","[1.0, 1.0]","[0.0364, 0.1591]",0.0494,1.0,0.0941,0.375,0.375,0.375
+tpch_mini_names-cryptic,tpch_mini,names-cryptic,profiling-approx,profiling-approx,baseline,False,,FD,660,0,0,660,0,0.0,,,"[0.0, 0.0]",,,0.0,,,,,
+tpch_mini_names-cryptic,tpch_mini,names-cryptic,heuristic[names],heuristic,heuristic,False,names,FK,0,10,0,0,10,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+tpch_mini_names-cryptic,tpch_mini,names-cryptic,heuristic[names],heuristic,heuristic,False,names,UCC,0,8,0,0,8,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+tpch_mini_names-cryptic,tpch_mini,names-cryptic,heuristic[names],heuristic,heuristic,False,names,FD,0,0,0,0,0,,,,,,,,,,,,
+tpch_mini_names-cryptic,tpch_mini,names-cryptic,heuristic[names]+verify,heuristic,heuristic,True,names,FK,0,10,0,0,10,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+tpch_mini_names-cryptic,tpch_mini,names-cryptic,heuristic[names]+verify,heuristic,heuristic,True,names,UCC,0,8,0,0,8,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+tpch_mini_names-cryptic,tpch_mini,names-cryptic,heuristic[names]+verify,heuristic,heuristic,True,names,FD,0,0,0,0,0,,,,,,,,,,,,
+tpch_mini_names-cryptic,tpch_mini,names-cryptic,heuristic[names+stats+samples+logs],heuristic,heuristic,False,names+stats+samples+logs,FK,9,10,9,0,1,1.0,0.9,0.9474,"[1.0, 1.0]","[0.7, 1.0]","[0.8235, 1.0]",1.0,0.9,0.9474,1.0,0.9,0.9474
+tpch_mini_names-cryptic,tpch_mini,names-cryptic,heuristic[names+stats+samples+logs],heuristic,heuristic,False,names+stats+samples+logs,UCC,6,8,6,0,2,1.0,0.75,0.8571,"[1.0, 1.0]","[0.375, 1.0]","[0.5455, 1.0]",1.0,0.75,0.8571,1.0,0.75,0.8571
+tpch_mini_names-cryptic,tpch_mini,names-cryptic,heuristic[names+stats+samples+logs],heuristic,heuristic,False,names+stats+samples+logs,FD,0,0,0,0,0,,,,,,,,,,,,
+tpch_mini_names-cryptic,tpch_mini,names-cryptic,heuristic[names+stats+samples+logs]+verify,heuristic,heuristic,True,names+stats+samples+logs,FK,9,10,9,0,1,1.0,0.9,0.9474,"[1.0, 1.0]","[0.7, 1.0]","[0.8235, 1.0]",1.0,0.9,0.9474,1.0,0.9,0.9474
+tpch_mini_names-cryptic,tpch_mini,names-cryptic,heuristic[names+stats+samples+logs]+verify,heuristic,heuristic,True,names+stats+samples+logs,UCC,6,8,6,0,2,1.0,0.75,0.8571,"[1.0, 1.0]","[0.375, 1.0]","[0.5455, 1.0]",1.0,0.75,0.8571,1.0,0.75,0.8571
+tpch_mini_names-cryptic,tpch_mini,names-cryptic,heuristic[names+stats+samples+logs]+verify,heuristic,heuristic,True,names+stats+samples+logs,FD,0,0,0,0,0,,,,,,,,,,,,
+tpch_mini_names-cryptic,tpch_mini,names-cryptic,hybrid-heuristic,hybrid-heuristic,hybrid,False,names+stats+samples+logs,FK,4,10,1,3,9,0.25,0.1,0.1429,"[0.0, 0.8571]","[0.0, 0.3333]","[0.0, 0.375]",0.25,0.1,0.1429,0.25,0.1,0.1429
+tpch_mini_names-cryptic,tpch_mini,names-cryptic,hybrid-heuristic,hybrid-heuristic,hybrid,False,names+stats+samples+logs,UCC,0,8,0,0,8,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+tpch_mini_names-cryptic,tpch_mini,names-cryptic,hybrid-heuristic,hybrid-heuristic,hybrid,False,names+stats+samples+logs,FD,0,0,0,0,0,,,,,,,,,,,,
+tpch_mini_names-cryptic,tpch_mini,names-cryptic,hybrid-heuristic+verify,hybrid-heuristic,hybrid,True,names+stats+samples+logs,FK,4,10,1,3,9,0.25,0.1,0.1429,"[0.0, 0.8571]","[0.0, 0.3333]","[0.0, 0.375]",0.25,0.1,0.1429,0.25,0.1,0.1429
+tpch_mini_names-cryptic,tpch_mini,names-cryptic,hybrid-heuristic+verify,hybrid-heuristic,hybrid,True,names+stats+samples+logs,UCC,0,8,0,0,8,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+tpch_mini_names-cryptic,tpch_mini,names-cryptic,hybrid-heuristic+verify,hybrid-heuristic,hybrid,True,names+stats+samples+logs,FD,0,0,0,0,0,,,,,,,,,,,,
+tpch_mini_names-misleading,tpch_mini,names-misleading,profiling,profiling,baseline,False,,FK,33,10,10,23,0,0.303,1.0,0.4651,"[0.1515, 0.4545]","[1.0, 1.0]","[0.2632, 0.625]",0.303,1.0,0.4651,0.8,0.8,0.8
+tpch_mini_names-misleading,tpch_mini,names-misleading,profiling,profiling,baseline,False,,UCC,110,8,8,102,0,0.0727,1.0,0.1356,"[0.0273, 0.1273]","[1.0, 1.0]","[0.0531, 0.2258]",0.0727,1.0,0.1356,0.125,0.125,0.125
+tpch_mini_names-misleading,tpch_mini,names-misleading,profiling,profiling,baseline,False,,FD,373,0,0,373,0,0.0,,,"[0.0, 0.0]",,,0.0,,,,,
+tpch_mini_names-misleading,tpch_mini,names-misleading,profiling-approx,profiling-approx,baseline,False,,FK,39,10,10,29,0,0.2564,1.0,0.4082,"[0.1282, 0.4103]","[1.0, 1.0]","[0.2273, 0.5818]",0.2564,1.0,0.4082,0.8,0.8,0.8
+tpch_mini_names-misleading,tpch_mini,names-misleading,profiling-approx,profiling-approx,baseline,False,,UCC,162,8,8,154,0,0.0494,1.0,0.0941,"[0.0185, 0.0864]","[1.0, 1.0]","[0.0364, 0.1591]",0.0494,1.0,0.0941,0.125,0.125,0.125
+tpch_mini_names-misleading,tpch_mini,names-misleading,profiling-approx,profiling-approx,baseline,False,,FD,660,0,0,660,0,0.0,,,"[0.0, 0.0]",,,0.0,,,,,
+tpch_mini_names-misleading,tpch_mini,names-misleading,heuristic[names],heuristic,heuristic,False,names,FK,15,10,0,15,10,0.0,0.0,0.0,"[0.0, 0.0]","[0.0, 0.0]","[0.0, 0.0]",0.0,0.0,0.0,0.0,0.0,0.0
+tpch_mini_names-misleading,tpch_mini,names-misleading,heuristic[names],heuristic,heuristic,False,names,UCC,8,8,1,7,7,0.125,0.125,0.125,"[0.0, 0.4286]","[0.0, 0.4]","[0.0, 0.3333]",0.375,0.375,0.375,0.125,0.125,0.125
+tpch_mini_names-misleading,tpch_mini,names-misleading,heuristic[names],heuristic,heuristic,False,names,FD,0,0,0,0,0,,,,,,,,,,,,
+tpch_mini_names-misleading,tpch_mini,names-misleading,heuristic[names]+verify,heuristic,heuristic,True,names,FK,0,10,0,0,10,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+tpch_mini_names-misleading,tpch_mini,names-misleading,heuristic[names]+verify,heuristic,heuristic,True,names,UCC,5,8,1,4,7,0.2,0.125,0.1538,"[0.0, 0.6667]","[0.0, 0.4]","[0.0, 0.4]",0.2,0.125,0.1538,0.2,0.125,0.1538
+tpch_mini_names-misleading,tpch_mini,names-misleading,heuristic[names]+verify,heuristic,heuristic,True,names,FD,0,0,0,0,0,,,,,,,,,,,,
+tpch_mini_names-misleading,tpch_mini,names-misleading,heuristic[names+stats+samples+logs],heuristic,heuristic,False,names+stats+samples+logs,FK,7,10,5,2,5,0.7143,0.5,0.5882,"[0.3333, 1.0]","[0.1667, 0.8182]","[0.2857, 0.8]",0.7143,0.5,0.5882,0.7143,0.5,0.5882
+tpch_mini_names-misleading,tpch_mini,names-misleading,heuristic[names+stats+samples+logs],heuristic,heuristic,False,names+stats+samples+logs,UCC,8,8,3,5,5,0.375,0.375,0.375,"[0.0, 0.75]","[0.0, 0.7273]","[0.0, 0.6316]",0.375,0.375,0.375,0.375,0.375,0.375
+tpch_mini_names-misleading,tpch_mini,names-misleading,heuristic[names+stats+samples+logs],heuristic,heuristic,False,names+stats+samples+logs,FD,0,0,0,0,0,,,,,,,,,,,,
+tpch_mini_names-misleading,tpch_mini,names-misleading,heuristic[names+stats+samples+logs]+verify,heuristic,heuristic,True,names+stats+samples+logs,FK,5,10,5,0,5,1.0,0.5,0.6667,"[1.0, 1.0]","[0.2, 0.8]","[0.3333, 0.8889]",1.0,0.5,0.6667,1.0,0.5,0.6667
+tpch_mini_names-misleading,tpch_mini,names-misleading,heuristic[names+stats+samples+logs]+verify,heuristic,heuristic,True,names+stats+samples+logs,UCC,7,8,3,4,5,0.4286,0.375,0.4,"[0.0, 0.8333]","[0.0, 0.75]","[0.0, 0.6667]",0.4286,0.375,0.4,0.4286,0.375,0.4
+tpch_mini_names-misleading,tpch_mini,names-misleading,heuristic[names+stats+samples+logs]+verify,heuristic,heuristic,True,names+stats+samples+logs,FD,0,0,0,0,0,,,,,,,,,,,,
+tpch_mini_names-misleading,tpch_mini,names-misleading,hybrid-heuristic,hybrid-heuristic,hybrid,False,names+stats+samples+logs,FK,2,10,1,1,9,0.5,0.1,0.1667,"[0.0, 1.0]","[0.0, 0.3333]","[0.0, 0.4286]",0.5,0.1,0.1667,0.5,0.1,0.1667
+tpch_mini_names-misleading,tpch_mini,names-misleading,hybrid-heuristic,hybrid-heuristic,hybrid,False,names+stats+samples+logs,UCC,8,8,1,7,7,0.125,0.125,0.125,"[0.0, 0.4286]","[0.0, 0.4]","[0.0, 0.3333]",0.125,0.125,0.125,0.125,0.125,0.125
+tpch_mini_names-misleading,tpch_mini,names-misleading,hybrid-heuristic,hybrid-heuristic,hybrid,False,names+stats+samples+logs,FD,0,0,0,0,0,,,,,,,,,,,,
+tpch_mini_names-misleading,tpch_mini,names-misleading,hybrid-heuristic+verify,hybrid-heuristic,hybrid,True,names+stats+samples+logs,FK,2,10,1,1,9,0.5,0.1,0.1667,"[0.0, 1.0]","[0.0, 0.3333]","[0.0, 0.4286]",0.5,0.1,0.1667,0.5,0.1,0.1667
+tpch_mini_names-misleading,tpch_mini,names-misleading,hybrid-heuristic+verify,hybrid-heuristic,hybrid,True,names+stats+samples+logs,UCC,8,8,1,7,7,0.125,0.125,0.125,"[0.0, 0.4286]","[0.0, 0.4]","[0.0, 0.3333]",0.125,0.125,0.125,0.125,0.125,0.125
+tpch_mini_names-misleading,tpch_mini,names-misleading,hybrid-heuristic+verify,hybrid-heuristic,hybrid,True,names+stats+samples+logs,FD,0,0,0,0,0,,,,,,,,,,,,
+university_L0,university,L0,profiling,profiling,baseline,False,,FK,23,11,11,12,0,0.4783,1.0,0.6471,"[0.2609, 0.6522]","[1.0, 1.0]","[0.4138, 0.7895]",0.4783,1.0,0.6471,0.9091,0.9091,0.9091
+university_L0,university,L0,profiling,profiling,baseline,False,,UCC,18,11,10,8,1,0.5556,0.9091,0.6897,"[0.3158, 0.7895]","[0.7, 1.0]","[0.48, 0.8485]",0.5556,0.9091,0.6897,0.8182,0.8182,0.8182
+university_L0,university,L0,profiling,profiling,baseline,False,,FD,55,4,4,51,0,0.0727,1.0,0.1356,"[0.0182, 0.1455]","[1.0, 1.0]","[0.0357, 0.254]",0.0727,1.0,0.1356,0.75,0.75,0.75
+university_L0,university,L0,profiling-approx,profiling-approx,baseline,False,,FK,24,11,11,13,0,0.4583,1.0,0.6286,"[0.25, 0.6667]","[1.0, 1.0]","[0.4, 0.8]",0.4583,1.0,0.6286,0.9091,0.9091,0.9091
+university_L0,university,L0,profiling-approx,profiling-approx,baseline,False,,UCC,23,11,10,13,1,0.4348,0.9091,0.5882,"[0.2273, 0.6364]","[0.7, 1.0]","[0.3448, 0.7692]",0.4348,0.9091,0.5882,0.8182,0.8182,0.8182
+university_L0,university,L0,profiling-approx,profiling-approx,baseline,False,,FD,72,4,4,68,0,0.0556,1.0,0.1053,"[0.0139, 0.1111]","[1.0, 1.0]","[0.0274, 0.2]",0.0556,1.0,0.1053,0.75,0.75,0.75
+university_L0,university,L0,heuristic[names],heuristic,heuristic,False,names,FK,12,11,9,3,2,0.75,0.8182,0.7826,"[0.4615, 1.0]","[0.5714, 1.0]","[0.5263, 0.9231]",0.75,0.8182,0.7826,0.8182,0.8182,0.8182
+university_L0,university,L0,heuristic[names],heuristic,heuristic,False,names,UCC,8,11,6,2,5,0.75,0.5455,0.6316,"[0.4286, 1.0]","[0.25, 0.8333]","[0.375, 0.8696]",1.0,0.7273,0.8421,0.75,0.5455,0.6316
+university_L0,university,L0,heuristic[names],heuristic,heuristic,False,names,FD,1,4,1,0,3,1.0,0.25,0.4,"[1.0, 1.0]","[0.0, 0.75]","[0.4, 0.8571]",1.0,0.25,0.4,1.0,0.25,0.4
+university_L0,university,L0,heuristic[names]+verify,heuristic,heuristic,True,names,FK,9,11,9,0,2,1.0,0.8182,0.9,"[1.0, 1.0]","[0.5455, 1.0]","[0.7059, 1.0]",1.0,0.8182,0.9,1.0,0.8182,0.9
+university_L0,university,L0,heuristic[names]+verify,heuristic,heuristic,True,names,UCC,6,11,6,0,5,1.0,0.5455,0.7059,"[1.0, 1.0]","[0.2727, 0.8182]","[0.4286, 0.9]",1.0,0.5455,0.7059,1.0,0.5455,0.7059
+university_L0,university,L0,heuristic[names]+verify,heuristic,heuristic,True,names,FD,1,4,1,0,3,1.0,0.25,0.4,"[1.0, 1.0]","[0.0, 0.75]","[0.4, 0.8571]",1.0,0.25,0.4,1.0,0.25,0.4
+university_L0,university,L0,heuristic[names+stats+samples+logs],heuristic,heuristic,False,names+stats+samples+logs,FK,11,11,11,0,0,1.0,1.0,1.0,"[1.0, 1.0]","[1.0, 1.0]","[1.0, 1.0]",1.0,1.0,1.0,1.0,1.0,1.0
+university_L0,university,L0,heuristic[names+stats+samples+logs],heuristic,heuristic,False,names+stats+samples+logs,UCC,8,11,8,0,3,1.0,0.7273,0.8421,"[1.0, 1.0]","[0.4545, 0.9091]","[0.625, 0.9524]",1.0,0.7273,0.8421,1.0,0.7273,0.8421
+university_L0,university,L0,heuristic[names+stats+samples+logs],heuristic,heuristic,False,names+stats+samples+logs,FD,1,4,1,0,3,1.0,0.25,0.4,"[1.0, 1.0]","[0.0, 0.75]","[0.4, 0.8571]",1.0,0.25,0.4,1.0,0.25,0.4
+university_L0,university,L0,heuristic[names+stats+samples+logs]+verify,heuristic,heuristic,True,names+stats+samples+logs,FK,11,11,11,0,0,1.0,1.0,1.0,"[1.0, 1.0]","[1.0, 1.0]","[1.0, 1.0]",1.0,1.0,1.0,1.0,1.0,1.0
+university_L0,university,L0,heuristic[names+stats+samples+logs]+verify,heuristic,heuristic,True,names+stats+samples+logs,UCC,8,11,8,0,3,1.0,0.7273,0.8421,"[1.0, 1.0]","[0.4545, 0.9091]","[0.625, 0.9524]",1.0,0.7273,0.8421,1.0,0.7273,0.8421
+university_L0,university,L0,heuristic[names+stats+samples+logs]+verify,heuristic,heuristic,True,names+stats+samples+logs,FD,1,4,1,0,3,1.0,0.25,0.4,"[1.0, 1.0]","[0.0, 0.75]","[0.4, 0.8571]",1.0,0.25,0.4,1.0,0.25,0.4
+university_L0,university,L0,hybrid-heuristic,hybrid-heuristic,hybrid,False,names+stats+samples+logs,FK,11,11,10,1,1,0.9091,0.9091,0.9091,"[0.7, 1.0]","[0.7273, 1.0]","[0.7368, 1.0]",0.9091,0.9091,0.9091,0.9091,0.9091,0.9091
+university_L0,university,L0,hybrid-heuristic,hybrid-heuristic,hybrid,False,names+stats+samples+logs,UCC,8,11,8,0,3,1.0,0.7273,0.8421,"[1.0, 1.0]","[0.4545, 0.9091]","[0.625, 0.9524]",1.0,0.7273,0.8421,1.0,0.7273,0.8421
+university_L0,university,L0,hybrid-heuristic,hybrid-heuristic,hybrid,False,names+stats+samples+logs,FD,1,4,1,0,3,1.0,0.25,0.4,"[1.0, 1.0]","[0.0, 0.75]","[0.4, 0.8571]",1.0,0.25,0.4,1.0,0.25,0.4
+university_L0,university,L0,hybrid-heuristic+verify,hybrid-heuristic,hybrid,True,names+stats+samples+logs,FK,11,11,10,1,1,0.9091,0.9091,0.9091,"[0.7, 1.0]","[0.7273, 1.0]","[0.7368, 1.0]",0.9091,0.9091,0.9091,0.9091,0.9091,0.9091
+university_L0,university,L0,hybrid-heuristic+verify,hybrid-heuristic,hybrid,True,names+stats+samples+logs,UCC,8,11,8,0,3,1.0,0.7273,0.8421,"[1.0, 1.0]","[0.4545, 0.9091]","[0.625, 0.9524]",1.0,0.7273,0.8421,1.0,0.7273,0.8421
+university_L0,university,L0,hybrid-heuristic+verify,hybrid-heuristic,hybrid,True,names+stats+samples+logs,FD,1,4,1,0,3,1.0,0.25,0.4,"[1.0, 1.0]","[0.0, 0.75]","[0.4, 0.8571]",1.0,0.25,0.4,1.0,0.25,0.4
+university_L1,university,L1,profiling,profiling,baseline,False,,FK,11,11,2,9,9,0.1818,0.1818,0.1818,"[0.0, 0.4444]","[0.0, 0.4444]","[0.0, 0.4]",0.1818,0.1818,0.1818,0.1818,0.1818,0.1818
+university_L1,university,L1,profiling,profiling,baseline,False,,UCC,20,11,10,10,1,0.5,0.9091,0.6452,"[0.2857, 0.7]","[0.7, 1.0]","[0.4444, 0.8]",0.5,0.9091,0.6452,0.9091,0.9091,0.9091
+university_L1,university,L1,profiling,profiling,baseline,False,,FD,48,4,0,48,4,0.0,0.0,0.0,"[0.0, 0.0]","[0.0, 0.0]","[0.0, 0.0]",0.0208,0.25,0.0385,0.0,0.0,0.0
+university_L1,university,L1,profiling-approx,profiling-approx,baseline,False,,FK,24,11,11,13,0,0.4583,1.0,0.6286,"[0.25, 0.6667]","[1.0, 1.0]","[0.4, 0.8]",0.4583,1.0,0.6286,0.9091,0.9091,0.9091
+university_L1,university,L1,profiling-approx,profiling-approx,baseline,False,,UCC,23,11,10,13,1,0.4348,0.9091,0.5882,"[0.2273, 0.6364]","[0.7, 1.0]","[0.3448, 0.7692]",0.4348,0.9091,0.5882,0.9091,0.9091,0.9091
+university_L1,university,L1,profiling-approx,profiling-approx,baseline,False,,FD,72,4,4,68,0,0.0556,1.0,0.1053,"[0.0139, 0.1111]","[1.0, 1.0]","[0.0274, 0.2]",0.0556,1.0,0.1053,0.75,0.75,0.75
+university_L1,university,L1,heuristic[names],heuristic,heuristic,False,names,FK,10,11,4,6,7,0.4,0.3636,0.381,"[0.1, 0.7273]","[0.1, 0.6667]","[0.1111, 0.64]",0.4,0.3636,0.381,0.4,0.3636,0.381
+university_L1,university,L1,heuristic[names],heuristic,heuristic,False,names,UCC,7,11,4,3,7,0.5714,0.3636,0.4444,"[0.2, 0.9]","[0.0909, 0.6667]","[0.1333, 0.6667]",0.8571,0.5455,0.6667,0.5714,0.3636,0.4444
+university_L1,university,L1,heuristic[names],heuristic,heuristic,False,names,FD,0,4,0,0,4,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+university_L1,university,L1,heuristic[names]+verify,heuristic,heuristic,True,names,FK,4,11,4,0,7,1.0,0.3636,0.5333,"[1.0, 1.0]","[0.0909, 0.6364]","[0.1667, 0.7778]",1.0,0.3636,0.5333,1.0,0.3636,0.5333
+university_L1,university,L1,heuristic[names]+verify,heuristic,heuristic,True,names,UCC,4,11,4,0,7,1.0,0.3636,0.5333,"[1.0, 1.0]","[0.0909, 0.6364]","[0.1667, 0.7778]",1.0,0.3636,0.5333,1.0,0.3636,0.5333
+university_L1,university,L1,heuristic[names]+verify,heuristic,heuristic,True,names,FD,0,4,0,0,4,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+university_L1,university,L1,heuristic[names+stats+samples+logs],heuristic,heuristic,False,names+stats+samples+logs,FK,9,11,8,1,3,0.8889,0.7273,0.8,"[0.6667, 1.0]","[0.4444, 1.0]","[0.5882, 0.9565]",0.8889,0.7273,0.8,0.8889,0.7273,0.8
+university_L1,university,L1,heuristic[names+stats+samples+logs],heuristic,heuristic,False,names+stats+samples+logs,UCC,6,11,6,0,5,1.0,0.5455,0.7059,"[1.0, 1.0]","[0.2727, 0.8182]","[0.4286, 0.9]",1.0,0.5455,0.7059,1.0,0.5455,0.7059
+university_L1,university,L1,heuristic[names+stats+samples+logs],heuristic,heuristic,False,names+stats+samples+logs,FD,0,4,0,0,4,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+university_L1,university,L1,heuristic[names+stats+samples+logs]+verify,heuristic,heuristic,True,names+stats+samples+logs,FK,9,11,8,1,3,0.8889,0.7273,0.8,"[0.6667, 1.0]","[0.4444, 1.0]","[0.5882, 0.9565]",0.8889,0.7273,0.8,0.8889,0.7273,0.8
+university_L1,university,L1,heuristic[names+stats+samples+logs]+verify,heuristic,heuristic,True,names+stats+samples+logs,UCC,6,11,6,0,5,1.0,0.5455,0.7059,"[1.0, 1.0]","[0.2727, 0.8182]","[0.4286, 0.9]",1.0,0.5455,0.7059,1.0,0.5455,0.7059
+university_L1,university,L1,heuristic[names+stats+samples+logs]+verify,heuristic,heuristic,True,names+stats+samples+logs,FD,0,4,0,0,4,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+university_L1,university,L1,hybrid-heuristic,hybrid-heuristic,hybrid,False,names+stats+samples+logs,FK,1,11,0,1,11,0.0,0.0,0.0,"[0.0, 0.0]","[0.0, 0.0]","[0.0, 0.0]",0.0,0.0,0.0,0.0,0.0,0.0
+university_L1,university,L1,hybrid-heuristic,hybrid-heuristic,hybrid,False,names+stats+samples+logs,UCC,4,11,4,0,7,1.0,0.3636,0.5333,"[1.0, 1.0]","[0.0909, 0.6364]","[0.1667, 0.7778]",1.0,0.3636,0.5333,1.0,0.3636,0.5333
+university_L1,university,L1,hybrid-heuristic,hybrid-heuristic,hybrid,False,names+stats+samples+logs,FD,0,4,0,0,4,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+university_L1,university,L1,hybrid-heuristic+verify,hybrid-heuristic,hybrid,True,names+stats+samples+logs,FK,1,11,0,1,11,0.0,0.0,0.0,"[0.0, 0.0]","[0.0, 0.0]","[0.0, 0.0]",0.0,0.0,0.0,0.0,0.0,0.0
+university_L1,university,L1,hybrid-heuristic+verify,hybrid-heuristic,hybrid,True,names+stats+samples+logs,UCC,4,11,4,0,7,1.0,0.3636,0.5333,"[1.0, 1.0]","[0.0909, 0.6364]","[0.1667, 0.7778]",1.0,0.3636,0.5333,1.0,0.3636,0.5333
+university_L1,university,L1,hybrid-heuristic+verify,hybrid-heuristic,hybrid,True,names+stats+samples+logs,FD,0,4,0,0,4,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+university_L2,university,L2,profiling,profiling,baseline,False,,FK,10,11,2,8,9,0.2,0.1818,0.1905,"[0.0, 0.5]","[0.0, 0.4444]","[0.0, 0.4167]",0.2,0.1818,0.1905,0.2,0.1818,0.1905
+university_L2,university,L2,profiling,profiling,baseline,False,,UCC,20,11,10,10,1,0.5,0.9091,0.6452,"[0.2857, 0.7]","[0.7, 1.0]","[0.4444, 0.8]",0.5,0.9091,0.6452,0.9091,0.9091,0.9091
+university_L2,university,L2,profiling,profiling,baseline,False,,FD,62,4,0,62,4,0.0,0.0,0.0,"[0.0, 0.0]","[0.0, 0.0]","[0.0, 0.0]",0.0484,0.75,0.0909,0.0,0.0,0.0
+university_L2,university,L2,profiling-approx,profiling-approx,baseline,False,,FK,24,11,11,13,0,0.4583,1.0,0.6286,"[0.25, 0.6667]","[1.0, 1.0]","[0.4, 0.8]",0.4583,1.0,0.6286,0.9091,0.9091,0.9091
+university_L2,university,L2,profiling-approx,profiling-approx,baseline,False,,UCC,22,11,10,12,1,0.4545,0.9091,0.6061,"[0.25, 0.6667]","[0.7, 1.0]","[0.3571, 0.7895]",0.4545,0.9091,0.6061,0.9091,0.9091,0.9091
+university_L2,university,L2,profiling-approx,profiling-approx,baseline,False,,FD,73,4,1,72,3,0.0137,0.25,0.026,"[0.0, 0.0423]","[0.0, 0.8]","[0.0, 0.0759]",0.0548,0.75,0.1021,0.25,0.25,0.25
+university_L2,university,L2,heuristic[names],heuristic,heuristic,False,names,FK,5,11,1,4,10,0.2,0.0909,0.125,"[0.0, 0.6667]","[0.0, 0.3]","[0.0, 0.3333]",0.2,0.0909,0.125,0.2,0.0909,0.125
+university_L2,university,L2,heuristic[names],heuristic,heuristic,False,names,UCC,6,11,3,3,8,0.5,0.2727,0.3529,"[0.0, 1.0]","[0.0, 0.5455]","[0.0, 0.6]",0.6667,0.3636,0.4706,0.5,0.2727,0.3529
+university_L2,university,L2,heuristic[names],heuristic,heuristic,False,names,FD,0,4,0,0,4,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+university_L2,university,L2,heuristic[names]+verify,heuristic,heuristic,True,names,FK,1,11,1,0,10,1.0,0.0909,0.1667,"[1.0, 1.0]","[0.0, 0.2727]","[0.1667, 0.5333]",1.0,0.0909,0.1667,1.0,0.0909,0.1667
+university_L2,university,L2,heuristic[names]+verify,heuristic,heuristic,True,names,UCC,3,11,3,0,8,1.0,0.2727,0.4286,"[1.0, 1.0]","[0.0, 0.5455]","[0.1667, 0.7059]",1.0,0.2727,0.4286,1.0,0.2727,0.4286
+university_L2,university,L2,heuristic[names]+verify,heuristic,heuristic,True,names,FD,0,4,0,0,4,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+university_L2,university,L2,heuristic[names+stats+samples+logs],heuristic,heuristic,False,names+stats+samples+logs,FK,7,11,7,0,4,1.0,0.6364,0.7778,"[1.0, 1.0]","[0.3636, 0.9091]","[0.5333, 0.9524]",1.0,0.6364,0.7778,1.0,0.6364,0.7778
+university_L2,university,L2,heuristic[names+stats+samples+logs],heuristic,heuristic,False,names+stats+samples+logs,UCC,6,11,6,0,5,1.0,0.5455,0.7059,"[1.0, 1.0]","[0.2727, 0.8182]","[0.4286, 0.9]",1.0,0.5455,0.7059,1.0,0.5455,0.7059
+university_L2,university,L2,heuristic[names+stats+samples+logs],heuristic,heuristic,False,names+stats+samples+logs,FD,0,4,0,0,4,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+university_L2,university,L2,heuristic[names+stats+samples+logs]+verify,heuristic,heuristic,True,names+stats+samples+logs,FK,6,11,6,0,5,1.0,0.5455,0.7059,"[1.0, 1.0]","[0.2727, 0.8182]","[0.4286, 0.9]",1.0,0.5455,0.7059,1.0,0.5455,0.7059
+university_L2,university,L2,heuristic[names+stats+samples+logs]+verify,heuristic,heuristic,True,names+stats+samples+logs,UCC,6,11,6,0,5,1.0,0.5455,0.7059,"[1.0, 1.0]","[0.2727, 0.8182]","[0.4286, 0.9]",1.0,0.5455,0.7059,1.0,0.5455,0.7059
+university_L2,university,L2,heuristic[names+stats+samples+logs]+verify,heuristic,heuristic,True,names+stats+samples+logs,FD,0,4,0,0,4,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+university_L2,university,L2,hybrid-heuristic,hybrid-heuristic,hybrid,False,names+stats+samples+logs,FK,1,11,1,0,10,1.0,0.0909,0.1667,"[1.0, 1.0]","[0.0, 0.2727]","[0.1667, 0.5333]",1.0,0.0909,0.1667,1.0,0.0909,0.1667
+university_L2,university,L2,hybrid-heuristic,hybrid-heuristic,hybrid,False,names+stats+samples+logs,UCC,3,11,3,0,8,1.0,0.2727,0.4286,"[1.0, 1.0]","[0.0, 0.5455]","[0.1667, 0.7059]",1.0,0.2727,0.4286,1.0,0.2727,0.4286
+university_L2,university,L2,hybrid-heuristic,hybrid-heuristic,hybrid,False,names+stats+samples+logs,FD,0,4,0,0,4,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+university_L2,university,L2,hybrid-heuristic+verify,hybrid-heuristic,hybrid,True,names+stats+samples+logs,FK,1,11,1,0,10,1.0,0.0909,0.1667,"[1.0, 1.0]","[0.0, 0.2727]","[0.1667, 0.5333]",1.0,0.0909,0.1667,1.0,0.0909,0.1667
+university_L2,university,L2,hybrid-heuristic+verify,hybrid-heuristic,hybrid,True,names+stats+samples+logs,UCC,3,11,3,0,8,1.0,0.2727,0.4286,"[1.0, 1.0]","[0.0, 0.5455]","[0.1667, 0.7059]",1.0,0.2727,0.4286,1.0,0.2727,0.4286
+university_L2,university,L2,hybrid-heuristic+verify,hybrid-heuristic,hybrid,True,names+stats+samples+logs,FD,0,4,0,0,4,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+university_L3,university,L3,profiling,profiling,baseline,False,,FK,7,11,0,7,11,0.0,0.0,0.0,"[0.0, 0.0]","[0.0, 0.0]","[0.0, 0.0]",0.0,0.0,0.0,0.0,0.0,0.0
+university_L3,university,L3,profiling,profiling,baseline,False,,UCC,17,11,10,7,1,0.5882,0.9091,0.7143,"[0.3333, 0.8235]","[0.7, 1.0]","[0.5, 0.875]",0.5882,0.9091,0.7143,0.9091,0.9091,0.9091
+university_L3,university,L3,profiling,profiling,baseline,False,,FD,44,4,0,44,4,0.0,0.0,0.0,"[0.0, 0.0]","[0.0, 0.0]","[0.0, 0.0]",0.0455,0.5,0.0833,0.0,0.0,0.0
+university_L3,university,L3,profiling-approx,profiling-approx,baseline,False,,FK,24,11,11,13,0,0.4583,1.0,0.6286,"[0.25, 0.6667]","[1.0, 1.0]","[0.4, 0.8]",0.4583,1.0,0.6286,0.9091,0.9091,0.9091
+university_L3,university,L3,profiling-approx,profiling-approx,baseline,False,,UCC,23,11,10,13,1,0.4348,0.9091,0.5882,"[0.2273, 0.6364]","[0.7, 1.0]","[0.3448, 0.7692]",0.4348,0.9091,0.5882,0.9091,0.9091,0.9091
+university_L3,university,L3,profiling-approx,profiling-approx,baseline,False,,FD,72,4,0,72,4,0.0,0.0,0.0,"[0.0, 0.0]","[0.0, 0.0]","[0.0, 0.0]",0.0278,0.25,0.05,0.0,0.0,0.0
+university_L3,university,L3,heuristic[names],heuristic,heuristic,False,names,FK,0,11,0,0,11,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+university_L3,university,L3,heuristic[names],heuristic,heuristic,False,names,UCC,0,11,0,0,11,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+university_L3,university,L3,heuristic[names],heuristic,heuristic,False,names,FD,0,4,0,0,4,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+university_L3,university,L3,heuristic[names]+verify,heuristic,heuristic,True,names,FK,0,11,0,0,11,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+university_L3,university,L3,heuristic[names]+verify,heuristic,heuristic,True,names,UCC,0,11,0,0,11,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+university_L3,university,L3,heuristic[names]+verify,heuristic,heuristic,True,names,FD,0,4,0,0,4,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+university_L3,university,L3,heuristic[names+stats+samples+logs],heuristic,heuristic,False,names+stats+samples+logs,FK,3,11,3,0,8,1.0,0.2727,0.4286,"[1.0, 1.0]","[0.0, 0.5455]","[0.1667, 0.7059]",1.0,0.2727,0.4286,1.0,0.2727,0.4286
+university_L3,university,L3,heuristic[names+stats+samples+logs],heuristic,heuristic,False,names+stats+samples+logs,UCC,6,11,6,0,5,1.0,0.5455,0.7059,"[1.0, 1.0]","[0.2727, 0.8182]","[0.4286, 0.9]",1.0,0.5455,0.7059,1.0,0.5455,0.7059
+university_L3,university,L3,heuristic[names+stats+samples+logs],heuristic,heuristic,False,names+stats+samples+logs,FD,0,4,0,0,4,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+university_L3,university,L3,heuristic[names+stats+samples+logs]+verify,heuristic,heuristic,True,names+stats+samples+logs,FK,2,11,2,0,9,1.0,0.1818,0.3077,"[1.0, 1.0]","[0.0, 0.4545]","[0.1667, 0.625]",1.0,0.1818,0.3077,1.0,0.1818,0.3077
+university_L3,university,L3,heuristic[names+stats+samples+logs]+verify,heuristic,heuristic,True,names+stats+samples+logs,UCC,6,11,6,0,5,1.0,0.5455,0.7059,"[1.0, 1.0]","[0.2727, 0.8182]","[0.4286, 0.9]",1.0,0.5455,0.7059,1.0,0.5455,0.7059
+university_L3,university,L3,heuristic[names+stats+samples+logs]+verify,heuristic,heuristic,True,names+stats+samples+logs,FD,0,4,0,0,4,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+university_L3,university,L3,hybrid-heuristic,hybrid-heuristic,hybrid,False,names+stats+samples+logs,FK,0,11,0,0,11,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+university_L3,university,L3,hybrid-heuristic,hybrid-heuristic,hybrid,False,names+stats+samples+logs,UCC,0,11,0,0,11,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+university_L3,university,L3,hybrid-heuristic,hybrid-heuristic,hybrid,False,names+stats+samples+logs,FD,0,4,0,0,4,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+university_L3,university,L3,hybrid-heuristic+verify,hybrid-heuristic,hybrid,True,names+stats+samples+logs,FK,0,11,0,0,11,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+university_L3,university,L3,hybrid-heuristic+verify,hybrid-heuristic,hybrid,True,names+stats+samples+logs,UCC,0,11,0,0,11,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+university_L3,university,L3,hybrid-heuristic+verify,hybrid-heuristic,hybrid,True,names+stats+samples+logs,FD,0,4,0,0,4,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+university_names-abbreviated,university,names-abbreviated,profiling,profiling,baseline,False,,FK,23,11,11,12,0,0.4783,1.0,0.6471,"[0.2609, 0.6522]","[1.0, 1.0]","[0.4138, 0.7895]",0.4783,1.0,0.6471,0.9091,0.9091,0.9091
+university_names-abbreviated,university,names-abbreviated,profiling,profiling,baseline,False,,UCC,18,11,10,8,1,0.5556,0.9091,0.6897,"[0.3158, 0.7895]","[0.7, 1.0]","[0.48, 0.8485]",0.5556,0.9091,0.6897,0.8182,0.8182,0.8182
+university_names-abbreviated,university,names-abbreviated,profiling,profiling,baseline,False,,FD,55,4,4,51,0,0.0727,1.0,0.1356,"[0.0182, 0.1455]","[1.0, 1.0]","[0.0357, 0.254]",0.0727,1.0,0.1356,0.75,0.75,0.75
+university_names-abbreviated,university,names-abbreviated,profiling-approx,profiling-approx,baseline,False,,FK,24,11,11,13,0,0.4583,1.0,0.6286,"[0.25, 0.6667]","[1.0, 1.0]","[0.4, 0.8]",0.4583,1.0,0.6286,0.9091,0.9091,0.9091
+university_names-abbreviated,university,names-abbreviated,profiling-approx,profiling-approx,baseline,False,,UCC,23,11,10,13,1,0.4348,0.9091,0.5882,"[0.2273, 0.6364]","[0.7, 1.0]","[0.3448, 0.7692]",0.4348,0.9091,0.5882,0.8182,0.8182,0.8182
+university_names-abbreviated,university,names-abbreviated,profiling-approx,profiling-approx,baseline,False,,FD,72,4,4,68,0,0.0556,1.0,0.1053,"[0.0139, 0.1111]","[1.0, 1.0]","[0.0274, 0.2]",0.0556,1.0,0.1053,0.75,0.75,0.75
+university_names-abbreviated,university,names-abbreviated,heuristic[names],heuristic,heuristic,False,names,FK,12,11,9,3,2,0.75,0.8182,0.7826,"[0.4615, 1.0]","[0.5714, 1.0]","[0.5263, 0.9231]",0.75,0.8182,0.7826,0.8182,0.8182,0.8182
+university_names-abbreviated,university,names-abbreviated,heuristic[names],heuristic,heuristic,False,names,UCC,8,11,6,2,5,0.75,0.5455,0.6316,"[0.4286, 1.0]","[0.25, 0.8333]","[0.375, 0.8696]",1.0,0.7273,0.8421,0.75,0.5455,0.6316
+university_names-abbreviated,university,names-abbreviated,heuristic[names],heuristic,heuristic,False,names,FD,1,4,1,0,3,1.0,0.25,0.4,"[1.0, 1.0]","[0.0, 0.75]","[0.4, 0.8571]",1.0,0.25,0.4,1.0,0.25,0.4
+university_names-abbreviated,university,names-abbreviated,heuristic[names]+verify,heuristic,heuristic,True,names,FK,9,11,9,0,2,1.0,0.8182,0.9,"[1.0, 1.0]","[0.5455, 1.0]","[0.7059, 1.0]",1.0,0.8182,0.9,1.0,0.8182,0.9
+university_names-abbreviated,university,names-abbreviated,heuristic[names]+verify,heuristic,heuristic,True,names,UCC,6,11,6,0,5,1.0,0.5455,0.7059,"[1.0, 1.0]","[0.2727, 0.8182]","[0.4286, 0.9]",1.0,0.5455,0.7059,1.0,0.5455,0.7059
+university_names-abbreviated,university,names-abbreviated,heuristic[names]+verify,heuristic,heuristic,True,names,FD,1,4,1,0,3,1.0,0.25,0.4,"[1.0, 1.0]","[0.0, 0.75]","[0.4, 0.8571]",1.0,0.25,0.4,1.0,0.25,0.4
+university_names-abbreviated,university,names-abbreviated,heuristic[names+stats+samples+logs],heuristic,heuristic,False,names+stats+samples+logs,FK,12,11,11,1,0,0.9167,1.0,0.9565,"[0.75, 1.0]","[1.0, 1.0]","[0.8571, 1.0]",0.9167,1.0,0.9565,1.0,1.0,1.0
+university_names-abbreviated,university,names-abbreviated,heuristic[names+stats+samples+logs],heuristic,heuristic,False,names+stats+samples+logs,UCC,8,11,8,0,3,1.0,0.7273,0.8421,"[1.0, 1.0]","[0.4545, 0.9091]","[0.625, 0.9524]",1.0,0.7273,0.8421,1.0,0.7273,0.8421
+university_names-abbreviated,university,names-abbreviated,heuristic[names+stats+samples+logs],heuristic,heuristic,False,names+stats+samples+logs,FD,1,4,1,0,3,1.0,0.25,0.4,"[1.0, 1.0]","[0.0, 0.75]","[0.4, 0.8571]",1.0,0.25,0.4,1.0,0.25,0.4
+university_names-abbreviated,university,names-abbreviated,heuristic[names+stats+samples+logs]+verify,heuristic,heuristic,True,names+stats+samples+logs,FK,11,11,11,0,0,1.0,1.0,1.0,"[1.0, 1.0]","[1.0, 1.0]","[1.0, 1.0]",1.0,1.0,1.0,1.0,1.0,1.0
+university_names-abbreviated,university,names-abbreviated,heuristic[names+stats+samples+logs]+verify,heuristic,heuristic,True,names+stats+samples+logs,UCC,8,11,8,0,3,1.0,0.7273,0.8421,"[1.0, 1.0]","[0.4545, 0.9091]","[0.625, 0.9524]",1.0,0.7273,0.8421,1.0,0.7273,0.8421
+university_names-abbreviated,university,names-abbreviated,heuristic[names+stats+samples+logs]+verify,heuristic,heuristic,True,names+stats+samples+logs,FD,1,4,1,0,3,1.0,0.25,0.4,"[1.0, 1.0]","[0.0, 0.75]","[0.4, 0.8571]",1.0,0.25,0.4,1.0,0.25,0.4
+university_names-abbreviated,university,names-abbreviated,hybrid-heuristic,hybrid-heuristic,hybrid,False,names+stats+samples+logs,FK,12,11,10,2,1,0.8333,0.9091,0.8696,"[0.5833, 1.0]","[0.7, 1.0]","[0.7, 1.0]",0.8333,0.9091,0.8696,0.9091,0.9091,0.9091
+university_names-abbreviated,university,names-abbreviated,hybrid-heuristic,hybrid-heuristic,hybrid,False,names+stats+samples+logs,UCC,8,11,8,0,3,1.0,0.7273,0.8421,"[1.0, 1.0]","[0.4545, 0.9091]","[0.625, 0.9524]",1.0,0.7273,0.8421,1.0,0.7273,0.8421
+university_names-abbreviated,university,names-abbreviated,hybrid-heuristic,hybrid-heuristic,hybrid,False,names+stats+samples+logs,FD,1,4,1,0,3,1.0,0.25,0.4,"[1.0, 1.0]","[0.0, 0.75]","[0.4, 0.8571]",1.0,0.25,0.4,1.0,0.25,0.4
+university_names-abbreviated,university,names-abbreviated,hybrid-heuristic+verify,hybrid-heuristic,hybrid,True,names+stats+samples+logs,FK,12,11,10,2,1,0.8333,0.9091,0.8696,"[0.5833, 1.0]","[0.7, 1.0]","[0.7, 1.0]",0.8333,0.9091,0.8696,0.9091,0.9091,0.9091
+university_names-abbreviated,university,names-abbreviated,hybrid-heuristic+verify,hybrid-heuristic,hybrid,True,names+stats+samples+logs,UCC,8,11,8,0,3,1.0,0.7273,0.8421,"[1.0, 1.0]","[0.4545, 0.9091]","[0.625, 0.9524]",1.0,0.7273,0.8421,1.0,0.7273,0.8421
+university_names-abbreviated,university,names-abbreviated,hybrid-heuristic+verify,hybrid-heuristic,hybrid,True,names+stats+samples+logs,FD,1,4,1,0,3,1.0,0.25,0.4,"[1.0, 1.0]","[0.0, 0.75]","[0.4, 0.8571]",1.0,0.25,0.4,1.0,0.25,0.4
+university_names-cryptic,university,names-cryptic,profiling,profiling,baseline,False,,FK,23,11,11,12,0,0.4783,1.0,0.6471,"[0.2609, 0.6522]","[1.0, 1.0]","[0.4138, 0.7895]",0.4783,1.0,0.6471,0.9091,0.9091,0.9091
+university_names-cryptic,university,names-cryptic,profiling,profiling,baseline,False,,UCC,18,11,10,8,1,0.5556,0.9091,0.6897,"[0.3158, 0.7895]","[0.7, 1.0]","[0.48, 0.8485]",0.5556,0.9091,0.6897,0.7273,0.7273,0.7273
+university_names-cryptic,university,names-cryptic,profiling,profiling,baseline,False,,FD,55,4,4,51,0,0.0727,1.0,0.1356,"[0.0182, 0.1455]","[1.0, 1.0]","[0.0357, 0.254]",0.0727,1.0,0.1356,0.5,0.5,0.5
+university_names-cryptic,university,names-cryptic,profiling-approx,profiling-approx,baseline,False,,FK,24,11,11,13,0,0.4583,1.0,0.6286,"[0.25, 0.6667]","[1.0, 1.0]","[0.4, 0.8]",0.4583,1.0,0.6286,0.9091,0.9091,0.9091
+university_names-cryptic,university,names-cryptic,profiling-approx,profiling-approx,baseline,False,,UCC,23,11,10,13,1,0.4348,0.9091,0.5882,"[0.2273, 0.6364]","[0.7, 1.0]","[0.3448, 0.7692]",0.4348,0.9091,0.5882,0.7273,0.7273,0.7273
+university_names-cryptic,university,names-cryptic,profiling-approx,profiling-approx,baseline,False,,FD,72,4,4,68,0,0.0556,1.0,0.1053,"[0.0139, 0.1111]","[1.0, 1.0]","[0.0274, 0.2]",0.0556,1.0,0.1053,0.5,0.5,0.5
+university_names-cryptic,university,names-cryptic,heuristic[names],heuristic,heuristic,False,names,FK,0,11,0,0,11,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+university_names-cryptic,university,names-cryptic,heuristic[names],heuristic,heuristic,False,names,UCC,0,11,0,0,11,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+university_names-cryptic,university,names-cryptic,heuristic[names],heuristic,heuristic,False,names,FD,0,4,0,0,4,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+university_names-cryptic,university,names-cryptic,heuristic[names]+verify,heuristic,heuristic,True,names,FK,0,11,0,0,11,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+university_names-cryptic,university,names-cryptic,heuristic[names]+verify,heuristic,heuristic,True,names,UCC,0,11,0,0,11,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+university_names-cryptic,university,names-cryptic,heuristic[names]+verify,heuristic,heuristic,True,names,FD,0,4,0,0,4,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+university_names-cryptic,university,names-cryptic,heuristic[names+stats+samples+logs],heuristic,heuristic,False,names+stats+samples+logs,FK,10,11,10,0,1,1.0,0.9091,0.9524,"[1.0, 1.0]","[0.7273, 1.0]","[0.8421, 1.0]",1.0,0.9091,0.9524,1.0,0.9091,0.9524
+university_names-cryptic,university,names-cryptic,heuristic[names+stats+samples+logs],heuristic,heuristic,False,names+stats+samples+logs,UCC,6,11,6,0,5,1.0,0.5455,0.7059,"[1.0, 1.0]","[0.2727, 0.8182]","[0.4286, 0.9]",1.0,0.5455,0.7059,1.0,0.5455,0.7059
+university_names-cryptic,university,names-cryptic,heuristic[names+stats+samples+logs],heuristic,heuristic,False,names+stats+samples+logs,FD,0,4,0,0,4,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+university_names-cryptic,university,names-cryptic,heuristic[names+stats+samples+logs]+verify,heuristic,heuristic,True,names+stats+samples+logs,FK,10,11,10,0,1,1.0,0.9091,0.9524,"[1.0, 1.0]","[0.7273, 1.0]","[0.8421, 1.0]",1.0,0.9091,0.9524,1.0,0.9091,0.9524
+university_names-cryptic,university,names-cryptic,heuristic[names+stats+samples+logs]+verify,heuristic,heuristic,True,names+stats+samples+logs,UCC,6,11,6,0,5,1.0,0.5455,0.7059,"[1.0, 1.0]","[0.2727, 0.8182]","[0.4286, 0.9]",1.0,0.5455,0.7059,1.0,0.5455,0.7059
+university_names-cryptic,university,names-cryptic,heuristic[names+stats+samples+logs]+verify,heuristic,heuristic,True,names+stats+samples+logs,FD,0,4,0,0,4,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+university_names-cryptic,university,names-cryptic,hybrid-heuristic,hybrid-heuristic,hybrid,False,names+stats+samples+logs,FK,2,11,1,1,10,0.5,0.0909,0.1538,"[0.0, 1.0]","[0.0, 0.3]","[0.0, 0.4]",0.5,0.0909,0.1538,0.5,0.0909,0.1538
+university_names-cryptic,university,names-cryptic,hybrid-heuristic,hybrid-heuristic,hybrid,False,names+stats+samples+logs,UCC,0,11,0,0,11,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+university_names-cryptic,university,names-cryptic,hybrid-heuristic,hybrid-heuristic,hybrid,False,names+stats+samples+logs,FD,0,4,0,0,4,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+university_names-cryptic,university,names-cryptic,hybrid-heuristic+verify,hybrid-heuristic,hybrid,True,names+stats+samples+logs,FK,2,11,1,1,10,0.5,0.0909,0.1538,"[0.0, 1.0]","[0.0, 0.3]","[0.0, 0.4]",0.5,0.0909,0.1538,0.5,0.0909,0.1538
+university_names-cryptic,university,names-cryptic,hybrid-heuristic+verify,hybrid-heuristic,hybrid,True,names+stats+samples+logs,UCC,0,11,0,0,11,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+university_names-cryptic,university,names-cryptic,hybrid-heuristic+verify,hybrid-heuristic,hybrid,True,names+stats+samples+logs,FD,0,4,0,0,4,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+university_names-misleading,university,names-misleading,profiling,profiling,baseline,False,,FK,23,11,11,12,0,0.4783,1.0,0.6471,"[0.2609, 0.6522]","[1.0, 1.0]","[0.4138, 0.7895]",0.4783,1.0,0.6471,0.8182,0.8182,0.8182
+university_names-misleading,university,names-misleading,profiling,profiling,baseline,False,,UCC,18,11,10,8,1,0.5556,0.9091,0.6897,"[0.3158, 0.7895]","[0.7, 1.0]","[0.48, 0.8485]",0.5556,0.9091,0.6897,0.8182,0.8182,0.8182
+university_names-misleading,university,names-misleading,profiling,profiling,baseline,False,,FD,55,4,4,51,0,0.0727,1.0,0.1356,"[0.0182, 0.1455]","[1.0, 1.0]","[0.0357, 0.254]",0.0727,1.0,0.1356,0.5,0.5,0.5
+university_names-misleading,university,names-misleading,profiling-approx,profiling-approx,baseline,False,,FK,24,11,11,13,0,0.4583,1.0,0.6286,"[0.25, 0.6667]","[1.0, 1.0]","[0.4, 0.8]",0.4583,1.0,0.6286,0.8182,0.8182,0.8182
+university_names-misleading,university,names-misleading,profiling-approx,profiling-approx,baseline,False,,UCC,23,11,10,13,1,0.4348,0.9091,0.5882,"[0.2273, 0.6364]","[0.7, 1.0]","[0.3448, 0.7692]",0.4348,0.9091,0.5882,0.7273,0.7273,0.7273
+university_names-misleading,university,names-misleading,profiling-approx,profiling-approx,baseline,False,,FD,72,4,4,68,0,0.0556,1.0,0.1053,"[0.0139, 0.1111]","[1.0, 1.0]","[0.0274, 0.2]",0.0556,1.0,0.1053,0.5,0.5,0.5
+university_names-misleading,university,names-misleading,heuristic[names],heuristic,heuristic,False,names,FK,16,11,0,16,11,0.0,0.0,0.0,"[0.0, 0.0]","[0.0, 0.0]","[0.0, 0.0]",0.0,0.0,0.0,0.0,0.0,0.0
+university_names-misleading,university,names-misleading,heuristic[names],heuristic,heuristic,False,names,UCC,8,11,3,5,8,0.375,0.2727,0.3158,"[0.0, 0.75]","[0.0, 0.5455]","[0.0, 0.5455]",0.625,0.4545,0.5263,0.375,0.2727,0.3158
+university_names-misleading,university,names-misleading,heuristic[names],heuristic,heuristic,False,names,FD,0,4,0,0,4,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+university_names-misleading,university,names-misleading,heuristic[names]+verify,heuristic,heuristic,True,names,FK,0,11,0,0,11,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+university_names-misleading,university,names-misleading,heuristic[names]+verify,heuristic,heuristic,True,names,UCC,4,11,3,1,8,0.75,0.2727,0.4,"[0.25, 1.0]","[0.0, 0.5455]","[0.1538, 0.6667]",0.75,0.2727,0.4,0.75,0.2727,0.4
+university_names-misleading,university,names-misleading,heuristic[names]+verify,heuristic,heuristic,True,names,FD,0,4,0,0,4,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+university_names-misleading,university,names-misleading,heuristic[names+stats+samples+logs],heuristic,heuristic,False,names+stats+samples+logs,FK,10,11,5,5,6,0.5,0.4545,0.4762,"[0.2, 0.8182]","[0.1667, 0.75]","[0.2222, 0.72]",0.5,0.4545,0.4762,0.5,0.4545,0.4762
+university_names-misleading,university,names-misleading,heuristic[names+stats+samples+logs],heuristic,heuristic,False,names+stats+samples+logs,UCC,8,11,6,2,5,0.75,0.5455,0.6316,"[0.4286, 1.0]","[0.25, 0.8333]","[0.375, 0.8696]",0.75,0.5455,0.6316,0.75,0.5455,0.6316
+university_names-misleading,university,names-misleading,heuristic[names+stats+samples+logs],heuristic,heuristic,False,names+stats+samples+logs,FD,0,4,0,0,4,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+university_names-misleading,university,names-misleading,heuristic[names+stats+samples+logs]+verify,heuristic,heuristic,True,names+stats+samples+logs,FK,5,11,5,0,6,1.0,0.4545,0.625,"[1.0, 1.0]","[0.1818, 0.7273]","[0.3077, 0.8421]",1.0,0.4545,0.625,1.0,0.4545,0.625
+university_names-misleading,university,names-misleading,heuristic[names+stats+samples+logs]+verify,heuristic,heuristic,True,names+stats+samples+logs,UCC,7,11,6,1,5,0.8571,0.5455,0.6667,"[0.5, 1.0]","[0.25, 0.8333]","[0.4, 0.8571]",0.8571,0.5455,0.6667,0.8571,0.5455,0.6667
+university_names-misleading,university,names-misleading,heuristic[names+stats+samples+logs]+verify,heuristic,heuristic,True,names+stats+samples+logs,FD,0,4,0,0,4,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+university_names-misleading,university,names-misleading,hybrid-heuristic,hybrid-heuristic,hybrid,False,names+stats+samples+logs,FK,1,11,0,1,11,0.0,0.0,0.0,"[0.0, 0.0]","[0.0, 0.0]","[0.0, 0.0]",0.0,0.0,0.0,0.0,0.0,0.0
+university_names-misleading,university,names-misleading,hybrid-heuristic,hybrid-heuristic,hybrid,False,names+stats+samples+logs,UCC,10,11,6,4,5,0.6,0.5455,0.5714,"[0.2727, 0.8889]","[0.2308, 0.8333]","[0.2353, 0.8]",0.6,0.5455,0.5714,0.6,0.5455,0.5714
+university_names-misleading,university,names-misleading,hybrid-heuristic,hybrid-heuristic,hybrid,False,names+stats+samples+logs,FD,0,4,0,0,4,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+university_names-misleading,university,names-misleading,hybrid-heuristic+verify,hybrid-heuristic,hybrid,True,names+stats+samples+logs,FK,1,11,0,1,11,0.0,0.0,0.0,"[0.0, 0.0]","[0.0, 0.0]","[0.0, 0.0]",0.0,0.0,0.0,0.0,0.0,0.0
+university_names-misleading,university,names-misleading,hybrid-heuristic+verify,hybrid-heuristic,hybrid,True,names+stats+samples+logs,UCC,10,11,6,4,5,0.6,0.5455,0.5714,"[0.2727, 0.8889]","[0.2308, 0.8333]","[0.2353, 0.8]",0.6,0.5455,0.5714,0.6,0.5455,0.5714
+university_names-misleading,university,names-misleading,hybrid-heuristic+verify,hybrid-heuristic,hybrid,True,names+stats+samples+logs,FD,0,4,0,0,4,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+retail_legacy_L0,retail_legacy,L0,profiling,profiling,baseline,False,,FK,9,6,6,3,0,0.6667,1.0,0.8,"[0.3333, 1.0]","[1.0, 1.0]","[0.5, 1.0]",0.6667,1.0,0.8,0.8333,0.8333,0.8333
+retail_legacy_L0,retail_legacy,L0,profiling,profiling,baseline,False,,UCC,13,7,7,6,0,0.5385,1.0,0.7,"[0.2308, 0.7692]","[1.0, 1.0]","[0.375, 0.8696]",0.5385,1.0,0.7,0.7143,0.7143,0.7143
+retail_legacy_L0,retail_legacy,L0,profiling,profiling,baseline,False,,FD,44,2,2,42,0,0.0455,1.0,0.087,"[0.0, 0.1136]","[1.0, 1.0]","[0.0444, 0.2041]",0.0455,1.0,0.087,1.0,1.0,1.0
+retail_legacy_L0,retail_legacy,L0,profiling-approx,profiling-approx,baseline,False,,FK,9,6,6,3,0,0.6667,1.0,0.8,"[0.3333, 1.0]","[1.0, 1.0]","[0.5, 1.0]",0.6667,1.0,0.8,0.8333,0.8333,0.8333
+retail_legacy_L0,retail_legacy,L0,profiling-approx,profiling-approx,baseline,False,,UCC,17,7,7,10,0,0.4118,1.0,0.5833,"[0.1765, 0.6471]","[1.0, 1.0]","[0.3, 0.7857]",0.4118,1.0,0.5833,0.7143,0.7143,0.7143
+retail_legacy_L0,retail_legacy,L0,profiling-approx,profiling-approx,baseline,False,,FD,58,2,2,56,0,0.0345,1.0,0.0667,"[0.0, 0.0862]","[1.0, 1.0]","[0.0339, 0.1587]",0.0345,1.0,0.0667,1.0,1.0,1.0
+retail_legacy_L0,retail_legacy,L0,heuristic[names],heuristic,heuristic,False,names,FK,11,6,5,6,1,0.4545,0.8333,0.5882,"[0.1667, 0.75]","[0.5, 1.0]","[0.2857, 0.8]",0.4545,0.8333,0.5882,0.6667,0.6667,0.6667
+retail_legacy_L0,retail_legacy,L0,heuristic[names],heuristic,heuristic,False,names,UCC,6,7,5,1,2,0.8333,0.7143,0.7692,"[0.5, 1.0]","[0.3333, 1.0]","[0.4, 1.0]",1.0,0.8571,0.9231,0.8333,0.7143,0.7692
+retail_legacy_L0,retail_legacy,L0,heuristic[names],heuristic,heuristic,False,names,FD,1,2,1,0,1,1.0,0.5,0.6667,"[1.0, 1.0]","[0.0, 1.0]","[0.6667, 1.0]",1.0,0.5,0.6667,1.0,0.5,0.6667
+retail_legacy_L0,retail_legacy,L0,heuristic[names]+verify,heuristic,heuristic,True,names,FK,5,6,5,0,1,1.0,0.8333,0.9091,"[1.0, 1.0]","[0.5, 1.0]","[0.6667, 1.0]",1.0,0.8333,0.9091,1.0,0.8333,0.9091
+retail_legacy_L0,retail_legacy,L0,heuristic[names]+verify,heuristic,heuristic,True,names,UCC,5,7,5,0,2,1.0,0.7143,0.8333,"[1.0, 1.0]","[0.2857, 1.0]","[0.4444, 1.0]",1.0,0.7143,0.8333,1.0,0.7143,0.8333
+retail_legacy_L0,retail_legacy,L0,heuristic[names]+verify,heuristic,heuristic,True,names,FD,1,2,1,0,1,1.0,0.5,0.6667,"[1.0, 1.0]","[0.0, 1.0]","[0.6667, 1.0]",1.0,0.5,0.6667,1.0,0.5,0.6667
+retail_legacy_L0,retail_legacy,L0,heuristic[names+stats+samples+logs],heuristic,heuristic,False,names+stats+samples+logs,FK,8,6,6,2,0,0.75,1.0,0.8571,"[0.375, 1.0]","[1.0, 1.0]","[0.5455, 1.0]",0.75,1.0,0.8571,0.8333,0.8333,0.8333
+retail_legacy_L0,retail_legacy,L0,heuristic[names+stats+samples+logs],heuristic,heuristic,False,names+stats+samples+logs,UCC,6,7,6,0,1,1.0,0.8571,0.9231,"[1.0, 1.0]","[0.5714, 1.0]","[0.7273, 1.0]",1.0,0.8571,0.9231,1.0,0.8571,0.9231
+retail_legacy_L0,retail_legacy,L0,heuristic[names+stats+samples+logs],heuristic,heuristic,False,names+stats+samples+logs,FD,1,2,1,0,1,1.0,0.5,0.6667,"[1.0, 1.0]","[0.0, 1.0]","[0.6667, 1.0]",1.0,0.5,0.6667,1.0,0.5,0.6667
+retail_legacy_L0,retail_legacy,L0,heuristic[names+stats+samples+logs]+verify,heuristic,heuristic,True,names+stats+samples+logs,FK,6,6,6,0,0,1.0,1.0,1.0,"[1.0, 1.0]","[1.0, 1.0]","[1.0, 1.0]",1.0,1.0,1.0,1.0,1.0,1.0
+retail_legacy_L0,retail_legacy,L0,heuristic[names+stats+samples+logs]+verify,heuristic,heuristic,True,names+stats+samples+logs,UCC,6,7,6,0,1,1.0,0.8571,0.9231,"[1.0, 1.0]","[0.5714, 1.0]","[0.7273, 1.0]",1.0,0.8571,0.9231,1.0,0.8571,0.9231
+retail_legacy_L0,retail_legacy,L0,heuristic[names+stats+samples+logs]+verify,heuristic,heuristic,True,names+stats+samples+logs,FD,1,2,1,0,1,1.0,0.5,0.6667,"[1.0, 1.0]","[0.0, 1.0]","[0.6667, 1.0]",1.0,0.5,0.6667,1.0,0.5,0.6667
+retail_legacy_L0,retail_legacy,L0,hybrid-heuristic,hybrid-heuristic,hybrid,False,names+stats+samples+logs,FK,7,6,6,1,0,0.8571,1.0,0.9231,"[0.5714, 1.0]","[1.0, 1.0]","[0.7273, 1.0]",0.8571,1.0,0.9231,1.0,1.0,1.0
+retail_legacy_L0,retail_legacy,L0,hybrid-heuristic,hybrid-heuristic,hybrid,False,names+stats+samples+logs,UCC,8,7,6,2,1,0.75,0.8571,0.8,"[0.4286, 1.0]","[0.5714, 1.0]","[0.5, 1.0]",0.75,0.8571,0.8,0.8571,0.8571,0.8571
+retail_legacy_L0,retail_legacy,L0,hybrid-heuristic,hybrid-heuristic,hybrid,False,names+stats+samples+logs,FD,1,2,1,0,1,1.0,0.5,0.6667,"[1.0, 1.0]","[0.0, 1.0]","[0.6667, 1.0]",1.0,0.5,0.6667,1.0,0.5,0.6667
+retail_legacy_L0,retail_legacy,L0,hybrid-heuristic+verify,hybrid-heuristic,hybrid,True,names+stats+samples+logs,FK,7,6,6,1,0,0.8571,1.0,0.9231,"[0.5714, 1.0]","[1.0, 1.0]","[0.7273, 1.0]",0.8571,1.0,0.9231,1.0,1.0,1.0
+retail_legacy_L0,retail_legacy,L0,hybrid-heuristic+verify,hybrid-heuristic,hybrid,True,names+stats+samples+logs,UCC,8,7,6,2,1,0.75,0.8571,0.8,"[0.4286, 1.0]","[0.5714, 1.0]","[0.5, 1.0]",0.75,0.8571,0.8,0.8571,0.8571,0.8571
+retail_legacy_L0,retail_legacy,L0,hybrid-heuristic+verify,hybrid-heuristic,hybrid,True,names+stats+samples+logs,FD,1,2,1,0,1,1.0,0.5,0.6667,"[1.0, 1.0]","[0.0, 1.0]","[0.6667, 1.0]",1.0,0.5,0.6667,1.0,0.5,0.6667
+retail_legacy_L1,retail_legacy,L1,profiling,profiling,baseline,False,,FK,3,6,1,2,5,0.3333,0.1667,0.2222,"[0.0, 1.0]","[0.0, 0.5]","[0.0, 0.5455]",0.3333,0.1667,0.2222,0.3333,0.1667,0.2222
+retail_legacy_L1,retail_legacy,L1,profiling,profiling,baseline,False,,UCC,15,7,7,8,0,0.4667,1.0,0.6364,"[0.2, 0.7333]","[1.0, 1.0]","[0.3333, 0.8462]",0.4667,1.0,0.6364,0.8571,0.8571,0.8571
+retail_legacy_L1,retail_legacy,L1,profiling,profiling,baseline,False,,FD,45,2,0,45,2,0.0,0.0,0.0,"[0.0, 0.0]","[0.0, 0.0]","[0.0, 0.0]",0.0889,1.0,0.1633,0.0,0.0,0.0
+retail_legacy_L1,retail_legacy,L1,profiling-approx,profiling-approx,baseline,False,,FK,8,6,6,2,0,0.75,1.0,0.8571,"[0.375, 1.0]","[1.0, 1.0]","[0.5455, 1.0]",0.75,1.0,0.8571,1.0,1.0,1.0
+retail_legacy_L1,retail_legacy,L1,profiling-approx,profiling-approx,baseline,False,,UCC,18,7,7,11,0,0.3889,1.0,0.56,"[0.1667, 0.6111]","[1.0, 1.0]","[0.2857, 0.7586]",0.3889,1.0,0.56,0.8571,0.8571,0.8571
+retail_legacy_L1,retail_legacy,L1,profiling-approx,profiling-approx,baseline,False,,FD,58,2,2,56,0,0.0345,1.0,0.0667,"[0.0, 0.0862]","[1.0, 1.0]","[0.0339, 0.1587]",0.0345,1.0,0.0667,0.5,0.5,0.5
+retail_legacy_L1,retail_legacy,L1,heuristic[names],heuristic,heuristic,False,names,FK,9,6,2,7,4,0.2222,0.3333,0.2667,"[0.0, 0.5556]","[0.0, 0.75]","[0.0, 0.5556]",0.2222,0.3333,0.2667,0.3333,0.3333,0.3333
+retail_legacy_L1,retail_legacy,L1,heuristic[names],heuristic,heuristic,False,names,UCC,5,7,3,2,4,0.6,0.4286,0.5,"[0.0, 1.0]","[0.0, 0.8333]","[0.0, 0.8]",0.6,0.4286,0.5,0.6,0.4286,0.5
+retail_legacy_L1,retail_legacy,L1,heuristic[names],heuristic,heuristic,False,names,FD,1,2,1,0,1,1.0,0.5,0.6667,"[1.0, 1.0]","[0.0, 1.0]","[0.6667, 1.0]",1.0,0.5,0.6667,1.0,0.5,0.6667
+retail_legacy_L1,retail_legacy,L1,heuristic[names]+verify,heuristic,heuristic,True,names,FK,2,6,2,0,4,1.0,0.3333,0.5,"[1.0, 1.0]","[0.0, 0.6667]","[0.2857, 0.8]",1.0,0.3333,0.5,1.0,0.3333,0.5
+retail_legacy_L1,retail_legacy,L1,heuristic[names]+verify,heuristic,heuristic,True,names,UCC,3,7,3,0,4,1.0,0.4286,0.6,"[1.0, 1.0]","[0.1429, 0.8571]","[0.25, 0.9231]",1.0,0.4286,0.6,1.0,0.4286,0.6
+retail_legacy_L1,retail_legacy,L1,heuristic[names]+verify,heuristic,heuristic,True,names,FD,1,2,1,0,1,1.0,0.5,0.6667,"[1.0, 1.0]","[0.0, 1.0]","[0.6667, 1.0]",1.0,0.5,0.6667,1.0,0.5,0.6667
+retail_legacy_L1,retail_legacy,L1,heuristic[names+stats+samples+logs],heuristic,heuristic,False,names+stats+samples+logs,FK,4,6,3,1,3,0.75,0.5,0.6,"[0.2, 1.0]","[0.1429, 0.8571]","[0.25, 0.9231]",0.75,0.5,0.6,0.75,0.5,0.6
+retail_legacy_L1,retail_legacy,L1,heuristic[names+stats+samples+logs],heuristic,heuristic,False,names+stats+samples+logs,UCC,5,7,4,1,3,0.8,0.5714,0.6667,"[0.4, 1.0]","[0.2, 1.0]","[0.2222, 0.9333]",0.8,0.5714,0.6667,0.8,0.5714,0.6667
+retail_legacy_L1,retail_legacy,L1,heuristic[names+stats+samples+logs],heuristic,heuristic,False,names+stats+samples+logs,FD,0,2,0,0,2,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+retail_legacy_L1,retail_legacy,L1,heuristic[names+stats+samples+logs]+verify,heuristic,heuristic,True,names+stats+samples+logs,FK,3,6,3,0,3,1.0,0.5,0.6667,"[1.0, 1.0]","[0.1667, 0.8333]","[0.2857, 0.9091]",1.0,0.5,0.6667,1.0,0.5,0.6667
+retail_legacy_L1,retail_legacy,L1,heuristic[names+stats+samples+logs]+verify,heuristic,heuristic,True,names+stats+samples+logs,UCC,5,7,4,1,3,0.8,0.5714,0.6667,"[0.4, 1.0]","[0.2, 1.0]","[0.2222, 0.9333]",0.8,0.5714,0.6667,0.8,0.5714,0.6667
+retail_legacy_L1,retail_legacy,L1,heuristic[names+stats+samples+logs]+verify,heuristic,heuristic,True,names+stats+samples+logs,FD,0,2,0,0,2,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+retail_legacy_L1,retail_legacy,L1,hybrid-heuristic,hybrid-heuristic,hybrid,False,names+stats+samples+logs,FK,1,6,1,0,5,1.0,0.1667,0.2857,"[1.0, 1.0]","[0.0, 0.5]","[0.2857, 0.6667]",1.0,0.1667,0.2857,1.0,0.1667,0.2857
+retail_legacy_L1,retail_legacy,L1,hybrid-heuristic,hybrid-heuristic,hybrid,False,names+stats+samples+logs,UCC,3,7,3,0,4,1.0,0.4286,0.6,"[1.0, 1.0]","[0.1429, 0.8571]","[0.25, 0.9231]",1.0,0.4286,0.6,1.0,0.4286,0.6
+retail_legacy_L1,retail_legacy,L1,hybrid-heuristic,hybrid-heuristic,hybrid,False,names+stats+samples+logs,FD,0,2,0,0,2,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+retail_legacy_L1,retail_legacy,L1,hybrid-heuristic+verify,hybrid-heuristic,hybrid,True,names+stats+samples+logs,FK,1,6,1,0,5,1.0,0.1667,0.2857,"[1.0, 1.0]","[0.0, 0.5]","[0.2857, 0.6667]",1.0,0.1667,0.2857,1.0,0.1667,0.2857
+retail_legacy_L1,retail_legacy,L1,hybrid-heuristic+verify,hybrid-heuristic,hybrid,True,names+stats+samples+logs,UCC,3,7,3,0,4,1.0,0.4286,0.6,"[1.0, 1.0]","[0.1429, 0.8571]","[0.25, 0.9231]",1.0,0.4286,0.6,1.0,0.4286,0.6
+retail_legacy_L1,retail_legacy,L1,hybrid-heuristic+verify,hybrid-heuristic,hybrid,True,names+stats+samples+logs,FD,0,2,0,0,2,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+retail_legacy_L2,retail_legacy,L2,profiling,profiling,baseline,False,,FK,2,6,0,2,6,0.0,0.0,0.0,"[0.0, 0.0]","[0.0, 0.0]","[0.0, 0.0]",0.0,0.0,0.0,0.0,0.0,0.0
+retail_legacy_L2,retail_legacy,L2,profiling,profiling,baseline,False,,UCC,12,7,7,5,0,0.5833,1.0,0.7368,"[0.3333, 0.8333]","[1.0, 1.0]","[0.5, 0.9091]",0.5833,1.0,0.7368,0.8571,0.8571,0.8571
+retail_legacy_L2,retail_legacy,L2,profiling,profiling,baseline,False,,FD,37,2,0,37,2,0.0,0.0,0.0,"[0.0, 0.0]","[0.0, 0.0]","[0.0, 0.0]",0.0541,1.0,0.1026,0.0,0.0,0.0
+retail_legacy_L2,retail_legacy,L2,profiling-approx,profiling-approx,baseline,False,,FK,8,6,6,2,0,0.75,1.0,0.8571,"[0.375, 1.0]","[1.0, 1.0]","[0.5455, 1.0]",0.75,1.0,0.8571,1.0,1.0,1.0
+retail_legacy_L2,retail_legacy,L2,profiling-approx,profiling-approx,baseline,False,,UCC,17,7,7,10,0,0.4118,1.0,0.5833,"[0.1765, 0.6471]","[1.0, 1.0]","[0.3, 0.7857]",0.4118,1.0,0.5833,0.8571,0.8571,0.8571
+retail_legacy_L2,retail_legacy,L2,profiling-approx,profiling-approx,baseline,False,,FD,60,2,0,60,2,0.0,0.0,0.0,"[0.0, 0.0]","[0.0, 0.0]","[0.0, 0.0]",0.0333,1.0,0.0645,0.0,0.0,0.0
+retail_legacy_L2,retail_legacy,L2,heuristic[names],heuristic,heuristic,False,names,FK,1,6,0,1,6,0.0,0.0,0.0,"[0.0, 0.0]","[0.0, 0.0]","[0.0, 0.0]",0.0,0.0,0.0,0.0,0.0,0.0
+retail_legacy_L2,retail_legacy,L2,heuristic[names],heuristic,heuristic,False,names,UCC,3,7,1,2,6,0.3333,0.1429,0.2,"[0.0, 1.0]","[0.0, 0.4286]","[0.0, 0.5]",0.3333,0.1429,0.2,0.3333,0.1429,0.2
+retail_legacy_L2,retail_legacy,L2,heuristic[names],heuristic,heuristic,False,names,FD,0,2,0,0,2,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+retail_legacy_L2,retail_legacy,L2,heuristic[names]+verify,heuristic,heuristic,True,names,FK,0,6,0,0,6,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+retail_legacy_L2,retail_legacy,L2,heuristic[names]+verify,heuristic,heuristic,True,names,UCC,2,7,1,1,6,0.5,0.1429,0.2222,"[0.0, 1.0]","[0.0, 0.4286]","[0.0, 0.5455]",0.5,0.1429,0.2222,0.5,0.1429,0.2222
+retail_legacy_L2,retail_legacy,L2,heuristic[names]+verify,heuristic,heuristic,True,names,FD,0,2,0,0,2,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+retail_legacy_L2,retail_legacy,L2,heuristic[names+stats+samples+logs],heuristic,heuristic,False,names+stats+samples+logs,FK,3,6,3,0,3,1.0,0.5,0.6667,"[1.0, 1.0]","[0.1667, 0.8333]","[0.2857, 0.9091]",1.0,0.5,0.6667,1.0,0.5,0.6667
+retail_legacy_L2,retail_legacy,L2,heuristic[names+stats+samples+logs],heuristic,heuristic,False,names+stats+samples+logs,UCC,5,7,5,0,2,1.0,0.7143,0.8333,"[1.0, 1.0]","[0.2857, 1.0]","[0.4444, 1.0]",1.0,0.7143,0.8333,1.0,0.7143,0.8333
+retail_legacy_L2,retail_legacy,L2,heuristic[names+stats+samples+logs],heuristic,heuristic,False,names+stats+samples+logs,FD,0,2,0,0,2,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+retail_legacy_L2,retail_legacy,L2,heuristic[names+stats+samples+logs]+verify,heuristic,heuristic,True,names+stats+samples+logs,FK,3,6,3,0,3,1.0,0.5,0.6667,"[1.0, 1.0]","[0.1667, 0.8333]","[0.2857, 0.9091]",1.0,0.5,0.6667,1.0,0.5,0.6667
+retail_legacy_L2,retail_legacy,L2,heuristic[names+stats+samples+logs]+verify,heuristic,heuristic,True,names+stats+samples+logs,UCC,5,7,5,0,2,1.0,0.7143,0.8333,"[1.0, 1.0]","[0.2857, 1.0]","[0.4444, 1.0]",1.0,0.7143,0.8333,1.0,0.7143,0.8333
+retail_legacy_L2,retail_legacy,L2,heuristic[names+stats+samples+logs]+verify,heuristic,heuristic,True,names+stats+samples+logs,FD,0,2,0,0,2,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+retail_legacy_L2,retail_legacy,L2,hybrid-heuristic,hybrid-heuristic,hybrid,False,names+stats+samples+logs,FK,0,6,0,0,6,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+retail_legacy_L2,retail_legacy,L2,hybrid-heuristic,hybrid-heuristic,hybrid,False,names+stats+samples+logs,UCC,1,7,1,0,6,1.0,0.1429,0.25,"[1.0, 1.0]","[0.0, 0.4286]","[0.25, 0.6]",1.0,0.1429,0.25,1.0,0.1429,0.25
+retail_legacy_L2,retail_legacy,L2,hybrid-heuristic,hybrid-heuristic,hybrid,False,names+stats+samples+logs,FD,0,2,0,0,2,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+retail_legacy_L2,retail_legacy,L2,hybrid-heuristic+verify,hybrid-heuristic,hybrid,True,names+stats+samples+logs,FK,0,6,0,0,6,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+retail_legacy_L2,retail_legacy,L2,hybrid-heuristic+verify,hybrid-heuristic,hybrid,True,names+stats+samples+logs,UCC,1,7,1,0,6,1.0,0.1429,0.25,"[1.0, 1.0]","[0.0, 0.4286]","[0.25, 0.6]",1.0,0.1429,0.25,1.0,0.1429,0.25
+retail_legacy_L2,retail_legacy,L2,hybrid-heuristic+verify,hybrid-heuristic,hybrid,True,names+stats+samples+logs,FD,0,2,0,0,2,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+retail_legacy_L3,retail_legacy,L3,profiling,profiling,baseline,False,,FK,2,6,0,2,6,0.0,0.0,0.0,"[0.0, 0.0]","[0.0, 0.0]","[0.0, 0.0]",0.0,0.0,0.0,0.0,0.0,0.0
+retail_legacy_L3,retail_legacy,L3,profiling,profiling,baseline,False,,UCC,10,7,7,3,0,0.7,1.0,0.8235,"[0.4, 0.9]","[1.0, 1.0]","[0.5714, 0.9474]",0.7,1.0,0.8235,1.0,1.0,1.0
+retail_legacy_L3,retail_legacy,L3,profiling,profiling,baseline,False,,FD,28,2,0,28,2,0.0,0.0,0.0,"[0.0, 0.0]","[0.0, 0.0]","[0.0, 0.0]",0.0,0.0,0.0,0.0,0.0,0.0
+retail_legacy_L3,retail_legacy,L3,profiling-approx,profiling-approx,baseline,False,,FK,6,6,4,2,2,0.6667,0.6667,0.6667,"[0.2857, 1.0]","[0.2857, 1.0]","[0.2222, 0.9333]",0.6667,0.6667,0.6667,0.6667,0.6667,0.6667
+retail_legacy_L3,retail_legacy,L3,profiling-approx,profiling-approx,baseline,False,,UCC,15,7,7,8,0,0.4667,1.0,0.6364,"[0.2, 0.7333]","[1.0, 1.0]","[0.3333, 0.8462]",0.4667,1.0,0.6364,1.0,1.0,1.0
+retail_legacy_L3,retail_legacy,L3,profiling-approx,profiling-approx,baseline,False,,FD,49,2,0,49,2,0.0,0.0,0.0,"[0.0, 0.0]","[0.0, 0.0]","[0.0, 0.0]",0.0408,1.0,0.0784,0.0,0.0,0.0
+retail_legacy_L3,retail_legacy,L3,heuristic[names],heuristic,heuristic,False,names,FK,0,6,0,0,6,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+retail_legacy_L3,retail_legacy,L3,heuristic[names],heuristic,heuristic,False,names,UCC,0,7,0,0,7,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+retail_legacy_L3,retail_legacy,L3,heuristic[names],heuristic,heuristic,False,names,FD,0,2,0,0,2,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+retail_legacy_L3,retail_legacy,L3,heuristic[names]+verify,heuristic,heuristic,True,names,FK,0,6,0,0,6,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+retail_legacy_L3,retail_legacy,L3,heuristic[names]+verify,heuristic,heuristic,True,names,UCC,0,7,0,0,7,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+retail_legacy_L3,retail_legacy,L3,heuristic[names]+verify,heuristic,heuristic,True,names,FD,0,2,0,0,2,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+retail_legacy_L3,retail_legacy,L3,heuristic[names+stats+samples+logs],heuristic,heuristic,False,names+stats+samples+logs,FK,1,6,1,0,5,1.0,0.1667,0.2857,"[1.0, 1.0]","[0.0, 0.5]","[0.2857, 0.6667]",1.0,0.1667,0.2857,1.0,0.1667,0.2857
+retail_legacy_L3,retail_legacy,L3,heuristic[names+stats+samples+logs],heuristic,heuristic,False,names+stats+samples+logs,UCC,5,7,5,0,2,1.0,0.7143,0.8333,"[1.0, 1.0]","[0.2857, 1.0]","[0.4444, 1.0]",1.0,0.7143,0.8333,1.0,0.7143,0.8333
+retail_legacy_L3,retail_legacy,L3,heuristic[names+stats+samples+logs],heuristic,heuristic,False,names+stats+samples+logs,FD,0,2,0,0,2,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+retail_legacy_L3,retail_legacy,L3,heuristic[names+stats+samples+logs]+verify,heuristic,heuristic,True,names+stats+samples+logs,FK,1,6,1,0,5,1.0,0.1667,0.2857,"[1.0, 1.0]","[0.0, 0.5]","[0.2857, 0.6667]",1.0,0.1667,0.2857,1.0,0.1667,0.2857
+retail_legacy_L3,retail_legacy,L3,heuristic[names+stats+samples+logs]+verify,heuristic,heuristic,True,names+stats+samples+logs,UCC,5,7,5,0,2,1.0,0.7143,0.8333,"[1.0, 1.0]","[0.2857, 1.0]","[0.4444, 1.0]",1.0,0.7143,0.8333,1.0,0.7143,0.8333
+retail_legacy_L3,retail_legacy,L3,heuristic[names+stats+samples+logs]+verify,heuristic,heuristic,True,names+stats+samples+logs,FD,0,2,0,0,2,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+retail_legacy_L3,retail_legacy,L3,hybrid-heuristic,hybrid-heuristic,hybrid,False,names+stats+samples+logs,FK,0,6,0,0,6,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+retail_legacy_L3,retail_legacy,L3,hybrid-heuristic,hybrid-heuristic,hybrid,False,names+stats+samples+logs,UCC,0,7,0,0,7,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+retail_legacy_L3,retail_legacy,L3,hybrid-heuristic,hybrid-heuristic,hybrid,False,names+stats+samples+logs,FD,0,2,0,0,2,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+retail_legacy_L3,retail_legacy,L3,hybrid-heuristic+verify,hybrid-heuristic,hybrid,True,names+stats+samples+logs,FK,0,6,0,0,6,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+retail_legacy_L3,retail_legacy,L3,hybrid-heuristic+verify,hybrid-heuristic,hybrid,True,names+stats+samples+logs,UCC,0,7,0,0,7,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+retail_legacy_L3,retail_legacy,L3,hybrid-heuristic+verify,hybrid-heuristic,hybrid,True,names+stats+samples+logs,FD,0,2,0,0,2,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+retail_legacy_names-abbreviated,retail_legacy,names-abbreviated,profiling,profiling,baseline,False,,FK,9,6,6,3,0,0.6667,1.0,0.8,"[0.3333, 1.0]","[1.0, 1.0]","[0.5, 1.0]",0.6667,1.0,0.8,0.8333,0.8333,0.8333
+retail_legacy_names-abbreviated,retail_legacy,names-abbreviated,profiling,profiling,baseline,False,,UCC,13,7,7,6,0,0.5385,1.0,0.7,"[0.2308, 0.7692]","[1.0, 1.0]","[0.375, 0.8696]",0.5385,1.0,0.7,0.7143,0.7143,0.7143
+retail_legacy_names-abbreviated,retail_legacy,names-abbreviated,profiling,profiling,baseline,False,,FD,44,2,2,42,0,0.0455,1.0,0.087,"[0.0, 0.1136]","[1.0, 1.0]","[0.0444, 0.2041]",0.0455,1.0,0.087,1.0,1.0,1.0
+retail_legacy_names-abbreviated,retail_legacy,names-abbreviated,profiling-approx,profiling-approx,baseline,False,,FK,9,6,6,3,0,0.6667,1.0,0.8,"[0.3333, 1.0]","[1.0, 1.0]","[0.5, 1.0]",0.6667,1.0,0.8,0.8333,0.8333,0.8333
+retail_legacy_names-abbreviated,retail_legacy,names-abbreviated,profiling-approx,profiling-approx,baseline,False,,UCC,17,7,7,10,0,0.4118,1.0,0.5833,"[0.1765, 0.6471]","[1.0, 1.0]","[0.3, 0.7857]",0.4118,1.0,0.5833,0.7143,0.7143,0.7143
+retail_legacy_names-abbreviated,retail_legacy,names-abbreviated,profiling-approx,profiling-approx,baseline,False,,FD,58,2,2,56,0,0.0345,1.0,0.0667,"[0.0, 0.0862]","[1.0, 1.0]","[0.0339, 0.1587]",0.0345,1.0,0.0667,1.0,1.0,1.0
+retail_legacy_names-abbreviated,retail_legacy,names-abbreviated,heuristic[names],heuristic,heuristic,False,names,FK,13,6,5,8,1,0.3846,0.8333,0.5263,"[0.1429, 0.6429]","[0.5, 1.0]","[0.25, 0.7273]",0.3846,0.8333,0.5263,0.6667,0.6667,0.6667
+retail_legacy_names-abbreviated,retail_legacy,names-abbreviated,heuristic[names],heuristic,heuristic,False,names,UCC,6,7,5,1,2,0.8333,0.7143,0.7692,"[0.5, 1.0]","[0.3333, 1.0]","[0.4, 1.0]",1.0,0.8571,0.9231,0.8333,0.7143,0.7692
+retail_legacy_names-abbreviated,retail_legacy,names-abbreviated,heuristic[names],heuristic,heuristic,False,names,FD,1,2,1,0,1,1.0,0.5,0.6667,"[1.0, 1.0]","[0.0, 1.0]","[0.6667, 1.0]",1.0,0.5,0.6667,1.0,0.5,0.6667
+retail_legacy_names-abbreviated,retail_legacy,names-abbreviated,heuristic[names]+verify,heuristic,heuristic,True,names,FK,5,6,5,0,1,1.0,0.8333,0.9091,"[1.0, 1.0]","[0.5, 1.0]","[0.6667, 1.0]",1.0,0.8333,0.9091,1.0,0.8333,0.9091
+retail_legacy_names-abbreviated,retail_legacy,names-abbreviated,heuristic[names]+verify,heuristic,heuristic,True,names,UCC,5,7,5,0,2,1.0,0.7143,0.8333,"[1.0, 1.0]","[0.2857, 1.0]","[0.4444, 1.0]",1.0,0.7143,0.8333,1.0,0.7143,0.8333
+retail_legacy_names-abbreviated,retail_legacy,names-abbreviated,heuristic[names]+verify,heuristic,heuristic,True,names,FD,1,2,1,0,1,1.0,0.5,0.6667,"[1.0, 1.0]","[0.0, 1.0]","[0.6667, 1.0]",1.0,0.5,0.6667,1.0,0.5,0.6667
+retail_legacy_names-abbreviated,retail_legacy,names-abbreviated,heuristic[names+stats+samples+logs],heuristic,heuristic,False,names+stats+samples+logs,FK,8,6,6,2,0,0.75,1.0,0.8571,"[0.375, 1.0]","[1.0, 1.0]","[0.5455, 1.0]",0.75,1.0,0.8571,0.8333,0.8333,0.8333
+retail_legacy_names-abbreviated,retail_legacy,names-abbreviated,heuristic[names+stats+samples+logs],heuristic,heuristic,False,names+stats+samples+logs,UCC,6,7,6,0,1,1.0,0.8571,0.9231,"[1.0, 1.0]","[0.5714, 1.0]","[0.7273, 1.0]",1.0,0.8571,0.9231,1.0,0.8571,0.9231
+retail_legacy_names-abbreviated,retail_legacy,names-abbreviated,heuristic[names+stats+samples+logs],heuristic,heuristic,False,names+stats+samples+logs,FD,1,2,1,0,1,1.0,0.5,0.6667,"[1.0, 1.0]","[0.0, 1.0]","[0.6667, 1.0]",1.0,0.5,0.6667,1.0,0.5,0.6667
+retail_legacy_names-abbreviated,retail_legacy,names-abbreviated,heuristic[names+stats+samples+logs]+verify,heuristic,heuristic,True,names+stats+samples+logs,FK,6,6,6,0,0,1.0,1.0,1.0,"[1.0, 1.0]","[1.0, 1.0]","[1.0, 1.0]",1.0,1.0,1.0,1.0,1.0,1.0
+retail_legacy_names-abbreviated,retail_legacy,names-abbreviated,heuristic[names+stats+samples+logs]+verify,heuristic,heuristic,True,names+stats+samples+logs,UCC,6,7,6,0,1,1.0,0.8571,0.9231,"[1.0, 1.0]","[0.5714, 1.0]","[0.7273, 1.0]",1.0,0.8571,0.9231,1.0,0.8571,0.9231
+retail_legacy_names-abbreviated,retail_legacy,names-abbreviated,heuristic[names+stats+samples+logs]+verify,heuristic,heuristic,True,names+stats+samples+logs,FD,1,2,1,0,1,1.0,0.5,0.6667,"[1.0, 1.0]","[0.0, 1.0]","[0.6667, 1.0]",1.0,0.5,0.6667,1.0,0.5,0.6667
+retail_legacy_names-abbreviated,retail_legacy,names-abbreviated,hybrid-heuristic,hybrid-heuristic,hybrid,False,names+stats+samples+logs,FK,7,6,6,1,0,0.8571,1.0,0.9231,"[0.5714, 1.0]","[1.0, 1.0]","[0.7273, 1.0]",0.8571,1.0,0.9231,1.0,1.0,1.0
+retail_legacy_names-abbreviated,retail_legacy,names-abbreviated,hybrid-heuristic,hybrid-heuristic,hybrid,False,names+stats+samples+logs,UCC,8,7,6,2,1,0.75,0.8571,0.8,"[0.4286, 1.0]","[0.5714, 1.0]","[0.5, 1.0]",0.75,0.8571,0.8,0.8571,0.8571,0.8571
+retail_legacy_names-abbreviated,retail_legacy,names-abbreviated,hybrid-heuristic,hybrid-heuristic,hybrid,False,names+stats+samples+logs,FD,1,2,1,0,1,1.0,0.5,0.6667,"[1.0, 1.0]","[0.0, 1.0]","[0.6667, 1.0]",1.0,0.5,0.6667,1.0,0.5,0.6667
+retail_legacy_names-abbreviated,retail_legacy,names-abbreviated,hybrid-heuristic+verify,hybrid-heuristic,hybrid,True,names+stats+samples+logs,FK,7,6,6,1,0,0.8571,1.0,0.9231,"[0.5714, 1.0]","[1.0, 1.0]","[0.7273, 1.0]",0.8571,1.0,0.9231,1.0,1.0,1.0
+retail_legacy_names-abbreviated,retail_legacy,names-abbreviated,hybrid-heuristic+verify,hybrid-heuristic,hybrid,True,names+stats+samples+logs,UCC,8,7,6,2,1,0.75,0.8571,0.8,"[0.4286, 1.0]","[0.5714, 1.0]","[0.5, 1.0]",0.75,0.8571,0.8,0.8571,0.8571,0.8571
+retail_legacy_names-abbreviated,retail_legacy,names-abbreviated,hybrid-heuristic+verify,hybrid-heuristic,hybrid,True,names+stats+samples+logs,FD,1,2,1,0,1,1.0,0.5,0.6667,"[1.0, 1.0]","[0.0, 1.0]","[0.6667, 1.0]",1.0,0.5,0.6667,1.0,0.5,0.6667
+retail_legacy_names-cryptic,retail_legacy,names-cryptic,profiling,profiling,baseline,False,,FK,9,6,6,3,0,0.6667,1.0,0.8,"[0.3333, 1.0]","[1.0, 1.0]","[0.5, 1.0]",0.6667,1.0,0.8,0.8333,0.8333,0.8333
+retail_legacy_names-cryptic,retail_legacy,names-cryptic,profiling,profiling,baseline,False,,UCC,13,7,7,6,0,0.5385,1.0,0.7,"[0.2308, 0.7692]","[1.0, 1.0]","[0.375, 0.8696]",0.5385,1.0,0.7,0.7143,0.7143,0.7143
+retail_legacy_names-cryptic,retail_legacy,names-cryptic,profiling,profiling,baseline,False,,FD,44,2,2,42,0,0.0455,1.0,0.087,"[0.0, 0.1136]","[1.0, 1.0]","[0.0444, 0.2041]",0.0455,1.0,0.087,1.0,1.0,1.0
+retail_legacy_names-cryptic,retail_legacy,names-cryptic,profiling-approx,profiling-approx,baseline,False,,FK,9,6,6,3,0,0.6667,1.0,0.8,"[0.3333, 1.0]","[1.0, 1.0]","[0.5, 1.0]",0.6667,1.0,0.8,0.8333,0.8333,0.8333
+retail_legacy_names-cryptic,retail_legacy,names-cryptic,profiling-approx,profiling-approx,baseline,False,,UCC,17,7,7,10,0,0.4118,1.0,0.5833,"[0.1765, 0.6471]","[1.0, 1.0]","[0.3, 0.7857]",0.4118,1.0,0.5833,0.7143,0.7143,0.7143
+retail_legacy_names-cryptic,retail_legacy,names-cryptic,profiling-approx,profiling-approx,baseline,False,,FD,58,2,2,56,0,0.0345,1.0,0.0667,"[0.0, 0.0862]","[1.0, 1.0]","[0.0339, 0.1587]",0.0345,1.0,0.0667,1.0,1.0,1.0
+retail_legacy_names-cryptic,retail_legacy,names-cryptic,heuristic[names],heuristic,heuristic,False,names,FK,0,6,0,0,6,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+retail_legacy_names-cryptic,retail_legacy,names-cryptic,heuristic[names],heuristic,heuristic,False,names,UCC,0,7,0,0,7,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+retail_legacy_names-cryptic,retail_legacy,names-cryptic,heuristic[names],heuristic,heuristic,False,names,FD,0,2,0,0,2,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+retail_legacy_names-cryptic,retail_legacy,names-cryptic,heuristic[names]+verify,heuristic,heuristic,True,names,FK,0,6,0,0,6,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+retail_legacy_names-cryptic,retail_legacy,names-cryptic,heuristic[names]+verify,heuristic,heuristic,True,names,UCC,0,7,0,0,7,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+retail_legacy_names-cryptic,retail_legacy,names-cryptic,heuristic[names]+verify,heuristic,heuristic,True,names,FD,0,2,0,0,2,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+retail_legacy_names-cryptic,retail_legacy,names-cryptic,heuristic[names+stats+samples+logs],heuristic,heuristic,False,names+stats+samples+logs,FK,6,6,6,0,0,1.0,1.0,1.0,"[1.0, 1.0]","[1.0, 1.0]","[1.0, 1.0]",1.0,1.0,1.0,1.0,1.0,1.0
+retail_legacy_names-cryptic,retail_legacy,names-cryptic,heuristic[names+stats+samples+logs],heuristic,heuristic,False,names+stats+samples+logs,UCC,5,7,5,0,2,1.0,0.7143,0.8333,"[1.0, 1.0]","[0.2857, 1.0]","[0.4444, 1.0]",1.0,0.7143,0.8333,1.0,0.7143,0.8333
+retail_legacy_names-cryptic,retail_legacy,names-cryptic,heuristic[names+stats+samples+logs],heuristic,heuristic,False,names+stats+samples+logs,FD,0,2,0,0,2,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+retail_legacy_names-cryptic,retail_legacy,names-cryptic,heuristic[names+stats+samples+logs]+verify,heuristic,heuristic,True,names+stats+samples+logs,FK,6,6,6,0,0,1.0,1.0,1.0,"[1.0, 1.0]","[1.0, 1.0]","[1.0, 1.0]",1.0,1.0,1.0,1.0,1.0,1.0
+retail_legacy_names-cryptic,retail_legacy,names-cryptic,heuristic[names+stats+samples+logs]+verify,heuristic,heuristic,True,names+stats+samples+logs,UCC,5,7,5,0,2,1.0,0.7143,0.8333,"[1.0, 1.0]","[0.2857, 1.0]","[0.4444, 1.0]",1.0,0.7143,0.8333,1.0,0.7143,0.8333
+retail_legacy_names-cryptic,retail_legacy,names-cryptic,heuristic[names+stats+samples+logs]+verify,heuristic,heuristic,True,names+stats+samples+logs,FD,0,2,0,0,2,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+retail_legacy_names-cryptic,retail_legacy,names-cryptic,hybrid-heuristic,hybrid-heuristic,hybrid,False,names+stats+samples+logs,FK,0,6,0,0,6,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+retail_legacy_names-cryptic,retail_legacy,names-cryptic,hybrid-heuristic,hybrid-heuristic,hybrid,False,names+stats+samples+logs,UCC,0,7,0,0,7,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+retail_legacy_names-cryptic,retail_legacy,names-cryptic,hybrid-heuristic,hybrid-heuristic,hybrid,False,names+stats+samples+logs,FD,0,2,0,0,2,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+retail_legacy_names-cryptic,retail_legacy,names-cryptic,hybrid-heuristic+verify,hybrid-heuristic,hybrid,True,names+stats+samples+logs,FK,0,6,0,0,6,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+retail_legacy_names-cryptic,retail_legacy,names-cryptic,hybrid-heuristic+verify,hybrid-heuristic,hybrid,True,names+stats+samples+logs,UCC,0,7,0,0,7,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+retail_legacy_names-cryptic,retail_legacy,names-cryptic,hybrid-heuristic+verify,hybrid-heuristic,hybrid,True,names+stats+samples+logs,FD,0,2,0,0,2,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+retail_legacy_names-misleading,retail_legacy,names-misleading,profiling,profiling,baseline,False,,FK,9,6,6,3,0,0.6667,1.0,0.8,"[0.3333, 1.0]","[1.0, 1.0]","[0.5, 1.0]",0.6667,1.0,0.8,0.8333,0.8333,0.8333
+retail_legacy_names-misleading,retail_legacy,names-misleading,profiling,profiling,baseline,False,,UCC,13,7,7,6,0,0.5385,1.0,0.7,"[0.2308, 0.7692]","[1.0, 1.0]","[0.375, 0.8696]",0.5385,1.0,0.7,0.5714,0.5714,0.5714
+retail_legacy_names-misleading,retail_legacy,names-misleading,profiling,profiling,baseline,False,,FD,44,2,2,42,0,0.0455,1.0,0.087,"[0.0, 0.1136]","[1.0, 1.0]","[0.0444, 0.2041]",0.0455,1.0,0.087,1.0,1.0,1.0
+retail_legacy_names-misleading,retail_legacy,names-misleading,profiling-approx,profiling-approx,baseline,False,,FK,9,6,6,3,0,0.6667,1.0,0.8,"[0.3333, 1.0]","[1.0, 1.0]","[0.5, 1.0]",0.6667,1.0,0.8,0.8333,0.8333,0.8333
+retail_legacy_names-misleading,retail_legacy,names-misleading,profiling-approx,profiling-approx,baseline,False,,UCC,17,7,7,10,0,0.4118,1.0,0.5833,"[0.1765, 0.6471]","[1.0, 1.0]","[0.3, 0.7857]",0.4118,1.0,0.5833,0.5714,0.5714,0.5714
+retail_legacy_names-misleading,retail_legacy,names-misleading,profiling-approx,profiling-approx,baseline,False,,FD,58,2,2,56,0,0.0345,1.0,0.0667,"[0.0, 0.0862]","[1.0, 1.0]","[0.0339, 0.1587]",0.0345,1.0,0.0667,1.0,1.0,1.0
+retail_legacy_names-misleading,retail_legacy,names-misleading,heuristic[names],heuristic,heuristic,False,names,FK,16,6,1,15,5,0.0625,0.1667,0.0909,"[0.0, 0.2143]","[0.0, 0.5556]","[0.0, 0.25]",0.0625,0.1667,0.0909,0.0,0.0,0.0
+retail_legacy_names-misleading,retail_legacy,names-misleading,heuristic[names],heuristic,heuristic,False,names,UCC,6,7,3,3,4,0.5,0.4286,0.4615,"[0.0, 0.8889]","[0.0, 0.8]","[0.0, 0.75]",0.6667,0.5714,0.6154,0.5,0.4286,0.4615
+retail_legacy_names-misleading,retail_legacy,names-misleading,heuristic[names],heuristic,heuristic,False,names,FD,3,2,0,3,2,0.0,0.0,0.0,"[0.0, 0.0]","[0.0, 0.0]","[0.0, 0.0]",0.0,0.0,0.0,0.0,0.0,0.0
+retail_legacy_names-misleading,retail_legacy,names-misleading,heuristic[names]+verify,heuristic,heuristic,True,names,FK,1,6,1,0,5,1.0,0.1667,0.2857,"[1.0, 1.0]","[0.0, 0.5]","[0.2857, 0.6667]",1.0,0.1667,0.2857,1.0,0.1667,0.2857
+retail_legacy_names-misleading,retail_legacy,names-misleading,heuristic[names]+verify,heuristic,heuristic,True,names,UCC,5,7,3,2,4,0.6,0.4286,0.5,"[0.0, 1.0]","[0.0, 0.8333]","[0.0, 0.8]",0.6,0.4286,0.5,0.6,0.4286,0.5
+retail_legacy_names-misleading,retail_legacy,names-misleading,heuristic[names]+verify,heuristic,heuristic,True,names,FD,0,2,0,0,2,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+retail_legacy_names-misleading,retail_legacy,names-misleading,heuristic[names+stats+samples+logs],heuristic,heuristic,False,names+stats+samples+logs,FK,10,6,4,6,2,0.4,0.6667,0.5,"[0.1111, 0.7]","[0.25, 1.0]","[0.1538, 0.7368]",0.4,0.6667,0.5,0.5,0.5,0.5
+retail_legacy_names-misleading,retail_legacy,names-misleading,heuristic[names+stats+samples+logs],heuristic,heuristic,False,names+stats+samples+logs,UCC,6,7,4,2,3,0.6667,0.5714,0.6154,"[0.25, 1.0]","[0.2, 1.0]","[0.2, 0.875]",0.6667,0.5714,0.6154,0.6667,0.5714,0.6154
+retail_legacy_names-misleading,retail_legacy,names-misleading,heuristic[names+stats+samples+logs],heuristic,heuristic,False,names+stats+samples+logs,FD,0,2,0,0,2,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+retail_legacy_names-misleading,retail_legacy,names-misleading,heuristic[names+stats+samples+logs]+verify,heuristic,heuristic,True,names+stats+samples+logs,FK,4,6,4,0,2,1.0,0.6667,0.8,"[1.0, 1.0]","[0.3333, 1.0]","[0.5, 1.0]",1.0,0.6667,0.8,1.0,0.6667,0.8
+retail_legacy_names-misleading,retail_legacy,names-misleading,heuristic[names+stats+samples+logs]+verify,heuristic,heuristic,True,names+stats+samples+logs,UCC,6,7,4,2,3,0.6667,0.5714,0.6154,"[0.25, 1.0]","[0.2, 1.0]","[0.2, 0.875]",0.6667,0.5714,0.6154,0.6667,0.5714,0.6154
+retail_legacy_names-misleading,retail_legacy,names-misleading,heuristic[names+stats+samples+logs]+verify,heuristic,heuristic,True,names+stats+samples+logs,FD,0,2,0,0,2,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+retail_legacy_names-misleading,retail_legacy,names-misleading,hybrid-heuristic,hybrid-heuristic,hybrid,False,names+stats+samples+logs,FK,3,6,2,1,4,0.6667,0.3333,0.4444,"[0.0, 1.0]","[0.0, 0.75]","[0.0, 0.7273]",0.6667,0.3333,0.4444,0.6667,0.3333,0.4444
+retail_legacy_names-misleading,retail_legacy,names-misleading,hybrid-heuristic,hybrid-heuristic,hybrid,False,names+stats+samples+logs,UCC,7,7,4,3,3,0.5714,0.5714,0.5714,"[0.1429, 1.0]","[0.1667, 0.8889]","[0.1818, 0.8235]",0.5714,0.5714,0.5714,0.5714,0.5714,0.5714
+retail_legacy_names-misleading,retail_legacy,names-misleading,hybrid-heuristic,hybrid-heuristic,hybrid,False,names+stats+samples+logs,FD,0,2,0,0,2,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+retail_legacy_names-misleading,retail_legacy,names-misleading,hybrid-heuristic+verify,hybrid-heuristic,hybrid,True,names+stats+samples+logs,FK,3,6,2,1,4,0.6667,0.3333,0.4444,"[0.0, 1.0]","[0.0, 0.75]","[0.0, 0.7273]",0.6667,0.3333,0.4444,0.6667,0.3333,0.4444
+retail_legacy_names-misleading,retail_legacy,names-misleading,hybrid-heuristic+verify,hybrid-heuristic,hybrid,True,names+stats+samples+logs,UCC,7,7,4,3,3,0.5714,0.5714,0.5714,"[0.1429, 1.0]","[0.1667, 0.8889]","[0.1818, 0.8235]",0.5714,0.5714,0.5714,0.5714,0.5714,0.5714
+retail_legacy_names-misleading,retail_legacy,names-misleading,hybrid-heuristic+verify,hybrid-heuristic,hybrid,True,names+stats+samples+logs,FD,0,2,0,0,2,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+airline_L0,airline,L0,profiling,profiling,baseline,False,,FK,10,7,7,3,0,0.7,1.0,0.8235,"[0.4, 0.9]","[1.0, 1.0]","[0.5714, 0.9474]",0.7,1.0,0.8235,0.8571,0.8571,0.8571
+airline_L0,airline,L0,profiling,profiling,baseline,False,,UCC,14,8,8,6,0,0.5714,1.0,0.7273,"[0.2857, 0.7857]","[1.0, 1.0]","[0.4444, 0.88]",0.5714,1.0,0.7273,0.875,0.875,0.875
+airline_L0,airline,L0,profiling,profiling,baseline,False,,FD,31,1,1,30,0,0.0323,1.0,0.0625,"[0.0, 0.0968]","[1.0, 1.0]","[0.0625, 0.2286]",0.0323,1.0,0.0625,0.0,0.0,0.0
+airline_L0,airline,L0,profiling-approx,profiling-approx,baseline,False,,FK,10,7,7,3,0,0.7,1.0,0.8235,"[0.4, 0.9]","[1.0, 1.0]","[0.5714, 0.9474]",0.7,1.0,0.8235,0.8571,0.8571,0.8571
+airline_L0,airline,L0,profiling-approx,profiling-approx,baseline,False,,UCC,14,8,8,6,0,0.5714,1.0,0.7273,"[0.2857, 0.7857]","[1.0, 1.0]","[0.4444, 0.88]",0.5714,1.0,0.7273,0.875,0.875,0.875
+airline_L0,airline,L0,profiling-approx,profiling-approx,baseline,False,,FD,42,1,1,41,0,0.0238,1.0,0.0465,"[0.0, 0.0952]","[1.0, 1.0]","[0.0465, 0.1739]",0.0238,1.0,0.0465,0.0,0.0,0.0
+airline_L0,airline,L0,heuristic[names],heuristic,heuristic,False,names,FK,8,7,4,4,3,0.5,0.5714,0.5333,"[0.1429, 0.875]","[0.1667, 0.8889]","[0.1667, 0.7778]",0.5,0.5714,0.5333,0.5714,0.5714,0.5714
+airline_L0,airline,L0,heuristic[names],heuristic,heuristic,False,names,UCC,6,8,5,1,3,0.8333,0.625,0.7143,"[0.5, 1.0]","[0.25, 1.0]","[0.3636, 0.9412]",1.0,0.75,0.8571,0.8333,0.625,0.7143
+airline_L0,airline,L0,heuristic[names],heuristic,heuristic,False,names,FD,0,1,0,0,1,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+airline_L0,airline,L0,heuristic[names]+verify,heuristic,heuristic,True,names,FK,5,7,4,1,3,0.8,0.5714,0.6667,"[0.4, 1.0]","[0.2, 1.0]","[0.2222, 0.9333]",0.8,0.5714,0.6667,0.8,0.5714,0.6667
+airline_L0,airline,L0,heuristic[names]+verify,heuristic,heuristic,True,names,UCC,5,8,5,0,3,1.0,0.625,0.7692,"[1.0, 1.0]","[0.25, 1.0]","[0.4, 1.0]",1.0,0.625,0.7692,1.0,0.625,0.7692
+airline_L0,airline,L0,heuristic[names]+verify,heuristic,heuristic,True,names,FD,0,1,0,0,1,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+airline_L0,airline,L0,heuristic[names+stats+samples+logs],heuristic,heuristic,False,names+stats+samples+logs,FK,8,7,7,1,0,0.875,1.0,0.9333,"[0.625, 1.0]","[1.0, 1.0]","[0.7692, 1.0]",0.875,1.0,0.9333,1.0,1.0,1.0
+airline_L0,airline,L0,heuristic[names+stats+samples+logs],heuristic,heuristic,False,names+stats+samples+logs,UCC,6,8,6,0,2,1.0,0.75,0.8571,"[1.0, 1.0]","[0.375, 1.0]","[0.5455, 1.0]",1.0,0.75,0.8571,1.0,0.75,0.8571
+airline_L0,airline,L0,heuristic[names+stats+samples+logs],heuristic,heuristic,False,names+stats+samples+logs,FD,0,1,0,0,1,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+airline_L0,airline,L0,heuristic[names+stats+samples+logs]+verify,heuristic,heuristic,True,names+stats+samples+logs,FK,8,7,7,1,0,0.875,1.0,0.9333,"[0.625, 1.0]","[1.0, 1.0]","[0.7692, 1.0]",0.875,1.0,0.9333,1.0,1.0,1.0
+airline_L0,airline,L0,heuristic[names+stats+samples+logs]+verify,heuristic,heuristic,True,names+stats+samples+logs,UCC,6,8,6,0,2,1.0,0.75,0.8571,"[1.0, 1.0]","[0.375, 1.0]","[0.5455, 1.0]",1.0,0.75,0.8571,1.0,0.75,0.8571
+airline_L0,airline,L0,heuristic[names+stats+samples+logs]+verify,heuristic,heuristic,True,names+stats+samples+logs,FD,0,1,0,0,1,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+airline_L0,airline,L0,hybrid-heuristic,hybrid-heuristic,hybrid,False,names+stats+samples+logs,FK,5,7,4,1,3,0.8,0.5714,0.6667,"[0.4, 1.0]","[0.2, 1.0]","[0.2222, 0.9333]",0.8,0.5714,0.6667,0.8,0.5714,0.6667
+airline_L0,airline,L0,hybrid-heuristic,hybrid-heuristic,hybrid,False,names+stats+samples+logs,UCC,8,8,7,1,1,0.875,0.875,0.875,"[0.6, 1.0]","[0.625, 1.0]","[0.6154, 1.0]",0.875,0.875,0.875,0.875,0.875,0.875
+airline_L0,airline,L0,hybrid-heuristic,hybrid-heuristic,hybrid,False,names+stats+samples+logs,FD,0,1,0,0,1,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+airline_L0,airline,L0,hybrid-heuristic+verify,hybrid-heuristic,hybrid,True,names+stats+samples+logs,FK,5,7,4,1,3,0.8,0.5714,0.6667,"[0.4, 1.0]","[0.2, 1.0]","[0.2222, 0.9333]",0.8,0.5714,0.6667,0.8,0.5714,0.6667
+airline_L0,airline,L0,hybrid-heuristic+verify,hybrid-heuristic,hybrid,True,names+stats+samples+logs,UCC,8,8,7,1,1,0.875,0.875,0.875,"[0.6, 1.0]","[0.625, 1.0]","[0.6154, 1.0]",0.875,0.875,0.875,0.875,0.875,0.875
+airline_L0,airline,L0,hybrid-heuristic+verify,hybrid-heuristic,hybrid,True,names+stats+samples+logs,FD,0,1,0,0,1,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+airline_L1,airline,L1,profiling,profiling,baseline,False,,FK,1,7,0,1,7,0.0,0.0,0.0,"[0.0, 0.0]","[0.0, 0.0]","[0.0, 0.0]",0.0,0.0,0.0,0.0,0.0,0.0
+airline_L1,airline,L1,profiling,profiling,baseline,False,,UCC,15,8,8,7,0,0.5333,1.0,0.6957,"[0.2667, 0.8]","[1.0, 1.0]","[0.4211, 0.8889]",0.5333,1.0,0.6957,0.875,0.875,0.875
+airline_L1,airline,L1,profiling,profiling,baseline,False,,FD,29,1,0,29,1,0.0,0.0,0.0,"[0.0, 0.0]","[0.0, 0.0]","[0.0, 0.0]",0.0,0.0,0.0,0.0,0.0,0.0
+airline_L1,airline,L1,profiling-approx,profiling-approx,baseline,False,,FK,10,7,7,3,0,0.7,1.0,0.8235,"[0.4, 0.9]","[1.0, 1.0]","[0.5714, 0.9474]",0.7,1.0,0.8235,0.8571,0.8571,0.8571
+airline_L1,airline,L1,profiling-approx,profiling-approx,baseline,False,,UCC,15,8,8,7,0,0.5333,1.0,0.6957,"[0.2667, 0.8]","[1.0, 1.0]","[0.4211, 0.8889]",0.5333,1.0,0.6957,0.875,0.875,0.875
+airline_L1,airline,L1,profiling-approx,profiling-approx,baseline,False,,FD,42,1,0,42,1,0.0,0.0,0.0,"[0.0, 0.0]","[0.0, 0.0]","[0.0, 0.0]",0.0,0.0,0.0,0.0,0.0,0.0
+airline_L1,airline,L1,heuristic[names],heuristic,heuristic,False,names,FK,6,7,1,5,6,0.1667,0.1429,0.1538,"[0.0, 0.5]","[0.0, 0.5]","[0.0, 0.4]",0.1667,0.1429,0.1538,0.1667,0.1429,0.1538
+airline_L1,airline,L1,heuristic[names],heuristic,heuristic,False,names,UCC,6,8,4,2,4,0.6667,0.5,0.5714,"[0.2, 1.0]","[0.1429, 0.8571]","[0.1818, 0.8235]",0.8333,0.625,0.7143,0.6667,0.5,0.5714
+airline_L1,airline,L1,heuristic[names],heuristic,heuristic,False,names,FD,0,1,0,0,1,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+airline_L1,airline,L1,heuristic[names]+verify,heuristic,heuristic,True,names,FK,2,7,1,1,6,0.5,0.1429,0.2222,"[0.0, 1.0]","[0.0, 0.4286]","[0.0, 0.5455]",0.5,0.1429,0.2222,0.5,0.1429,0.2222
+airline_L1,airline,L1,heuristic[names]+verify,heuristic,heuristic,True,names,UCC,4,8,4,0,4,1.0,0.5,0.6667,"[1.0, 1.0]","[0.125, 0.875]","[0.2222, 0.9333]",1.0,0.5,0.6667,1.0,0.5,0.6667
+airline_L1,airline,L1,heuristic[names]+verify,heuristic,heuristic,True,names,FD,0,1,0,0,1,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+airline_L1,airline,L1,heuristic[names+stats+samples+logs],heuristic,heuristic,False,names+stats+samples+logs,FK,6,7,5,1,2,0.8333,0.7143,0.7692,"[0.5, 1.0]","[0.3333, 1.0]","[0.4, 1.0]",0.8333,0.7143,0.7692,0.8333,0.7143,0.7692
+airline_L1,airline,L1,heuristic[names+stats+samples+logs],heuristic,heuristic,False,names+stats+samples+logs,UCC,5,8,5,0,3,1.0,0.625,0.7692,"[1.0, 1.0]","[0.25, 1.0]","[0.4, 1.0]",1.0,0.625,0.7692,1.0,0.625,0.7692
+airline_L1,airline,L1,heuristic[names+stats+samples+logs],heuristic,heuristic,False,names+stats+samples+logs,FD,0,1,0,0,1,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+airline_L1,airline,L1,heuristic[names+stats+samples+logs]+verify,heuristic,heuristic,True,names+stats+samples+logs,FK,6,7,5,1,2,0.8333,0.7143,0.7692,"[0.5, 1.0]","[0.3333, 1.0]","[0.4, 1.0]",0.8333,0.7143,0.7692,0.8333,0.7143,0.7692
+airline_L1,airline,L1,heuristic[names+stats+samples+logs]+verify,heuristic,heuristic,True,names+stats+samples+logs,UCC,5,8,5,0,3,1.0,0.625,0.7692,"[1.0, 1.0]","[0.25, 1.0]","[0.4, 1.0]",1.0,0.625,0.7692,1.0,0.625,0.7692
+airline_L1,airline,L1,heuristic[names+stats+samples+logs]+verify,heuristic,heuristic,True,names+stats+samples+logs,FD,0,1,0,0,1,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+airline_L1,airline,L1,hybrid-heuristic,hybrid-heuristic,hybrid,False,names+stats+samples+logs,FK,1,7,0,1,7,0.0,0.0,0.0,"[0.0, 0.0]","[0.0, 0.0]","[0.0, 0.0]",0.0,0.0,0.0,0.0,0.0,0.0
+airline_L1,airline,L1,hybrid-heuristic,hybrid-heuristic,hybrid,False,names+stats+samples+logs,UCC,5,8,5,0,3,1.0,0.625,0.7692,"[1.0, 1.0]","[0.25, 1.0]","[0.4, 1.0]",1.0,0.625,0.7692,1.0,0.625,0.7692
+airline_L1,airline,L1,hybrid-heuristic,hybrid-heuristic,hybrid,False,names+stats+samples+logs,FD,0,1,0,0,1,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+airline_L1,airline,L1,hybrid-heuristic+verify,hybrid-heuristic,hybrid,True,names+stats+samples+logs,FK,1,7,0,1,7,0.0,0.0,0.0,"[0.0, 0.0]","[0.0, 0.0]","[0.0, 0.0]",0.0,0.0,0.0,0.0,0.0,0.0
+airline_L1,airline,L1,hybrid-heuristic+verify,hybrid-heuristic,hybrid,True,names+stats+samples+logs,UCC,5,8,5,0,3,1.0,0.625,0.7692,"[1.0, 1.0]","[0.25, 1.0]","[0.4, 1.0]",1.0,0.625,0.7692,1.0,0.625,0.7692
+airline_L1,airline,L1,hybrid-heuristic+verify,hybrid-heuristic,hybrid,True,names+stats+samples+logs,FD,0,1,0,0,1,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+airline_L2,airline,L2,profiling,profiling,baseline,False,,FK,1,7,0,1,7,0.0,0.0,0.0,"[0.0, 0.0]","[0.0, 0.0]","[0.0, 0.0]",0.0,0.0,0.0,0.0,0.0,0.0
+airline_L2,airline,L2,profiling,profiling,baseline,False,,UCC,13,8,8,5,0,0.6154,1.0,0.7619,"[0.3077, 0.8462]","[1.0, 1.0]","[0.4706, 0.9167]",0.6154,1.0,0.7619,0.875,0.875,0.875
+airline_L2,airline,L2,profiling,profiling,baseline,False,,FD,28,1,0,28,1,0.0,0.0,0.0,"[0.0, 0.0]","[0.0, 0.0]","[0.0, 0.0]",0.0,0.0,0.0,0.0,0.0,0.0
+airline_L2,airline,L2,profiling-approx,profiling-approx,baseline,False,,FK,10,7,7,3,0,0.7,1.0,0.8235,"[0.4, 0.9]","[1.0, 1.0]","[0.5714, 0.9474]",0.7,1.0,0.8235,0.8571,0.8571,0.8571
+airline_L2,airline,L2,profiling-approx,profiling-approx,baseline,False,,UCC,14,8,8,6,0,0.5714,1.0,0.7273,"[0.2857, 0.7857]","[1.0, 1.0]","[0.4444, 0.88]",0.5714,1.0,0.7273,0.875,0.875,0.875
+airline_L2,airline,L2,profiling-approx,profiling-approx,baseline,False,,FD,41,1,0,41,1,0.0,0.0,0.0,"[0.0, 0.0]","[0.0, 0.0]","[0.0, 0.0]",0.0,0.0,0.0,0.0,0.0,0.0
+airline_L2,airline,L2,heuristic[names],heuristic,heuristic,False,names,FK,2,7,1,1,6,0.5,0.1429,0.2222,"[0.0, 1.0]","[0.0, 0.4286]","[0.0, 0.5455]",0.5,0.1429,0.2222,0.5,0.1429,0.2222
+airline_L2,airline,L2,heuristic[names],heuristic,heuristic,False,names,UCC,3,8,2,1,6,0.6667,0.25,0.3636,"[0.0, 1.0]","[0.0, 0.5714]","[0.0, 0.7143]",1.0,0.375,0.5455,0.6667,0.25,0.3636
+airline_L2,airline,L2,heuristic[names],heuristic,heuristic,False,names,FD,0,1,0,0,1,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+airline_L2,airline,L2,heuristic[names]+verify,heuristic,heuristic,True,names,FK,1,7,1,0,6,1.0,0.1429,0.25,"[1.0, 1.0]","[0.0, 0.4286]","[0.25, 0.6]",1.0,0.1429,0.25,1.0,0.1429,0.25
+airline_L2,airline,L2,heuristic[names]+verify,heuristic,heuristic,True,names,UCC,2,8,2,0,6,1.0,0.25,0.4,"[1.0, 1.0]","[0.0, 0.625]","[0.2222, 0.7692]",1.0,0.25,0.4,1.0,0.25,0.4
+airline_L2,airline,L2,heuristic[names]+verify,heuristic,heuristic,True,names,FD,0,1,0,0,1,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+airline_L2,airline,L2,heuristic[names+stats+samples+logs],heuristic,heuristic,False,names+stats+samples+logs,FK,4,7,4,0,3,1.0,0.5714,0.7273,"[1.0, 1.0]","[0.2857, 0.8571]","[0.4444, 1.0]",1.0,0.5714,0.7273,1.0,0.5714,0.7273
+airline_L2,airline,L2,heuristic[names+stats+samples+logs],heuristic,heuristic,False,names+stats+samples+logs,UCC,5,8,5,0,3,1.0,0.625,0.7692,"[1.0, 1.0]","[0.25, 1.0]","[0.4, 1.0]",1.0,0.625,0.7692,1.0,0.625,0.7692
+airline_L2,airline,L2,heuristic[names+stats+samples+logs],heuristic,heuristic,False,names+stats+samples+logs,FD,0,1,0,0,1,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+airline_L2,airline,L2,heuristic[names+stats+samples+logs]+verify,heuristic,heuristic,True,names+stats+samples+logs,FK,3,7,3,0,4,1.0,0.4286,0.6,"[1.0, 1.0]","[0.1429, 0.8571]","[0.25, 0.9231]",1.0,0.4286,0.6,1.0,0.4286,0.6
+airline_L2,airline,L2,heuristic[names+stats+samples+logs]+verify,heuristic,heuristic,True,names+stats+samples+logs,UCC,5,8,5,0,3,1.0,0.625,0.7692,"[1.0, 1.0]","[0.25, 1.0]","[0.4, 1.0]",1.0,0.625,0.7692,1.0,0.625,0.7692
+airline_L2,airline,L2,heuristic[names+stats+samples+logs]+verify,heuristic,heuristic,True,names+stats+samples+logs,FD,0,1,0,0,1,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+airline_L2,airline,L2,hybrid-heuristic,hybrid-heuristic,hybrid,False,names+stats+samples+logs,FK,0,7,0,0,7,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+airline_L2,airline,L2,hybrid-heuristic,hybrid-heuristic,hybrid,False,names+stats+samples+logs,UCC,2,8,2,0,6,1.0,0.25,0.4,"[1.0, 1.0]","[0.0, 0.625]","[0.2222, 0.7692]",1.0,0.25,0.4,1.0,0.25,0.4
+airline_L2,airline,L2,hybrid-heuristic,hybrid-heuristic,hybrid,False,names+stats+samples+logs,FD,0,1,0,0,1,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+airline_L2,airline,L2,hybrid-heuristic+verify,hybrid-heuristic,hybrid,True,names+stats+samples+logs,FK,0,7,0,0,7,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+airline_L2,airline,L2,hybrid-heuristic+verify,hybrid-heuristic,hybrid,True,names+stats+samples+logs,UCC,2,8,2,0,6,1.0,0.25,0.4,"[1.0, 1.0]","[0.0, 0.625]","[0.2222, 0.7692]",1.0,0.25,0.4,1.0,0.25,0.4
+airline_L2,airline,L2,hybrid-heuristic+verify,hybrid-heuristic,hybrid,True,names+stats+samples+logs,FD,0,1,0,0,1,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+airline_L3,airline,L3,profiling,profiling,baseline,False,,FK,1,7,0,1,7,0.0,0.0,0.0,"[0.0, 0.0]","[0.0, 0.0]","[0.0, 0.0]",0.0,0.0,0.0,0.0,0.0,0.0
+airline_L3,airline,L3,profiling,profiling,baseline,False,,UCC,13,8,8,5,0,0.6154,1.0,0.7619,"[0.3077, 0.8462]","[1.0, 1.0]","[0.4706, 0.9167]",0.6154,1.0,0.7619,1.0,1.0,1.0
+airline_L3,airline,L3,profiling,profiling,baseline,False,,FD,25,1,0,25,1,0.0,0.0,0.0,"[0.0, 0.0]","[0.0, 0.0]","[0.0, 0.0]",0.0,0.0,0.0,0.0,0.0,0.0
+airline_L3,airline,L3,profiling-approx,profiling-approx,baseline,False,,FK,9,7,6,3,1,0.6667,0.8571,0.75,"[0.375, 1.0]","[0.5714, 1.0]","[0.4615, 0.9474]",0.6667,0.8571,0.75,0.8571,0.8571,0.8571
+airline_L3,airline,L3,profiling-approx,profiling-approx,baseline,False,,UCC,14,8,8,6,0,0.5714,1.0,0.7273,"[0.2857, 0.7857]","[1.0, 1.0]","[0.4444, 0.88]",0.5714,1.0,0.7273,1.0,1.0,1.0
+airline_L3,airline,L3,profiling-approx,profiling-approx,baseline,False,,FD,37,1,0,37,1,0.0,0.0,0.0,"[0.0, 0.0]","[0.0, 0.0]","[0.0, 0.0]",0.0,0.0,0.0,0.0,0.0,0.0
+airline_L3,airline,L3,heuristic[names],heuristic,heuristic,False,names,FK,0,7,0,0,7,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+airline_L3,airline,L3,heuristic[names],heuristic,heuristic,False,names,UCC,0,8,0,0,8,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+airline_L3,airline,L3,heuristic[names],heuristic,heuristic,False,names,FD,0,1,0,0,1,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+airline_L3,airline,L3,heuristic[names]+verify,heuristic,heuristic,True,names,FK,0,7,0,0,7,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+airline_L3,airline,L3,heuristic[names]+verify,heuristic,heuristic,True,names,UCC,0,8,0,0,8,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+airline_L3,airline,L3,heuristic[names]+verify,heuristic,heuristic,True,names,FD,0,1,0,0,1,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+airline_L3,airline,L3,heuristic[names+stats+samples+logs],heuristic,heuristic,False,names+stats+samples+logs,FK,3,7,3,0,4,1.0,0.4286,0.6,"[1.0, 1.0]","[0.1429, 0.8571]","[0.25, 0.9231]",1.0,0.4286,0.6,1.0,0.4286,0.6
+airline_L3,airline,L3,heuristic[names+stats+samples+logs],heuristic,heuristic,False,names+stats+samples+logs,UCC,5,8,5,0,3,1.0,0.625,0.7692,"[1.0, 1.0]","[0.25, 1.0]","[0.4, 1.0]",1.0,0.625,0.7692,1.0,0.625,0.7692
+airline_L3,airline,L3,heuristic[names+stats+samples+logs],heuristic,heuristic,False,names+stats+samples+logs,FD,0,1,0,0,1,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+airline_L3,airline,L3,heuristic[names+stats+samples+logs]+verify,heuristic,heuristic,True,names+stats+samples+logs,FK,2,7,2,0,5,1.0,0.2857,0.4444,"[1.0, 1.0]","[0.0, 0.5714]","[0.25, 0.8333]",1.0,0.2857,0.4444,1.0,0.2857,0.4444
+airline_L3,airline,L3,heuristic[names+stats+samples+logs]+verify,heuristic,heuristic,True,names+stats+samples+logs,UCC,5,8,5,0,3,1.0,0.625,0.7692,"[1.0, 1.0]","[0.25, 1.0]","[0.4, 1.0]",1.0,0.625,0.7692,1.0,0.625,0.7692
+airline_L3,airline,L3,heuristic[names+stats+samples+logs]+verify,heuristic,heuristic,True,names+stats+samples+logs,FD,0,1,0,0,1,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+airline_L3,airline,L3,hybrid-heuristic,hybrid-heuristic,hybrid,False,names+stats+samples+logs,FK,1,7,0,1,7,0.0,0.0,0.0,"[0.0, 0.0]","[0.0, 0.0]","[0.0, 0.0]",0.0,0.0,0.0,0.0,0.0,0.0
+airline_L3,airline,L3,hybrid-heuristic,hybrid-heuristic,hybrid,False,names+stats+samples+logs,UCC,0,8,0,0,8,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+airline_L3,airline,L3,hybrid-heuristic,hybrid-heuristic,hybrid,False,names+stats+samples+logs,FD,0,1,0,0,1,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+airline_L3,airline,L3,hybrid-heuristic+verify,hybrid-heuristic,hybrid,True,names+stats+samples+logs,FK,1,7,0,1,7,0.0,0.0,0.0,"[0.0, 0.0]","[0.0, 0.0]","[0.0, 0.0]",0.0,0.0,0.0,0.0,0.0,0.0
+airline_L3,airline,L3,hybrid-heuristic+verify,hybrid-heuristic,hybrid,True,names+stats+samples+logs,UCC,0,8,0,0,8,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+airline_L3,airline,L3,hybrid-heuristic+verify,hybrid-heuristic,hybrid,True,names+stats+samples+logs,FD,0,1,0,0,1,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+airline_names-abbreviated,airline,names-abbreviated,profiling,profiling,baseline,False,,FK,10,7,7,3,0,0.7,1.0,0.8235,"[0.4, 0.9]","[1.0, 1.0]","[0.5714, 0.9474]",0.7,1.0,0.8235,0.8571,0.8571,0.8571
+airline_names-abbreviated,airline,names-abbreviated,profiling,profiling,baseline,False,,UCC,14,8,8,6,0,0.5714,1.0,0.7273,"[0.2857, 0.7857]","[1.0, 1.0]","[0.4444, 0.88]",0.5714,1.0,0.7273,0.875,0.875,0.875
+airline_names-abbreviated,airline,names-abbreviated,profiling,profiling,baseline,False,,FD,31,1,1,30,0,0.0323,1.0,0.0625,"[0.0, 0.0968]","[1.0, 1.0]","[0.0625, 0.2286]",0.0323,1.0,0.0625,0.0,0.0,0.0
+airline_names-abbreviated,airline,names-abbreviated,profiling-approx,profiling-approx,baseline,False,,FK,10,7,7,3,0,0.7,1.0,0.8235,"[0.4, 0.9]","[1.0, 1.0]","[0.5714, 0.9474]",0.7,1.0,0.8235,0.8571,0.8571,0.8571
+airline_names-abbreviated,airline,names-abbreviated,profiling-approx,profiling-approx,baseline,False,,UCC,14,8,8,6,0,0.5714,1.0,0.7273,"[0.2857, 0.7857]","[1.0, 1.0]","[0.4444, 0.88]",0.5714,1.0,0.7273,0.875,0.875,0.875
+airline_names-abbreviated,airline,names-abbreviated,profiling-approx,profiling-approx,baseline,False,,FD,42,1,1,41,0,0.0238,1.0,0.0465,"[0.0, 0.0952]","[1.0, 1.0]","[0.0465, 0.1739]",0.0238,1.0,0.0465,0.0,0.0,0.0
+airline_names-abbreviated,airline,names-abbreviated,heuristic[names],heuristic,heuristic,False,names,FK,10,7,4,6,3,0.4,0.5714,0.4706,"[0.1, 0.7273]","[0.1667, 1.0]","[0.1429, 0.7619]",0.4,0.5714,0.4706,0.5714,0.5714,0.5714
+airline_names-abbreviated,airline,names-abbreviated,heuristic[names],heuristic,heuristic,False,names,UCC,6,8,5,1,3,0.8333,0.625,0.7143,"[0.5, 1.0]","[0.25, 1.0]","[0.3636, 0.9412]",1.0,0.75,0.8571,0.8333,0.625,0.7143
+airline_names-abbreviated,airline,names-abbreviated,heuristic[names],heuristic,heuristic,False,names,FD,0,1,0,0,1,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+airline_names-abbreviated,airline,names-abbreviated,heuristic[names]+verify,heuristic,heuristic,True,names,FK,5,7,4,1,3,0.8,0.5714,0.6667,"[0.4, 1.0]","[0.2, 1.0]","[0.2222, 0.9333]",0.8,0.5714,0.6667,0.8,0.5714,0.6667
+airline_names-abbreviated,airline,names-abbreviated,heuristic[names]+verify,heuristic,heuristic,True,names,UCC,5,8,5,0,3,1.0,0.625,0.7692,"[1.0, 1.0]","[0.25, 1.0]","[0.4, 1.0]",1.0,0.625,0.7692,1.0,0.625,0.7692
+airline_names-abbreviated,airline,names-abbreviated,heuristic[names]+verify,heuristic,heuristic,True,names,FD,0,1,0,0,1,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+airline_names-abbreviated,airline,names-abbreviated,heuristic[names+stats+samples+logs],heuristic,heuristic,False,names+stats+samples+logs,FK,9,7,7,2,0,0.7778,1.0,0.875,"[0.4444, 1.0]","[1.0, 1.0]","[0.6154, 1.0]",0.7778,1.0,0.875,1.0,1.0,1.0
+airline_names-abbreviated,airline,names-abbreviated,heuristic[names+stats+samples+logs],heuristic,heuristic,False,names+stats+samples+logs,UCC,6,8,6,0,2,1.0,0.75,0.8571,"[1.0, 1.0]","[0.375, 1.0]","[0.5455, 1.0]",1.0,0.75,0.8571,1.0,0.75,0.8571
+airline_names-abbreviated,airline,names-abbreviated,heuristic[names+stats+samples+logs],heuristic,heuristic,False,names+stats+samples+logs,FD,0,1,0,0,1,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+airline_names-abbreviated,airline,names-abbreviated,heuristic[names+stats+samples+logs]+verify,heuristic,heuristic,True,names+stats+samples+logs,FK,8,7,7,1,0,0.875,1.0,0.9333,"[0.625, 1.0]","[1.0, 1.0]","[0.7692, 1.0]",0.875,1.0,0.9333,1.0,1.0,1.0
+airline_names-abbreviated,airline,names-abbreviated,heuristic[names+stats+samples+logs]+verify,heuristic,heuristic,True,names+stats+samples+logs,UCC,6,8,6,0,2,1.0,0.75,0.8571,"[1.0, 1.0]","[0.375, 1.0]","[0.5455, 1.0]",1.0,0.75,0.8571,1.0,0.75,0.8571
+airline_names-abbreviated,airline,names-abbreviated,heuristic[names+stats+samples+logs]+verify,heuristic,heuristic,True,names+stats+samples+logs,FD,0,1,0,0,1,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+airline_names-abbreviated,airline,names-abbreviated,hybrid-heuristic,hybrid-heuristic,hybrid,False,names+stats+samples+logs,FK,5,7,4,1,3,0.8,0.5714,0.6667,"[0.4, 1.0]","[0.2, 1.0]","[0.2222, 0.9333]",0.8,0.5714,0.6667,0.8,0.5714,0.6667
+airline_names-abbreviated,airline,names-abbreviated,hybrid-heuristic,hybrid-heuristic,hybrid,False,names+stats+samples+logs,UCC,8,8,7,1,1,0.875,0.875,0.875,"[0.6, 1.0]","[0.625, 1.0]","[0.6154, 1.0]",0.875,0.875,0.875,0.875,0.875,0.875
+airline_names-abbreviated,airline,names-abbreviated,hybrid-heuristic,hybrid-heuristic,hybrid,False,names+stats+samples+logs,FD,0,1,0,0,1,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+airline_names-abbreviated,airline,names-abbreviated,hybrid-heuristic+verify,hybrid-heuristic,hybrid,True,names+stats+samples+logs,FK,5,7,4,1,3,0.8,0.5714,0.6667,"[0.4, 1.0]","[0.2, 1.0]","[0.2222, 0.9333]",0.8,0.5714,0.6667,0.8,0.5714,0.6667
+airline_names-abbreviated,airline,names-abbreviated,hybrid-heuristic+verify,hybrid-heuristic,hybrid,True,names+stats+samples+logs,UCC,8,8,7,1,1,0.875,0.875,0.875,"[0.6, 1.0]","[0.625, 1.0]","[0.6154, 1.0]",0.875,0.875,0.875,0.875,0.875,0.875
+airline_names-abbreviated,airline,names-abbreviated,hybrid-heuristic+verify,hybrid-heuristic,hybrid,True,names+stats+samples+logs,FD,0,1,0,0,1,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+airline_names-cryptic,airline,names-cryptic,profiling,profiling,baseline,False,,FK,10,7,7,3,0,0.7,1.0,0.8235,"[0.4, 0.9]","[1.0, 1.0]","[0.5714, 0.9474]",0.7,1.0,0.8235,0.8571,0.8571,0.8571
+airline_names-cryptic,airline,names-cryptic,profiling,profiling,baseline,False,,UCC,14,8,8,6,0,0.5714,1.0,0.7273,"[0.2857, 0.7857]","[1.0, 1.0]","[0.4444, 0.88]",0.5714,1.0,0.7273,0.75,0.75,0.75
+airline_names-cryptic,airline,names-cryptic,profiling,profiling,baseline,False,,FD,31,1,1,30,0,0.0323,1.0,0.0625,"[0.0, 0.0968]","[1.0, 1.0]","[0.0625, 0.2286]",0.0323,1.0,0.0625,0.0,0.0,0.0
+airline_names-cryptic,airline,names-cryptic,profiling-approx,profiling-approx,baseline,False,,FK,10,7,7,3,0,0.7,1.0,0.8235,"[0.4, 0.9]","[1.0, 1.0]","[0.5714, 0.9474]",0.7,1.0,0.8235,0.8571,0.8571,0.8571
+airline_names-cryptic,airline,names-cryptic,profiling-approx,profiling-approx,baseline,False,,UCC,14,8,8,6,0,0.5714,1.0,0.7273,"[0.2857, 0.7857]","[1.0, 1.0]","[0.4444, 0.88]",0.5714,1.0,0.7273,0.75,0.75,0.75
+airline_names-cryptic,airline,names-cryptic,profiling-approx,profiling-approx,baseline,False,,FD,42,1,1,41,0,0.0238,1.0,0.0465,"[0.0, 0.0952]","[1.0, 1.0]","[0.0465, 0.1739]",0.0238,1.0,0.0465,0.0,0.0,0.0
+airline_names-cryptic,airline,names-cryptic,heuristic[names],heuristic,heuristic,False,names,FK,0,7,0,0,7,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+airline_names-cryptic,airline,names-cryptic,heuristic[names],heuristic,heuristic,False,names,UCC,0,8,0,0,8,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+airline_names-cryptic,airline,names-cryptic,heuristic[names],heuristic,heuristic,False,names,FD,0,1,0,0,1,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+airline_names-cryptic,airline,names-cryptic,heuristic[names]+verify,heuristic,heuristic,True,names,FK,0,7,0,0,7,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+airline_names-cryptic,airline,names-cryptic,heuristic[names]+verify,heuristic,heuristic,True,names,UCC,0,8,0,0,8,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+airline_names-cryptic,airline,names-cryptic,heuristic[names]+verify,heuristic,heuristic,True,names,FD,0,1,0,0,1,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+airline_names-cryptic,airline,names-cryptic,heuristic[names+stats+samples+logs],heuristic,heuristic,False,names+stats+samples+logs,FK,7,7,7,0,0,1.0,1.0,1.0,"[1.0, 1.0]","[1.0, 1.0]","[1.0, 1.0]",1.0,1.0,1.0,1.0,1.0,1.0
+airline_names-cryptic,airline,names-cryptic,heuristic[names+stats+samples+logs],heuristic,heuristic,False,names+stats+samples+logs,UCC,5,8,5,0,3,1.0,0.625,0.7692,"[1.0, 1.0]","[0.25, 1.0]","[0.4, 1.0]",1.0,0.625,0.7692,1.0,0.625,0.7692
+airline_names-cryptic,airline,names-cryptic,heuristic[names+stats+samples+logs],heuristic,heuristic,False,names+stats+samples+logs,FD,0,1,0,0,1,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+airline_names-cryptic,airline,names-cryptic,heuristic[names+stats+samples+logs]+verify,heuristic,heuristic,True,names+stats+samples+logs,FK,7,7,7,0,0,1.0,1.0,1.0,"[1.0, 1.0]","[1.0, 1.0]","[1.0, 1.0]",1.0,1.0,1.0,1.0,1.0,1.0
+airline_names-cryptic,airline,names-cryptic,heuristic[names+stats+samples+logs]+verify,heuristic,heuristic,True,names+stats+samples+logs,UCC,5,8,5,0,3,1.0,0.625,0.7692,"[1.0, 1.0]","[0.25, 1.0]","[0.4, 1.0]",1.0,0.625,0.7692,1.0,0.625,0.7692
+airline_names-cryptic,airline,names-cryptic,heuristic[names+stats+samples+logs]+verify,heuristic,heuristic,True,names+stats+samples+logs,FD,0,1,0,0,1,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+airline_names-cryptic,airline,names-cryptic,hybrid-heuristic,hybrid-heuristic,hybrid,False,names+stats+samples+logs,FK,2,7,1,1,6,0.5,0.1429,0.2222,"[0.0, 1.0]","[0.0, 0.4286]","[0.0, 0.5455]",0.5,0.1429,0.2222,0.5,0.1429,0.2222
+airline_names-cryptic,airline,names-cryptic,hybrid-heuristic,hybrid-heuristic,hybrid,False,names+stats+samples+logs,UCC,0,8,0,0,8,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+airline_names-cryptic,airline,names-cryptic,hybrid-heuristic,hybrid-heuristic,hybrid,False,names+stats+samples+logs,FD,0,1,0,0,1,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+airline_names-cryptic,airline,names-cryptic,hybrid-heuristic+verify,hybrid-heuristic,hybrid,True,names+stats+samples+logs,FK,2,7,1,1,6,0.5,0.1429,0.2222,"[0.0, 1.0]","[0.0, 0.4286]","[0.0, 0.5455]",0.5,0.1429,0.2222,0.5,0.1429,0.2222
+airline_names-cryptic,airline,names-cryptic,hybrid-heuristic+verify,hybrid-heuristic,hybrid,True,names+stats+samples+logs,UCC,0,8,0,0,8,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+airline_names-cryptic,airline,names-cryptic,hybrid-heuristic+verify,hybrid-heuristic,hybrid,True,names+stats+samples+logs,FD,0,1,0,0,1,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+airline_names-misleading,airline,names-misleading,profiling,profiling,baseline,False,,FK,10,7,7,3,0,0.7,1.0,0.8235,"[0.4, 0.9]","[1.0, 1.0]","[0.5714, 0.9474]",0.7,1.0,0.8235,0.8571,0.8571,0.8571
+airline_names-misleading,airline,names-misleading,profiling,profiling,baseline,False,,UCC,14,8,8,6,0,0.5714,1.0,0.7273,"[0.2857, 0.7857]","[1.0, 1.0]","[0.4444, 0.88]",0.5714,1.0,0.7273,0.75,0.75,0.75
+airline_names-misleading,airline,names-misleading,profiling,profiling,baseline,False,,FD,31,1,1,30,0,0.0323,1.0,0.0625,"[0.0, 0.0968]","[1.0, 1.0]","[0.0625, 0.2286]",0.0323,1.0,0.0625,0.0,0.0,0.0
+airline_names-misleading,airline,names-misleading,profiling-approx,profiling-approx,baseline,False,,FK,10,7,7,3,0,0.7,1.0,0.8235,"[0.4, 0.9]","[1.0, 1.0]","[0.5714, 0.9474]",0.7,1.0,0.8235,0.8571,0.8571,0.8571
+airline_names-misleading,airline,names-misleading,profiling-approx,profiling-approx,baseline,False,,UCC,14,8,8,6,0,0.5714,1.0,0.7273,"[0.2857, 0.7857]","[1.0, 1.0]","[0.4444, 0.88]",0.5714,1.0,0.7273,0.625,0.625,0.625
+airline_names-misleading,airline,names-misleading,profiling-approx,profiling-approx,baseline,False,,FD,42,1,1,41,0,0.0238,1.0,0.0465,"[0.0, 0.0952]","[1.0, 1.0]","[0.0465, 0.1739]",0.0238,1.0,0.0465,0.0,0.0,0.0
+airline_names-misleading,airline,names-misleading,heuristic[names],heuristic,heuristic,False,names,FK,10,7,0,10,7,0.0,0.0,0.0,"[0.0, 0.0]","[0.0, 0.0]","[0.0, 0.0]",0.0,0.0,0.0,0.0,0.0,0.0
+airline_names-misleading,airline,names-misleading,heuristic[names],heuristic,heuristic,False,names,UCC,6,8,1,5,7,0.1667,0.125,0.1429,"[0.0, 0.5]","[0.0, 0.4]","[0.0, 0.375]",0.3333,0.25,0.2857,0.1667,0.125,0.1429
+airline_names-misleading,airline,names-misleading,heuristic[names],heuristic,heuristic,False,names,FD,1,1,0,1,1,0.0,0.0,0.0,"[0.0, 0.0]","[0.0, 0.0]","[0.0, 0.0]",0.0,0.0,0.0,0.0,0.0,0.0
+airline_names-misleading,airline,names-misleading,heuristic[names]+verify,heuristic,heuristic,True,names,FK,0,7,0,0,7,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+airline_names-misleading,airline,names-misleading,heuristic[names]+verify,heuristic,heuristic,True,names,UCC,2,8,1,1,7,0.5,0.125,0.2,"[0.0, 1.0]","[0.0, 0.375]","[0.0, 0.5]",0.5,0.125,0.2,0.5,0.125,0.2
+airline_names-misleading,airline,names-misleading,heuristic[names]+verify,heuristic,heuristic,True,names,FD,0,1,0,0,1,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+airline_names-misleading,airline,names-misleading,heuristic[names+stats+samples+logs],heuristic,heuristic,False,names+stats+samples+logs,FK,7,7,6,1,1,0.8571,0.8571,0.8571,"[0.5714, 1.0]","[0.5714, 1.0]","[0.5455, 1.0]",0.8571,0.8571,0.8571,0.8571,0.8571,0.8571
+airline_names-misleading,airline,names-misleading,heuristic[names+stats+samples+logs],heuristic,heuristic,False,names+stats+samples+logs,UCC,6,8,4,2,4,0.6667,0.5,0.5714,"[0.2, 1.0]","[0.1429, 0.8571]","[0.1818, 0.8235]",0.6667,0.5,0.5714,0.6667,0.5,0.5714
+airline_names-misleading,airline,names-misleading,heuristic[names+stats+samples+logs],heuristic,heuristic,False,names+stats+samples+logs,FD,0,1,0,0,1,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+airline_names-misleading,airline,names-misleading,heuristic[names+stats+samples+logs]+verify,heuristic,heuristic,True,names+stats+samples+logs,FK,6,7,6,0,1,1.0,0.8571,0.9231,"[1.0, 1.0]","[0.5714, 1.0]","[0.7273, 1.0]",1.0,0.8571,0.9231,1.0,0.8571,0.9231
+airline_names-misleading,airline,names-misleading,heuristic[names+stats+samples+logs]+verify,heuristic,heuristic,True,names+stats+samples+logs,UCC,5,8,4,1,4,0.8,0.5,0.6154,"[0.3333, 1.0]","[0.1429, 0.875]","[0.2, 0.875]",0.8,0.5,0.6154,0.8,0.5,0.6154
+airline_names-misleading,airline,names-misleading,heuristic[names+stats+samples+logs]+verify,heuristic,heuristic,True,names+stats+samples+logs,FD,0,1,0,0,1,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+airline_names-misleading,airline,names-misleading,hybrid-heuristic,hybrid-heuristic,hybrid,False,names+stats+samples+logs,FK,3,7,3,0,4,1.0,0.4286,0.6,"[1.0, 1.0]","[0.1429, 0.8571]","[0.25, 0.9231]",1.0,0.4286,0.6,1.0,0.4286,0.6
+airline_names-misleading,airline,names-misleading,hybrid-heuristic,hybrid-heuristic,hybrid,False,names+stats+samples+logs,UCC,4,8,1,3,7,0.25,0.125,0.1667,"[0.0, 1.0]","[0.0, 0.4286]","[0.0, 0.4286]",0.25,0.125,0.1667,0.25,0.125,0.1667
+airline_names-misleading,airline,names-misleading,hybrid-heuristic,hybrid-heuristic,hybrid,False,names+stats+samples+logs,FD,0,1,0,0,1,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+airline_names-misleading,airline,names-misleading,hybrid-heuristic+verify,hybrid-heuristic,hybrid,True,names+stats+samples+logs,FK,3,7,3,0,4,1.0,0.4286,0.6,"[1.0, 1.0]","[0.1429, 0.8571]","[0.25, 0.9231]",1.0,0.4286,0.6,1.0,0.4286,0.6
+airline_names-misleading,airline,names-misleading,hybrid-heuristic+verify,hybrid-heuristic,hybrid,True,names+stats+samples+logs,UCC,4,8,1,3,7,0.25,0.125,0.1667,"[0.0, 1.0]","[0.0, 0.4286]","[0.0, 0.4286]",0.25,0.125,0.1667,0.25,0.125,0.1667
+airline_names-misleading,airline,names-misleading,hybrid-heuristic+verify,hybrid-heuristic,hybrid,True,names+stats+samples+logs,FD,0,1,0,0,1,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+airline_L0,airline,L0,learned-fk,learned-fk,learned,False,,FK,7,7,7,0,0,1.0,1.0,1.0,"[1.0, 1.0]","[1.0, 1.0]","[1.0, 1.0]",1.0,1.0,1.0,1.0,1.0,1.0
+airline_L0,airline,L0,learned-fk,learned-fk,learned,False,,UCC,0,8,0,0,8,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+airline_L0,airline,L0,learned-fk,learned-fk,learned,False,,FD,0,1,0,0,1,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+airline_L0,airline,L0,learned-fk+verify,learned-fk,learned,True,,FK,7,7,7,0,0,1.0,1.0,1.0,"[1.0, 1.0]","[1.0, 1.0]","[1.0, 1.0]",1.0,1.0,1.0,1.0,1.0,1.0
+airline_L0,airline,L0,learned-fk+verify,learned-fk,learned,True,,UCC,0,8,0,0,8,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+airline_L0,airline,L0,learned-fk+verify,learned-fk,learned,True,,FD,0,1,0,0,1,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+airline_L1,airline,L1,learned-fk,learned-fk,learned,False,,FK,7,7,7,0,0,1.0,1.0,1.0,"[1.0, 1.0]","[1.0, 1.0]","[1.0, 1.0]",1.0,1.0,1.0,1.0,1.0,1.0
+airline_L1,airline,L1,learned-fk,learned-fk,learned,False,,UCC,0,8,0,0,8,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+airline_L1,airline,L1,learned-fk,learned-fk,learned,False,,FD,0,1,0,0,1,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+airline_L1,airline,L1,learned-fk+verify,learned-fk,learned,True,,FK,7,7,7,0,0,1.0,1.0,1.0,"[1.0, 1.0]","[1.0, 1.0]","[1.0, 1.0]",1.0,1.0,1.0,1.0,1.0,1.0
+airline_L1,airline,L1,learned-fk+verify,learned-fk,learned,True,,UCC,0,8,0,0,8,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+airline_L1,airline,L1,learned-fk+verify,learned-fk,learned,True,,FD,0,1,0,0,1,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+airline_L2,airline,L2,learned-fk,learned-fk,learned,False,,FK,7,7,7,0,0,1.0,1.0,1.0,"[1.0, 1.0]","[1.0, 1.0]","[1.0, 1.0]",1.0,1.0,1.0,1.0,1.0,1.0
+airline_L2,airline,L2,learned-fk,learned-fk,learned,False,,UCC,0,8,0,0,8,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+airline_L2,airline,L2,learned-fk,learned-fk,learned,False,,FD,0,1,0,0,1,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+airline_L2,airline,L2,learned-fk+verify,learned-fk,learned,True,,FK,6,7,6,0,1,1.0,0.8571,0.9231,"[1.0, 1.0]","[0.5714, 1.0]","[0.7273, 1.0]",1.0,0.8571,0.9231,1.0,0.8571,0.9231
+airline_L2,airline,L2,learned-fk+verify,learned-fk,learned,True,,UCC,0,8,0,0,8,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+airline_L2,airline,L2,learned-fk+verify,learned-fk,learned,True,,FD,0,1,0,0,1,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+airline_L3,airline,L3,learned-fk,learned-fk,learned,False,,FK,7,7,7,0,0,1.0,1.0,1.0,"[1.0, 1.0]","[1.0, 1.0]","[1.0, 1.0]",1.0,1.0,1.0,1.0,1.0,1.0
+airline_L3,airline,L3,learned-fk,learned-fk,learned,False,,UCC,0,8,0,0,8,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+airline_L3,airline,L3,learned-fk,learned-fk,learned,False,,FD,0,1,0,0,1,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+airline_L3,airline,L3,learned-fk+verify,learned-fk,learned,True,,FK,3,7,3,0,4,1.0,0.4286,0.6,"[1.0, 1.0]","[0.1429, 0.8571]","[0.25, 0.9231]",1.0,0.4286,0.6,1.0,0.4286,0.6
+airline_L3,airline,L3,learned-fk+verify,learned-fk,learned,True,,UCC,0,8,0,0,8,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+airline_L3,airline,L3,learned-fk+verify,learned-fk,learned,True,,FD,0,1,0,0,1,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+airline_names-abbreviated,airline,names-abbreviated,learned-fk,learned-fk,learned,False,,FK,7,7,7,0,0,1.0,1.0,1.0,"[1.0, 1.0]","[1.0, 1.0]","[1.0, 1.0]",1.0,1.0,1.0,1.0,1.0,1.0
+airline_names-abbreviated,airline,names-abbreviated,learned-fk,learned-fk,learned,False,,UCC,0,8,0,0,8,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+airline_names-abbreviated,airline,names-abbreviated,learned-fk,learned-fk,learned,False,,FD,0,1,0,0,1,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+airline_names-abbreviated,airline,names-abbreviated,learned-fk+verify,learned-fk,learned,True,,FK,7,7,7,0,0,1.0,1.0,1.0,"[1.0, 1.0]","[1.0, 1.0]","[1.0, 1.0]",1.0,1.0,1.0,1.0,1.0,1.0
+airline_names-abbreviated,airline,names-abbreviated,learned-fk+verify,learned-fk,learned,True,,UCC,0,8,0,0,8,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+airline_names-abbreviated,airline,names-abbreviated,learned-fk+verify,learned-fk,learned,True,,FD,0,1,0,0,1,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+airline_names-cryptic,airline,names-cryptic,learned-fk,learned-fk,learned,False,,FK,7,7,7,0,0,1.0,1.0,1.0,"[1.0, 1.0]","[1.0, 1.0]","[1.0, 1.0]",1.0,1.0,1.0,1.0,1.0,1.0
+airline_names-cryptic,airline,names-cryptic,learned-fk,learned-fk,learned,False,,UCC,0,8,0,0,8,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+airline_names-cryptic,airline,names-cryptic,learned-fk,learned-fk,learned,False,,FD,0,1,0,0,1,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+airline_names-cryptic,airline,names-cryptic,learned-fk+verify,learned-fk,learned,True,,FK,7,7,7,0,0,1.0,1.0,1.0,"[1.0, 1.0]","[1.0, 1.0]","[1.0, 1.0]",1.0,1.0,1.0,1.0,1.0,1.0
+airline_names-cryptic,airline,names-cryptic,learned-fk+verify,learned-fk,learned,True,,UCC,0,8,0,0,8,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+airline_names-cryptic,airline,names-cryptic,learned-fk+verify,learned-fk,learned,True,,FD,0,1,0,0,1,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+airline_names-misleading,airline,names-misleading,learned-fk,learned-fk,learned,False,,FK,7,7,7,0,0,1.0,1.0,1.0,"[1.0, 1.0]","[1.0, 1.0]","[1.0, 1.0]",1.0,1.0,1.0,1.0,1.0,1.0
+airline_names-misleading,airline,names-misleading,learned-fk,learned-fk,learned,False,,UCC,0,8,0,0,8,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+airline_names-misleading,airline,names-misleading,learned-fk,learned-fk,learned,False,,FD,0,1,0,0,1,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+airline_names-misleading,airline,names-misleading,learned-fk+verify,learned-fk,learned,True,,FK,7,7,7,0,0,1.0,1.0,1.0,"[1.0, 1.0]","[1.0, 1.0]","[1.0, 1.0]",1.0,1.0,1.0,1.0,1.0,1.0
+airline_names-misleading,airline,names-misleading,learned-fk+verify,learned-fk,learned,True,,UCC,0,8,0,0,8,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+airline_names-misleading,airline,names-misleading,learned-fk+verify,learned-fk,learned,True,,FD,0,1,0,0,1,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+retail_legacy_L0,retail_legacy,L0,learned-fk,learned-fk,learned,False,,FK,6,6,6,0,0,1.0,1.0,1.0,"[1.0, 1.0]","[1.0, 1.0]","[1.0, 1.0]",1.0,1.0,1.0,1.0,1.0,1.0
+retail_legacy_L0,retail_legacy,L0,learned-fk,learned-fk,learned,False,,UCC,0,7,0,0,7,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+retail_legacy_L0,retail_legacy,L0,learned-fk,learned-fk,learned,False,,FD,0,2,0,0,2,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+retail_legacy_L0,retail_legacy,L0,learned-fk+verify,learned-fk,learned,True,,FK,6,6,6,0,0,1.0,1.0,1.0,"[1.0, 1.0]","[1.0, 1.0]","[1.0, 1.0]",1.0,1.0,1.0,1.0,1.0,1.0
+retail_legacy_L0,retail_legacy,L0,learned-fk+verify,learned-fk,learned,True,,UCC,0,7,0,0,7,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+retail_legacy_L0,retail_legacy,L0,learned-fk+verify,learned-fk,learned,True,,FD,0,2,0,0,2,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+retail_legacy_L1,retail_legacy,L1,learned-fk,learned-fk,learned,False,,FK,6,6,6,0,0,1.0,1.0,1.0,"[1.0, 1.0]","[1.0, 1.0]","[1.0, 1.0]",1.0,1.0,1.0,1.0,1.0,1.0
+retail_legacy_L1,retail_legacy,L1,learned-fk,learned-fk,learned,False,,UCC,0,7,0,0,7,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+retail_legacy_L1,retail_legacy,L1,learned-fk,learned-fk,learned,False,,FD,0,2,0,0,2,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+retail_legacy_L1,retail_legacy,L1,learned-fk+verify,learned-fk,learned,True,,FK,6,6,6,0,0,1.0,1.0,1.0,"[1.0, 1.0]","[1.0, 1.0]","[1.0, 1.0]",1.0,1.0,1.0,1.0,1.0,1.0
+retail_legacy_L1,retail_legacy,L1,learned-fk+verify,learned-fk,learned,True,,UCC,0,7,0,0,7,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+retail_legacy_L1,retail_legacy,L1,learned-fk+verify,learned-fk,learned,True,,FD,0,2,0,0,2,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+retail_legacy_L2,retail_legacy,L2,learned-fk,learned-fk,learned,False,,FK,6,6,6,0,0,1.0,1.0,1.0,"[1.0, 1.0]","[1.0, 1.0]","[1.0, 1.0]",1.0,1.0,1.0,1.0,1.0,1.0
+retail_legacy_L2,retail_legacy,L2,learned-fk,learned-fk,learned,False,,UCC,0,7,0,0,7,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+retail_legacy_L2,retail_legacy,L2,learned-fk,learned-fk,learned,False,,FD,0,2,0,0,2,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+retail_legacy_L2,retail_legacy,L2,learned-fk+verify,learned-fk,learned,True,,FK,4,6,4,0,2,1.0,0.6667,0.8,"[1.0, 1.0]","[0.3333, 1.0]","[0.5, 1.0]",1.0,0.6667,0.8,1.0,0.6667,0.8
+retail_legacy_L2,retail_legacy,L2,learned-fk+verify,learned-fk,learned,True,,UCC,0,7,0,0,7,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+retail_legacy_L2,retail_legacy,L2,learned-fk+verify,learned-fk,learned,True,,FD,0,2,0,0,2,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+retail_legacy_L3,retail_legacy,L3,learned-fk,learned-fk,learned,False,,FK,6,6,6,0,0,1.0,1.0,1.0,"[1.0, 1.0]","[1.0, 1.0]","[1.0, 1.0]",1.0,1.0,1.0,1.0,1.0,1.0
+retail_legacy_L3,retail_legacy,L3,learned-fk,learned-fk,learned,False,,UCC,0,7,0,0,7,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+retail_legacy_L3,retail_legacy,L3,learned-fk,learned-fk,learned,False,,FD,0,2,0,0,2,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+retail_legacy_L3,retail_legacy,L3,learned-fk+verify,learned-fk,learned,True,,FK,1,6,1,0,5,1.0,0.1667,0.2857,"[1.0, 1.0]","[0.0, 0.5]","[0.2857, 0.6667]",1.0,0.1667,0.2857,1.0,0.1667,0.2857
+retail_legacy_L3,retail_legacy,L3,learned-fk+verify,learned-fk,learned,True,,UCC,0,7,0,0,7,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+retail_legacy_L3,retail_legacy,L3,learned-fk+verify,learned-fk,learned,True,,FD,0,2,0,0,2,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+retail_legacy_names-abbreviated,retail_legacy,names-abbreviated,learned-fk,learned-fk,learned,False,,FK,6,6,6,0,0,1.0,1.0,1.0,"[1.0, 1.0]","[1.0, 1.0]","[1.0, 1.0]",1.0,1.0,1.0,1.0,1.0,1.0
+retail_legacy_names-abbreviated,retail_legacy,names-abbreviated,learned-fk,learned-fk,learned,False,,UCC,0,7,0,0,7,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+retail_legacy_names-abbreviated,retail_legacy,names-abbreviated,learned-fk,learned-fk,learned,False,,FD,0,2,0,0,2,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+retail_legacy_names-abbreviated,retail_legacy,names-abbreviated,learned-fk+verify,learned-fk,learned,True,,FK,6,6,6,0,0,1.0,1.0,1.0,"[1.0, 1.0]","[1.0, 1.0]","[1.0, 1.0]",1.0,1.0,1.0,1.0,1.0,1.0
+retail_legacy_names-abbreviated,retail_legacy,names-abbreviated,learned-fk+verify,learned-fk,learned,True,,UCC,0,7,0,0,7,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+retail_legacy_names-abbreviated,retail_legacy,names-abbreviated,learned-fk+verify,learned-fk,learned,True,,FD,0,2,0,0,2,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+retail_legacy_names-cryptic,retail_legacy,names-cryptic,learned-fk,learned-fk,learned,False,,FK,6,6,6,0,0,1.0,1.0,1.0,"[1.0, 1.0]","[1.0, 1.0]","[1.0, 1.0]",1.0,1.0,1.0,1.0,1.0,1.0
+retail_legacy_names-cryptic,retail_legacy,names-cryptic,learned-fk,learned-fk,learned,False,,UCC,0,7,0,0,7,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+retail_legacy_names-cryptic,retail_legacy,names-cryptic,learned-fk,learned-fk,learned,False,,FD,0,2,0,0,2,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+retail_legacy_names-cryptic,retail_legacy,names-cryptic,learned-fk+verify,learned-fk,learned,True,,FK,6,6,6,0,0,1.0,1.0,1.0,"[1.0, 1.0]","[1.0, 1.0]","[1.0, 1.0]",1.0,1.0,1.0,1.0,1.0,1.0
+retail_legacy_names-cryptic,retail_legacy,names-cryptic,learned-fk+verify,learned-fk,learned,True,,UCC,0,7,0,0,7,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+retail_legacy_names-cryptic,retail_legacy,names-cryptic,learned-fk+verify,learned-fk,learned,True,,FD,0,2,0,0,2,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+retail_legacy_names-misleading,retail_legacy,names-misleading,learned-fk,learned-fk,learned,False,,FK,6,6,6,0,0,1.0,1.0,1.0,"[1.0, 1.0]","[1.0, 1.0]","[1.0, 1.0]",1.0,1.0,1.0,1.0,1.0,1.0
+retail_legacy_names-misleading,retail_legacy,names-misleading,learned-fk,learned-fk,learned,False,,UCC,0,7,0,0,7,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+retail_legacy_names-misleading,retail_legacy,names-misleading,learned-fk,learned-fk,learned,False,,FD,0,2,0,0,2,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+retail_legacy_names-misleading,retail_legacy,names-misleading,learned-fk+verify,learned-fk,learned,True,,FK,6,6,6,0,0,1.0,1.0,1.0,"[1.0, 1.0]","[1.0, 1.0]","[1.0, 1.0]",1.0,1.0,1.0,1.0,1.0,1.0
+retail_legacy_names-misleading,retail_legacy,names-misleading,learned-fk+verify,learned-fk,learned,True,,UCC,0,7,0,0,7,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+retail_legacy_names-misleading,retail_legacy,names-misleading,learned-fk+verify,learned-fk,learned,True,,FD,0,2,0,0,2,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+tpch_mini_L0,tpch_mini,L0,learned-fk,learned-fk,learned,False,,FK,9,10,9,0,1,1.0,0.9,0.9474,"[1.0, 1.0]","[0.7, 1.0]","[0.8235, 1.0]",1.0,0.9,0.9474,1.0,0.9,0.9474
+tpch_mini_L0,tpch_mini,L0,learned-fk,learned-fk,learned,False,,UCC,0,8,0,0,8,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+tpch_mini_L0,tpch_mini,L0,learned-fk,learned-fk,learned,False,,FD,0,0,0,0,0,,,,,,,,,,,,
+tpch_mini_L0,tpch_mini,L0,learned-fk+verify,learned-fk,learned,True,,FK,9,10,9,0,1,1.0,0.9,0.9474,"[1.0, 1.0]","[0.7, 1.0]","[0.8235, 1.0]",1.0,0.9,0.9474,1.0,0.9,0.9474
+tpch_mini_L0,tpch_mini,L0,learned-fk+verify,learned-fk,learned,True,,UCC,0,8,0,0,8,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+tpch_mini_L0,tpch_mini,L0,learned-fk+verify,learned-fk,learned,True,,FD,0,0,0,0,0,,,,,,,,,,,,
+tpch_mini_L1,tpch_mini,L1,learned-fk,learned-fk,learned,False,,FK,9,10,9,0,1,1.0,0.9,0.9474,"[1.0, 1.0]","[0.7, 1.0]","[0.8235, 1.0]",1.0,0.9,0.9474,1.0,0.9,0.9474
+tpch_mini_L1,tpch_mini,L1,learned-fk,learned-fk,learned,False,,UCC,0,8,0,0,8,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+tpch_mini_L1,tpch_mini,L1,learned-fk,learned-fk,learned,False,,FD,0,0,0,0,0,,,,,,,,,,,,
+tpch_mini_L1,tpch_mini,L1,learned-fk+verify,learned-fk,learned,True,,FK,9,10,9,0,1,1.0,0.9,0.9474,"[1.0, 1.0]","[0.7, 1.0]","[0.8235, 1.0]",1.0,0.9,0.9474,1.0,0.9,0.9474
+tpch_mini_L1,tpch_mini,L1,learned-fk+verify,learned-fk,learned,True,,UCC,0,8,0,0,8,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+tpch_mini_L1,tpch_mini,L1,learned-fk+verify,learned-fk,learned,True,,FD,0,0,0,0,0,,,,,,,,,,,,
+tpch_mini_L2,tpch_mini,L2,learned-fk,learned-fk,learned,False,,FK,9,10,9,0,1,1.0,0.9,0.9474,"[1.0, 1.0]","[0.7, 1.0]","[0.8235, 1.0]",1.0,0.9,0.9474,1.0,0.9,0.9474
+tpch_mini_L2,tpch_mini,L2,learned-fk,learned-fk,learned,False,,UCC,0,8,0,0,8,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+tpch_mini_L2,tpch_mini,L2,learned-fk,learned-fk,learned,False,,FD,0,0,0,0,0,,,,,,,,,,,,
+tpch_mini_L2,tpch_mini,L2,learned-fk+verify,learned-fk,learned,True,,FK,7,10,7,0,3,1.0,0.7,0.8235,"[1.0, 1.0]","[0.4, 0.9]","[0.5714, 0.9474]",1.0,0.7,0.8235,1.0,0.7,0.8235
+tpch_mini_L2,tpch_mini,L2,learned-fk+verify,learned-fk,learned,True,,UCC,0,8,0,0,8,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+tpch_mini_L2,tpch_mini,L2,learned-fk+verify,learned-fk,learned,True,,FD,0,0,0,0,0,,,,,,,,,,,,
+tpch_mini_L3,tpch_mini,L3,learned-fk,learned-fk,learned,False,,FK,9,10,9,0,1,1.0,0.9,0.9474,"[1.0, 1.0]","[0.7, 1.0]","[0.8235, 1.0]",1.0,0.9,0.9474,1.0,0.9,0.9474
+tpch_mini_L3,tpch_mini,L3,learned-fk,learned-fk,learned,False,,UCC,0,8,0,0,8,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+tpch_mini_L3,tpch_mini,L3,learned-fk,learned-fk,learned,False,,FD,0,0,0,0,0,,,,,,,,,,,,
+tpch_mini_L3,tpch_mini,L3,learned-fk+verify,learned-fk,learned,True,,FK,3,10,3,0,7,1.0,0.3,0.4615,"[1.0, 1.0]","[0.0, 0.6]","[0.1818, 0.75]",1.0,0.3,0.4615,1.0,0.3,0.4615
+tpch_mini_L3,tpch_mini,L3,learned-fk+verify,learned-fk,learned,True,,UCC,0,8,0,0,8,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+tpch_mini_L3,tpch_mini,L3,learned-fk+verify,learned-fk,learned,True,,FD,0,0,0,0,0,,,,,,,,,,,,
+tpch_mini_names-abbreviated,tpch_mini,names-abbreviated,learned-fk,learned-fk,learned,False,,FK,9,10,9,0,1,1.0,0.9,0.9474,"[1.0, 1.0]","[0.7, 1.0]","[0.8235, 1.0]",1.0,0.9,0.9474,1.0,0.9,0.9474
+tpch_mini_names-abbreviated,tpch_mini,names-abbreviated,learned-fk,learned-fk,learned,False,,UCC,0,8,0,0,8,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+tpch_mini_names-abbreviated,tpch_mini,names-abbreviated,learned-fk,learned-fk,learned,False,,FD,0,0,0,0,0,,,,,,,,,,,,
+tpch_mini_names-abbreviated,tpch_mini,names-abbreviated,learned-fk+verify,learned-fk,learned,True,,FK,9,10,9,0,1,1.0,0.9,0.9474,"[1.0, 1.0]","[0.7, 1.0]","[0.8235, 1.0]",1.0,0.9,0.9474,1.0,0.9,0.9474
+tpch_mini_names-abbreviated,tpch_mini,names-abbreviated,learned-fk+verify,learned-fk,learned,True,,UCC,0,8,0,0,8,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+tpch_mini_names-abbreviated,tpch_mini,names-abbreviated,learned-fk+verify,learned-fk,learned,True,,FD,0,0,0,0,0,,,,,,,,,,,,
+tpch_mini_names-cryptic,tpch_mini,names-cryptic,learned-fk,learned-fk,learned,False,,FK,9,10,9,0,1,1.0,0.9,0.9474,"[1.0, 1.0]","[0.7, 1.0]","[0.8235, 1.0]",1.0,0.9,0.9474,1.0,0.9,0.9474
+tpch_mini_names-cryptic,tpch_mini,names-cryptic,learned-fk,learned-fk,learned,False,,UCC,0,8,0,0,8,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+tpch_mini_names-cryptic,tpch_mini,names-cryptic,learned-fk,learned-fk,learned,False,,FD,0,0,0,0,0,,,,,,,,,,,,
+tpch_mini_names-cryptic,tpch_mini,names-cryptic,learned-fk+verify,learned-fk,learned,True,,FK,9,10,9,0,1,1.0,0.9,0.9474,"[1.0, 1.0]","[0.7, 1.0]","[0.8235, 1.0]",1.0,0.9,0.9474,1.0,0.9,0.9474
+tpch_mini_names-cryptic,tpch_mini,names-cryptic,learned-fk+verify,learned-fk,learned,True,,UCC,0,8,0,0,8,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+tpch_mini_names-cryptic,tpch_mini,names-cryptic,learned-fk+verify,learned-fk,learned,True,,FD,0,0,0,0,0,,,,,,,,,,,,
+tpch_mini_names-misleading,tpch_mini,names-misleading,learned-fk,learned-fk,learned,False,,FK,9,10,9,0,1,1.0,0.9,0.9474,"[1.0, 1.0]","[0.7, 1.0]","[0.8235, 1.0]",1.0,0.9,0.9474,1.0,0.9,0.9474
+tpch_mini_names-misleading,tpch_mini,names-misleading,learned-fk,learned-fk,learned,False,,UCC,0,8,0,0,8,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+tpch_mini_names-misleading,tpch_mini,names-misleading,learned-fk,learned-fk,learned,False,,FD,0,0,0,0,0,,,,,,,,,,,,
+tpch_mini_names-misleading,tpch_mini,names-misleading,learned-fk+verify,learned-fk,learned,True,,FK,9,10,9,0,1,1.0,0.9,0.9474,"[1.0, 1.0]","[0.7, 1.0]","[0.8235, 1.0]",1.0,0.9,0.9474,1.0,0.9,0.9474
+tpch_mini_names-misleading,tpch_mini,names-misleading,learned-fk+verify,learned-fk,learned,True,,UCC,0,8,0,0,8,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+tpch_mini_names-misleading,tpch_mini,names-misleading,learned-fk+verify,learned-fk,learned,True,,FD,0,0,0,0,0,,,,,,,,,,,,
+university_L0,university,L0,learned-fk,learned-fk,learned,False,,FK,12,11,11,1,0,0.9167,1.0,0.9565,"[0.75, 1.0]","[1.0, 1.0]","[0.8571, 1.0]",0.9167,1.0,0.9565,1.0,1.0,1.0
+university_L0,university,L0,learned-fk,learned-fk,learned,False,,UCC,0,11,0,0,11,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+university_L0,university,L0,learned-fk,learned-fk,learned,False,,FD,0,4,0,0,4,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+university_L0,university,L0,learned-fk+verify,learned-fk,learned,True,,FK,11,11,11,0,0,1.0,1.0,1.0,"[1.0, 1.0]","[1.0, 1.0]","[1.0, 1.0]",1.0,1.0,1.0,1.0,1.0,1.0
+university_L0,university,L0,learned-fk+verify,learned-fk,learned,True,,UCC,0,11,0,0,11,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+university_L0,university,L0,learned-fk+verify,learned-fk,learned,True,,FD,0,4,0,0,4,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+university_L1,university,L1,learned-fk,learned-fk,learned,False,,FK,12,11,11,1,0,0.9167,1.0,0.9565,"[0.75, 1.0]","[1.0, 1.0]","[0.8571, 1.0]",0.9167,1.0,0.9565,1.0,1.0,1.0
+university_L1,university,L1,learned-fk,learned-fk,learned,False,,UCC,0,11,0,0,11,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+university_L1,university,L1,learned-fk,learned-fk,learned,False,,FD,0,4,0,0,4,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+university_L1,university,L1,learned-fk+verify,learned-fk,learned,True,,FK,11,11,11,0,0,1.0,1.0,1.0,"[1.0, 1.0]","[1.0, 1.0]","[1.0, 1.0]",1.0,1.0,1.0,1.0,1.0,1.0
+university_L1,university,L1,learned-fk+verify,learned-fk,learned,True,,UCC,0,11,0,0,11,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+university_L1,university,L1,learned-fk+verify,learned-fk,learned,True,,FD,0,4,0,0,4,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+university_L2,university,L2,learned-fk,learned-fk,learned,False,,FK,12,11,11,1,0,0.9167,1.0,0.9565,"[0.75, 1.0]","[1.0, 1.0]","[0.8571, 1.0]",0.9167,1.0,0.9565,1.0,1.0,1.0
+university_L2,university,L2,learned-fk,learned-fk,learned,False,,UCC,0,11,0,0,11,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+university_L2,university,L2,learned-fk,learned-fk,learned,False,,FD,0,4,0,0,4,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+university_L2,university,L2,learned-fk+verify,learned-fk,learned,True,,FK,9,11,9,0,2,1.0,0.8182,0.9,"[1.0, 1.0]","[0.5455, 1.0]","[0.7059, 1.0]",1.0,0.8182,0.9,1.0,0.8182,0.9
+university_L2,university,L2,learned-fk+verify,learned-fk,learned,True,,UCC,0,11,0,0,11,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+university_L2,university,L2,learned-fk+verify,learned-fk,learned,True,,FD,0,4,0,0,4,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+university_L3,university,L3,learned-fk,learned-fk,learned,False,,FK,12,11,11,1,0,0.9167,1.0,0.9565,"[0.75, 1.0]","[1.0, 1.0]","[0.8571, 1.0]",0.9167,1.0,0.9565,1.0,1.0,1.0
+university_L3,university,L3,learned-fk,learned-fk,learned,False,,UCC,0,11,0,0,11,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+university_L3,university,L3,learned-fk,learned-fk,learned,False,,FD,0,4,0,0,4,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+university_L3,university,L3,learned-fk+verify,learned-fk,learned,True,,FK,7,11,7,0,4,1.0,0.6364,0.7778,"[1.0, 1.0]","[0.3636, 0.9091]","[0.5333, 0.9524]",1.0,0.6364,0.7778,1.0,0.6364,0.7778
+university_L3,university,L3,learned-fk+verify,learned-fk,learned,True,,UCC,0,11,0,0,11,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+university_L3,university,L3,learned-fk+verify,learned-fk,learned,True,,FD,0,4,0,0,4,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+university_names-abbreviated,university,names-abbreviated,learned-fk,learned-fk,learned,False,,FK,12,11,11,1,0,0.9167,1.0,0.9565,"[0.75, 1.0]","[1.0, 1.0]","[0.8571, 1.0]",0.9167,1.0,0.9565,1.0,1.0,1.0
+university_names-abbreviated,university,names-abbreviated,learned-fk,learned-fk,learned,False,,UCC,0,11,0,0,11,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+university_names-abbreviated,university,names-abbreviated,learned-fk,learned-fk,learned,False,,FD,0,4,0,0,4,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+university_names-abbreviated,university,names-abbreviated,learned-fk+verify,learned-fk,learned,True,,FK,11,11,11,0,0,1.0,1.0,1.0,"[1.0, 1.0]","[1.0, 1.0]","[1.0, 1.0]",1.0,1.0,1.0,1.0,1.0,1.0
+university_names-abbreviated,university,names-abbreviated,learned-fk+verify,learned-fk,learned,True,,UCC,0,11,0,0,11,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+university_names-abbreviated,university,names-abbreviated,learned-fk+verify,learned-fk,learned,True,,FD,0,4,0,0,4,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+university_names-cryptic,university,names-cryptic,learned-fk,learned-fk,learned,False,,FK,12,11,11,1,0,0.9167,1.0,0.9565,"[0.75, 1.0]","[1.0, 1.0]","[0.8571, 1.0]",0.9167,1.0,0.9565,1.0,1.0,1.0
+university_names-cryptic,university,names-cryptic,learned-fk,learned-fk,learned,False,,UCC,0,11,0,0,11,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+university_names-cryptic,university,names-cryptic,learned-fk,learned-fk,learned,False,,FD,0,4,0,0,4,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+university_names-cryptic,university,names-cryptic,learned-fk+verify,learned-fk,learned,True,,FK,11,11,11,0,0,1.0,1.0,1.0,"[1.0, 1.0]","[1.0, 1.0]","[1.0, 1.0]",1.0,1.0,1.0,1.0,1.0,1.0
+university_names-cryptic,university,names-cryptic,learned-fk+verify,learned-fk,learned,True,,UCC,0,11,0,0,11,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+university_names-cryptic,university,names-cryptic,learned-fk+verify,learned-fk,learned,True,,FD,0,4,0,0,4,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+university_names-misleading,university,names-misleading,learned-fk,learned-fk,learned,False,,FK,12,11,11,1,0,0.9167,1.0,0.9565,"[0.75, 1.0]","[1.0, 1.0]","[0.8571, 1.0]",0.9167,1.0,0.9565,1.0,1.0,1.0
+university_names-misleading,university,names-misleading,learned-fk,learned-fk,learned,False,,UCC,0,11,0,0,11,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+university_names-misleading,university,names-misleading,learned-fk,learned-fk,learned,False,,FD,0,4,0,0,4,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+university_names-misleading,university,names-misleading,learned-fk+verify,learned-fk,learned,True,,FK,11,11,11,0,0,1.0,1.0,1.0,"[1.0, 1.0]","[1.0, 1.0]","[1.0, 1.0]",1.0,1.0,1.0,1.0,1.0,1.0
+university_names-misleading,university,names-misleading,learned-fk+verify,learned-fk,learned,True,,UCC,0,11,0,0,11,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+university_names-misleading,university,names-misleading,learned-fk+verify,learned-fk,learned,True,,FD,0,4,0,0,4,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+airline_L0,airline,L0,learned-fk-nologs,learned-fk-nologs,learned,False,,FK,7,7,6,1,1,0.8571,0.8571,0.8571,"[0.5714, 1.0]","[0.5714, 1.0]","[0.5455, 1.0]",0.8571,0.8571,0.8571,0.8571,0.8571,0.8571
+airline_L0,airline,L0,learned-fk-nologs,learned-fk-nologs,learned,False,,UCC,0,8,0,0,8,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+airline_L0,airline,L0,learned-fk-nologs,learned-fk-nologs,learned,False,,FD,0,1,0,0,1,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+airline_L0,airline,L0,learned-fk-nologs+verify,learned-fk-nologs,learned,True,,FK,7,7,6,1,1,0.8571,0.8571,0.8571,"[0.5714, 1.0]","[0.5714, 1.0]","[0.5455, 1.0]",0.8571,0.8571,0.8571,0.8571,0.8571,0.8571
+airline_L0,airline,L0,learned-fk-nologs+verify,learned-fk-nologs,learned,True,,UCC,0,8,0,0,8,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+airline_L0,airline,L0,learned-fk-nologs+verify,learned-fk-nologs,learned,True,,FD,0,1,0,0,1,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+airline_L1,airline,L1,learned-fk-nologs,learned-fk-nologs,learned,False,,FK,9,7,6,3,1,0.6667,0.8571,0.75,"[0.375, 1.0]","[0.5714, 1.0]","[0.4615, 0.9474]",0.6667,0.8571,0.75,0.8571,0.8571,0.8571
+airline_L1,airline,L1,learned-fk-nologs,learned-fk-nologs,learned,False,,UCC,0,8,0,0,8,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+airline_L1,airline,L1,learned-fk-nologs,learned-fk-nologs,learned,False,,FD,0,1,0,0,1,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+airline_L1,airline,L1,learned-fk-nologs+verify,learned-fk-nologs,learned,True,,FK,9,7,6,3,1,0.6667,0.8571,0.75,"[0.375, 1.0]","[0.5714, 1.0]","[0.4615, 0.9474]",0.6667,0.8571,0.75,0.8571,0.8571,0.8571
+airline_L1,airline,L1,learned-fk-nologs+verify,learned-fk-nologs,learned,True,,UCC,0,8,0,0,8,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+airline_L1,airline,L1,learned-fk-nologs+verify,learned-fk-nologs,learned,True,,FD,0,1,0,0,1,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+airline_L2,airline,L2,learned-fk-nologs,learned-fk-nologs,learned,False,,FK,7,7,6,1,1,0.8571,0.8571,0.8571,"[0.5714, 1.0]","[0.5714, 1.0]","[0.5455, 1.0]",0.8571,0.8571,0.8571,0.8571,0.8571,0.8571
+airline_L2,airline,L2,learned-fk-nologs,learned-fk-nologs,learned,False,,UCC,0,8,0,0,8,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+airline_L2,airline,L2,learned-fk-nologs,learned-fk-nologs,learned,False,,FD,0,1,0,0,1,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+airline_L2,airline,L2,learned-fk-nologs+verify,learned-fk-nologs,learned,True,,FK,7,7,6,1,1,0.8571,0.8571,0.8571,"[0.5714, 1.0]","[0.5714, 1.0]","[0.5455, 1.0]",0.8571,0.8571,0.8571,0.8571,0.8571,0.8571
+airline_L2,airline,L2,learned-fk-nologs+verify,learned-fk-nologs,learned,True,,UCC,0,8,0,0,8,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+airline_L2,airline,L2,learned-fk-nologs+verify,learned-fk-nologs,learned,True,,FD,0,1,0,0,1,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+airline_L3,airline,L3,learned-fk-nologs,learned-fk-nologs,learned,False,,FK,9,7,6,3,1,0.6667,0.8571,0.75,"[0.375, 1.0]","[0.5714, 1.0]","[0.4615, 0.9474]",0.6667,0.8571,0.75,0.8571,0.8571,0.8571
+airline_L3,airline,L3,learned-fk-nologs,learned-fk-nologs,learned,False,,UCC,0,8,0,0,8,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+airline_L3,airline,L3,learned-fk-nologs,learned-fk-nologs,learned,False,,FD,0,1,0,0,1,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+airline_L3,airline,L3,learned-fk-nologs+verify,learned-fk-nologs,learned,True,,FK,6,7,3,3,4,0.5,0.4286,0.4615,"[0.0, 0.8889]","[0.0, 0.8]","[0.0, 0.75]",0.5,0.4286,0.4615,0.5,0.4286,0.4615
+airline_L3,airline,L3,learned-fk-nologs+verify,learned-fk-nologs,learned,True,,UCC,0,8,0,0,8,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+airline_L3,airline,L3,learned-fk-nologs+verify,learned-fk-nologs,learned,True,,FD,0,1,0,0,1,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+airline_names-abbreviated,airline,names-abbreviated,learned-fk-nologs,learned-fk-nologs,learned,False,,FK,8,7,6,2,1,0.75,0.8571,0.8,"[0.4286, 1.0]","[0.5714, 1.0]","[0.5, 1.0]",0.75,0.8571,0.8,0.8571,0.8571,0.8571
+airline_names-abbreviated,airline,names-abbreviated,learned-fk-nologs,learned-fk-nologs,learned,False,,UCC,0,8,0,0,8,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+airline_names-abbreviated,airline,names-abbreviated,learned-fk-nologs,learned-fk-nologs,learned,False,,FD,0,1,0,0,1,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+airline_names-abbreviated,airline,names-abbreviated,learned-fk-nologs+verify,learned-fk-nologs,learned,True,,FK,8,7,6,2,1,0.75,0.8571,0.8,"[0.4286, 1.0]","[0.5714, 1.0]","[0.5, 1.0]",0.75,0.8571,0.8,0.8571,0.8571,0.8571
+airline_names-abbreviated,airline,names-abbreviated,learned-fk-nologs+verify,learned-fk-nologs,learned,True,,UCC,0,8,0,0,8,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+airline_names-abbreviated,airline,names-abbreviated,learned-fk-nologs+verify,learned-fk-nologs,learned,True,,FD,0,1,0,0,1,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+airline_names-cryptic,airline,names-cryptic,learned-fk-nologs,learned-fk-nologs,learned,False,,FK,8,7,6,2,1,0.75,0.8571,0.8,"[0.4286, 1.0]","[0.5714, 1.0]","[0.5, 1.0]",0.75,0.8571,0.8,0.8571,0.8571,0.8571
+airline_names-cryptic,airline,names-cryptic,learned-fk-nologs,learned-fk-nologs,learned,False,,UCC,0,8,0,0,8,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+airline_names-cryptic,airline,names-cryptic,learned-fk-nologs,learned-fk-nologs,learned,False,,FD,0,1,0,0,1,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+airline_names-cryptic,airline,names-cryptic,learned-fk-nologs+verify,learned-fk-nologs,learned,True,,FK,8,7,6,2,1,0.75,0.8571,0.8,"[0.4286, 1.0]","[0.5714, 1.0]","[0.5, 1.0]",0.75,0.8571,0.8,0.8571,0.8571,0.8571
+airline_names-cryptic,airline,names-cryptic,learned-fk-nologs+verify,learned-fk-nologs,learned,True,,UCC,0,8,0,0,8,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+airline_names-cryptic,airline,names-cryptic,learned-fk-nologs+verify,learned-fk-nologs,learned,True,,FD,0,1,0,0,1,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+airline_names-misleading,airline,names-misleading,learned-fk-nologs,learned-fk-nologs,learned,False,,FK,8,7,6,2,1,0.75,0.8571,0.8,"[0.4286, 1.0]","[0.5714, 1.0]","[0.5, 1.0]",0.75,0.8571,0.8,0.8571,0.8571,0.8571
+airline_names-misleading,airline,names-misleading,learned-fk-nologs,learned-fk-nologs,learned,False,,UCC,0,8,0,0,8,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+airline_names-misleading,airline,names-misleading,learned-fk-nologs,learned-fk-nologs,learned,False,,FD,0,1,0,0,1,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+airline_names-misleading,airline,names-misleading,learned-fk-nologs+verify,learned-fk-nologs,learned,True,,FK,8,7,6,2,1,0.75,0.8571,0.8,"[0.4286, 1.0]","[0.5714, 1.0]","[0.5, 1.0]",0.75,0.8571,0.8,0.8571,0.8571,0.8571
+airline_names-misleading,airline,names-misleading,learned-fk-nologs+verify,learned-fk-nologs,learned,True,,UCC,0,8,0,0,8,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+airline_names-misleading,airline,names-misleading,learned-fk-nologs+verify,learned-fk-nologs,learned,True,,FD,0,1,0,0,1,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+retail_legacy_L0,retail_legacy,L0,learned-fk-nologs,learned-fk-nologs,learned,False,,FK,5,6,5,0,1,1.0,0.8333,0.9091,"[1.0, 1.0]","[0.5, 1.0]","[0.6667, 1.0]",1.0,0.8333,0.9091,1.0,0.8333,0.9091
+retail_legacy_L0,retail_legacy,L0,learned-fk-nologs,learned-fk-nologs,learned,False,,UCC,0,7,0,0,7,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+retail_legacy_L0,retail_legacy,L0,learned-fk-nologs,learned-fk-nologs,learned,False,,FD,0,2,0,0,2,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+retail_legacy_L0,retail_legacy,L0,learned-fk-nologs+verify,learned-fk-nologs,learned,True,,FK,5,6,5,0,1,1.0,0.8333,0.9091,"[1.0, 1.0]","[0.5, 1.0]","[0.6667, 1.0]",1.0,0.8333,0.9091,1.0,0.8333,0.9091
+retail_legacy_L0,retail_legacy,L0,learned-fk-nologs+verify,learned-fk-nologs,learned,True,,UCC,0,7,0,0,7,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+retail_legacy_L0,retail_legacy,L0,learned-fk-nologs+verify,learned-fk-nologs,learned,True,,FD,0,2,0,0,2,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+retail_legacy_L1,retail_legacy,L1,learned-fk-nologs,learned-fk-nologs,learned,False,,FK,6,6,6,0,0,1.0,1.0,1.0,"[1.0, 1.0]","[1.0, 1.0]","[1.0, 1.0]",1.0,1.0,1.0,1.0,1.0,1.0
+retail_legacy_L1,retail_legacy,L1,learned-fk-nologs,learned-fk-nologs,learned,False,,UCC,0,7,0,0,7,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+retail_legacy_L1,retail_legacy,L1,learned-fk-nologs,learned-fk-nologs,learned,False,,FD,0,2,0,0,2,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+retail_legacy_L1,retail_legacy,L1,learned-fk-nologs+verify,learned-fk-nologs,learned,True,,FK,6,6,6,0,0,1.0,1.0,1.0,"[1.0, 1.0]","[1.0, 1.0]","[1.0, 1.0]",1.0,1.0,1.0,1.0,1.0,1.0
+retail_legacy_L1,retail_legacy,L1,learned-fk-nologs+verify,learned-fk-nologs,learned,True,,UCC,0,7,0,0,7,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+retail_legacy_L1,retail_legacy,L1,learned-fk-nologs+verify,learned-fk-nologs,learned,True,,FD,0,2,0,0,2,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+retail_legacy_L2,retail_legacy,L2,learned-fk-nologs,learned-fk-nologs,learned,False,,FK,5,6,5,0,1,1.0,0.8333,0.9091,"[1.0, 1.0]","[0.5, 1.0]","[0.6667, 1.0]",1.0,0.8333,0.9091,1.0,0.8333,0.9091
+retail_legacy_L2,retail_legacy,L2,learned-fk-nologs,learned-fk-nologs,learned,False,,UCC,0,7,0,0,7,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+retail_legacy_L2,retail_legacy,L2,learned-fk-nologs,learned-fk-nologs,learned,False,,FD,0,2,0,0,2,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+retail_legacy_L2,retail_legacy,L2,learned-fk-nologs+verify,learned-fk-nologs,learned,True,,FK,3,6,3,0,3,1.0,0.5,0.6667,"[1.0, 1.0]","[0.1667, 0.8333]","[0.2857, 0.9091]",1.0,0.5,0.6667,1.0,0.5,0.6667
+retail_legacy_L2,retail_legacy,L2,learned-fk-nologs+verify,learned-fk-nologs,learned,True,,UCC,0,7,0,0,7,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+retail_legacy_L2,retail_legacy,L2,learned-fk-nologs+verify,learned-fk-nologs,learned,True,,FD,0,2,0,0,2,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+retail_legacy_L3,retail_legacy,L3,learned-fk-nologs,learned-fk-nologs,learned,False,,FK,4,6,4,0,2,1.0,0.6667,0.8,"[1.0, 1.0]","[0.3333, 1.0]","[0.5, 1.0]",1.0,0.6667,0.8,1.0,0.6667,0.8
+retail_legacy_L3,retail_legacy,L3,learned-fk-nologs,learned-fk-nologs,learned,False,,UCC,0,7,0,0,7,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+retail_legacy_L3,retail_legacy,L3,learned-fk-nologs,learned-fk-nologs,learned,False,,FD,0,2,0,0,2,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+retail_legacy_L3,retail_legacy,L3,learned-fk-nologs+verify,learned-fk-nologs,learned,True,,FK,0,6,0,0,6,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+retail_legacy_L3,retail_legacy,L3,learned-fk-nologs+verify,learned-fk-nologs,learned,True,,UCC,0,7,0,0,7,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+retail_legacy_L3,retail_legacy,L3,learned-fk-nologs+verify,learned-fk-nologs,learned,True,,FD,0,2,0,0,2,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+retail_legacy_names-abbreviated,retail_legacy,names-abbreviated,learned-fk-nologs,learned-fk-nologs,learned,False,,FK,5,6,5,0,1,1.0,0.8333,0.9091,"[1.0, 1.0]","[0.5, 1.0]","[0.6667, 1.0]",1.0,0.8333,0.9091,1.0,0.8333,0.9091
+retail_legacy_names-abbreviated,retail_legacy,names-abbreviated,learned-fk-nologs,learned-fk-nologs,learned,False,,UCC,0,7,0,0,7,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+retail_legacy_names-abbreviated,retail_legacy,names-abbreviated,learned-fk-nologs,learned-fk-nologs,learned,False,,FD,0,2,0,0,2,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+retail_legacy_names-abbreviated,retail_legacy,names-abbreviated,learned-fk-nologs+verify,learned-fk-nologs,learned,True,,FK,5,6,5,0,1,1.0,0.8333,0.9091,"[1.0, 1.0]","[0.5, 1.0]","[0.6667, 1.0]",1.0,0.8333,0.9091,1.0,0.8333,0.9091
+retail_legacy_names-abbreviated,retail_legacy,names-abbreviated,learned-fk-nologs+verify,learned-fk-nologs,learned,True,,UCC,0,7,0,0,7,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+retail_legacy_names-abbreviated,retail_legacy,names-abbreviated,learned-fk-nologs+verify,learned-fk-nologs,learned,True,,FD,0,2,0,0,2,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+retail_legacy_names-cryptic,retail_legacy,names-cryptic,learned-fk-nologs,learned-fk-nologs,learned,False,,FK,5,6,5,0,1,1.0,0.8333,0.9091,"[1.0, 1.0]","[0.5, 1.0]","[0.6667, 1.0]",1.0,0.8333,0.9091,1.0,0.8333,0.9091
+retail_legacy_names-cryptic,retail_legacy,names-cryptic,learned-fk-nologs,learned-fk-nologs,learned,False,,UCC,0,7,0,0,7,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+retail_legacy_names-cryptic,retail_legacy,names-cryptic,learned-fk-nologs,learned-fk-nologs,learned,False,,FD,0,2,0,0,2,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+retail_legacy_names-cryptic,retail_legacy,names-cryptic,learned-fk-nologs+verify,learned-fk-nologs,learned,True,,FK,5,6,5,0,1,1.0,0.8333,0.9091,"[1.0, 1.0]","[0.5, 1.0]","[0.6667, 1.0]",1.0,0.8333,0.9091,1.0,0.8333,0.9091
+retail_legacy_names-cryptic,retail_legacy,names-cryptic,learned-fk-nologs+verify,learned-fk-nologs,learned,True,,UCC,0,7,0,0,7,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+retail_legacy_names-cryptic,retail_legacy,names-cryptic,learned-fk-nologs+verify,learned-fk-nologs,learned,True,,FD,0,2,0,0,2,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+retail_legacy_names-misleading,retail_legacy,names-misleading,learned-fk-nologs,learned-fk-nologs,learned,False,,FK,5,6,5,0,1,1.0,0.8333,0.9091,"[1.0, 1.0]","[0.5, 1.0]","[0.6667, 1.0]",1.0,0.8333,0.9091,1.0,0.8333,0.9091
+retail_legacy_names-misleading,retail_legacy,names-misleading,learned-fk-nologs,learned-fk-nologs,learned,False,,UCC,0,7,0,0,7,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+retail_legacy_names-misleading,retail_legacy,names-misleading,learned-fk-nologs,learned-fk-nologs,learned,False,,FD,0,2,0,0,2,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+retail_legacy_names-misleading,retail_legacy,names-misleading,learned-fk-nologs+verify,learned-fk-nologs,learned,True,,FK,5,6,5,0,1,1.0,0.8333,0.9091,"[1.0, 1.0]","[0.5, 1.0]","[0.6667, 1.0]",1.0,0.8333,0.9091,1.0,0.8333,0.9091
+retail_legacy_names-misleading,retail_legacy,names-misleading,learned-fk-nologs+verify,learned-fk-nologs,learned,True,,UCC,0,7,0,0,7,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+retail_legacy_names-misleading,retail_legacy,names-misleading,learned-fk-nologs+verify,learned-fk-nologs,learned,True,,FD,0,2,0,0,2,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+tpch_mini_L0,tpch_mini,L0,learned-fk-nologs,learned-fk-nologs,learned,False,,FK,15,10,8,7,2,0.5333,0.8,0.64,"[0.2857, 0.7857]","[0.5, 1.0]","[0.381, 0.8276]",0.5333,0.8,0.64,0.8,0.8,0.8
+tpch_mini_L0,tpch_mini,L0,learned-fk-nologs,learned-fk-nologs,learned,False,,UCC,0,8,0,0,8,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+tpch_mini_L0,tpch_mini,L0,learned-fk-nologs,learned-fk-nologs,learned,False,,FD,0,0,0,0,0,,,,,,,,,,,,
+tpch_mini_L0,tpch_mini,L0,learned-fk-nologs+verify,learned-fk-nologs,learned,True,,FK,13,10,8,5,2,0.6154,0.8,0.6957,"[0.3333, 0.8571]","[0.5, 1.0]","[0.4211, 0.8889]",0.6154,0.8,0.6957,0.8,0.8,0.8
+tpch_mini_L0,tpch_mini,L0,learned-fk-nologs+verify,learned-fk-nologs,learned,True,,UCC,0,8,0,0,8,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+tpch_mini_L0,tpch_mini,L0,learned-fk-nologs+verify,learned-fk-nologs,learned,True,,FD,0,0,0,0,0,,,,,,,,,,,,
+tpch_mini_L1,tpch_mini,L1,learned-fk-nologs,learned-fk-nologs,learned,False,,FK,16,10,8,8,2,0.5,0.8,0.6154,"[0.25, 0.75]","[0.5, 1.0]","[0.3636, 0.8]",0.5,0.8,0.6154,0.8,0.8,0.8
+tpch_mini_L1,tpch_mini,L1,learned-fk-nologs,learned-fk-nologs,learned,False,,UCC,0,8,0,0,8,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+tpch_mini_L1,tpch_mini,L1,learned-fk-nologs,learned-fk-nologs,learned,False,,FD,0,0,0,0,0,,,,,,,,,,,,
+tpch_mini_L1,tpch_mini,L1,learned-fk-nologs+verify,learned-fk-nologs,learned,True,,FK,14,10,8,6,2,0.5714,0.8,0.6667,"[0.3077, 0.8125]","[0.5556, 1.0]","[0.4, 0.8571]",0.5714,0.8,0.6667,0.8,0.8,0.8
+tpch_mini_L1,tpch_mini,L1,learned-fk-nologs+verify,learned-fk-nologs,learned,True,,UCC,0,8,0,0,8,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+tpch_mini_L1,tpch_mini,L1,learned-fk-nologs+verify,learned-fk-nologs,learned,True,,FD,0,0,0,0,0,,,,,,,,,,,,
+tpch_mini_L2,tpch_mini,L2,learned-fk-nologs,learned-fk-nologs,learned,False,,FK,17,10,8,9,2,0.4706,0.8,0.5926,"[0.2353, 0.7059]","[0.5455, 1.0]","[0.3478, 0.7742]",0.4706,0.8,0.5926,0.8,0.8,0.8
+tpch_mini_L2,tpch_mini,L2,learned-fk-nologs,learned-fk-nologs,learned,False,,UCC,0,8,0,0,8,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+tpch_mini_L2,tpch_mini,L2,learned-fk-nologs,learned-fk-nologs,learned,False,,FD,0,0,0,0,0,,,,,,,,,,,,
+tpch_mini_L2,tpch_mini,L2,learned-fk-nologs+verify,learned-fk-nologs,learned,True,,FK,13,10,6,7,4,0.4615,0.6,0.5217,"[0.2, 0.7273]","[0.2857, 0.9091]","[0.2105, 0.7407]",0.4615,0.6,0.5217,0.6,0.6,0.6
+tpch_mini_L2,tpch_mini,L2,learned-fk-nologs+verify,learned-fk-nologs,learned,True,,UCC,0,8,0,0,8,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+tpch_mini_L2,tpch_mini,L2,learned-fk-nologs+verify,learned-fk-nologs,learned,True,,FD,0,0,0,0,0,,,,,,,,,,,,
+tpch_mini_L3,tpch_mini,L3,learned-fk-nologs,learned-fk-nologs,learned,False,,FK,20,10,9,11,1,0.45,0.9,0.6,"[0.25, 0.6667]","[0.6667, 1.0]","[0.3846, 0.7647]",0.45,0.9,0.6,0.6,0.6,0.6
+tpch_mini_L3,tpch_mini,L3,learned-fk-nologs,learned-fk-nologs,learned,False,,UCC,0,8,0,0,8,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+tpch_mini_L3,tpch_mini,L3,learned-fk-nologs,learned-fk-nologs,learned,False,,FD,0,0,0,0,0,,,,,,,,,,,,
+tpch_mini_L3,tpch_mini,L3,learned-fk-nologs+verify,learned-fk-nologs,learned,True,,FK,7,10,3,4,7,0.4286,0.3,0.3529,"[0.0, 0.8]","[0.0, 0.6]","[0.0, 0.6]",0.4286,0.3,0.3529,0.4286,0.3,0.3529
+tpch_mini_L3,tpch_mini,L3,learned-fk-nologs+verify,learned-fk-nologs,learned,True,,UCC,0,8,0,0,8,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+tpch_mini_L3,tpch_mini,L3,learned-fk-nologs+verify,learned-fk-nologs,learned,True,,FD,0,0,0,0,0,,,,,,,,,,,,
+tpch_mini_names-abbreviated,tpch_mini,names-abbreviated,learned-fk-nologs,learned-fk-nologs,learned,False,,FK,15,10,8,7,2,0.5333,0.8,0.64,"[0.2857, 0.7857]","[0.5, 1.0]","[0.381, 0.8276]",0.5333,0.8,0.64,0.8,0.8,0.8
+tpch_mini_names-abbreviated,tpch_mini,names-abbreviated,learned-fk-nologs,learned-fk-nologs,learned,False,,UCC,0,8,0,0,8,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+tpch_mini_names-abbreviated,tpch_mini,names-abbreviated,learned-fk-nologs,learned-fk-nologs,learned,False,,FD,0,0,0,0,0,,,,,,,,,,,,
+tpch_mini_names-abbreviated,tpch_mini,names-abbreviated,learned-fk-nologs+verify,learned-fk-nologs,learned,True,,FK,13,10,8,5,2,0.6154,0.8,0.6957,"[0.3333, 0.8571]","[0.5, 1.0]","[0.4211, 0.8889]",0.6154,0.8,0.6957,0.8,0.8,0.8
+tpch_mini_names-abbreviated,tpch_mini,names-abbreviated,learned-fk-nologs+verify,learned-fk-nologs,learned,True,,UCC,0,8,0,0,8,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+tpch_mini_names-abbreviated,tpch_mini,names-abbreviated,learned-fk-nologs+verify,learned-fk-nologs,learned,True,,FD,0,0,0,0,0,,,,,,,,,,,,
+tpch_mini_names-cryptic,tpch_mini,names-cryptic,learned-fk-nologs,learned-fk-nologs,learned,False,,FK,14,10,8,6,2,0.5714,0.8,0.6667,"[0.3077, 0.8125]","[0.5556, 1.0]","[0.4, 0.8571]",0.5714,0.8,0.6667,0.8,0.8,0.8
+tpch_mini_names-cryptic,tpch_mini,names-cryptic,learned-fk-nologs,learned-fk-nologs,learned,False,,UCC,0,8,0,0,8,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+tpch_mini_names-cryptic,tpch_mini,names-cryptic,learned-fk-nologs,learned-fk-nologs,learned,False,,FD,0,0,0,0,0,,,,,,,,,,,,
+tpch_mini_names-cryptic,tpch_mini,names-cryptic,learned-fk-nologs+verify,learned-fk-nologs,learned,True,,FK,12,10,8,4,2,0.6667,0.8,0.7273,"[0.4, 0.9167]","[0.5, 1.0]","[0.4444, 0.88]",0.6667,0.8,0.7273,0.8,0.8,0.8
+tpch_mini_names-cryptic,tpch_mini,names-cryptic,learned-fk-nologs+verify,learned-fk-nologs,learned,True,,UCC,0,8,0,0,8,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+tpch_mini_names-cryptic,tpch_mini,names-cryptic,learned-fk-nologs+verify,learned-fk-nologs,learned,True,,FD,0,0,0,0,0,,,,,,,,,,,,
+tpch_mini_names-misleading,tpch_mini,names-misleading,learned-fk-nologs,learned-fk-nologs,learned,False,,FK,14,10,8,6,2,0.5714,0.8,0.6667,"[0.3077, 0.8125]","[0.5556, 1.0]","[0.4, 0.8571]",0.5714,0.8,0.6667,0.8,0.8,0.8
+tpch_mini_names-misleading,tpch_mini,names-misleading,learned-fk-nologs,learned-fk-nologs,learned,False,,UCC,0,8,0,0,8,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+tpch_mini_names-misleading,tpch_mini,names-misleading,learned-fk-nologs,learned-fk-nologs,learned,False,,FD,0,0,0,0,0,,,,,,,,,,,,
+tpch_mini_names-misleading,tpch_mini,names-misleading,learned-fk-nologs+verify,learned-fk-nologs,learned,True,,FK,12,10,8,4,2,0.6667,0.8,0.7273,"[0.4, 0.9167]","[0.5, 1.0]","[0.4444, 0.88]",0.6667,0.8,0.7273,0.8,0.8,0.8
+tpch_mini_names-misleading,tpch_mini,names-misleading,learned-fk-nologs+verify,learned-fk-nologs,learned,True,,UCC,0,8,0,0,8,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+tpch_mini_names-misleading,tpch_mini,names-misleading,learned-fk-nologs+verify,learned-fk-nologs,learned,True,,FD,0,0,0,0,0,,,,,,,,,,,,
+university_L0,university,L0,learned-fk-nologs,learned-fk-nologs,learned,False,,FK,11,11,11,0,0,1.0,1.0,1.0,"[1.0, 1.0]","[1.0, 1.0]","[1.0, 1.0]",1.0,1.0,1.0,1.0,1.0,1.0
+university_L0,university,L0,learned-fk-nologs,learned-fk-nologs,learned,False,,UCC,0,11,0,0,11,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+university_L0,university,L0,learned-fk-nologs,learned-fk-nologs,learned,False,,FD,0,4,0,0,4,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+university_L0,university,L0,learned-fk-nologs+verify,learned-fk-nologs,learned,True,,FK,11,11,11,0,0,1.0,1.0,1.0,"[1.0, 1.0]","[1.0, 1.0]","[1.0, 1.0]",1.0,1.0,1.0,1.0,1.0,1.0
+university_L0,university,L0,learned-fk-nologs+verify,learned-fk-nologs,learned,True,,UCC,0,11,0,0,11,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+university_L0,university,L0,learned-fk-nologs+verify,learned-fk-nologs,learned,True,,FD,0,4,0,0,4,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+university_L1,university,L1,learned-fk-nologs,learned-fk-nologs,learned,False,,FK,10,11,10,0,1,1.0,0.9091,0.9524,"[1.0, 1.0]","[0.7273, 1.0]","[0.8421, 1.0]",1.0,0.9091,0.9524,1.0,0.9091,0.9524
+university_L1,university,L1,learned-fk-nologs,learned-fk-nologs,learned,False,,UCC,0,11,0,0,11,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+university_L1,university,L1,learned-fk-nologs,learned-fk-nologs,learned,False,,FD,0,4,0,0,4,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+university_L1,university,L1,learned-fk-nologs+verify,learned-fk-nologs,learned,True,,FK,10,11,10,0,1,1.0,0.9091,0.9524,"[1.0, 1.0]","[0.7273, 1.0]","[0.8421, 1.0]",1.0,0.9091,0.9524,1.0,0.9091,0.9524
+university_L1,university,L1,learned-fk-nologs+verify,learned-fk-nologs,learned,True,,UCC,0,11,0,0,11,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+university_L1,university,L1,learned-fk-nologs+verify,learned-fk-nologs,learned,True,,FD,0,4,0,0,4,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+university_L2,university,L2,learned-fk-nologs,learned-fk-nologs,learned,False,,FK,11,11,10,1,1,0.9091,0.9091,0.9091,"[0.7, 1.0]","[0.7273, 1.0]","[0.7368, 1.0]",0.9091,0.9091,0.9091,0.9091,0.9091,0.9091
+university_L2,university,L2,learned-fk-nologs,learned-fk-nologs,learned,False,,UCC,0,11,0,0,11,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+university_L2,university,L2,learned-fk-nologs,learned-fk-nologs,learned,False,,FD,0,4,0,0,4,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+university_L2,university,L2,learned-fk-nologs+verify,learned-fk-nologs,learned,True,,FK,9,11,8,1,3,0.8889,0.7273,0.8,"[0.6667, 1.0]","[0.4444, 1.0]","[0.5882, 0.9565]",0.8889,0.7273,0.8,0.8889,0.7273,0.8
+university_L2,university,L2,learned-fk-nologs+verify,learned-fk-nologs,learned,True,,UCC,0,11,0,0,11,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+university_L2,university,L2,learned-fk-nologs+verify,learned-fk-nologs,learned,True,,FD,0,4,0,0,4,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+university_L3,university,L3,learned-fk-nologs,learned-fk-nologs,learned,False,,FK,12,11,9,3,2,0.75,0.8182,0.7826,"[0.4615, 1.0]","[0.5714, 1.0]","[0.5263, 0.9231]",0.75,0.8182,0.7826,0.7273,0.7273,0.7273
+university_L3,university,L3,learned-fk-nologs,learned-fk-nologs,learned,False,,UCC,0,11,0,0,11,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+university_L3,university,L3,learned-fk-nologs,learned-fk-nologs,learned,False,,FD,0,4,0,0,4,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+university_L3,university,L3,learned-fk-nologs+verify,learned-fk-nologs,learned,True,,FK,9,11,6,3,5,0.6667,0.5455,0.6,"[0.3333, 1.0]","[0.25, 0.8333]","[0.3529, 0.8333]",0.6667,0.5455,0.6,0.6667,0.5455,0.6
+university_L3,university,L3,learned-fk-nologs+verify,learned-fk-nologs,learned,True,,UCC,0,11,0,0,11,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+university_L3,university,L3,learned-fk-nologs+verify,learned-fk-nologs,learned,True,,FD,0,4,0,0,4,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+university_names-abbreviated,university,names-abbreviated,learned-fk-nologs,learned-fk-nologs,learned,False,,FK,11,11,11,0,0,1.0,1.0,1.0,"[1.0, 1.0]","[1.0, 1.0]","[1.0, 1.0]",1.0,1.0,1.0,1.0,1.0,1.0
+university_names-abbreviated,university,names-abbreviated,learned-fk-nologs,learned-fk-nologs,learned,False,,UCC,0,11,0,0,11,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+university_names-abbreviated,university,names-abbreviated,learned-fk-nologs,learned-fk-nologs,learned,False,,FD,0,4,0,0,4,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+university_names-abbreviated,university,names-abbreviated,learned-fk-nologs+verify,learned-fk-nologs,learned,True,,FK,11,11,11,0,0,1.0,1.0,1.0,"[1.0, 1.0]","[1.0, 1.0]","[1.0, 1.0]",1.0,1.0,1.0,1.0,1.0,1.0
+university_names-abbreviated,university,names-abbreviated,learned-fk-nologs+verify,learned-fk-nologs,learned,True,,UCC,0,11,0,0,11,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+university_names-abbreviated,university,names-abbreviated,learned-fk-nologs+verify,learned-fk-nologs,learned,True,,FD,0,4,0,0,4,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+university_names-cryptic,university,names-cryptic,learned-fk-nologs,learned-fk-nologs,learned,False,,FK,10,11,10,0,1,1.0,0.9091,0.9524,"[1.0, 1.0]","[0.7273, 1.0]","[0.8421, 1.0]",1.0,0.9091,0.9524,1.0,0.9091,0.9524
+university_names-cryptic,university,names-cryptic,learned-fk-nologs,learned-fk-nologs,learned,False,,UCC,0,11,0,0,11,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+university_names-cryptic,university,names-cryptic,learned-fk-nologs,learned-fk-nologs,learned,False,,FD,0,4,0,0,4,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+university_names-cryptic,university,names-cryptic,learned-fk-nologs+verify,learned-fk-nologs,learned,True,,FK,10,11,10,0,1,1.0,0.9091,0.9524,"[1.0, 1.0]","[0.7273, 1.0]","[0.8421, 1.0]",1.0,0.9091,0.9524,1.0,0.9091,0.9524
+university_names-cryptic,university,names-cryptic,learned-fk-nologs+verify,learned-fk-nologs,learned,True,,UCC,0,11,0,0,11,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+university_names-cryptic,university,names-cryptic,learned-fk-nologs+verify,learned-fk-nologs,learned,True,,FD,0,4,0,0,4,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+university_names-misleading,university,names-misleading,learned-fk-nologs,learned-fk-nologs,learned,False,,FK,11,11,10,1,1,0.9091,0.9091,0.9091,"[0.7, 1.0]","[0.7273, 1.0]","[0.7368, 1.0]",0.9091,0.9091,0.9091,0.9091,0.9091,0.9091
+university_names-misleading,university,names-misleading,learned-fk-nologs,learned-fk-nologs,learned,False,,UCC,0,11,0,0,11,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+university_names-misleading,university,names-misleading,learned-fk-nologs,learned-fk-nologs,learned,False,,FD,0,4,0,0,4,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+university_names-misleading,university,names-misleading,learned-fk-nologs+verify,learned-fk-nologs,learned,True,,FK,11,11,10,1,1,0.9091,0.9091,0.9091,"[0.7, 1.0]","[0.7273, 1.0]","[0.7368, 1.0]",0.9091,0.9091,0.9091,0.9091,0.9091,0.9091
+university_names-misleading,university,names-misleading,learned-fk-nologs+verify,learned-fk-nologs,learned,True,,UCC,0,11,0,0,11,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,
+university_names-misleading,university,names-misleading,learned-fk-nologs+verify,learned-fk-nologs,learned,True,,FD,0,4,0,0,4,,0.0,,,"[0.0, 0.0]",,,0.0,,,0.0,

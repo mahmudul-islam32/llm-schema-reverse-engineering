@@ -15,7 +15,12 @@ Pipeline:
    The query-log feature is used only when a workload is supplied.
 3. **Selection**: UCCs are kept when they look like keys (small, NULL-free,
    key-like names) with at least one key per table; FDs are kept when they are
-   not implied by a key and explain real redundancy.
+   not implied by a key and explain real redundancy. Two guards against
+   accidental inclusions: a unary FK whose referencing column is itself a key
+   of its table needs similar names (otherwise it goes to review, since small
+   surrogate-key ranges overlap by chance), and composite FKs need name support.
+   A referencing column keeps only its best-scoring parent; other parents for
+   the same column go to review.
 4. **SQL verification** (:mod:`srev.verify`) of every candidate; only accepted
    constraints are returned as ``constraints``, the rest as ``rejected``.
 
@@ -54,7 +59,9 @@ class DiscoverConfig(BaseModel):
     review_threshold: float = Field(
         0.2, ge=0, lt=1, description="verified FK candidates scoring in [review, fk) need review"
     )
-    ucc_min_score: float = 0.5
+    ucc_min_score: float = 0.75
+    key_to_key_min_name_score: float = 0.6
+    composite_fk_min_name_score: float = 0.75
     fd_min_redundancy: float = 0.5
     fd_min_lhs_distinct: int = 3
     verify: VerifyConfig = Field(
@@ -183,17 +190,45 @@ def discover(
         and not any(k <= set(p.lhs) for k in key_sets)
         and all(distinct.get(r, 0) >= cfg.fd_min_lhs_distinct for r in p.lhs)
     ]
-    composite_fks = [p for p in prof.proposals if p.type == "FK" and len(p.lhs) > 1]
+    composite_fks = [
+        p
+        for p in prof.proposals
+        if p.type == "FK" and len(p.lhs) > 1 and p.confidence >= cfg.composite_fk_min_name_score
+    ]
 
     learned = LearnedConfig(features=list(model.features))
     fks, maybe = [], []
     for c in candidates(conn, joins if use_logs else None, learned):
         p = model.predict(c)
-        if p >= cfg.fk_threshold:
+        key_to_key = (
+            c.features["dep_uniqueness"] >= 1.0
+            and c.features["dep_null_ratio"] == 0
+            and c.features["name_score"] < cfg.key_to_key_min_name_score
+        )
+        if p >= cfg.fk_threshold and not key_to_key:
             fks.append(c.proposal(p, model.explain(c)))
+        elif p >= cfg.fk_threshold:
+            maybe.append(
+                c.proposal(
+                    p, "key-to-key inclusion with dissimilar names; " + model.explain(c)
+                ).model_copy(update={"source": "discover"})
+            )
         elif p >= cfg.review_threshold:
             maybe.append(c.proposal(p, model.explain(c)).model_copy(update={"source": "discover"}))
 
+    best_parent: dict[str, Proposal] = {}
+    for f in fks:
+        cur = best_parent.get(f.lhs[0])
+        if cur is None or f.confidence > cur.confidence:
+            best_parent[f.lhs[0]] = f
+    kept = set(id(f) for f in best_parent.values())
+    maybe += [
+        f.model_copy(update={"source": "discover",
+                             "rationale": "column already has a stronger parent; " + f.rationale})
+        for f in fks
+        if id(f) not in kept
+    ]  # fmt: skip
+    fks = [f for f in fks if id(f) in kept]
     props = dedupe(
         [u.model_copy(update={"source": "discover"}) for u in uccs]
         + fds

@@ -550,6 +550,49 @@ def cmd_check(args: argparse.Namespace) -> int:
     return code
 
 
+def cmd_graph(args: argparse.Namespace) -> int:
+    from srev.extract import Evidence
+    from srev.graph import SchemaGraph
+
+    graph = SchemaGraph.from_constraints(
+        Evidence.load(args.evidence), [v.proposal for v in _load_verified(args.constraints)]
+    )
+    graph.lookup_max_rows = args.lookup_max_rows
+    if args.source and args.target:
+        sql = graph.join_sql(args.source, args.target)
+        if sql is None:
+            print(f"no FK path between {args.source} and {args.target}", file=sys.stderr)
+            return 1
+        print(sql)
+        return 0
+    roles = graph.roles()
+    print(f"{'table':28} {'role':10} {'rows':>8}  references -> / <- referenced by")
+    for r in roles:
+        self_ref = " (+self)" if r.self_reference else ""
+        print(
+            f"{r.name:28} {r.role:10} {r.rows:8}  -> {', '.join(r.references) or '-'}"
+            f"{self_ref} / <- {', '.join(r.referenced_by) or '-'}"
+        )
+    print("\ncomponents:", " | ".join(", ".join(c) for c in graph.components()))
+    print("hubs:", ", ".join(f"{t} ({n})" for t, n in graph.hubs()) or "-")
+    for fact, dims in graph.star_schemas().items():
+        print(f"star: {fact} -> {', '.join(dims)}")
+    if args.output:
+        _write(
+            args.output,
+            json.dumps(
+                {
+                    "roles": [r.model_dump() for r in roles],
+                    "components": graph.components(),
+                    "hubs": graph.hubs(),
+                    "stars": graph.star_schemas(),
+                },
+                indent=2,
+            ),
+        )
+    return 0
+
+
 def cmd_kappa(args: argparse.Namespace) -> int:
     from srev.eval import cohen_kappa
 
@@ -726,6 +769,15 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument("-o", "--output", help="JSON report")
     p.add_argument("--markdown", help="Markdown report (default: stdout)")
     p.set_defaults(func=cmd_check)
+
+    p = sub.add_parser("graph", help="table roles, subject areas and join paths from FKs")
+    p.add_argument("--constraints", required=True)
+    p.add_argument("--evidence", required=True)
+    p.add_argument("--from", dest="source", help="with --to: print the join SQL")
+    p.add_argument("--to", dest="target")
+    p.add_argument("--lookup-max-rows", type=int, default=100)
+    p.add_argument("-o", "--output", help="JSON with roles, components, hubs, stars")
+    p.set_defaults(func=cmd_graph)
 
     p = sub.add_parser("run", help="run an experiment from a YAML config")
     p.add_argument("--config", required=True)

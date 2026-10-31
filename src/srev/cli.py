@@ -169,6 +169,16 @@ def cmd_discover(args: argparse.Namespace) -> int:
     (out / "model.sql").write_text(synth.ddl)
     (out / "migration.sql").write_text(synth.migration)
     (out / "model.mmd").write_text(synth.mermaid)
+    if args.dbt:
+        from srev.dbt import build_project
+
+        build_project(
+            evidence,
+            result.constraints,
+            out / "dbt",
+            source="raw",
+            schema=source_schema if source_schema != "main" else "main",
+        )
     print(f"{'type':4} {'constraint':70} {'conf':>5} statistic")
     for v in result.constraints:
         p = v.proposal
@@ -466,6 +476,44 @@ def cmd_export_latex(args: argparse.Namespace) -> int:
     return 0
 
 
+def _load_verified(path: str) -> list[Any]:
+    from srev.model import Proposal, Verdict, VerifiedProposal
+
+    raw = json.loads(Path(path).read_text())
+    if isinstance(raw, dict):
+        raw = raw.get("proposals", raw.get("labels", []))
+    out = []
+    for item in raw:
+        if "verdict" in item:
+            out.append(VerifiedProposal.model_validate(item))
+        else:  # plain proposals or gold labels: treat as accepted, statistic unknown
+            out.append(
+                VerifiedProposal(
+                    proposal=Proposal.model_validate(item),
+                    verdict=Verdict(accepted=True, status="ok"),
+                )
+            )
+    return [v for v in out if v.verdict.accepted]
+
+
+def cmd_export_dbt(args: argparse.Namespace) -> int:
+    from srev.dbt import build_project
+    from srev.extract import Evidence
+
+    counts = build_project(
+        Evidence.load(args.evidence),
+        _load_verified(args.constraints),
+        args.output,
+        project=args.project,
+        source=args.source,
+        schema=args.schema,
+        tests_key=args.tests_key,
+        legacy_test_args=args.legacy_test_args,
+    )
+    print(f"dbt project in {args.output}: {counts}", file=sys.stderr)
+    return 0
+
+
 def cmd_kappa(args: argparse.Namespace) -> int:
     from srev.eval import cohen_kappa
 
@@ -534,6 +582,7 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument("--name")
     p.add_argument("--fk-threshold", type=float, default=0.5)
     p.add_argument("--target-schema", default="normalized")
+    p.add_argument("--dbt", action="store_true", help="also write a dbt project to OUT/dbt")
     p.add_argument("-o", "--output", default="discovery")
     p.set_defaults(func=cmd_discover)
 
@@ -663,6 +712,25 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument("--ci", action="store_true", help="add bootstrap CIs (macro F1 only)")
     p.add_argument("-o", "--output")
     p.set_defaults(func=cmd_export_latex)
+    p = ex_sub.add_parser("dbt", help="dbt project with tests for the constraints")
+    p.add_argument("--constraints", required=True, help="constraints.json / srev verify output")
+    p.add_argument("--evidence", required=True)
+    p.add_argument("--project", help="dbt project and profile name")
+    p.add_argument("--source", default="raw", help="dbt source name")
+    p.add_argument("--schema", default="public", help="database schema of the source tables")
+    p.add_argument(
+        "--tests-key",
+        default="data_tests",
+        choices=["data_tests", "tests"],
+        help="'tests' for dbt < 1.8",
+    )
+    p.add_argument(
+        "--legacy-test-args",
+        action="store_true",
+        help="write generic-test arguments inline (dbt < 1.10)",
+    )
+    p.add_argument("-o", "--output", default="dbt_project")
+    p.set_defaults(func=cmd_export_dbt)
 
     au = sub.add_parser("audit", help="manual-audit helpers")
     au_sub = au.add_subparsers(dest="action", required=True)

@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>museum_low · srev profile</title>
+<style>
+:root { --bg:#f8fafc; --card:#ffffff; --ink:#0f172a; --muted:#64748b; --line:#e2e8f0;
+  --accent:#4f46e5; --good:#15803d; --warn:#b45309; --bad:#be123c; --bar:#e2e8f0;
+  --chip:#eef2ff; --chip-ink:#3730a3; }
+@media (prefers-color-scheme: dark) { :root { --bg:#0b1020; --card:#111827; --ink:#e5e7eb;
+  --muted:#94a3b8; --line:#1f2937; --accent:#818cf8; --good:#4ade80; --warn:#fbbf24;
+  --bad:#fb7185; --bar:#1f2937; --chip:#1e1b4b; --chip-ink:#c7d2fe; } }
+* { box-sizing: border-box; }
+body { margin:0; background:var(--bg); color:var(--ink);
+  font:14px/1.5 Inter, 'Segoe UI', system-ui, sans-serif; }
+main { max-width:1180px; margin:0 auto; padding:24px 16px 64px; }
+h1 { font-size:26px; margin:0 0 4px; } h2 { font-size:19px; margin:32px 0 12px; }
+h3 { font-size:16px; margin:0; } .muted { color:var(--muted); }
+.cards { display:grid; grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); gap:12px;
+  margin-top:18px; }
+.card { background:var(--card); border:1px solid var(--line); border-radius:12px; padding:14px 16px; }
+.card b { display:block; font-size:24px; } .card span { color:var(--muted); font-size:12px;
+  text-transform:uppercase; letter-spacing:.04em; }
+table { width:100%; border-collapse:collapse; background:var(--card); border:1px solid var(--line);
+  border-radius:12px; overflow:hidden; }
+th, td { text-align:left; padding:7px 10px; border-bottom:1px solid var(--line); vertical-align:top; }
+th { font-size:12px; color:var(--muted); text-transform:uppercase; letter-spacing:.04em; }
+tr:last-child td { border-bottom:none; }
+.scroll { overflow-x:auto; }
+.bar { width:110px; height:8px; background:var(--bar); border-radius:4px; display:inline-block;
+  vertical-align:middle; margin-right:6px; overflow:hidden; }
+.bar i { display:block; height:100%; background:var(--accent); }
+.bar.nulls i { background:var(--warn); }
+.chip { display:inline-block; background:var(--chip); color:var(--chip-ink); border-radius:10px;
+  padding:0 7px; margin:1px 2px; font-size:12px; white-space:nowrap; }
+.badge { display:inline-block; border-radius:6px; padding:0 6px; font-size:11px; font-weight:700;
+  margin-left:4px; border:1px solid currentColor; }
+.pk { color:var(--good); } .uk { color:var(--accent); } .fk { color:var(--warn); }
+.role { font-weight:600; } .role.fact { color:var(--bad); } .role.bridge { color:var(--warn); }
+.role.dimension { color:var(--accent); } .role.lookup { color:var(--good); }
+section.tbl { background:var(--card); border:1px solid var(--line); border-radius:12px;
+  padding:16px; margin-bottom:16px; }
+section.tbl table { border:none; } .mono { font-family:'JetBrains Mono', Menlo, monospace; font-size:12.5px; }
+.er { background:#fff; border-radius:12px; padding:12px; border:1px solid var(--line); overflow:auto; }
+footer { margin-top:40px; color:var(--muted); font-size:12px; }
+</style></head>
+<body><main>
+<h1>museum_low</h1>
+<div class="muted">Data profile and discovered constraints · generated 2026-11-01 11:43 UTC by srev 0.1.0
+· discovery took 0.061s</div>
+<div class="cards"><div class='card'><b>6</b><span>tables</span></div><div class='card'><b>27</b><span>columns</span></div><div class='card'><b>1,617</b><span>rows</span></div><div class='card'><b>6</b><span>foreign keys</span></div><div class='card'><b>6</b><span>keys</span></div><div class='card'><b>0</b><span>dependencies</span></div><div class='card'><b>0</b><span>to review</span></div></div>
+<h2>Table roles</h2>
+<div class="scroll"><table><tr><th>table</th><th>role</th><th>rows</th><th>references</th>
+<th>referenced by</th><th>why</th></tr><tr><td><a href='#t-artist'>artist</a></td><td class='role lookup'>lookup</td><td>40</td><td>–</td><td>object</td><td class='muted'>small (40 rows) and only referenced</td></tr><tr><td><a href='#t-exhibition'>exhibition</a></td><td class='role lookup'>lookup</td><td>25</td><td>–</td><td>loan</td><td class='muted'>small (25 rows) and only referenced</td></tr><tr><td><a href='#t-loan'>loan</a></td><td class='role bridge'>bridge</td><td>199</td><td>exhibition, object</td><td>–</td><td class='muted'>key consists of foreign-key columns (many-to-many)</td></tr><tr><td><a href='#t-object'>object</a></td><td class='role dimension'>dimension</td><td>300</td><td>artist</td><td>loan, provenance_event</td><td class='muted'>referenced by 2 table(s)</td></tr><tr><td><a href='#t-owner'>owner</a></td><td class='role dimension'>dimension</td><td>120</td><td>–</td><td>provenance_event</td><td class='muted'>referenced by 1 table(s)</td></tr><tr><td><a href='#t-provenance_event'>provenance_event</a></td><td class='role fact'>fact</td><td>933</td><td>object, owner (+self)</td><td>–</td><td class='muted'>references 2 tables, referenced by none</td></tr></table></div>
+<h2>Entity-relationship diagram</h2>
+<div class="er"><pre class="mermaid">erDiagram
+    artist {
+        INTEGER a_i1g PK
+        VARCHAR name
+        INTEGER birth_year
+        VARCHAR nationality
+    }
+    exhibition {
+        INTEGER e_a1v PK
+        VARCHAR title
+        DATE e_d3
+        VARCHAR e_f4
+    }
+    loan {
+        INTEGER exhibition_id PK,FK
+        VARCHAR object_id PK,FK
+    }
+    object {
+        VARCHAR object_id PK
+        VARCHAR title
+        INTEGER o_l3 FK
+        VARCHAR o_o4k
+        INTEGER creation_year
+        VARCHAR medium
+    }
+    owner {
+        INTEGER owner_id PK
+        VARCHAR o_l2i
+        VARCHAR o_r3
+        VARCHAR city
+        VARCHAR o_k5a
+    }
+    provenance_event {
+        INTEGER p_e1q PK
+        VARCHAR p_j2 FK
+        INTEGER p_f3 FK
+        VARCHAR event_type
+        INTEGER start_year
+        INTEGER previous_event_id FK
+    }
+    exhibition ||--o{ loan : &quot;exhibition_id&quot;
+    object ||--o{ loan : &quot;object_id&quot;
+    artist ||--o{ object : &quot;o_l3&quot;
+    object ||--o{ provenance_event : &quot;p_j2&quot;
+    owner ||--o{ provenance_event : &quot;p_f3&quot;
+    provenance_event ||--o{ provenance_event : &quot;previous_event_id&quot;
+</pre></div>
+<h2>Verified constraints</h2>
+<div class="scroll"><table><tr><th>type</th><th>constraint</th><th>score</th><th>measured</th>
+<th>evidence</th></tr><tr><td>FK</td><td class='mono'>(loan.exhibition_id) -&gt; (exhibition.e_a1v)</td><td>0.95</td><td>coverage=0.984925</td><td class='muted'>learned; strongest evidence: distinct_ratio, name_score, row_coverage</td></tr><tr><td>FK</td><td class='mono'>(loan.object_id) -&gt; (object.object_id)</td><td>0.74</td><td>coverage=0.994975</td><td class='muted'>learned; strongest evidence: row_coverage, name_score, ref_rows_ratio</td></tr><tr><td>FK</td><td class='mono'>(object.o_l3) -&gt; (artist.a_i1g)</td><td>0.87</td><td>coverage=0.986486</td><td class='muted'>learned; strongest evidence: distinct_ratio, row_coverage, dep_null_ratio</td></tr><tr><td>FK</td><td class='mono'>(provenance_event.p_f3) -&gt; (owner.owner_id)</td><td>0.83</td><td>coverage=0.984733</td><td class='muted'>learned; strongest evidence: distinct_ratio, row_coverage, dep_null_ratio</td></tr><tr><td>FK</td><td class='mono'>(provenance_event.p_j2) -&gt; (object.object_id)</td><td>0.95</td><td>coverage=0.980176</td><td class='muted'>learned; strongest evidence: distinct_ratio, row_coverage, dep_null_ratio</td></tr><tr><td>FK</td><td class='mono'>(provenance_event.previous_event_id) -&gt; (provenance_event.p_e1q)</td><td>1.00</td><td>coverage=0.990338</td><td class='muted'>learned; strongest evidence: dep_null_ratio, row_coverage, ref_rows_ratio</td></tr><tr><td>UCC</td><td class='mono'>(artist.a_i1g)</td><td>0.70</td><td>uniqueness=1.0</td><td class='muted'>exact uniqueness over all rows</td></tr><tr><td>UCC</td><td class='mono'>(exhibition.e_a1v)</td><td>0.70</td><td>uniqueness=1.0</td><td class='muted'>exact uniqueness over all rows</td></tr><tr><td>UCC</td><td class='mono'>(loan.exhibition_id, loan.object_id)</td><td>0.75</td><td>uniqueness=1.0</td><td class='muted'>exact uniqueness over all rows</td></tr><tr><td>UCC</td><td class='mono'>(object.object_id)</td><td>1.00</td><td>uniqueness=1.0</td><td class='muted'>exact uniqueness over all rows</td></tr><tr><td>UCC</td><td class='mono'>(owner.owner_id)</td><td>1.00</td><td>uniqueness=1.0</td><td class='muted'>exact uniqueness over all rows</td></tr><tr><td>UCC</td><td class='mono'>(provenance_event.p_e1q)</td><td>0.70</td><td>uniqueness=1.0</td><td class='muted'>exact uniqueness over all rows</td></tr></table></div>
+
+<h2>Column profiles</h2>
+<section class='tbl' id='t-artist'><h3>artist <span class='role lookup'>· lookup</span> <span class='muted'>· 40 rows · 4 columns</span></h3><div class='scroll'><table><tr><th>column</th><th>type</th><th>nulls</th><th>distinct</th><th>uniqueness</th><th>range</th><th>top values</th></tr><tr><td class='mono'>a_i1g<span class="badge pk">PK</span></td><td class='mono muted'>INTEGER</td><td><span class="bar nulls"><i style="width:0.0%"></i></span>0%</td><td>40</td><td><span class="bar "><i style="width:100.0%"></i></span>100%</td><td class='mono'>3000 … 3039</td><td><span class="chip">3000 ×1</span><span class="chip">3001 ×1</span><span class="chip">3002 ×1</span><span class="chip">3003 ×1</span></td></tr><tr><td class='mono'>name</td><td class='mono muted'>VARCHAR(60)</td><td><span class="bar nulls"><i style="width:2.5%"></i></span>2%</td><td>30</td><td><span class="bar "><i style="width:76.9%"></i></span>77%</td><td class='mono'>Anna Albers … Paul Feininger</td><td><span class="chip">Hugo Ernst ×2</span><span class="chip">Hugo Hoch ×2</span><span class="chip">Ida Feininger ×2</span><span class="chip">Ida Grosz ×2</span></td></tr><tr><td class='mono'>birth_year</td><td class='mono muted'>INTEGER</td><td><span class="bar nulls"><i style="width:2.5%"></i></span>2%</td><td>33</td><td><span class="bar "><i style="width:84.6%"></i></span>85%</td><td class='mono'>1840 … 1929</td><td><span class="chip">1902 ×3</span><span class="chip">1851 ×2</span><span class="chip">1898 ×2</span><span class="chip">1904 ×2</span></td></tr><tr><td class='mono'>nationality</td><td class='mono muted'>VARCHAR(30)</td><td><span class="bar nulls"><i style="width:5.0%"></i></span>5%</td><td>8</td><td><span class="bar "><i style="width:21.1%"></i></span>21%</td><td class='mono'>Austria … United States</td><td><span class="chip">Germany ×11</span><span class="chip">France ×7</span><span class="chip">Austria ×6</span><span class="chip">United States ×5</span></td></tr></table></div></section><section class='tbl' id='t-exhibition'><h3>exhibition <span class='role lookup'>· lookup</span> <span class='muted'>· 25 rows · 4 columns</span></h3><div class='scroll'><table><tr><th>column</th><th>type</th><th>nulls</th><th>distinct</th><th>uniqueness</th><th>range</th><th>top values</th></tr><tr><td class='mono'>e_a1v<span class="badge pk">PK</span></td><td class='mono muted'>INTEGER</td><td><span class="bar nulls"><i style="width:0.0%"></i></span>0%</td><td>25</td><td><span class="bar "><i style="width:100.0%"></i></span>100%</td><td class='mono'>90 … 114</td><td><span class="chip">90 ×1</span><span class="chip">91 ×1</span><span class="chip">92 ×1</span><span class="chip">93 ×1</span></td></tr><tr><td class='mono'>title</td><td class='mono muted'>VARCHAR(80)</td><td><span class="bar nulls"><i style="width:4.0%"></i></span>4%</td><td>24</td><td><span class="bar "><i style="width:100.0%"></i></span>100%</td><td class='mono'>Exhibition 1 … Exhibitirn 16</td><td><span class="chip">Exhibition 1 ×1</span><span class="chip">Exhibition 10 ×1</span><span class="chip">Exhibition 11 ×1</span><span class="chip">Exhibition 12 ×1</span></td></tr><tr><td class='mono'>e_d3</td><td class='mono muted'>DATE</td><td><span class="bar nulls"><i style="width:4.0%"></i></span>4%</td><td>24</td><td><span class="bar "><i style="width:100.0%"></i></span>100%</td><td class='mono'>1996-09-11 … 2021-03-30</td><td><span class="chip">1996-09-11 ×1</span><span class="chip">1996-11-26 ×1</span><span class="chip">1997-10-15 ×1</span><span class="chip">1998-04-20 ×1</span></td></tr><tr><td class='mono'>e_f4</td><td class='mono muted'>VARCHAR(30)</td><td><span class="bar nulls"><i style="width:0.0%"></i></span>0%</td><td>10</td><td><span class="bar "><i style="width:40.0%"></i></span>40%</td><td class='mono'>Amsterdam … Zurich</td><td><span class="chip">New York ×6</span><span class="chip">Berlin ×4</span><span class="chip">Vienna ×3</span><span class="chip">Amsterdam ×2</span></td></tr></table></div></section><section class='tbl' id='t-loan'><h3>loan <span class='role bridge'>· bridge</span> <span class='muted'>· 199 rows · 2 columns</span></h3><div class='scroll'><table><tr><th>column</th><th>type</th><th>nulls</th><th>distinct</th><th>uniqueness</th><th>range</th><th>top values</th></tr><tr><td class='mono'>exhibition_id<span class="badge pk">PK</span><span class="badge fk" title="references exhibition.e_a1v">FK → exhibition.e_a1v</span></td><td class='mono muted'>INTEGER</td><td><span class="bar nulls"><i style="width:0.0%"></i></span>0%</td><td>28</td><td><span class="bar "><i style="width:14.1%"></i></span>14%</td><td class='mono'>90 … 1000000003</td><td><span class="chip">92 ×13</span><span class="chip">104 ×13</span><span class="chip">103 ×12</span><span class="chip">94 ×10</span></td></tr><tr><td class='mono'>object_id<span class="badge pk">PK</span><span class="badge fk" title="references object.object_id">FK → object.object_id</span></td><td class='mono muted'>VARCHAR(10)</td><td><span class="bar nulls"><i style="width:0.0%"></i></span>0%</td><td>151</td><td><span class="bar "><i style="width:75.9%"></i></span>76%</td><td class='mono'>INV-00005 … INV-00300</td><td><span class="chip">INV-00057 ×4</span><span class="chip">INV-00005 ×3</span><span class="chip">INV-00105 ×3</span><span class="chip">INV-00110 ×3</span></td></tr></table></div></section><section class='tbl' id='t-object'><h3>object <span class='role dimension'>· dimension</span> <span class='muted'>· 300 rows · 6 columns</span></h3><div class='scroll'><table><tr><th>column</th><th>type</th><th>nulls</th><th>distinct</th><th>uniqueness</th><th>range</th><th>top values</th></tr><tr><td class='mono'>object_id<span class="badge pk">PK</span></td><td class='mono muted'>VARCHAR(10)</td><td><span class="bar nulls"><i style="width:0.0%"></i></span>0%</td><td>300</td><td><span class="bar "><i style="width:100.0%"></i></span>100%</td><td class='mono'>INV-00001 … INV-00300</td><td><span class="chip">INV-00001 ×1</span><span class="chip">INV-00002 ×1</span><span class="chip">INV-00003 ×1</span><span class="chip">INV-00004 ×1</span></td></tr><tr><td class='mono'>title</td><td class='mono muted'>VARCHAR(80)</td><td><span class="bar nulls"><i style="width:2.3%"></i></span>2%</td><td>293</td><td><span class="bar "><i style="width:100.0%"></i></span>100%</td><td class='mono'>Landcsape 240 … Untitled 9</td><td><span class="chip">Landcsape 240 ×1</span><span class="chip">Landscape 107 ×1</span><span class="chip">Landscape 111 ×1</span><span class="chip">Landscape 115 ×1</span></td></tr><tr><td class='mono'>o_l3<span class="badge fk" title="references artist.a_i1g">FK → artist.a_i1g</span></td><td class='mono muted'>INTEGER</td><td><span class="bar nulls"><i style="width:1.3%"></i></span>1%</td><td>44</td><td><span class="bar "><i style="width:14.9%"></i></span>15%</td><td class='mono'>3000 … 1000000008</td><td><span class="chip">3017 ×12</span><span class="chip">3028 ×11</span><span class="chip">3009 ×10</span><span class="chip">3025 ×10</span></td></tr><tr><td class='mono'>o_o4k</td><td class='mono muted'>VARCHAR(60)</td><td><span class="bar nulls"><i style="width:3.0%"></i></span>3%</td><td>32</td><td><span class="bar "><i style="width:11.0%"></i></span>11%</td><td class='mono'>Anna Albers … otte Albers</td><td><span class="chip">Lotte Brandt ×18</span><span class="chip">Lotte Dix ×16</span><span class="chip">Paul Feininger ×16</span><span class="chip">Ida Grosz ×15</span></td></tr><tr><td class='mono'>creation_year</td><td class='mono muted'>INTEGER</td><td><span class="bar nulls"><i style="width:0.7%"></i></span>1%</td><td>98</td><td><span class="bar "><i style="width:32.9%"></i></span>33%</td><td class='mono'>1859 … 1983</td><td><span class="chip">1922 ×9</span><span class="chip">1906 ×7</span><span class="chip">1953 ×7</span><span class="chip">1964 ×7</span></td></tr><tr><td class='mono'>medium</td><td class='mono muted'>VARCHAR(30)</td><td><span class="bar nulls"><i style="width:2.7%"></i></span>3%</td><td>8</td><td><span class="bar "><i style="width:2.7%"></i></span>3%</td><td class='mono'>bronze … watercolour</td><td><span class="chip">charcoal on paper ×52</span><span class="chip">tempera ×52</span><span class="chip">etching ×50</span><span class="chip">oil on canvas ×47</span></td></tr></table></div></section><section class='tbl' id='t-owner'><h3>owner <span class='role dimension'>· dimension</span> <span class='muted'>· 120 rows · 5 columns</span></h3><div class='scroll'><table><tr><th>column</th><th>type</th><th>nulls</th><th>distinct</th><th>uniqueness</th><th>range</th><th>top values</th></tr><tr><td class='mono'>owner_id<span class="badge pk">PK</span></td><td class='mono muted'>INTEGER</td><td><span class="bar nulls"><i style="width:0.0%"></i></span>0%</td><td>120</td><td><span class="bar "><i style="width:100.0%"></i></span>100%</td><td class='mono'>700 … 819</td><td><span class="chip">700 ×1</span><span class="chip">701 ×1</span><span class="chip">702 ×1</span><span class="chip">703 ×1</span></td></tr><tr><td class='mono'>o_l2i</td><td class='mono muted'>VARCHAR(60)</td><td><span class="bar nulls"><i style="width:3.3%"></i></span>3%</td><td>80</td><td><span class="bar "><i style="width:69.0%"></i></span>69%</td><td class='mono'>Amsterdam Kunstverein 18 … Zurich Kunstverein 50</td><td><span class="chip">Paul Albers ×5</span><span class="chip">Clara Grosz ×4</span><span class="chip">Clara Dix ×3</span><span class="chip">Hugo Brandt ×3</span></td></tr><tr><td class='mono'>o_r3</td><td class='mono muted'>VARCHAR(12)</td><td><span class="bar nulls"><i style="width:1.7%"></i></span>2%</td><td>3</td><td><span class="bar "><i style="width:2.5%"></i></span>3%</td><td class='mono'>erson … person</td><td><span class="chip">person ×85</span><span class="chip">institution ×32</span><span class="chip">erson ×1</span></td></tr><tr><td class='mono'>city</td><td class='mono muted'>VARCHAR(30)</td><td><span class="bar nulls"><i style="width:2.5%"></i></span>2%</td><td>10</td><td><span class="bar "><i style="width:8.5%"></i></span>9%</td><td class='mono'>Amsterdam … Zurich</td><td><span class="chip">Berlin ×21</span><span class="chip">London ×15</span><span class="chip">New York ×14</span><span class="chip">Vienna ×14</span></td></tr><tr><td class='mono'>o_k5a</td><td class='mono muted'>VARCHAR(30)</td><td><span class="bar nulls"><i style="width:0.0%"></i></span>0%</td><td>9</td><td><span class="bar "><i style="width:7.5%"></i></span>8%</td><td class='mono'>Austria … United Stats</td><td><span class="chip">Germany ×42</span><span class="chip">France ×17</span><span class="chip">United Kingdom ×16</span><span class="chip">Austria ×14</span></td></tr></table></div></section><section class='tbl' id='t-provenance_event'><h3>provenance_event <span class='role fact'>· fact</span> <span class='muted'>· 933 rows · 6 columns</span></h3><div class='scroll'><table><tr><th>column</th><th>type</th><th>nulls</th><th>distinct</th><th>uniqueness</th><th>range</th><th>top values</th></tr><tr><td class='mono'>p_e1q<span class="badge pk">PK</span></td><td class='mono muted'>INTEGER</td><td><span class="bar nulls"><i style="width:0.0%"></i></span>0%</td><td>933</td><td><span class="bar "><i style="width:100.0%"></i></span>100%</td><td class='mono'>1 … 933</td><td><span class="chip">1 ×1</span><span class="chip">2 ×1</span><span class="chip">3 ×1</span><span class="chip">4 ×1</span></td></tr><tr><td class='mono'>p_j2<span class="badge fk" title="references object.object_id">FK → object.object_id</span></td><td class='mono muted'>VARCHAR(10)</td><td><span class="bar nulls"><i style="width:2.7%"></i></span>3%</td><td>316</td><td><span class="bar "><i style="width:34.8%"></i></span>35%</td><td class='mono'>INV-00001 … INV00152</td><td><span class="chip">INV-00014 ×5</span><span class="chip">INV-00020 ×5</span><span class="chip">INV-00027 ×5</span><span class="chip">INV-00029 ×5</span></td></tr><tr><td class='mono'>p_f3<span class="badge fk" title="references owner.owner_id">FK → owner.owner_id</span></td><td class='mono muted'>INTEGER</td><td><span class="bar nulls"><i style="width:1.7%"></i></span>2%</td><td>134</td><td><span class="bar "><i style="width:14.6%"></i></span>15%</td><td class='mono'>700 … 1000000033</td><td><span class="chip">740 ×14</span><span class="chip">750 ×14</span><span class="chip">807 ×14</span><span class="chip">728 ×13</span></td></tr><tr><td class='mono'>event_type</td><td class='mono muted'>VARCHAR(15)</td><td><span class="bar nulls"><i style="width:2.0%"></i></span>2%</td><td>14</td><td><span class="bar "><i style="width:1.5%"></i></span>2%</td><td class='mono'>auction … uction</td><td><span class="chip">auction ×149</span><span class="chip">confiscation ×136</span><span class="chip">gift ×132</span><span class="chip">loan ×129</span></td></tr><tr><td class='mono'>start_year</td><td class='mono muted'>INTEGER</td><td><span class="bar nulls"><i style="width:2.3%"></i></span>2%</td><td>158</td><td><span class="bar "><i style="width:17.3%"></i></span>17%</td><td class='mono'>1860 … 2050</td><td><span class="chip">1949 ×17</span><span class="chip">1957 ×16</span><span class="chip">1970 ×16</span><span class="chip">1972 ×16</span></td></tr><tr><td class='mono'>previous_event_id<span class="badge fk" title="references provenance_event.p_e1q">FK → provenance_event.p_e1q</span></td><td class='mono muted'>INTEGER</td><td><span class="bar nulls"><i style="width:33.4%"></i></span>33%</td><td>621</td><td><span class="bar "><i style="width:100.0%"></i></span>100%</td><td class='mono'>1 … 1000000039</td><td><span class="chip">1 ×1</span><span class="chip">2 ×1</span><span class="chip">3 ×1</span><span class="chip">5 ×1</span></td></tr></table></div></section>
+<footer>Constraints were discovered automatically and verified on the data; review them before
+enforcing. Statistics: uniqueness = distinct ÷ non-NULL rows.</footer>
+</main>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
+<script>if (window.mermaid) { mermaid.initialize({ startOnLoad: true, theme: 'neutral',
+er: { useMaxWidth: false } }); }</script>
+</body></html>

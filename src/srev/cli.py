@@ -173,6 +173,12 @@ def cmd_discover(args: argparse.Namespace) -> int:
         from srev.htmlreport import write as write_html
 
         write_html(out / "report.html", evidence, result)
+    if args.owl:
+        from srev.ontology import build_plan, to_owl, to_r2rml
+
+        plan = build_plan(evidence, result.constraints)
+        (out / "ontology.ttl").write_text(to_owl(plan))
+        (out / "mapping.r2rml.ttl").write_text(to_r2rml(plan))
     if args.dbt:
         from srev.dbt import build_project
 
@@ -608,6 +614,28 @@ def cmd_summarize(args: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_export_owl(args: argparse.Namespace) -> int:
+    from srev.extract import Evidence
+    from srev.ontology import build_plan, to_ntriples, to_owl, to_r2rml
+
+    plan = build_plan(Evidence.load(args.evidence), _load_verified(args.constraints), args.base)
+    out = Path(args.output)
+    out.mkdir(parents=True, exist_ok=True)
+    (out / "ontology.ttl").write_text(to_owl(plan))
+    (out / "mapping.r2rml.ttl").write_text(to_r2rml(plan))
+    written = ["ontology.ttl", "mapping.r2rml.ttl"]
+    if args.data:
+        with _connect(args) as conn:
+            (out / "data.nt").write_text(to_ntriples(plan, conn, args.max_rows))
+        written.append("data.nt")
+    print(
+        f"{len(plan.classes)} classes, {len(plan.bridges)} many-to-many properties, "
+        f"{len(plan.candidates)} candidate concepts -> {out}/ ({', '.join(written)})",
+        file=sys.stderr,
+    )
+    return 0
+
+
 def cmd_kappa(args: argparse.Namespace) -> int:
     from srev.eval import cohen_kappa
 
@@ -678,6 +706,7 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument("--target-schema", default="normalized")
     p.add_argument("--dbt", action="store_true", help="also write a dbt project to OUT/dbt")
     p.add_argument("--html", action="store_true", help="also write OUT/report.html")
+    p.add_argument("--owl", action="store_true", help="also write OUT/ontology.ttl + R2RML")
     p.add_argument("-o", "--output", default="discovery")
     p.set_defaults(func=cmd_discover)
 
@@ -836,6 +865,16 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument("--ci", action="store_true", help="add bootstrap CIs (macro F1 only)")
     p.add_argument("-o", "--output")
     p.set_defaults(func=cmd_export_latex)
+    p = ex_sub.add_parser("owl", help="OWL ontology + R2RML mapping (+ RDF data)")
+    p.add_argument("--constraints", required=True, help="constraints.json / srev verify output")
+    p.add_argument("--evidence", required=True)
+    p.add_argument("--base", default="http://example.org/srev/", help="base IRI")
+    p.add_argument("--data", action="store_true", help="also write the instances as data.nt")
+    _db_args(p)
+    p.add_argument("--max-rows", type=int, help="rows per table for --data")
+    p.add_argument("-o", "--output", default="ontology")
+    p.set_defaults(func=cmd_export_owl)
+
     p = ex_sub.add_parser("dbt", help="dbt project with tests for the constraints")
     p.add_argument("--constraints", required=True, help="constraints.json / srev verify output")
     p.add_argument("--evidence", required=True)

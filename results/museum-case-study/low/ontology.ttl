@@ -1,0 +1,148 @@
+@prefix : <http://example.org/srev/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<http://example.org/srev/> a owl:Ontology ;
+    rdfs:comment "Extracted by srev from museum_low; review before use." .
+
+:Artist a owl:Class ;
+    rdfs:label "artist" ;
+    rdfs:comment "table artist" .
+:artist_a_i1g a owl:DatatypeProperty, owl:FunctionalProperty ;
+    rdfs:label "artist.a_i1g" ;
+    rdfs:domain :Artist ;
+    rdfs:range xsd:integer .
+:artist_name a owl:DatatypeProperty, owl:FunctionalProperty ;
+    rdfs:label "artist.name" ;
+    rdfs:domain :Artist ;
+    rdfs:range xsd:string .
+:artist_birth_year a owl:DatatypeProperty, owl:FunctionalProperty ;
+    rdfs:label "artist.birth_year" ;
+    rdfs:domain :Artist ;
+    rdfs:range xsd:integer .
+:artist_nationality a owl:DatatypeProperty, owl:FunctionalProperty ;
+    rdfs:label "artist.nationality" ;
+    rdfs:domain :Artist ;
+    rdfs:range xsd:string .
+# key a_i1g: discovered by srev: UCC (artist.a_i1g); uniqueness=1.0
+:Artist owl:hasKey ( :artist_a_i1g ) .
+
+:Exhibition a owl:Class ;
+    rdfs:label "exhibition" ;
+    rdfs:comment "table exhibition" .
+:exhibition_e_a1v a owl:DatatypeProperty, owl:FunctionalProperty ;
+    rdfs:label "exhibition.e_a1v" ;
+    rdfs:domain :Exhibition ;
+    rdfs:range xsd:integer .
+:exhibition_title a owl:DatatypeProperty, owl:FunctionalProperty ;
+    rdfs:label "exhibition.title" ;
+    rdfs:domain :Exhibition ;
+    rdfs:range xsd:string .
+:exhibition_e_d3 a owl:DatatypeProperty, owl:FunctionalProperty ;
+    rdfs:label "exhibition.e_d3" ;
+    rdfs:domain :Exhibition ;
+    rdfs:range xsd:date .
+:exhibition_e_f4 a owl:DatatypeProperty, owl:FunctionalProperty ;
+    rdfs:label "exhibition.e_f4" ;
+    rdfs:domain :Exhibition ;
+    rdfs:range xsd:string .
+# key e_a1v: discovered by srev: UCC (exhibition.e_a1v); uniqueness=1.0
+:Exhibition owl:hasKey ( :exhibition_e_a1v ) .
+
+:Object a owl:Class ;
+    rdfs:label "object" ;
+    rdfs:comment "table object" .
+:object_object_id a owl:DatatypeProperty, owl:FunctionalProperty ;
+    rdfs:label "object.object_id" ;
+    rdfs:domain :Object ;
+    rdfs:range xsd:string .
+:object_title a owl:DatatypeProperty, owl:FunctionalProperty ;
+    rdfs:label "object.title" ;
+    rdfs:domain :Object ;
+    rdfs:range xsd:string .
+:object_o_o4k a owl:DatatypeProperty, owl:FunctionalProperty ;
+    rdfs:label "object.o_o4k" ;
+    rdfs:domain :Object ;
+    rdfs:range xsd:string .
+:object_creation_year a owl:DatatypeProperty, owl:FunctionalProperty ;
+    rdfs:label "object.creation_year" ;
+    rdfs:domain :Object ;
+    rdfs:range xsd:integer .
+:object_medium a owl:DatatypeProperty, owl:FunctionalProperty ;
+    rdfs:label "object.medium" ;
+    rdfs:domain :Object ;
+    rdfs:range xsd:string .
+:object_o_l3 a owl:ObjectProperty, owl:FunctionalProperty ;
+    rdfs:label "object.o_l3" ;
+    rdfs:domain :Object ;
+    rdfs:range :Artist ;
+    rdfs:comment "discovered by srev: FK (object.o_l3) -> (artist.a_i1g); coverage=0.986486" .
+# key object_id: discovered by srev: UCC (object.object_id); uniqueness=1.0
+:Object owl:hasKey ( :object_object_id ) .
+
+:Owner a owl:Class ;
+    rdfs:label "owner" ;
+    rdfs:comment "table owner" .
+:owner_owner_id a owl:DatatypeProperty, owl:FunctionalProperty ;
+    rdfs:label "owner.owner_id" ;
+    rdfs:domain :Owner ;
+    rdfs:range xsd:integer .
+:owner_o_l2i a owl:DatatypeProperty, owl:FunctionalProperty ;
+    rdfs:label "owner.o_l2i" ;
+    rdfs:domain :Owner ;
+    rdfs:range xsd:string .
+:owner_o_r3 a owl:DatatypeProperty, owl:FunctionalProperty ;
+    rdfs:label "owner.o_r3" ;
+    rdfs:domain :Owner ;
+    rdfs:range xsd:string .
+:owner_city a owl:DatatypeProperty, owl:FunctionalProperty ;
+    rdfs:label "owner.city" ;
+    rdfs:domain :Owner ;
+    rdfs:range xsd:string .
+:owner_o_k5a a owl:DatatypeProperty, owl:FunctionalProperty ;
+    rdfs:label "owner.o_k5a" ;
+    rdfs:domain :Owner ;
+    rdfs:range xsd:string .
+# key owner_id: discovered by srev: UCC (owner.owner_id); uniqueness=1.0
+:Owner owl:hasKey ( :owner_owner_id ) .
+
+:ProvenanceEvent a owl:Class ;
+    rdfs:label "provenance_event" ;
+    rdfs:comment "table provenance_event" .
+:provenance_event_p_e1q a owl:DatatypeProperty, owl:FunctionalProperty ;
+    rdfs:label "provenance_event.p_e1q" ;
+    rdfs:domain :ProvenanceEvent ;
+    rdfs:range xsd:integer .
+:provenance_event_event_type a owl:DatatypeProperty, owl:FunctionalProperty ;
+    rdfs:label "provenance_event.event_type" ;
+    rdfs:domain :ProvenanceEvent ;
+    rdfs:range xsd:string .
+:provenance_event_start_year a owl:DatatypeProperty, owl:FunctionalProperty ;
+    rdfs:label "provenance_event.start_year" ;
+    rdfs:domain :ProvenanceEvent ;
+    rdfs:range xsd:integer .
+:provenance_event_p_j2 a owl:ObjectProperty, owl:FunctionalProperty ;
+    rdfs:label "provenance_event.p_j2" ;
+    rdfs:domain :ProvenanceEvent ;
+    rdfs:range :Object ;
+    rdfs:comment "discovered by srev: FK (provenance_event.p_j2) -> (object.object_id); coverage=0.980176" .
+:provenance_event_p_f3 a owl:ObjectProperty, owl:FunctionalProperty ;
+    rdfs:label "provenance_event.p_f3" ;
+    rdfs:domain :ProvenanceEvent ;
+    rdfs:range :Owner ;
+    rdfs:comment "discovered by srev: FK (provenance_event.p_f3) -> (owner.owner_id); coverage=0.984733" .
+:provenance_event_previous_event a owl:ObjectProperty, owl:FunctionalProperty ;
+    rdfs:label "provenance_event.previous_event_id" ;
+    rdfs:domain :ProvenanceEvent ;
+    rdfs:range :ProvenanceEvent ;
+    rdfs:comment "discovered by srev: FK (provenance_event.previous_event_id) -> (provenance_event.p_e1q); coverage=0.990338" .
+# key p_e1q: discovered by srev: UCC (provenance_event.p_e1q); uniqueness=1.0
+:ProvenanceEvent owl:hasKey ( :provenance_event_p_e1q ) .
+
+:loan a owl:ObjectProperty ;
+    rdfs:label "loan" ;
+    rdfs:domain :Exhibition ;
+    rdfs:range :Object ;
+    rdfs:comment "many-to-many via bridge table loan; discovered by srev: UCC (loan.exhibition_id, loan.object_id); uniqueness=1.0" .

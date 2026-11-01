@@ -14,6 +14,7 @@ screenshots were produced by [`docs/media/tools/capture.py`](media/tools/capture
 - [7. Reading the results](#7-reading-the-results)
 - [8. Reproducing a run](#8-reproducing-a-run)
 - [8a. Research extensions](#8a-research-extensions)
+- [8b. Ontology and knowledge-graph export](#8b-ontology-and-knowledge-graph-export)
 - [9. Command reference](#9-command-reference)
 - [10. Troubleshooting](#10-troubleshooting)
 
@@ -359,6 +360,29 @@ srev export latex runs/<run-id> --types FK --ci \
     --variants "profiling,profiling-approx,learned-fk-nologs"       # chosen rows, with CIs
 ```
 
+## 8b. Ontology and knowledge-graph export
+
+Verified constraints can be published as an OWL ontology with a W3C R2RML mapping:
+
+```bash
+srev discover --sqlite collection.sqlite --owl -o discovery          # ontology.ttl + mapping.r2rml.ttl
+srev export owl --constraints discovery/constraints.json --evidence discovery/evidence.json \
+    --base https://example.org/collection/ --data --sqlite collection.sqlite -o kg
+```
+
+| Discovered constraint | OWL / R2RML |
+|---|---|
+| table | `owl:Class` and an R2RML `TriplesMap` with an IRI template built from the key |
+| non-FK column | functional `owl:DatatypeProperty` with an XSD range |
+| foreign key (also self-references) | functional `owl:ObjectProperty`, `rr:parentTriplesMap` + `rr:joinCondition` |
+| key (UCC) | `owl:hasKey` |
+| bridge table (key = two FKs, no other columns) | many-to-many `owl:ObjectProperty` instead of a class |
+| non-key FD `X → A` | candidate class named after `X` (e.g. `owner.city → country` suggests *City*); if `X` is an FK, `A` is annotated as a redundant copy of parent data |
+
+`--data` writes the instances as N-Triples using the same IRIs as the mapping, so the output can
+be loaded into any triple store. A held-out example is in
+[`results/museum-case-study`](../results/museum-case-study/README.md).
+
 ## 9. Command reference
 
 | Command | Purpose | Key options |
@@ -380,6 +404,7 @@ srev export latex runs/<run-id> --types FK --ci \
 | `srev audit kappa A B` | Cohen's κ | |
 | `srev datasets spider ROOT` | list a Spider/BIRD download | `--tables-json` |
 | `srev export latex RUN` | booktabs tables | `--metric`, `--types`, `--variants`, `--ci`, `-o` |
+| `srev export owl` | OWL ontology + R2RML (+ N-Triples) | `--constraints`, `--evidence`, `--base`, `--data`, `--sqlite/--dsn`, `--max-rows`, `-o` |
 | `srev summarize RUN...` | mean ± sd across seeds: Markdown, CSV, LaTeX, noise curves | `-o` |
 | `srev run … --seed N` | override the config seed for repeated runs | |
 | `srev ingest csv PATHS` | load CSV files/folders into a database | `--sqlite/--dsn`, `--delimiter`, `--encoding`, `--max-rows` |

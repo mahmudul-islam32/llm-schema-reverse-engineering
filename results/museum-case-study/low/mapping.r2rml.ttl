@@ -1,0 +1,54 @@
+@prefix rr: <http://www.w3.org/ns/r2rml#> .
+@prefix : <http://example.org/srev/> .
+@prefix map: <http://example.org/srev/mapping#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+map:Artist a rr:TriplesMap ;
+    rr:logicalTable [ rr:tableName "artist" ] ;
+    rr:subjectMap [ rr:template "http://example.org/srev/artist/{a_i1g}" ; rr:class :Artist ] ;
+    rr:predicateObjectMap [ rr:predicate :artist_a_i1g ; rr:objectMap [ rr:column "a_i1g" ; rr:datatype xsd:integer ] ] ;
+    rr:predicateObjectMap [ rr:predicate :artist_name ; rr:objectMap [ rr:column "name" ; rr:datatype xsd:string ] ] ;
+    rr:predicateObjectMap [ rr:predicate :artist_birth_year ; rr:objectMap [ rr:column "birth_year" ; rr:datatype xsd:integer ] ] ;
+    rr:predicateObjectMap [ rr:predicate :artist_nationality ; rr:objectMap [ rr:column "nationality" ; rr:datatype xsd:string ] ] .
+
+map:Exhibition a rr:TriplesMap ;
+    rr:logicalTable [ rr:tableName "exhibition" ] ;
+    rr:subjectMap [ rr:template "http://example.org/srev/exhibition/{e_a1v}" ; rr:class :Exhibition ] ;
+    rr:predicateObjectMap [ rr:predicate :exhibition_e_a1v ; rr:objectMap [ rr:column "e_a1v" ; rr:datatype xsd:integer ] ] ;
+    rr:predicateObjectMap [ rr:predicate :exhibition_title ; rr:objectMap [ rr:column "title" ; rr:datatype xsd:string ] ] ;
+    rr:predicateObjectMap [ rr:predicate :exhibition_e_d3 ; rr:objectMap [ rr:column "e_d3" ; rr:datatype xsd:date ] ] ;
+    rr:predicateObjectMap [ rr:predicate :exhibition_e_f4 ; rr:objectMap [ rr:column "e_f4" ; rr:datatype xsd:string ] ] .
+
+map:Object a rr:TriplesMap ;
+    rr:logicalTable [ rr:tableName "object" ] ;
+    rr:subjectMap [ rr:template "http://example.org/srev/object/{object_id}" ; rr:class :Object ] ;
+    rr:predicateObjectMap [ rr:predicate :object_object_id ; rr:objectMap [ rr:column "object_id" ; rr:datatype xsd:string ] ] ;
+    rr:predicateObjectMap [ rr:predicate :object_title ; rr:objectMap [ rr:column "title" ; rr:datatype xsd:string ] ] ;
+    rr:predicateObjectMap [ rr:predicate :object_o_o4k ; rr:objectMap [ rr:column "o_o4k" ; rr:datatype xsd:string ] ] ;
+    rr:predicateObjectMap [ rr:predicate :object_creation_year ; rr:objectMap [ rr:column "creation_year" ; rr:datatype xsd:integer ] ] ;
+    rr:predicateObjectMap [ rr:predicate :object_medium ; rr:objectMap [ rr:column "medium" ; rr:datatype xsd:string ] ] ;
+    rr:predicateObjectMap [ rr:predicate :object_o_l3 ; rr:objectMap [ rr:parentTriplesMap map:Artist ; rr:joinCondition [ rr:child "o_l3" ; rr:parent "a_i1g" ] ] ] .
+
+map:Owner a rr:TriplesMap ;
+    rr:logicalTable [ rr:tableName "owner" ] ;
+    rr:subjectMap [ rr:template "http://example.org/srev/owner/{owner_id}" ; rr:class :Owner ] ;
+    rr:predicateObjectMap [ rr:predicate :owner_owner_id ; rr:objectMap [ rr:column "owner_id" ; rr:datatype xsd:integer ] ] ;
+    rr:predicateObjectMap [ rr:predicate :owner_o_l2i ; rr:objectMap [ rr:column "o_l2i" ; rr:datatype xsd:string ] ] ;
+    rr:predicateObjectMap [ rr:predicate :owner_o_r3 ; rr:objectMap [ rr:column "o_r3" ; rr:datatype xsd:string ] ] ;
+    rr:predicateObjectMap [ rr:predicate :owner_city ; rr:objectMap [ rr:column "city" ; rr:datatype xsd:string ] ] ;
+    rr:predicateObjectMap [ rr:predicate :owner_o_k5a ; rr:objectMap [ rr:column "o_k5a" ; rr:datatype xsd:string ] ] .
+
+map:ProvenanceEvent a rr:TriplesMap ;
+    rr:logicalTable [ rr:tableName "provenance_event" ] ;
+    rr:subjectMap [ rr:template "http://example.org/srev/provenance_event/{p_e1q}" ; rr:class :ProvenanceEvent ] ;
+    rr:predicateObjectMap [ rr:predicate :provenance_event_p_e1q ; rr:objectMap [ rr:column "p_e1q" ; rr:datatype xsd:integer ] ] ;
+    rr:predicateObjectMap [ rr:predicate :provenance_event_event_type ; rr:objectMap [ rr:column "event_type" ; rr:datatype xsd:string ] ] ;
+    rr:predicateObjectMap [ rr:predicate :provenance_event_start_year ; rr:objectMap [ rr:column "start_year" ; rr:datatype xsd:integer ] ] ;
+    rr:predicateObjectMap [ rr:predicate :provenance_event_p_j2 ; rr:objectMap [ rr:parentTriplesMap map:Object ; rr:joinCondition [ rr:child "p_j2" ; rr:parent "object_id" ] ] ] ;
+    rr:predicateObjectMap [ rr:predicate :provenance_event_p_f3 ; rr:objectMap [ rr:parentTriplesMap map:Owner ; rr:joinCondition [ rr:child "p_f3" ; rr:parent "owner_id" ] ] ] ;
+    rr:predicateObjectMap [ rr:predicate :provenance_event_previous_event ; rr:objectMap [ rr:parentTriplesMap map:ProvenanceEvent ; rr:joinCondition [ rr:child "previous_event_id" ; rr:parent "p_e1q" ] ] ] .
+
+map:Loan a rr:TriplesMap ;
+    rr:logicalTable [ rr:tableName "loan" ] ;
+    rr:subjectMap [ rr:template "http://example.org/srev/exhibition/{exhibition_id}" ] ;
+    rr:predicateObjectMap [ rr:predicate :loan ; rr:objectMap [ rr:template "http://example.org/srev/object/{object_id}" ] ] .

@@ -120,6 +120,25 @@ cannot reach p < 0.125, so significance claims need more databases (Spider/BIRD)
   this environment); the Python profilers compute the same exact dependency sets up to the
   configured arity, but runtime comparisons are not meaningful.
 
+## Held-out case study: museum collection to ontology
+
+The museum generator (artists, objects, owners, a self-referencing provenance chain, exhibitions,
+loans) is not part of the discovery model's training data. `srev discover` followed by ontology
+export, mean over three seeds ([details](../results/museum-case-study/README.md)):
+
+| Condition | FK P / R | UCC F1 | FD recall |
+|---|---|---|---|
+| clean | 1.00 / 1.00 | 1.00 | 1.00 |
+| noise L1 | 1.00 / 1.00 | 1.00 | 0.00 |
+| noise L2 | 1.00 / 0.89 | 1.00 | 0.00 |
+| cryptic names | 1.00 / 1.00 | 0.78 | 1.00 |
+| misleading names | 1.00 / 0.94 | 0.61 | 1.00 |
+
+On clean data the extracted ontology has five classes, the loan table as a many-to-many property
+and a candidate *City* concept from the FD `owner.city → country`. Under noise the curated FDs
+exceed `discover`'s 0.02 g3 threshold and are lost. Without meaningful names, `discover`'s
+preference for key-like column names no longer picks the right keys (UCC F1 0.78 and 0.61).
+
 ## How to add the LLM runs
 
 ```bash

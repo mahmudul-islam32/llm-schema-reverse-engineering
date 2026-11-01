@@ -1,0 +1,153 @@
+@prefix : <http://example.org/srev/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<http://example.org/srev/> a owl:Ontology ;
+    rdfs:comment "Extracted by srev from museum_none; review before use." .
+
+:Artist a owl:Class ;
+    rdfs:label "artist" ;
+    rdfs:comment "table artist" .
+:artist_artist_id a owl:DatatypeProperty, owl:FunctionalProperty ;
+    rdfs:label "artist.artist_id" ;
+    rdfs:domain :Artist ;
+    rdfs:range xsd:integer .
+:artist_name a owl:DatatypeProperty, owl:FunctionalProperty ;
+    rdfs:label "artist.name" ;
+    rdfs:domain :Artist ;
+    rdfs:range xsd:string .
+:artist_birth_year a owl:DatatypeProperty, owl:FunctionalProperty ;
+    rdfs:label "artist.birth_year" ;
+    rdfs:domain :Artist ;
+    rdfs:range xsd:integer .
+:artist_nationality a owl:DatatypeProperty, owl:FunctionalProperty ;
+    rdfs:label "artist.nationality" ;
+    rdfs:domain :Artist ;
+    rdfs:range xsd:string .
+# key artist_id: discovered by srev: UCC (artist.artist_id); uniqueness=1.0
+:Artist owl:hasKey ( :artist_artist_id ) .
+
+:Exhibition a owl:Class ;
+    rdfs:label "exhibition" ;
+    rdfs:comment "table exhibition" .
+:exhibition_exhibition_id a owl:DatatypeProperty, owl:FunctionalProperty ;
+    rdfs:label "exhibition.exhibition_id" ;
+    rdfs:domain :Exhibition ;
+    rdfs:range xsd:integer .
+:exhibition_title a owl:DatatypeProperty, owl:FunctionalProperty ;
+    rdfs:label "exhibition.title" ;
+    rdfs:domain :Exhibition ;
+    rdfs:range xsd:string .
+:exhibition_opening a owl:DatatypeProperty, owl:FunctionalProperty ;
+    rdfs:label "exhibition.opening" ;
+    rdfs:domain :Exhibition ;
+    rdfs:range xsd:date .
+:exhibition_venue a owl:DatatypeProperty, owl:FunctionalProperty ;
+    rdfs:label "exhibition.venue" ;
+    rdfs:domain :Exhibition ;
+    rdfs:range xsd:string .
+# key exhibition_id: discovered by srev: UCC (exhibition.exhibition_id); uniqueness=1.0
+:Exhibition owl:hasKey ( :exhibition_exhibition_id ) .
+
+:Object a owl:Class ;
+    rdfs:label "object" ;
+    rdfs:comment "table object" .
+:object_object_id a owl:DatatypeProperty, owl:FunctionalProperty ;
+    rdfs:label "object.object_id" ;
+    rdfs:domain :Object ;
+    rdfs:range xsd:string .
+:object_title a owl:DatatypeProperty, owl:FunctionalProperty ;
+    rdfs:label "object.title" ;
+    rdfs:domain :Object ;
+    rdfs:range xsd:string .
+:object_artist_name a owl:DatatypeProperty, owl:FunctionalProperty ;
+    rdfs:label "object.artist_name" ;
+    rdfs:domain :Object ;
+    rdfs:range xsd:string ;
+    rdfs:comment "redundant copy of parent data, determined by FK column(s) artist_id; discovered by srev: FD (object.artist_id) -> object.artist_name; g3=0.0" .
+:object_creation_year a owl:DatatypeProperty, owl:FunctionalProperty ;
+    rdfs:label "object.creation_year" ;
+    rdfs:domain :Object ;
+    rdfs:range xsd:integer .
+:object_medium a owl:DatatypeProperty, owl:FunctionalProperty ;
+    rdfs:label "object.medium" ;
+    rdfs:domain :Object ;
+    rdfs:range xsd:string .
+:object_artist a owl:ObjectProperty, owl:FunctionalProperty ;
+    rdfs:label "object.artist_id" ;
+    rdfs:domain :Object ;
+    rdfs:range :Artist ;
+    rdfs:comment "discovered by srev: FK (object.artist_id) -> (artist.artist_id); coverage=1.0" .
+# key object_id: discovered by srev: UCC (object.object_id); uniqueness=1.0
+:Object owl:hasKey ( :object_object_id ) .
+
+:Owner a owl:Class ;
+    rdfs:label "owner" ;
+    rdfs:comment "table owner" .
+:owner_owner_id a owl:DatatypeProperty, owl:FunctionalProperty ;
+    rdfs:label "owner.owner_id" ;
+    rdfs:domain :Owner ;
+    rdfs:range xsd:integer .
+:owner_name a owl:DatatypeProperty, owl:FunctionalProperty ;
+    rdfs:label "owner.name" ;
+    rdfs:domain :Owner ;
+    rdfs:range xsd:string .
+:owner_owner_type a owl:DatatypeProperty, owl:FunctionalProperty ;
+    rdfs:label "owner.owner_type" ;
+    rdfs:domain :Owner ;
+    rdfs:range xsd:string .
+:owner_city a owl:DatatypeProperty, owl:FunctionalProperty ;
+    rdfs:label "owner.city" ;
+    rdfs:domain :Owner ;
+    rdfs:range xsd:string .
+:owner_country a owl:DatatypeProperty, owl:FunctionalProperty ;
+    rdfs:label "owner.country" ;
+    rdfs:domain :Owner ;
+    rdfs:range xsd:string .
+# key owner_id: discovered by srev: UCC (owner.owner_id); uniqueness=1.0
+:Owner owl:hasKey ( :owner_owner_id ) .
+
+:ProvenanceEvent a owl:Class ;
+    rdfs:label "provenance_event" ;
+    rdfs:comment "table provenance_event" .
+:provenance_event_event_id a owl:DatatypeProperty, owl:FunctionalProperty ;
+    rdfs:label "provenance_event.event_id" ;
+    rdfs:domain :ProvenanceEvent ;
+    rdfs:range xsd:integer .
+:provenance_event_event_type a owl:DatatypeProperty, owl:FunctionalProperty ;
+    rdfs:label "provenance_event.event_type" ;
+    rdfs:domain :ProvenanceEvent ;
+    rdfs:range xsd:string .
+:provenance_event_start_year a owl:DatatypeProperty, owl:FunctionalProperty ;
+    rdfs:label "provenance_event.start_year" ;
+    rdfs:domain :ProvenanceEvent ;
+    rdfs:range xsd:integer .
+:provenance_event_object a owl:ObjectProperty, owl:FunctionalProperty ;
+    rdfs:label "provenance_event.object_id" ;
+    rdfs:domain :ProvenanceEvent ;
+    rdfs:range :Object ;
+    rdfs:comment "discovered by srev: FK (provenance_event.object_id) -> (object.object_id); coverage=1.0" .
+:provenance_event_owner a owl:ObjectProperty, owl:FunctionalProperty ;
+    rdfs:label "provenance_event.owner_id" ;
+    rdfs:domain :ProvenanceEvent ;
+    rdfs:range :Owner ;
+    rdfs:comment "discovered by srev: FK (provenance_event.owner_id) -> (owner.owner_id); coverage=1.0" .
+:provenance_event_previous_event a owl:ObjectProperty, owl:FunctionalProperty ;
+    rdfs:label "provenance_event.previous_event_id" ;
+    rdfs:domain :ProvenanceEvent ;
+    rdfs:range :ProvenanceEvent ;
+    rdfs:comment "discovered by srev: FK (provenance_event.previous_event_id) -> (provenance_event.event_id); coverage=1.0" .
+# key event_id: discovered by srev: UCC (provenance_event.event_id); uniqueness=1.0
+:ProvenanceEvent owl:hasKey ( :provenance_event_event_id ) .
+
+:loan a owl:ObjectProperty ;
+    rdfs:label "loan" ;
+    rdfs:domain :Exhibition ;
+    rdfs:range :Object ;
+    rdfs:comment "many-to-many via bridge table loan; discovered by srev: UCC (loan.exhibition_id, loan.object_id); uniqueness=1.0" .
+
+:City a owl:Class ;
+    rdfs:label "City" ;
+    rdfs:comment "candidate concept: determinant of a non-key functional dependency; discovered by srev: FD (owner.city) -> owner.country; g3=0.0; attributes: country" .

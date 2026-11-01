@@ -1,169 +1,219 @@
-# PhD Research Proposal (Exposé)
+# PhD Research Proposal
 
-## Semantic Data Profiling: Combining Language Models with Dependency Discovery to Reverse-Engineer Undocumented Databases
+## Semantic Data Profiling: Discovering Genuine Dependencies and Extracting Ontologies from Undocumented Data
 
 **Applicant:** Mahmudul Islam · M.Sc. Computer Science, University of Rostock
-**Intended group:** Information Systems, Hasso Plattner Institute, University of Potsdam (Prof. Dr. Felix Naumann)
-**Artefact:** this repository, an implemented and tested research toolkit (`srev`)
+**Intended position:** PhD position – Data Integration, Information Systems group, Hasso Plattner Institute (Prof. Dr. Felix Naumann); see [JOB_MATCH.md](JOB_MATCH.md)
+**Artefact:** this repository, an implemented and tested research toolkit (`srev`, 110 tests)
 
-> **Status of this document.** This is a draft exposé, written to start a conversation. The
-> numbers in §6 come from the non-LLM benchmark on generated data (three seeds); no LLM
-> experiments have been run yet. References marked † should be checked against the original
-> sources before formal submission. Check the group's current research focus on its website
-> before contacting it, and fill in the bracketed placeholders.
+> **Status.** Draft for an application. The numbers in §6 come from the non-LLM benchmark and a
+> held-out case study on generated data; no LLM experiment has been run yet. Entries marked † in
+> §12 must be checked against the original sources. Fill in the bracketed placeholders.
 
 ---
 
 ### 1. Summary
 
-Many production databases have no declared foreign keys, keys or documentation. Data-profiling
-algorithms can find *every* dependency that holds in the data, but most of them hold by accident,
-and exact algorithms break on the first dirty value. Humans resolve this with semantics:
-`cust_no` probably references `tbl_cust.cust_no`. Large language models (LLMs) encode this kind
-of semantics but also hallucinate.
+Most data that organisations, archives and museums hold is structured but undocumented: keys,
+foreign keys and the concepts behind the tables were never declared, or were lost in exports.
+Data-profiling algorithms can discover every dependency that holds in such data, but they cannot
+tell which of them the designer *meant*, and exact algorithms fail on the first dirty value.
+Without that distinction neither a relational model nor an ontology can be reconstructed
+reliably, and data quality cannot be judged against the intended structure.
 
-This project asks **when semantic signals from LLMs make data profiling more useful, and when
-they mislead it**. It contributes (i) a reproducible benchmark and toolkit that compares
-LLM-based, learned, exact and approximate profiling under controlled "legacy" noise, (ii)
-methods that combine statistical evidence with semantic plausibility to decide which discovered
-dependencies are *genuine*, and (iii) an end-to-end path from an undocumented database to a
-verified, normalised relational model, the topic of my master's thesis.
+This project develops **semantic data profiling**: dependency discovery that combines statistical
+evidence from the data with semantic evidence from names, values, query usage and language models,
+and that turns the resulting *genuine* dependencies into a verified relational model and an OWL
+ontology with a standard (R2RML) mapping. It contributes:
+1. methods to rank discovered dependencies by genuineness;
+2. dependency-driven ontology extraction that recovers hidden concepts from functional
+   dependencies;
+3. the use of dependency violations as data-quality signals;
+4. benchmarks and case studies, including cultural-heritage collections.
 
-### 2. Background and motivation
+### 2. Motivation
 
-**Starting point (master's thesis).** My M.Sc. thesis at the University of Rostock studied
-reverse engineering existing databases for the subsequent creation of an explicit relational
-model *[thesis title, supervisor, year]*. The central lesson was that the hard part is not
-enumerating candidate keys and dependencies but deciding which of them reflect the intended
-design.
+My M.Sc. thesis at the University of Rostock, *[thesis title]* (supervised by *[name]*,
+*[year]*), reverse-engineered existing databases into explicit relational models. Its lesson is
+that enumerating candidate keys and dependencies is not the hard part. Deciding which candidates
+reflect the intended design is. Three observations from the preliminary work make the problem
+concrete:
 
-**Data profiling.** Dependency discovery is a mature field: unique column combinations (UCCs),
-functional dependencies (FDs) and inclusion dependencies (INDs) can be discovered efficiently
-and completely (e.g. HyFD, HyUCC, BINDER in the Metanome platform), and approximate variants
-tolerate dirty data (e.g. Pyro). Two open problems remain for reverse engineering:
+- **Precision is the bottleneck.** On four generated databases, exact profiling recovers every
+  gold foreign key (recall 1.00) at precision 0.45. 88% of its output holds in the data without
+  being intended. For FDs, precision is about 1.4%.
+- **Dirt breaks exact discovery.** At the lowest noise level, exact FK discovery drops from F1
+  0.68 to 0.16, while approximate discovery stays at 0.67.
+- **Names help and mislead.** A names-based method falls from F1 0.86 to 0.14 when the same data
+  carries permuted names. Data-driven methods are unaffected.
 
-1. **Genuineness.** Complete discovery returns orders of magnitude more dependencies than a
-   designer intended. In our pilot, the exact profiler returns 45 to 429 minimal FDs per
-   database while the curated gold sets have zero to four, giving an FD precision of about 1%.
-2. **Semantics.** Names, value formats and query usage carry meaning that statistics ignore.
-   Rostin et al. showed that FK discovery benefits from learning over such features; LLMs now
-   offer a much richer, but less reliable, source of semantics.
+Language models know a lot about how data is usually modelled (`cust_no` probably references a
+customer table; `city` determines `country`), but they hallucinate and may have memorised public
+schemas. The project asks how to use such semantic knowledge *without* giving up the guarantees of
+profiling, and how far it takes us from dependencies to ontologies.
 
-### 3. Research questions
+### 3. Background
+
+- **Data profiling** discovers metadata such as unique column combinations (UCCs), functional
+  dependencies (FDs) and inclusion dependencies (INDs). Hybrid algorithms (HyFD, HyUCC) and
+  divide-and-conquer IND discovery (BINDER) in the Metanome platform make complete discovery
+  feasible on large data. Approximate dependency discovery (Pyro) tolerates errors.
+- **Foreign-key discovery** builds on INDs. Rostin et al. showed that a learned classifier over
+  IND features separates genuine FKs from accidental inclusions. Multi-column FK discovery adds
+  combinatorial challenges.
+- **Relational-to-RDF mapping** is standardised by the W3C Direct Mapping and R2RML
+  recommendations. Both rely on declared keys and foreign keys, which undocumented data lacks.
+- **Language models for data management** can match, impute and clean data (e.g. Narayan et al.),
+  but their reliability on structure discovery and their tendency to hallucinate are not well
+  measured.
+- **Data quality assessment** asks whether data is fit for a task, including AI training (e.g.
+  the group's Metis project and the *five facets* view of data, source, system, task and human).
+  Dependencies are a natural yardstick: violations of genuine dependencies are quality problems,
+  and violations of accidental ones are not.
+
+### 4. Research questions
 
 | | Question |
 |---|---|
-| **RQ1** | How does LLM-only discovery of FKs, UCCs and FDs compare with exact, approximate and learned profiling in precision, recall and F1? |
-| **RQ2** | Which evidence (names, statistics, samples, query logs) do LLMs actually use, and which do they need? |
-| **RQ3** | How does each method degrade as legacy noise increases (cryptic names, NULLs, typos, orphan references)? |
-| **RQ4** | What kinds of hallucinations occur, and how many does data verification remove? |
-| **RQ5** | Do hybrids, where profilers enumerate and models rank, beat both components? |
-| **RQ6** | Can semantic plausibility separate genuine from accidental FDs, the weakest point of all current methods? |
-| **RQ7** | How much do methods rely on names, and on memorised public schemas, rather than on data? |
+| **RQ1 Genuineness** | Which discovered UCCs, FDs and FKs are intended? How well do statistical, learned and LLM-based signals, and their combinations, separate genuine from accidental dependencies? |
+| **RQ2 Robustness** | How should discovery and verification adapt to dirty data so that genuine dependencies survive noise and accidental ones do not? |
+| **RQ3 Ontology extraction** | How accurately can an ontology (classes, relations, keys, hidden concepts) be reconstructed from genuine dependencies, compared with reference ontologies and mappings? |
+| **RQ4 Name reliance** | How much do methods, and LLMs in particular, rely on names or memorised schemas rather than data, and how can verification contain the resulting hallucinations? |
+| **RQ5 Quality** | Can violations of genuine dependencies serve as data-quality indicators, for example for fitness of data for AI training? |
 
-### 4. Approach
+### 5. Approach
 
-The toolkit implements the full experimental pipeline, so the first year can focus on
-experiments rather than infrastructure.
+**WP1: Genuine-dependency ranking (RQ1, RQ4).** Start from the complete candidate sets of exact
+and approximate profilers (Metanome's HyFD, HyUCC and BINDER, and approximate variants). Score
+them with:
+- statistical features (coverage, redundancy, g3 error, cardinalities);
+- schema features (names, types, positions);
+- usage features (join frequencies in query logs);
+- priors elicited from small open language models.
 
-| Component | What it provides | Research question |
-|---|---|---|
-| Benchmark preparation | Gold labels from declared and curated constraints; seeded noise L0–L3; Spider/BIRD loader for breadth | RQ1, RQ3 |
-| Name-reliance probes | Same data with abbreviated, cryptic or *misleading* (permuted) names | RQ7 |
-| Exact and approximate profiling | Minimal UCCs, FDs (g3 error), partial INDs, FK candidates; Metanome wrapper | RQ1, RQ3 |
-| Learned FK classifier | Rostin-style features (coverage, uniqueness, names, query log), logistic regression, leave-one-dataset-out | RQ1, RQ5 |
-| LLM proposer | Evidence-channel ablation, prompt paraphrases, JSON-schema output, cached and replayable | RQ1, RQ2 |
-| Hybrid ranking | Profiler candidates scored by an LLM or by rules | RQ5, RQ6 |
-| SQL verifier | FK coverage, UCC uniqueness, FD g3 for every proposal | RQ4 |
-| Evaluation | P/R/F1 per type, top-k, bootstrap CIs, paired tests, hallucination taxonomy, Cohen's κ | all |
-| Synthesis | BCNF decomposition to DDL and an ER diagram with an evidence trace | thesis continuity |
+Compare learned rankers, LLM rankers and hybrids under a fixed budget. Verify every accepted
+dependency on the data. Name probes (abbreviated, cryptic and misleading names on identical data)
+measure name reliance.
 
-Design principles: open-weight models served with vLLM for reproducibility, temperature 0 with
-recorded seeds, verification kept separate from proposal, and run manifests that let every
-reported number be re-computed (`srev reproduce --replay`).
+**WP2: Dependency-driven ontology extraction (RQ3).** Extend direct mapping beyond declared
+constraints with three mechanisms:
+- discovered keys become `owl:hasKey`;
+- genuine FKs become object properties, including self-references and many-to-many bridges;
+- non-key FDs reveal hidden concepts; for example, `owner.city → country` suggests a *City*
+  class, as in a BCNF decomposition.
 
-### 5. Planned contributions
+Generate R2RML mappings so the data can be published as a knowledge graph, with the evidence for
+every axiom attached. Evaluate against reference ontologies and mappings, with per-axiom precision
+and recall and a modeller study.
 
-1. **A benchmark protocol for semantic data profiling** with controlled noise, name probes and a
-   hallucination taxonomy, released as open source with reproducible runs.
-2. **An empirical study (RQ1–RQ5)** of LLMs against exact, approximate and learned profilers,
-   including where semantics help and where they mislead.
-3. **Methods for genuine-dependency ranking (RQ6)** that combine dependency statistics
-   (redundancy, error, coverage) with semantic plausibility from small open models, aimed at the
-   FD precision problem.
-4. **LLM-guided search (later stage):** using semantic priors to order or prune the candidate
-   lattice of dependency discovery, so profilers evaluate likely-genuine candidates first.
-5. **End-to-end reverse engineering:** from an undocumented database to a verified, normalised
-   relational model with traceable evidence, extending my master's thesis.
+**WP3: Dependencies as quality signals, and cultural-heritage case studies (RQ2, RQ5).** Use
+violation rates of genuine dependencies (orphans, g3 error, duplicate keys) as data-quality
+indicators and monitor them over time. Test whether they predict downstream problems, for example
+in training data. Apply the pipeline to collection and provenance data from museums and archives,
+where documentation is scarce and relationships such as ownership chains matter.
 
-### 6. Preliminary results (benchmark without LLMs)
+### 6. Preliminary work
 
-The full protocol has been run for every method that needs no language model: four generated
-databases (TPC-H-shaped, university, legacy retail without declared FKs, airline with a
-self-reference), noise levels L0–L3, three name probes, three seeds. Details, precision/recall,
-hallucination counts and all caveats: [RESULTS.md](RESULTS.md). Foreign-key macro F1, mean over
-three seeds (sd ≤ 0.03 unless shown):
+The toolkit `srev` implements the pipeline end to end; source, tests, benchmark configuration and
+results are in this repository.
+- **Discovery:** exact and approximate profiling, a Metanome wrapper, a learned FK classifier
+  (Rostin-style features, leave-one-dataset-out), a prompt builder and client for open LLMs served
+  by vLLM, and an SQL verifier.
+- **Evaluation:** an evaluation harness with bootstrap CIs and a hallucination taxonomy, a noise
+  injector with name probes, and a Spider/BIRD loader.
+- **Outputs:** BCNF/DDL synthesis, ontology and R2RML export, dbt tests, data-quality checks with
+  drift detection, and an HTML profiling report.
+
+**Benchmark (non-LLM methods, 4 databases × 7 conditions × 3 seeds;** [RESULTS.md](RESULTS.md)**).**
+FK macro F1:
 
 | Method | L0 | L1 | L2 | L3 | misleading names |
 |---|---|---|---|---|---|
-| Exact profiling (INDs into UCCs) | 0.68 | 0.16 | 0.07 | 0.02 | 0.68 |
-| Approximate profiling (partial INDs, g3) | 0.67 | 0.67 | 0.67 | 0.64 | 0.67 |
-| Names-only heuristic + verifier | 0.86 | 0.55 ± 0.09 | 0.25 ± 0.09 | – | 0.14 ± 0.20 |
-| Names + statistics heuristic + verifier | 0.97 | 0.76 | 0.59 | 0.37 ± 0.06 | 0.71 ± 0.04 |
-| Learned FK classifier (no query-log feature) | 0.87 | 0.86 | 0.79 | 0.76 | 0.85 |
+| Exact profiling | 0.68 | 0.16 | 0.07 | 0.02 | 0.68 |
+| Approximate profiling | 0.67 | 0.67 | 0.67 | 0.64 | 0.67 |
+| Names-only heuristic + verifier | 0.86 | 0.55 | 0.25 | – | 0.14 |
+| Learned FK classifier (no query log) | 0.87 | 0.86 | 0.79 | 0.76 | 0.85 |
 
-What the benchmark shows, and what it leaves for the LLM experiments:
+For FDs no method exceeds F1 0.53, and the exact profiler's FD precision is about 1.4%: genuine
+FD discovery is the open problem RQ1 targets.
 
-- **Noise breaks exact discovery** (0.68 → 0.16 at the lowest level) but not approximate
-  discovery, so LLMs must be compared against an approximate baseline (RQ3).
-- **Precision, not completeness, is the bottleneck**: profilers reach FK recall 1.00 at precision
-  0.42–0.45, and 88% of the exact profiler's output holds in the data without being intended.
-- **Genuine FDs are unsolved** (RQ6): the exact profiler's FD precision is about 1.4% on clean
-  data, the best method reaches FD F1 0.53, and semantic FDs such as `zip_code → city` are found
-  by none.
-- **Names mislead** (RQ7): on identical data with permuted names, the names-only method falls from
-  0.86 to 0.14, while data-driven methods are unaffected. This is the decisive test for LLMs.
-- **Learned features**: the distinct-value ratio and row coverage dominate; name similarity adds
-  little. With a query-log feature the model reaches 0.98 at every level, an artefact of generated
-  workloads that mention every gold FK, which motivates real workloads (Spider/BIRD, JOB).
+**Held-out case study: museum collection to ontology** ([results/museum-case-study](../results/museum-case-study/README.md)).
+A museum schema (artists, objects, owners, a self-referencing provenance chain, exhibitions and
+loans) that the discovery model never saw in training. One-shot discovery followed by ontology
+extraction, mean over three seeds:
 
-Caveats: four small generated databases with author-designed gold labels, Metanome not yet run,
-and four databases are too few for significance tests (minimum p = 0.125). The LLM runs use the
-same configuration (`configs/experiment.yaml`) and are the first step of the work plan.
+| Condition | FK P / R | UCC F1 | FD recall | Ontology |
+|---|---|---|---|---|
+| clean | 1.00 / 1.00 | 1.00 | 1.00 | 5 classes, loan as many-to-many property, *City* as candidate concept |
+| noise L1 | 1.00 / 1.00 | 1.00 | 0.00 | 5 classes, many-to-many kept; FDs lost to noise |
+| noise L2 | 1.00 / 0.89 | 1.00 | 0.00 | 5.7 classes on average (missed FKs break the bridge) |
+| cryptic names | 1.00 / 1.00 | 0.78 | 1.00 | structure kept; names meaningless |
+| misleading names | 1.00 / 0.94 | 0.61 | 1.00 | structure mostly kept |
 
-Reproduce: `srev run --config configs/benchmark.yaml --seed 1` (about 1 minute on 4 cores),
-repeat for seeds 2 and 3, then `srev summarize` and `srev export latex`.
+The case study shows the full path the project targets (undocumented tables → verified
+dependencies → ontology and mapping). It also shows the next problems: FDs disappear under noise
+(RQ2), and key choice degrades without meaningful names (RQ4).
 
-### 7. Work plan (three years)
+### 7. Evaluation methodology
 
-| Period | Work | Output |
+- **Data:**
+  - generated databases with controlled noise;
+  - public benchmarks with annotated keys (TPC-H, Spider/BIRD, IMDB/JOB join graph);
+  - real collection data (museum and archive exports) with expert-curated gold sets;
+  - reference ontologies or mappings where available.
+- **Metrics:**
+  - precision, recall and F1 per dependency type, exact and overlap match, top-k at a fixed
+    budget;
+  - per-axiom precision and recall for ontologies;
+  - hallucination categories;
+  - cost (runtime, tokens).
+- **Statistics:** several seeds, bootstrap CIs and paired tests over databases. Breadth from
+  Spider/BIRD makes the tests meaningful; with four databases the minimum attainable p is 0.125.
+- **Reproducibility:** pinned open models, temperature 0, cached responses and run manifests,
+  so every number can be re-computed.
+
+### 8. Work plan
+
+| Period | Work | Planned output |
 |---|---|---|
-| Months 1–6 | Real benchmarks (TPC-H `dbgen`, Spider/BIRD, a real-world schema with declared FKs); two open model families × two sizes; RQ1–RQ3 | Workshop paper (e.g. at a SIGMOD/VLDB workshop) |
-| Months 7–12 | Hallucination study with manual audit (two annotators, κ); verification and hybrid ranking (RQ4, RQ5); name probes (RQ7) | Conference submission |
-| Year 2 | Genuine-dependency ranking for FDs and FKs combining statistics and semantics; comparison with learned and approximate baselines (RQ6) | Main conference paper |
-| Year 2–3 | LLM-guided candidate ordering and pruning for dependency discovery; efficiency study on large tables | Paper |
-| Year 3 | End-to-end reverse engineering to normalised models, case study on a legacy system, dissertation | Dissertation |
+| Months 1–6 | Metanome baselines; LLM study on generated and Spider/BIRD databases (RQ1, RQ4); first real collection dataset | workshop paper on LLMs vs. profiling for dependency discovery |
+| Months 7–15 | Genuine-dependency ranking combining profiler candidates, learned and LLM signals (WP1); robust verification (RQ2) | conference paper |
+| Months 16–26 | Dependency-driven ontology extraction and evaluation against reference ontologies (WP2) | conference paper and open dataset |
+| Months 24–32 | Dependencies as quality signals; cultural-heritage case studies (WP3) | journal or conference paper |
+| Months 30–36 | Integration, dissertation | dissertation, released toolkit |
 
-### 8. Fit with the Information Systems group
+### 9. Expected contributions
 
-The project builds directly on the group's data-profiling line: complete and approximate
-dependency discovery (Metanome, HyFD, HyUCC, BINDER, Pyro) and learned FK discovery (Rostin et
-al.). It adds a question these algorithms leave open, namely which discovered dependencies are
-*meaningful*, and tests whether today's language models can answer it reliably. The toolkit
-already wraps Metanome and implements approximate discovery, so results can be compared with the
-group's algorithms from the start.
+1. Methods that separate genuine from accidental dependencies by combining profiling with semantic
+   signals, verified on data.
+2. Dependency-driven ontology extraction for undocumented relational data, including discovery of
+   hidden concepts, with standard R2RML output.
+3. Evidence on when language models help or mislead structure discovery (name reliance,
+   hallucinations, memorisation).
+4. Dependency-based data-quality indicators.
+5. Open benchmarks, case studies and a reproducible toolkit.
 
-### 9. Risks and mitigation
+### 10. Fit with the group
+
+The project continues the group's line from complete and approximate dependency discovery
+(Metanome, HyFD, HyUCC, BINDER, Pyro) and learned FK discovery to the two topics named in the
+current posting: **extracting ontologies with profiling algorithms** and **assessing data quality,
+including fitness for AI training**. It brings an existing toolkit that already wraps Metanome,
+implements approximate discovery and ontology export, and includes a cultural-heritage case study.
+It also connects to the provenance-research theme of the group's MIT collaboration, where
+undocumented sources must be understood before they can be queried together.
+
+### 11. Risks and mitigation
 
 | Risk | Mitigation |
 |---|---|
-| LLMs have memorised public schemas (TPC-H) | Name probes (cryptic, misleading), lesser-known schemas, clean vs. renamed results reported separately |
-| Gold labels are incomplete | Manual audit of a sample of false positives, `plausible_not_in_gold` category |
-| FD gold is subjective | Two annotators, Cohen's κ, exact-FD gold reported alongside curated gold |
-| Compute cost of LLM runs | Small open models first, cached and replayable responses, per-run token accounting |
-| Prompt sensitivity | Three paraphrases, multiple seeds, variance reported |
+| LLMs have memorised public schemas | name probes, lesser-known and real collection data, clean vs. renamed results reported separately |
+| Gold labels incomplete or subjective (especially FDs, ontologies) | expert curation, two annotators with Cohen's κ, manual audit of `plausible_not_in_gold` |
+| Ontology references are scarce | build gold ontologies with domain experts for a few collections; per-axiom evaluation |
+| Compute cost | small open models first, caching, token accounting |
+| Real data access (cultural heritage) | public open-access collection exports; synthetic generators for controlled studies |
 
-### 10. References
+### 12. References
 
 - Abedjan, Golab, Naumann. *Profiling relational data: a survey.* VLDB Journal 24(4), 2015.
 - Abedjan, Golab, Naumann, Papenbrock. *Data Profiling.* Synthesis Lectures on Data Management, Morgan & Claypool, 2018. †
@@ -174,34 +224,8 @@ group's algorithms from the start.
 - Kruse, Naumann. *Efficient Discovery of Approximate Dependencies* (Pyro). PVLDB 11(7), 2018. †
 - Rostin, Albrecht, Bauckmann, Naumann, Leser. *A Machine Learning Approach to Foreign Key Discovery.* WebDB 2009.
 - Zhang, Hadjieleftheriou, Ooi, Procopiuc, Srivastava. *On Multi-Column Foreign Key Discovery.* PVLDB 3(1), 2010.
+- Arenas, Bertails, Prud'hommeaux, Sequeda (eds.). *A Direct Mapping of Relational Data to RDF.* W3C Recommendation, 2012.
+- Das, Sundara, Cyganiak (eds.). *R2RML: RDB to RDF Mapping Language.* W3C Recommendation, 2012.
+- *The Five Facets of Data Quality Assessment.* ACM SIGMOD Record, 2025 (HPI Information Systems group). †
 - Narayan, Chami, Orr, Arora, Ré. *Can Foundation Models Wrangle Your Data?* PVLDB 16(4), 2022.
 - Kwon et al. *Efficient Memory Management for Large Language Model Serving with PagedAttention* (vLLM). SOSP 2023.
-
----
-
-### Appendix A: first-contact email (template)
-
-> **Subject:** PhD application: semantic data profiling with LLMs (reverse engineering of undocumented databases)
->
-> Dear Prof. Naumann,
->
-> I hold an M.Sc. in Computer Science from the University of Rostock, where my thesis addressed
-> reverse engineering existing databases for the subsequent creation of relational models
-> *[title]*. I would like to continue this line of work as a PhD student in your group.
->
-> My proposed topic asks when semantic signals from language models make dependency discovery
-> more useful, and when they mislead it. Building on your group's work on data profiling and on
-> learned foreign-key discovery, I have implemented an open-source toolkit that compares LLM
-> proposals with exact, approximate (g3, partial INDs) and learned profilers under controlled
-> noise, includes a Metanome wrapper, and verifies every proposal against the data. A pilot on
-> generated data already shows that approximate profiling stays robust where exact discovery
-> breaks, that name-reliant methods collapse when names mislead, and that genuine FD discovery
-> remains the open problem.
->
-> Exposé and code: https://github.com/mahmudul-islam32/llm-schema-reverse-engineering
-> (exposé in `docs/PROPOSAL.md`).
->
-> I would be grateful for the chance to discuss whether this direction fits your group's plans.
->
-> Kind regards,
-> Mahmudul Islam

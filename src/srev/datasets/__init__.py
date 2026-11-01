@@ -5,7 +5,7 @@ from __future__ import annotations
 from collections.abc import Callable
 from typing import Any
 
-from srev.datasets import airline, retail, tpch, university
+from srev.datasets import airline, museum, retail, tpch, university
 from srev.datasets.base import (
     ColumnDef,
     CuratedFD,
@@ -22,6 +22,7 @@ REGISTRY: dict[str, tuple[Generator, str]] = {
     "university": (university.generate, university.__doc__ or ""),
     "retail_legacy": (retail.generate, retail.__doc__ or ""),
     "airline": (airline.generate, airline.__doc__ or ""),
+    "museum": (museum.generate, museum.__doc__ or ""),
 }
 ALIASES = {"tpch": "tpch_mini", "retail": "retail_legacy"}
 

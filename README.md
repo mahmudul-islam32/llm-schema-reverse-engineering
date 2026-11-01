@@ -9,7 +9,7 @@
 ![python](https://img.shields.io/badge/python-3.11%2B-informational)
 ![postgres](https://img.shields.io/badge/PostgreSQL-16-336791)
 ![vLLM](https://img.shields.io/badge/LLM-vLLM%20%7C%20OpenAI--compatible-6d28d9)
-![tests](https://img.shields.io/badge/tests-105%20passing-15803d)
+![tests](https://img.shields.io/badge/tests-110%20passing-15803d)
 
 [Demo](#demo) · [Architecture](#architecture) · [Quick start](#quick-start) · [Usage guide](docs/USAGE.md) · [Screenshots](#screenshots) · [Research plan](docs/RESEARCH.md)
 
@@ -24,7 +24,7 @@
 `srev` asks whether large language models can recover the *implicit* structure of legacy databases: foreign keys (FKs), unique column combinations (UCCs), functional dependencies (FDs) and, from those, a normalised relational model. The LLM gets column names, statistics, sampled rows and query logs. Its proposals are checked against the data with SQL and benchmarked against exact data-profiling baselines (and, optionally, the [Metanome](https://hpi.de/naumann/projects/data-profiling-and-analytics/metanome-data-profiling.html) algorithms) on databases whose ground-truth constraints are known. The project extends the author's master's thesis on reverse engineering existing databases into explicit relational models.
 
 > [!IMPORTANT]
-> **Status: non-LLM benchmark complete, LLM experiments pending.** Every feature in [docs/FEATURES.md](docs/FEATURES.md) is implemented and tested (105 tests, including PostgreSQL integration tests). The full protocol has been run for all methods that need no language model ([docs/RESULTS.md](docs/RESULTS.md)). The LLM path has only run against a fake OpenAI-compatible server in the tests: **no experiments with real models have been run and no LLM results are claimed.** The numbers in the screenshots come from the offline baseline and heuristic methods on generated data.
+> **Status: non-LLM benchmark complete, LLM experiments pending.** Every feature in [docs/FEATURES.md](docs/FEATURES.md) is implemented and tested (110 tests, including PostgreSQL integration tests). The full protocol has been run for all methods that need no language model ([docs/RESULTS.md](docs/RESULTS.md)). The LLM path has only run against a fake OpenAI-compatible server in the tests: **no experiments with real models have been run and no LLM results are claimed.** The numbers in the screenshots come from the offline baseline and heuristic methods on generated data.
 
 ## Contents
 
@@ -48,7 +48,7 @@
 
 This toolkit is the artefact behind a PhD proposal on **semantic data profiling**: using language models together with dependency discovery to reverse-engineer undocumented databases. It continues the author's M.Sc. thesis (University of Rostock) on reverse engineering existing databases for the subsequent creation of relational models. It builds on data-profiling research such as complete and approximate dependency discovery (Metanome, HyFD, HyUCC, BINDER, Pyro) and learned foreign-key discovery (Rostin et al., WebDB 2009).
 
-📄 **Exposé:** [docs/PROPOSAL.md](docs/PROPOSAL.md): motivation, RQ1–RQ7, approach, pilot results, three-year work plan, risks, references.
+📄 **Research proposal:** [docs/PROPOSAL.md](docs/PROPOSAL.md), *Semantic Data Profiling: Discovering Genuine Dependencies and Extracting Ontologies from Undocumented Data*, targeted at the HPI Information Systems group's PhD positions in Data Integration (Metanome: dependency discovery and ontology extraction; Metis: data quality; cultural heritage). How the project maps to the open positions: [docs/JOB_MATCH.md](docs/JOB_MATCH.md). Application kit (checklist, cover letter, interview notes): [docs/APPLICATION.md](docs/APPLICATION.md).
 
 📊 **Benchmark results:** [docs/RESULTS.md](docs/RESULTS.md). Full protocol for all non-LLM methods: four generated databases, noise L0–L3, three name probes, three seeds. FK macro F1, mean over seeds:
 
@@ -74,6 +74,7 @@ The research pipeline doubles as a practical toolkit for undocumented databases 
 | Monitor loads (CI exit code) | `srev check --constraints … --evidence …` → pass / warn / fail / missing + schema drift |
 | Understand the model | `srev graph` → fact / dimension / bridge / lookup roles, star schemas, join SQL |
 | Share a profile | `report.html`: column profiles, ER diagram, constraints, review list |
+| Publish as a knowledge graph | `srev export owl` or `discover --owl` → OWL ontology (classes, properties, `owl:hasKey`, many-to-many, FD-derived concepts) + W3C R2RML mapping + RDF data |
 | Load CSV into a database | `srev ingest csv exports/ --dsn …` (type inference, NULL handling) |
 
 <table>
@@ -301,6 +302,7 @@ Noise levels for the robustness curves (values read from `srev.noise.PRESETS`):
 | `university` | 8 tables with a self-referencing relationship and denormalised department data | Declared PK/FK/UNIQUE + 4 curated semantic FDs |
 | `retail_legacy` | Legacy-style abbreviated names, no declared FKs | Declared PKs/UNIQUE + 6 curated FKs + 2 curated FDs |
 | Spider / BIRD | `source: spider` expands to one dataset per `db_id`; gold SQL as workload | `primary_keys` / `foreign_keys` from `tables.json` |
+| `museum` | cultural heritage: artists, objects, owners, a self-referencing provenance chain, exhibitions and loans (many-to-many) | Declared PK/FK + 2 curated FDs; held out from the discovery model's training ([case study](results/museum-case-study/README.md)) |
 | `airline` | 6 tables with a self-referencing FK (crew supervisors) and two FKs into the same table (route origin/destination) | Declared PK/FK/UNIQUE + 1 curated FD |
 | CSV files / DataFrames | `source: csv` in the config, `srev ingest csv`, `srev.api` | Curated gold file, if any |
 | any PostgreSQL / SQLite DB | `source: postgres` or `source: sqlite` in the config | Declared constraints, plus an optional curated gold file |
@@ -408,6 +410,7 @@ node docs/media/tools/render.mjs /tmp/srev-de docs/media
 | M5: Research extensions | Approximate profiling, learned FK classifier, name probes, Spider/BIRD loader, LaTeX export | ✅ Implemented; pilot on generated data |
 | M6: Data-engineering toolkit | `discover`, dbt export, quality checks, schema graph, HTML report, CSV/pandas ingestion | ✅ Implemented |
 | M7: Baseline benchmark | All non-LLM methods, 4 databases × 7 conditions × 3 seeds, results in docs/RESULTS.md | ✅ Done |
+| M8: Ontology extraction | OWL + R2RML export, museum case study on a held-out domain | ✅ Done |
 | Next | Real-model runs, Spider/BIRD breadth study, genuine-FD ranking (RQ6) | Planned, see [docs/PROPOSAL.md](docs/PROPOSAL.md) §7 |
 
 ## Citation

@@ -27,6 +27,8 @@ All features are **Implemented** and covered by tests. No experiments with real 
 | F-21 | Data-quality checks and drift detection | Should | Implemented |
 | F-22 | Schema graph analytics and join paths | Could | Implemented |
 | F-23 | HTML data-profiling report | Should | Implemented |
+| F-24 | Museum (cultural heritage) dataset | Should | Implemented |
+| F-25 | Ontology extraction: OWL + R2RML | Should | Implemented |
 
 ---
 
@@ -188,3 +190,15 @@ All features are **Implemented** and covered by tests. No experiments with real 
 **User story:** As a data scientist, I want an EDA-style overview I can open in a browser or share.
 **Acceptance criteria:** All values are HTML-escaped; works without network (the ER diagram then shows its Mermaid source).
 **Priority:** Should · **Status:** Implemented · **Implementation:** `srev.htmlreport`.
+
+### F-24: Museum (cultural heritage) dataset
+**Description:** Generator with artists, objects, owners (people and institutions), provenance events in which each event references the previous one, exhibitions and a loan table; curated FDs `object.artist_id → artist_name` and `owner.city → country`.
+**User story:** As a researcher targeting cultural-heritage data, I want a realistic collection schema with ownership chains to test discovery and ontology extraction.
+**Acceptance criteria:** Deterministic per seed; gold constraints hold on clean data; not used to train `srev discover`, so it serves as a held-out domain.
+**Priority:** Should · **Status:** Implemented · **Implementation:** `srev.datasets.museum`; case study in `examples/museum_case_study.py` and `results/museum-case-study/`.
+
+### F-25: Ontology extraction (OWL + R2RML)
+**Description:** `srev export owl` / `srev discover --owl` turn verified constraints into an OWL ontology (classes per table, functional datatype properties with XSD ranges, object properties per FK including self-references, `owl:hasKey` per UCC, pure bridge tables as many-to-many object properties, non-key FDs as candidate concepts or redundant-copy notes), a W3C R2RML mapping and, with `--data`, the instances as N-Triples. Every axiom carries its evidence.
+**User story:** As a data integrator, I want to publish an undocumented database as a knowledge graph without hand-writing the ontology and mapping.
+**Acceptance criteria:** Outputs parse as RDF (tested with rdflib); every FK link in the instance data points to an existing subject; IRIs and labels are collision-free.
+**Priority:** Should · **Status:** Implemented · **Implementation:** `srev.ontology`.
